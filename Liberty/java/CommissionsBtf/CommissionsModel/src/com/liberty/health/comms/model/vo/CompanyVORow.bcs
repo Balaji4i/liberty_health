@@ -1,0 +1,12 @@
+//Groovy Scripts for com.liberty.health.comms.model.vo.CompanyVO
+
+package com.liberty.health.comms.model.vo
+
+import oracle.jbo.script.annotation.TransientValueExpression;
+
+@TransientValueExpression(attributeName="MultiNetInd")
+def Test_ExpressionScript_Expression()
+{
+CompanyMultinationalRoView.max("CompanyTableTypeDesc")
+}
+

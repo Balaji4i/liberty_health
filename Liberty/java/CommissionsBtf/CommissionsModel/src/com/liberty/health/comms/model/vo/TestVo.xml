@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="TestVo"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.vo.TestVo_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[select policy_code, group_code, company_id_no, comms_perc, payment_receive_amt,to_char(payment_receive_amt,'00000000.00') char_amt_zero,to_char(payment_receive_amt,99999999.99) char_amt_one, to_char(payment_receive_amt,'9999999.99') char_amt_two, comms_calculated_amt, exchange_Rate, COMMS_CALCULATED_EXCH_AMT 
+from comms_calc_snapshot 
+where company_id_no = 10000061 
+  and finance_receipt_no = 'LIQMINDEVEL_08022018']]></SQLQuery>
+  <ViewAttribute
+    Name="PolicyCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="POLICY_CODE"
+    Expression="POLICY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GroupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_CODE"
+    Expression="GROUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMPANY_ID_NO"
+    Expression="COMPANY_ID_NO"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CommsPerc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMMS_PERC"
+    Expression="COMMS_PERC"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="PaymentReceiveAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PAYMENT_RECEIVE_AMT"
+    Expression="PAYMENT_RECEIVE_AMT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CharAmtZero"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="12"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CHAR_AMT_ZERO"
+    Expression="CHAR_AMT_ZERO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="12"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CharAmtOne"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="12"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CHAR_AMT_ONE"
+    Expression="CHAR_AMT_ONE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="12"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CharAmtTwo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="11"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CHAR_AMT_TWO"
+    Expression="CHAR_AMT_TWO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CommsCalculatedAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMMS_CALCULATED_AMT"
+    Expression="COMMS_CALCULATED_AMT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ExchangeRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="EXCHANGE_RATE"
+    Expression="EXCHANGE_RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CommsCalculatedExchAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMMS_CALCULATED_EXCH_AMT"
+    Expression="COMMS_CALCULATED_EXCH_AMT"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="PolicyCode"/>
+    <Item Value="GroupCode"/>
+    <Item Value="CompanyIdNo"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelFormLayout id="pfl1" styleClass="AFStretchWidth">
+    <f:facet name="footer"/>
+    <af:inputDate label="From Date" id="id1" valueChangeListener="#{pageFlowScope.Payments.setFromDateAttribute}"/>
+    <af:inputDate label="To Date" id="id2" valueChangeListener="#{pageFlowScope.Payments.setToDateAttribute}"/>
+    <af:panelGroupLayout id="pgl1" styleClass="AFStretchWidth">
+      <af:button text="Submit" id="b6" actionListener="#{pageFlowScope.Payments.submitFusionPayablesIntRecon}"/>
+      <af:button actionListener="#{bindings.Execute.execute}" text="Refresh" disabled="#{!bindings.Execute.enabled}"
+                 id="b1"/>
+    </af:panelGroupLayout>
+  </af:panelFormLayout>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus">
+    <af:menu text="File" id="m5">
+        <af:commandMenuItem text="Export" id="cmi5">
+            <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+               filename="Fusion Payables Interface Reconcilation.xls"
+               title="Fusion Payables Interface Reconcilation"/>
+        </af:commandMenuItem>
+    </af:menu>
+    </f:facet>
+    <f:facet name="toolbar"/>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.FusionPayablesInterfaceVO1.collectionModel}" var="row"
+              rows="#{bindings.FusionPayablesInterfaceVO1.rangeSize}"
+              emptyText="#{bindings.FusionPayablesInterfaceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" scrollPolicy="page"
+              selectedRowKeys="#{bindings.FusionPayablesInterfaceVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.FusionPayablesInterfaceVO1.collectionModel.makeCurrent}"
+              rowSelection="single" fetchSize="#{bindings.FusionPayablesInterfaceVO1.rangeSize}"
+              filterModel="#{bindings.FusionPayablesInterfaceVO1Query.queryDescriptor}" filterVisible="true"
+              queryListener="#{bindings.FusionPayablesInterfaceVO1Query.processQuery}" varStatus="vs" id="t1"
+              styleClass="AFStretchWidth" partialTriggers=":::b1">
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InterfacedYn.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.InterfacedYn.label}" id="c1"
+                 width="150">
+        <af:outputText value="#{row.InterfacedYn}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InterfacedYn.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.Status.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.Status.label}" id="c2">
+        <af:outputText value="#{row.Status}" shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.Status.tooltip}"
+                       id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.Bu.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.FusionPayablesInterfaceVO1.hints.Bu.label}" id="c3">
+        <af:outputText value="#{row.Bu}" shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.Bu.tooltip}" id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.CountryCode.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.CountryCode.label}" id="c4">
+        <af:outputText value="#{row.CountryCode}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.CountryCode.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.VendorNumber.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.VendorNumber.label}" id="c5">
+        <af:outputText value="#{row.VendorNumber}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.VendorNumber.tooltip}" id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.VendorName.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.VendorName.label}" id="c6">
+        <af:outputText value="#{row.VendorName}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.VendorName.tooltip}" id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.VendorSite.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.VendorSite.label}" id="c7">
+        <af:outputText value="#{row.VendorSite}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.VendorSite.tooltip}" id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceNumber.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceNumber.label}" id="c8">
+        <af:outputText value="#{row.InvoiceNumber}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceNumber.tooltip}" id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceType.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceType.label}" id="c9">
+        <af:outputText value="#{row.InvoiceType}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceType.tooltip}" id="ot9"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.Description.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.Description.label}" id="c10">
+        <af:outputText value="#{row.Description}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.Description.tooltip}" id="ot10"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceDate.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceDate.label}" id="c11">
+        <af:outputText value="#{row.InvoiceDate}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceDate.tooltip}" id="ot11"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceCurrency.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceCurrency.label}"
+                 id="c12">
+        <af:outputText value="#{row.InvoiceCurrency}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceCurrency.tooltip}" id="ot12"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceAmt.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceAmt.label}" id="c13">
+        <af:outputText value="#{row.InvoiceAmt}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceAmt.tooltip}" id="ot13"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.Terms.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.Terms.label}" id="c14">
+        <af:outputText value="#{row.Terms}" shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.Terms.tooltip}"
+                       id="ot14"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.CreationDate.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.CreationDate.label}" id="c15">
+        <af:outputText value="#{row.CreationDate}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.CreationDate.tooltip}" id="ot15"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.CreatedBy.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.FusionPayablesInterfaceVO1.hints.CreatedBy.label}" id="c16">
+        <af:outputText value="#{row.CreatedBy}"
+                       shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.CreatedBy.tooltip}" id="ot16"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</ui:composition>

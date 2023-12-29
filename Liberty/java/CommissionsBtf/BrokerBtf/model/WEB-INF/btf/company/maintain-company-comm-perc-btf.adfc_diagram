@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1">
+      <property
+         name="x">91.5</property>
+      <property
+         name="y">266.5</property>
+   </OverallProperties>
+   <View
+      id="View2">
+      <property
+         name="activityId">maintainBrokerCommPerc</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">293.35352</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>maintainBrokerCommPerc&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">91.149414</property>
+      <property
+         name="page">/WEB-INF/fragment/broker/maintainBrokerCommPerc.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <MethodCall
+      id="MethodCall3">
+      <property
+         name="activityId">setCompanyVc</property>
+      <property
+         name="x">91.5</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setCompanyVc&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">94.5918</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="MethodCall3"
+      to="View2">
+      <property
+         name="tosrcid">__8</property>
+      <property
+         name="fromOutcome">setCompanyVc</property>
+      <property
+         name="fromsrcid">__7</property>
+      <property
+         name="sdm:polyPoints">R50,132.5,94.24121,252.35352,90.79883,L50</property>
+   </ControlFlowCase>
+</SDM>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.16.48" id="DataBindings"
+             SeparateXMLFiles="false" Package="com.liberty.health.comms.lookup" ClientType="Generic">
+    <definitionFactories>
+        <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+                 className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+        <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+    </definitionFactories>
+    <pageMap>
+        <page path="/WEB-INF/btf/lookup/maintain-address-type-btf.xml#maintain-address-type-btf@setpAddressTypeCode"
+              usageId="com_liberty_health_comms_lookup_maintain_address_type_btf_maintain_address_type_btf_setpAddressTypeCodePageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-address-type-btf.xml#maintain-address-type-btf@Commit"
+              usageId="com_liberty_health_comms_lookup_maintain_address_type_btf_maintain_address_type_btf_CommitPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-address-type-btf.xml#maintain-address-type-btf@Rollback"
+              usageId="com_liberty_health_comms_lookup_maintain_address_type_btf_maintain_address_type_btf_RollbackPageDef"/>
+        <page path="/WEB-INF/fragment/maintainAddressType.jsff"
+              usageId="com_liberty_health_comms_lookup_maintainAddressTypePageDef"/>
+        <page path="/lookupBtfTestPage.jspx" usageId="com_liberty_health_comms_lookup_lookupBtfTestPagePageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-address-type-btf.xml#maintain-address-type-btf@CreateInsert"
+              usageId="com_liberty_health_comms_lookup_maintain_address_type_btf_maintain_address_type_btf_CreateInsertPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-bank-account-type-btf.xml#maintain-bank-account-type-btf@CreateInsert"
+              usageId="com_liberty_health_comms_lookup_maintain_bank_account_type_btf_maintain_bank_account_type_btf_CreateInsertPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-bank-account-type-btf.xml#maintain-bank-account-type-btf@setpBankAccTypeIdNo"
+              usageId="com_liberty_health_comms_lookup_maintain_bank_account_type_btf_maintain_bank_account_type_btf_setpBankAccTypeIdNoPageDef"/>
+        <page path="/WEB-INF/fragment/maintainBankAccountType.jsff"
+              usageId="com_liberty_health_comms_lookup_maintainBankAccountTypePageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-bank-account-type-btf.xml#maintain-bank-account-type-btf@Commit"
+              usageId="com_liberty_health_comms_lookup_maintain_bank_account_type_btf_maintain_bank_account_type_btf_CommitPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-bank-account-type-btf.xml#maintain-bank-account-type-btf@Rollback"
+              usageId="com_liberty_health_comms_lookup_maintain_bank_account_type_btf_maintain_bank_account_type_btf_RollbackPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-company-fee-type-btf.xml#maintain-company-fee-type-btf@CreateInsert"
+              usageId="com_liberty_health_comms_lookup_maintain_company_fee_type_btf_maintain_company_fee_type_btf_CreateInsertPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-company-fee-type-btf.xml#maintain-company-fee-type-btf@setpCompanyFeeTypeIdNo"
+              usageId="com_liberty_health_comms_lookup_maintain_company_fee_type_btf_maintain_company_fee_type_btf_setpCompanyFeeTypeIdNoPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-company-fee-type-btf.xml#maintain-company-fee-type-btf@Commit"
+              usageId="com_liberty_health_comms_lookup_maintain_company_fee_type_btf_maintain_company_fee_type_btf_CommitPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-company-fee-type-btf.xml#maintain-company-fee-type-btf@Rollback"
+              usageId="com_liberty_health_comms_lookup_maintain_company_fee_type_btf_maintain_company_fee_type_btf_RollbackPageDef"/>
+        <page path="/WEB-INF/fragment/maintainCompanyFeeType.jsff"
+              usageId="com_liberty_health_comms_lookup_maintainCompanyFeeTypePageDef"/>
+        <page path="/WEB-INF/btf/lookup/Maintain-Company-Contact-Type-Btf.xml#Maintain-Company-Contact-Type-Btf@Commit"
+              usageId="com_liberty_health_comms_lookup_Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_CommitPageDef"/>
+        <page path="/WEB-INF/btf/lookup/Maintain-Company-Contact-Type-Btf.xml#Maintain-Company-Contact-Type-Btf@Rollback"
+              usageId="com_liberty_health_comms_lookup_Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_RollbackPageDef"/>
+        <page path="/WEB-INF/fragment/MaintainCompanyContactType.jsff"
+              usageId="com_liberty_health_comms_lookup_MaintainCopanyTypeNewPageDef"/>
+        <page path="/WEB-INF/btf/lookup/Maintain-Company-Contact-Type-Btf.xml#Maintain-Company-Contact-Type-Btf@edit"
+              usageId="com_liberty_health_comms_lookup_Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_methodCall1PageDef"/>
+        <page path="/WEB-INF/btf/lookup/Maintain-Company-Contact-Type-Btf.xml#Maintain-Company-Contact-Type-Btf@create"
+              usageId="com_liberty_health_comms_lookup_Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_methodCall1PageDef1"/>
+        <page path="/WEB-INF/btf/lookup/maintain-accreditation-type-btf.xml#maintain-accreditation-type-btf@setpAccreditationTypeIdNo"
+              usageId="com_liberty_health_comms_lookup_maintain_accreditation_type_btf_maintain_accreditation_type_btf_setpAccreditationTypeIdNoPageDef"/>
+        <page path="/WEB-INF/fragment/maintainAccredType.jsff"
+              usageId="com_liberty_health_comms_lookup_maintainAccredTypePageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-accreditation-type-btf.xml#maintain-accreditation-type-btf@Commit"
+              usageId="com_liberty_health_comms_lookup_maintain_accreditation_type_btf_maintain_accreditation_type_btf_CommitPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-accreditation-type-btf.xml#maintain-accreditation-type-btf@Rollback"
+              usageId="com_liberty_health_comms_lookup_maintain_accreditation_type_btf_maintain_accreditation_type_btf_RollbackPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-accreditation-type-btf.xml#maintain-accreditation-type-btf@CreateInsert"
+              usageId="com_liberty_health_comms_lookup_maintain_accreditation_type_btf_maintain_accreditation_type_btf_CreateInsertPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-exchange-rate-flow.xml#maintain-exchange-rate-flow@setByCurrencyCodeViewCriteria"
+              usageId="com_liberty_health_comms_lookup_maintain_exchange_rate_flow_maintain_exchange_rate_flow_setByCurrencyCodeViewCriteriaPageDef"/>
+        <page path="/WEB-INF/fragment/maintainExchangeRates.jsff"
+              usageId="com_liberty_health_comms_lookup_maintainExchangeRatesPageDef"/>
+        <page path="/WEB-INF/fragment/maintainCountryTaxes.jsff"
+              usageId="com_liberty_health_comms_lookup_maintainCountryTaxesPageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-country-taxes-btf.xml#maintain-country-taxes-btf@Save"
+              usageId="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-country-taxes-btf.xml#maintain-country-taxes-btf@Rollback"
+              usageId="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall2PageDef"/>
+        <page path="/WEB-INF/btf/lookup/maintain-country-taxes-btf.xml#maintain-country-taxes-btf@setCountryCode"
+              usageId="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef1"/>
+        <page path="/WEB-INF/btf/lookup/maintain-country-taxes-btf.xml#maintain-country-taxes-btf@setTaxAccredLov"
+              usageId="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef11"/>
+        <page path="/WEB-INF/btf/lookup/maintain-country-taxes-btf.xml#maintain-country-taxes-btf@setTaxAccrLov"
+              usageId="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef111"/>
+        <page path="/WEB-INF/btf/lookup/maintain-country-taxes-btf.xml#maintain-country-taxes-btf@methodCall1"
+              usageId="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef1111"/>
+    </pageMap>
+    <pageDefinitionUsages>
+        <page id="com_liberty_health_comms_lookup_maintain_address_type_btf_maintain_address_type_btf_setpAddressTypeCodePageDef"
+              path="btf.lookup.maintain_address_type_btf_maintain_address_type_btf_setpAddressTypeCodePageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_address_type_btf_maintain_address_type_btf_CommitPageDef"
+              path="btf.lookup.maintain_address_type_btf_maintain_address_type_btf_CommitPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_address_type_btf_maintain_address_type_btf_RollbackPageDef"
+              path="btf.lookup.maintain_address_type_btf_maintain_address_type_btf_RollbackPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintainAddressTypePageDef"
+              path="fragment.maintainAddressTypePageDef"/>
+        <page id="com_liberty_health_comms_lookup_lookupBtfTestPagePageDef"
+              path="com.liberty.health.comms.lookup.pageDefs.lookupBtfTestPagePageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_address_type_btf_maintain_address_type_btf_CreateInsertPageDef"
+              path="btf.lookup.maintain_address_type_btf_maintain_address_type_btf_CreateInsertPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_bank_account_type_btf_maintain_bank_account_type_btf_CreateInsertPageDef"
+              path="btf.lookup.maintain_bank_account_type_btf_maintain_bank_account_type_btf_CreateInsertPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_bank_account_type_btf_maintain_bank_account_type_btf_setpBankAccTypeIdNoPageDef"
+              path="btf.lookup.maintain_bank_account_type_btf_maintain_bank_account_type_btf_setpBankAccTypeIdNoPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintainBankAccountTypePageDef"
+              path="fragment.maintainBankAccountTypePageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_bank_account_type_btf_maintain_bank_account_type_btf_CommitPageDef"
+              path="btf.lookup.maintain_bank_account_type_btf_maintain_bank_account_type_btf_CommitPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_bank_account_type_btf_maintain_bank_account_type_btf_RollbackPageDef"
+              path="btf.lookup.maintain_bank_account_type_btf_maintain_bank_account_type_btf_RollbackPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_company_fee_type_btf_maintain_company_fee_type_btf_CreateInsertPageDef"
+              path="btf.lookup.maintain_company_fee_type_btf_maintain_company_fee_type_btf_CreateInsertPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_company_fee_type_btf_maintain_company_fee_type_btf_setpCompanyFeeTypeIdNoPageDef"
+              path="btf.lookup.maintain_company_fee_type_btf_maintain_company_fee_type_btf_setpCompanyFeeTypeIdNoPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_company_fee_type_btf_maintain_company_fee_type_btf_CommitPageDef"
+              path="btf.lookup.maintain_company_fee_type_btf_maintain_company_fee_type_btf_CommitPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_company_fee_type_btf_maintain_company_fee_type_btf_RollbackPageDef"
+              path="btf.lookup.maintain_company_fee_type_btf_maintain_company_fee_type_btf_RollbackPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintainCompanyFeeTypePageDef"
+              path="fragment.maintainCompanyFeeTypePageDef"/>
+        <page id="com_liberty_health_comms_lookup_Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_methodCall1PageDef1"
+              path="btf.lookup.Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_CreateInsertPageDef"/>
+        <page id="com_liberty_health_comms_lookup_Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_methodCall1PageDef"
+              path="btf.lookup.Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_methodCall1PageDef"/>
+        <page id="com_liberty_health_comms_lookup_MaintainCompanyTypePageDef"
+              path="fragment.MaintainCompanyTypePageDef"/>
+        <page id="com_liberty_health_comms_lookup_Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_CommitPageDef"
+              path="btf.lookup.Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_CommitPageDef"/>
+        <page id="com_liberty_health_comms_lookup_Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_RollbackPageDef"
+              path="btf.lookup.Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_RollbackPageDef"/>
+        <page id="com_liberty_health_comms_lookup_MaintainCopanyTypeNewPageDef"
+              path="com.liberty.health.comms.lookup.pageDefs.MaintainCopanyTypeNewPageDef"/>
+        <page id="com_liberty_health_comms_lookup_TestPagePageDef"
+              path="com.liberty.health.comms.lookup.pageDefs.TestPagePageDef"/>
+        <page id="com_liberty_health_comms_lookup_amstest_amstest_router1PageDef"
+              path="btf.lookup.amstest_amstest_router1PageDef"/>
+        <page id="com_liberty_health_comms_lookup_amstest_CreateInsert_methodCall1PageDef"
+              path="btf.lookup.amstest_CreateInsert_methodCall1PageDef"/>
+        <page id="com_liberty_health_comms_lookup_view1PageDef" path="fragment.view1PageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_accreditation_type_btf_maintain_accreditation_type_btf_setpAccreditationTypeIdNoPageDef"
+              path="btf.lookup.maintain_accreditation_type_btf_maintain_accreditation_type_btf_setpAccreditationTypeIdNoPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintainAccredTypePageDef" path="fragment.maintainAccredTypePageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_accreditation_type_btf_maintain_accreditation_type_btf_CommitPageDef"
+              path="btf.lookup.maintain_accreditation_type_btf_maintain_accreditation_type_btf_CommitPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_accreditation_type_btf_maintain_accreditation_type_btf_RollbackPageDef"
+              path="btf.lookup.maintain_accreditation_type_btf_maintain_accreditation_type_btf_RollbackPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_accreditation_type_btf_maintain_accreditation_type_btf_CreateInsertPageDef"
+              path="btf.lookup.maintain_accreditation_type_btf_maintain_accreditation_type_btf_CreateInsertPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_exchange_rate_flow_maintain_exchange_rate_flow_setByCurrencyCodeViewCriteriaPageDef"
+              path="btf.lookup.maintain_exchange_rate_flow_maintain_exchange_rate_flow_setByCurrencyCodeViewCriteriaPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintainExchangeRatesPageDef"
+              path="fragment.maintainExchangeRatesPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintainCountryTaxesPageDef"
+              path="fragment.maintainCountryTaxesPageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef"
+              path="btf.lookup.maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall2PageDef"
+              path="btf.lookup.maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall2PageDef"/>
+        <page id="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef1"
+              path="btf.lookup.maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef1"/>
+        <page id="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef11"
+              path="btf.lookup.maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef11"/>
+        <page id="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef111"
+              path="btf.lookup.maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef111"/>
+        <page id="com_liberty_health_comms_lookup_maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef1111"
+              path="btf.lookup.maintain_country_taxes_btf_maintain_country_taxes_btf_methodCall1PageDef1111"/>
+    </pageDefinitionUsages>
+    <dataControlUsages>
+        <BC4JDataControl id="AddressTypeAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="AddressTypeAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="BankAccountTypeAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="MaintainBankAccountTypeAMLocal"
+                         syncMode="Immediate" xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CompanyContactTypeAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="CompanyContactTypeAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CompanyFeeTypeAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="CompanyFeeTypeAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="LookupAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="LookupAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="AccrediationAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="AccrediationAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CountryTaxesAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CountryTaxesAMDataControl1" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CountryTaxesAMDataControl2" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="CountryTaxesAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="BrokerMaintenanceAMDataControl" Package="com.liberty.health.comms.model.broker.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="BrokerMaintenanceAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="MaintainBrokerageAMDataControl" Package="com.liberty.health.comms.model.brokerage.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="MaintainBrokerageAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    </dataControlUsages>
+</Application>

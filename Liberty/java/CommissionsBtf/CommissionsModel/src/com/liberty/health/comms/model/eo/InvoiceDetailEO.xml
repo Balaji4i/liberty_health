@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InvoiceDetailEO"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="INVOICE_DETAIL"
+  AliasName="InvoiceDetailEO"
+  BindingStyle="OracleName"
+    RowClass="com.liberty.health.comms.model.eo.InvoiceDetailEOImpl"
+    xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+    <DesignTime>
+        <Attr Name="_codeGenFlag2" Value="Access"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Attribute
+      Name="InvoiceNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="INVOICE_NO"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="INVOICE_DETAIL"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="com.liberty.health.comms.model.eo.InvoiceDetailEO.InvoiceNo_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="FeeTypeIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="FEE_TYPE_ID_NO"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="INVOICE_DETAIL"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerFeeTypeDesc']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="FeeTypeAmt"
+      IsNotNull="true"
+      Precision="15"
+        Scale="9"
+      ColumnName="FEE_TYPE_AMT"
+      SQLType="NUMERIC"
+        Type="java.math.BigDecimal"
+      ColumnType="NUMBER"
+      TableName="INVOICE_DETAIL">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.FeeAmt']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+        <validation:PreDefinedValidationBean
+            Name="FeeTypeAmtRule0"
+            ResId="com.liberty.health.comms.model.eo.InvoiceDetailEO.FeeTypeAmt_Rule_0"
+            Description="Precision : (15,9)"
+            ValName="Precision : (15,9)"
+            Subtype="PRECISION_SCALE"/>
+    </Attribute>
+    <Attribute
+      Name="FeeTypeDesc"
+      Precision="200"
+      ColumnName="FEE_TYPE_DESC"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="INVOICE_DETAIL">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="200"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Comment']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="INVOICE_DETAIL"
+      HistoryColumn="DateHistory"/>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="INVOICE_DETAIL"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+        Name="FeeTypeExchAmt"
+        Precision="15"
+        Scale="9"
+        ColumnName="FEE_TYPE_EXCH_AMT"
+        SQLType="NUMERIC"
+        Type="java.math.BigDecimal"
+        ColumnType="NUMBER"
+        TableName="INVOICE_DETAIL">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ExchFeeAmt']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+        <validation:PreDefinedValidationBean
+            Name="FeeTypeExchAmtRule0"
+            ResId="com.liberty.health.comms.model.eo.InvoiceDetailEO.FeeTypeExchAmt_Rule_0"
+            Description="Precision : (15,9)"
+            ValName="Precision : (15,9)"
+            Subtype="PRECISION_SCALE"/>
+    </Attribute>
+    <AccessorAttribute
+      Name="Invoice"
+      Association="com.liberty.health.comms.model.eo.assoc.InvoiceDetailFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.InvoiceDetailFkAssoc.Invoice"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.InvoiceDetailFkAssoc.InvoiceDetail"
+      Type="oracle.jbo.server.EntityImpl"
+      IsUpdateable="true"/>
+    <AccessorAttribute
+        Name="InvoiceAdjustments"
+        Association="com.liberty.health.comms.model.eo.InvoiceDetailFkAssoc"
+        AssociationEnd="com.liberty.health.comms.model.eo.InvoiceDetailFkAssoc.InvoiceAdjustments"
+        AssociationOtherEnd="com.liberty.health.comms.model.eo.InvoiceDetailFkAssoc.InvoiceDetail"
+        Type="com.liberty.health.comms.model.eo.InvoiceAdjustmentsEOImpl"
+        IsUpdateable="true"/>
+    <AccessorAttribute
+        Name="InvoiceAdjustments1"
+        Association="com.liberty.health.comms.model.eo.assoc.InvoiceAdjustDetailFkAssoc"
+        AssociationEnd="com.liberty.health.comms.model.eo.assoc.InvoiceAdjustDetailFkAssoc.InvoiceAdjustments1"
+        AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.InvoiceAdjustDetailFkAssoc.InvoiceDetail1"
+        Type="com.liberty.health.comms.model.eo.InvoiceAdjustmentsEOImpl"
+        IsUpdateable="true"/>
+    <Key
+      Name="InvoiceDetailPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="INVOICE_DETAIL_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.InvoiceDetailEO.InvoiceNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.InvoiceDetailEO.FeeTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="InvoiceDetailFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="INVOICE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="INVOICE_DETAIL_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.InvoiceDetailEO.InvoiceNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+        Name="fk_InvoiceDetailEO">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="INVOICE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="FK_INVOICE_DETAIL_EO"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.InvoiceDetailEO.InvoiceNo"/>
+        </AttrArray>
+    </Key>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

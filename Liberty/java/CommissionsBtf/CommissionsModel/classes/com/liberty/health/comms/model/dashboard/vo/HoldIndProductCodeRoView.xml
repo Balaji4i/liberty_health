@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="HoldIndProductCodeRoView"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.dashboard.vo.HoldIndProductCodeRoViewRowImpl"
+  ComponentClass="com.liberty.health.comms.model.dashboard.vo.HoldIndProductCodeRoViewImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.dashboard.vo.HoldIndProductCodeRoView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[-- PRODUCT_CODE HOLD_IND - in HoldIndProductCodeRoView 
+-- Helen 07/11/2017 
+SELECT COUNT(*)product_groups_wth_hold_ind FROM OHI_HOLD_IND          hold 
+  WHERE TRUNC(hold.last_update_datetime) - TRUNC(SYSDATE) >= (get_system_parameter('LB_HEALTH_COMMS','DASHBOARD','DASHBOARD_NO_OF_DAYS')*-1) 
+	AND hold.product_code IS NOT NULL AND hold.group_code IS NOT NULL]]></SQLQuery>
+  <ViewAttribute
+    Name="ProductGroupsWthHoldInd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PRODUCT_GROUPS_WTH_HOLD_IND"
+    Expression="PRODUCT_GROUPS_WTH_HOLD_IND"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="ProductGroupsWthHoldInd"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

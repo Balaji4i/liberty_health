@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainBrokerPageDef"
+                Package="fragment.broker">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BrokerByPkView" RangeSize="1" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerByPkViewIterator"/>
+        <iterator Binds="BrokerAuditView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerAuditViewIterator"/>
+        <iterator Binds="BrokerCommentsView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerCommentsViewIterator"/>
+        <taskFlow id="maintainbrokeracredbtf1"
+                  taskFlowId="/WEB-INF/btf/broker/maintain-broker-acred-btf.xml#maintain-broker-acred-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding">
+            <parameters>
+                <parameter id="brokerIdNo" value="#{bindings.BrokerIdNo.inputValue}"/>
+                <parameter id="createInd" value="Y"/>
+            </parameters>
+        </taskFlow>
+        <taskFlow id="maintainbrokerfunctionbtf1"
+                  taskFlowId="/WEB-INF/btf/broker/maintain-broker-function-btf.xml#maintain-broker-function-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding">
+            <parameters>
+                <parameter id="brokerIdNo" value="#{bindings.BrokerIdNo.inputValue}"/>
+            </parameters>
+        </taskFlow>
+    </executables>
+    <bindings>
+        <methodAction id="getCommunicationHubLink" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="getCommunicationHubLink" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.dataProvider"
+                      ReturnName="data.MaintainBrokerageAMDataControl.methodResults.getCommunicationHubLink_getCommunicationHubLink_dataControl_dataProvider_getCommunicationHubLink_result"/>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="BrokerIdNo">
+            <AttrNames>
+                <Item Value="BrokerIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="Initials">
+            <AttrNames>
+                <Item Value="Initials"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="BrokerByPkViewIterator" StaticList="false" Uses="LOV_PersonTitleCode" id="PersonTitleCode"
+              DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="BrokerName">
+            <AttrNames>
+                <Item Value="BrokerName"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="BrokerLastName">
+            <AttrNames>
+                <Item Value="BrokerLastName"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="BrokerByPkViewIterator" StaticList="false" Uses="LOV_LanguageCode" id="LanguageCode"
+              DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="BusinessDevMgrName">
+            <AttrNames>
+                <Item Value="BusinessDevMgrName"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="IdNo">
+            <AttrNames>
+                <Item Value="IdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="PassportCode">
+            <AttrNames>
+                <Item Value="PassportCode"/>
+            </AttrNames>
+        </attributeValues>
+        <listOfValues IterBinding="BrokerByPkViewIterator" StaticList="false" Uses="LOV_KamBrokerIdNo"
+                      id="KamBrokerIdNo"/>
+        <listOfValues IterBinding="BrokerByPkViewIterator" StaticList="false" Uses="LOV_ParentBrokerIdNo"
+                      id="ParentBrokerIdNo"/>
+        <button IterBinding="BrokerByPkViewIterator" StaticList="false" Uses="LOV_EmailNotificationInd"
+                id="EmailNotificationInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="EmailNotificationInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="BrokerByPkViewIterator" StaticList="false" Uses="LOV_SmsNotificationInd"
+                id="SmsNotificationInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="SmsNotificationInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <listOfValues IterBinding="BrokerByPkViewIterator" StaticList="false" Uses="LOV_CompanyIdNo" id="CompanyIdNo"/>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="CompanyName">
+            <AttrNames>
+                <Item Value="CompanyName"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <tree IterBinding="BrokerAuditViewIterator" id="BrokerAuditView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerAuditRoView"
+                            Name="BrokerAuditView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="TransactionDesc"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <tree IterBinding="BrokerCommentsViewIterator" id="BrokerCommentsView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerCommentsVO"
+                            Name="BrokerCommentsView0">
+                <AttrNames>
+                    <Item Value="CommentDatetime"/>
+                    <Item Value="CommentDesc"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="CellphoneNo">
+            <AttrNames>
+                <Item Value="CellphoneNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="EmailAddress">
+            <AttrNames>
+                <Item Value="EmailAddress"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="HomeTelephoneNo">
+            <AttrNames>
+                <Item Value="HomeTelephoneNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="WorkTelephoneNo">
+            <AttrNames>
+                <Item Value="WorkTelephoneNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerByPkViewIterator" id="BrokerName1">
+            <AttrNames>
+                <Item Value="BrokerName1"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

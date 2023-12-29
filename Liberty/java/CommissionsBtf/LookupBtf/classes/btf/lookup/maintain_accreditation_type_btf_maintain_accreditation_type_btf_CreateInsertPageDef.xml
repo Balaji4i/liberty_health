@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_accreditation_type_btf_maintain_accreditation_type_btf_CreateInsertPageDef"
+                Package="btf.lookup" SkipValidation="true">
+    <parameters/>
+    <executables>
+        <iterator Binds="AccreditationTypeByPkView" RangeSize="25" DataControl="AccrediationAMDataControl"
+                  id="AccreditationTypeByPkViewIterator"/>
+    </executables>
+    <bindings>
+        <action IterBinding="AccreditationTypeByPkViewIterator" id="CreateInsert" RequiresUpdateModel="true"
+                Action="createInsertRow"/>
+    </bindings>
+</pageDefinition>

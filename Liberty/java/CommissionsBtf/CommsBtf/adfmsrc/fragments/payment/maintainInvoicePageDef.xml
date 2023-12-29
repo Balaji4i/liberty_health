@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainInvoicePageDef"
+                Package="fragments.payment">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="InvoiceByPkView" RangeSize="25" DataControl="PaymentAMDataControl" id="InvoiceByPkViewIterator"
+                  ChangeEventPolicy="ppr" Refresh="ifNeeded"/>
+        <iterator Binds="InvoiceDetailByInvoiceView" RangeSize="25" DataControl="PaymentAMDataControl"
+                  id="InvoiceDetailByInvoiceViewIterator" ChangeEventPolicy="ppr" Refresh="ifNeeded"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="InvoiceNo">
+            <AttrNames>
+                <Item Value="InvoiceNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="InvoiceDate">
+            <AttrNames>
+                <Item Value="InvoiceDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="ContributionDate">
+            <AttrNames>
+                <Item Value="ContributionDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="CountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="PaymentDate">
+            <AttrNames>
+                <Item Value="PaymentDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="PaymentAmt">
+            <AttrNames>
+                <Item Value="PaymentAmt"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="PaymentExchRate">
+            <AttrNames>
+                <Item Value="PaymentExchRate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="CurrencyCode">
+            <AttrNames>
+                <Item Value="CurrencyCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="CompanyName">
+            <AttrNames>
+                <Item Value="CompanyName"/>
+            </AttrNames>
+        </attributeValues>
+        <tree IterBinding="InvoiceDetailByInvoiceViewIterator" id="InvoiceDetailByInvoiceView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.InvoiceDetailVO"
+                            Name="InvoiceDetailByInvoiceView0">
+                <AttrNames>
+                    <Item Value="FeeTypeIdNo"/>
+                    <Item Value="FeeTypeAmt"/>
+                    <Item Value="FeeTypeDesc"/>
+                    <Item Value="FeeTypeExchAmt"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="ReleaseDate">
+            <AttrNames>
+                <Item Value="ReleaseDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="ReleaseHoldReason">
+            <AttrNames>
+                <Item Value="ReleaseHoldReason"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="executePaymentRun" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="executePaymentRun" IsViewObjectMethod="false" DataControl="PaymentAMDataControl"
+                      InstanceName="data.PaymentAMDataControl.dataProvider"
+                      ReturnName="data.PaymentAMDataControl.methodResults.executePaymentRun_executePaymentRun_dataControl_dataProvider_executePaymentRun_result">
+            <NamedData NDName="invoiceNo" NDValue="#{bindings.InvoiceNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+        </methodAction>
+        <action IterBinding="InvoiceByPkViewIterator" id="Execute" InstanceName="PaymentAMDataControl.InvoiceByPkView"
+                DataControl="PaymentAMDataControl" RequiresUpdateModel="true" Action="iteratorExecute"/>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="InvoiceTypeDesc">
+            <AttrNames>
+                <Item Value="InvoiceTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="PaymentRejectDate">
+            <AttrNames>
+                <Item Value="PaymentRejectDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="PaymentRejectDesc">
+            <AttrNames>
+                <Item Value="PaymentRejectDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="InvoiceByPkViewIterator" id="InvoiceTaxCodes">
+            <AttrNames>
+                <Item Value="InvoiceTaxCodes"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,27 @@
+<References xmlns="http://xmlns.oracle.com/adf/jndi">
+  <Reference name="OHICOM1" className="oracle.jdeveloper.db.adapter.DatabaseProvider" credentialStoreKey="OHICOM1"
+             xmlns="">
+    <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+    <RefAddresses>
+      <StringRefAddr addrType="oraDriverType">
+        <Contents>thin</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="hostname">
+        <Contents>10.122.160.21</Contents>
+      </StringRefAddr>
+      <SecureRefAddr addrType="password"/>
+      <StringRefAddr addrType="subtype">
+        <Contents>oraJDBC</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="port">
+        <Contents>1521</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="serviceName">
+        <Contents>slbuatdbpdb1.liberty.co.za</Contents>
+      </StringRefAddr>
+      <StringRefAddr addrType="user">
+        <Contents>util</Contents>
+      </StringRefAddr>
+    </RefAddresses>
+  </Reference>
+</References>

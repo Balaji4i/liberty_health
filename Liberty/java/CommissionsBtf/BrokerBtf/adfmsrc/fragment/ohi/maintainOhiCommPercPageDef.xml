@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainOhiCommPercPageDef"
+                Package="fragment.ohi">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="MaintainOhiCommPercentageView" RangeSize="25" DataControl="OhiStructureAMDataControl"
+                  id="MaintainOhiCommPercentageViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="MaintainOhiCommPercentageView" RangeSize="10" DataControl="OhiStructureAMDataControl"
+                  id="MaintainOhiCommPercentageViewIterator1"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="MaintainOhiCommPercentageViewIterator" id="MaintainOhiCommPercentageView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.NewOhiCommPercVO"
+                            Name="MaintainOhiCommPercentageView0">
+                <AttrNames>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                    <Item Value="CommPerc"/>
+                    <Item Value="CommDesc"/>
+                    <Item Value="Username"/>
+                    <Item Value="AuthUsername"/>
+                    <Item Value="CreatedUsername"/>
+                    <Item Value="RejectUsername"/>
+                    <Item Value="LastUpdateDatetime"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CommPerc">
+            <AttrNames>
+                <Item Value="CommPerc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CommDesc">
+            <AttrNames>
+                <Item Value="CommDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <action IterBinding="MaintainOhiCommPercentageViewIterator" id="CreateWithParams" RequiresUpdateModel="true"
+                Action="createWithParams">
+            <NamedData NDName="ProductCode" NDType="java.lang.String" NDValue="#{pageFlowScope.productCode}"/>
+            <NamedData NDName="GroupCode" NDType="java.lang.String" NDValue="#{pageFlowScope.groupCode}"/>
+            <NamedData NDName="InseCode" NDType="java.lang.String" NDValue="#{pageFlowScope.personCode}"/>
+            <NamedData NDName="PolicyCode" NDType="java.lang.String" NDValue="#{pageFlowScope.policyCode}"/>
+            <NamedData NDName="CompanyIdNo" NDType="java.lang.Integer" NDValue="#{pageFlowScope.companyIdNo}"/>
+        </action>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="PoepId">
+            <AttrNames>
+                <Item Value="PoepId"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="ProductCode">
+            <AttrNames>
+                <Item Value="ProductCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="InseCode">
+            <AttrNames>
+                <Item Value="InseCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="PolicyCode">
+            <AttrNames>
+                <Item Value="PolicyCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="GroupCode">
+            <AttrNames>
+                <Item Value="GroupCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="BrokerIdNo">
+            <AttrNames>
+                <Item Value="BrokerIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Commit" DataControl="OhiStructureAMDataControl" RequiresUpdateModel="true"
+                Action="commitTransaction"/>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator1" id="CommPerc1">
+            <AttrNames>
+                <Item Value="CommPerc"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                      IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                      InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView">
+            <NamedData NDName="compIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="brokerIdNo" NDValue="#{bindings.BrokerIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="productCode" NDValue="#{bindings.ProductCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="policyCode" NDValue="#{bindings.PolicyCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="memberCode" NDValue="#{bindings.InseCode.inputValue}" NDType="java.lang.String"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

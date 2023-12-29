@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1">
+        <f:facet name="center">
+            <af:panelHeader text="#{coreLabels['G.InvoicesByCompany']}" id="ph1">
+                <f:facet name="context"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t3">
+                        <af:button text="#{coreLabels['G.Cancel']}" id="b2" action="back"
+                                   icon="/adf/images/remove_16x16.png"/>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+                <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                    <f:facet name="menus"/>
+                    <f:facet name="toolbar">
+                        <af:toolbar id="t2">
+                            <af:button actionListener="#{paymentRunBean.submitPaymentsByBrokerageActionListener}"
+                                       text="#{coreLabels['G.Submit']}"
+                                       disabled="#{bindings.AllInvoivesByCompanyViewIterator.deferredEstimatedRowCount == 0}" id="b3"
+                                       rendered="#{securityContext.userInRole['comms-consultant']}"
+                                       partialTriggers="t1"/>
+                            <af:button text="#{coreLabels['G.Export']}" id="b1" icon="/adf/images/excel_16x16.png"
+                                       rendered="#{securityContext.userInRole['comms-consultant']}">
+                                <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                                   filename="#{coreLabels['G.InvoicesByCompany']}.xls"/>
+                            </af:button>
+                        </af:toolbar>
+                    </f:facet>
+                    <f:facet name="statusbar"/>
+                    <af:table value="#{bindings.AllInvoivesByCompanyView1.collectionModel}" var="row"
+                              rows="#{bindings.AllInvoivesByCompanyView1.rangeSize}"
+                              emptyText="#{bindings.AllInvoivesByCompanyView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="1"
+                              selectedRowKeys="#{bindings.AllInvoivesByCompanyView1.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.AllInvoivesByCompanyView1.collectionModel.makeCurrent}"
+                              rowSelection="single" fetchSize="#{bindings.AllInvoivesByCompanyView1.rangeSize}" id="t1"
+                              displayRow="selected" styleClass="AFStretchWidth" partialTriggers="::b3">
+                        <af:column headerText="#{bindings.AllInvoivesByCompanyView1.hints.InvoiceNo.label}" id="c6"
+                                   sortable="true">
+                            <af:link disabled="#{!securityContext.userInRole['comms-consultant']}"
+                                     text="#{row.InvoiceNo}" id="l1" action="goInvoice"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.AllInvoivesByCompanyView1.hints.InvoiceDate.label}" id="c5"
+                                   align="center" width="80" sortable="true">
+                            <af:outputText value="#{row.InvoiceDate}"
+                                           shortDesc="#{bindings.AllInvoivesByCompanyView1.hints.InvoiceDate.tooltip}"
+                                           id="ot6">
+                                <af:convertDateTime pattern="#{bindings.AllInvoivesByCompanyView1.hints.InvoiceDate.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.AllInvoivesByCompanyView1.hints.ContributionDate.label}"
+                                   id="c4" align="center" width="80" sortable="true">
+                            <af:outputText value="#{row.ContributionDate}"
+                                           shortDesc="#{bindings.AllInvoivesByCompanyView1.hints.ContributionDate.tooltip}"
+                                           id="ot1">
+                                <af:convertDateTime pattern="#{bindings.AllInvoivesByCompanyView1.hints.ContributionDate.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.AllInvoivesByCompanyView1.hints.CountryCode.label}" id="c2"
+                                   width="80" sortable="true">
+                            <af:outputText value="#{row.CountryCode}"
+                                           shortDesc="#{bindings.AllInvoivesByCompanyView1.hints.CountryCode.tooltip}"
+                                           id="ot3"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.AllInvoivesByCompanyView1.hints.ReleaseDate.label}" id="c1"
+                                   align="center" width="80" sortable="true">
+                            <af:outputText value="#{row.ReleaseDate}"
+                                           shortDesc="#{bindings.AllInvoivesByCompanyView1.hints.ReleaseDate.tooltip}"
+                                           id="ot4">
+                                <af:convertDateTime pattern="#{bindings.AllInvoivesByCompanyView1.hints.ReleaseDate.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.AllInvoivesByCompanyView1.hints.InvoieAmt.label}" id="c7"
+                                   align="right" width="80" sortable="true">
+                            <af:outputText value="#{row.InvoieAmt}"
+                                           shortDesc="#{bindings.AllInvoivesByCompanyView1.hints.InvoieAmt.tooltip}"
+                                           id="ot7">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.AllInvoivesByCompanyView1.hints.InvoieAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.AllInvoivesByCompanyView1.hints.ExchInvoieAmt.label}" id="c8"
+                                   align="right" width="80" sortable="true">
+                            <af:outputText value="#{row.ExchInvoieAmt}"
+                                           shortDesc="#{bindings.AllInvoivesByCompanyView1.hints.ExchInvoieAmt.tooltip}"
+                                           id="ot2">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.AllInvoivesByCompanyView1.hints.ExchInvoieAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.AllInvoivesByCompanyView1.hints.ReleaseHoldReason.label}"
+                                   id="c3" width="500" sortable="true">
+                            <af:outputText value="#{row.ReleaseHoldReason}"
+                                           shortDesc="#{bindings.AllInvoivesByCompanyView1.hints.ReleaseHoldReason.tooltip}"
+                                           id="ot5"/>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:panelHeader>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

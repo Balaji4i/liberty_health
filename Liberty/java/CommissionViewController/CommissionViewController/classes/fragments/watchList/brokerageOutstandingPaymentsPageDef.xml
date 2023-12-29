@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="brokerageOutstandingPaymentsPageDef" Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Name="pCountryCode" Type="java.lang.String"/>
+      <variable Name="pCompanyIdNo" Type="java.lang.Integer"/>
+    </variableIterator>
+    <iterator Binds="AllBrokerageInvoicesOnHoldRoView" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="AllBrokerageInvoicesOnHoldRoViewIterator" Refresh="always"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllBrokerageInvoicesOnHoldRoViewIterator" id="AllBrokerageInvoicesOnHoldRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.BrokerageInvoicesOnHoldRoView"
+                      Name="AllBrokerageInvoicesOnHoldRoView0">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="NoOfInvoices"/>
+          <Item Value="InvoieAmt"/>
+          <Item Value="CountryCode"/>
+          <Item Value="InvoiceExchAmt"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllBrokerageInvoicesOnHoldRoViewIterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="AllBrokerageInvoicesOnHoldRoViewIterator" id="Execute"
+            InstanceName="WatchListAMDataControl.AllBrokerageInvoicesOnHoldRoView" DataControl="WatchListAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action id="Commit" DataControl="WatchListAMDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" DataControl="WatchListAMDataControl" RequiresUpdateModel="false"
+            Action="rollbackTransaction"/>
+    <methodAction id="executePaymentRun" RequiresUpdateModel="true" Action="invokeMethod" MethodName="executePaymentRun"
+                  IsViewObjectMethod="false" DataControl="PaymentAMDataControl"
+                  InstanceName="data.PaymentAMDataControl.dataProvider"
+                  ReturnName="data.PaymentAMDataControl.methodResults.executePaymentRun_executePaymentRun_dataControl_dataProvider_executePaymentRun_result">
+      <NamedData NDName="invoiceNo" NDType="java.lang.Integer"/>
+      <NamedData NDName="companyIdNo" NDValue="#{bindings.pCompanyIdNo1}" NDType="java.lang.Integer"/>
+      <NamedData NDName="countryCode" NDValue="#{bindings.pCountryCode1}" NDType="java.lang.String"/>
+      <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="variables" id="pCountryCode1">
+      <AttrNames>
+        <Item Value="pCountryCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="pCompanyIdNo1">
+      <AttrNames>
+        <Item Value="pCompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllBrokerageInvoicesOnHoldRoViewIterator" id="CountryCode">
+      <AttrNames>
+        <Item Value="CountryCode"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

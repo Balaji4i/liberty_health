@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="policyCommPercApprovalPageDef"
+                Package="fragments.watchList">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="AllPoliciesCommPercOutstandingApprovalView" RangeSize="25" DataControl="WatchListAMDataControl"
+                  id="AllPoliciesCommPercOutstandingApprovalViewIterator"/>
+        <iterator Binds="MaintainOhiCommPercentageView" RangeSize="1" DataControl="OhiStructureAMDataControl"
+                  id="MaintainOhiCommPercentageViewIterator"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="AllPoliciesCommPercOutstandingApprovalViewIterator"
+              id="AllPoliciesCommPercOutstandingApprovalView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.PoliciesCommPercOutstandingApprovalRoView"
+                            Name="AllPoliciesCommPercOutstandingApprovalView0">
+                <AttrNames>
+                    <Item Value="PolicyCode"/>
+                    <Item Value="CommPerc"/>
+                    <Item Value="CommDesc"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                    <Item Value="CreatedUsername"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <methodAction id="removeUserRecord" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="removeUserRecord" IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                      InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView"
+                      ReturnName="data.OhiStructureAMDataControl.methodResults.removeUserRecord_removeUserRecord_dataControl_MaintainOhiCommPercentageView_removeUserRecord_result"/>
+        <methodAction id="setRejectUsername" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="setRejectUsername" IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                      InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView"
+                      ReturnName="data.OhiStructureAMDataControl.methodResults.setRejectUsername_setRejectUsername_dataControl_MaintainOhiCommPercentageView_setRejectUsername_result">
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+            <NamedData NDName="comment" NDValue="#{pageFlowScope.percRejectBean.inputMessage}"
+                       NDType="java.lang.String"/>
+        </methodAction>
+        <methodAction id="setAuthUsername" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setAuthUsername"
+                      IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                      InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView">
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+        </methodAction>
+        <action IterBinding="AllPoliciesCommPercOutstandingApprovalViewIterator" id="Execute"
+                InstanceName="WatchListAMDataControl.AllPoliciesCommPercOutstandingApprovalView"
+                DataControl="WatchListAMDataControl" RequiresUpdateModel="true" Action="iteratorExecute"/>
+        <methodAction id="setVc" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setUpdatePolicyVc"
+                      IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                      InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView">
+            <NamedData NDName="policyCode" NDValue="#{bindings.PolicyCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="startDate" NDValue="#{bindings.EffectiveStartDate.inputValue}"
+                       NDType="oracle.jbo.domain.Date"/>
+        </methodAction>
+        <attributeValues IterBinding="AllPoliciesCommPercOutstandingApprovalViewIterator" id="PolicyCode">
+            <AttrNames>
+                <Item Value="PolicyCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="AuthUsername">
+            <AttrNames>
+                <Item Value="AuthUsername"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AllPoliciesCommPercOutstandingApprovalViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

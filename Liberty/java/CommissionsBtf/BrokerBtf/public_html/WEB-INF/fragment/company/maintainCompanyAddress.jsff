@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+        <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']} ">
+            <af:panelGroupLayout id="pgl1" rendered="#{pageFlowScope.createInd == 'Y'}">
+                <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png"
+                           rendered="#{securityContext.userInRole['comms-consultant'] || pageFlowScope.createInd == 'Y'}"
+                           actionListener="#{bindings.CreateWithParams.execute}"
+                           disabled="#{!bindings.CreateWithParams.enabled}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b2" icon="/adf/images/save_16x16.png"
+                           actionListener="#{companyAttributesBean.saveAndEffectiveDateActionListener}"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b3" icon="/adf/images/remove_16x16.png"
+                           disabled="#{!bindings.Rollback.enabled}" actionListener="#{bindings.Rollback.execute}"
+                           immediate="true">
+                    <af:resetActionListener/>
+                </af:button>
+            </af:panelGroupLayout>
+            <af:panelFormLayout id="pfl1" partialTriggers="b1 b2 b3" rows="4">
+                <af:selectOneChoice value="#{bindings.AddressTypeCode.inputValue}"
+                                    label="#{bindings.AddressTypeCode.label}"
+                                    required="#{bindings.AddressTypeCode.hints.mandatory}"
+                                    shortDesc="#{bindings.AddressTypeCode.hints.tooltip}" id="soc1">
+                    <f:selectItems value="#{bindings.AddressTypeCode.items}" id="si1"/>
+                    <f:validator binding="#{bindings.AddressTypeCode.validator}"/>
+                </af:selectOneChoice>
+                <af:inputText value="#{bindings.AddressLine1.inputValue}" label="#{bindings.AddressLine1.hints.label}"
+                              required="#{bindings.AddressLine1.hints.mandatory}" columns="50"
+                              maximumLength="#{bindings.AddressLine1.hints.precision}"
+                              shortDesc="#{bindings.AddressLine1.hints.tooltip}" id="it1" showRequired="true">
+                    <f:validator binding="#{bindings.AddressLine1.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AddressLine2.inputValue}" label="#{bindings.AddressLine2.hints.label}"
+                              required="#{bindings.AddressLine2.hints.mandatory}" columns="50"
+                              maximumLength="#{bindings.AddressLine2.hints.precision}"
+                              shortDesc="#{bindings.AddressLine2.hints.tooltip}" id="it2">
+                    <f:validator binding="#{bindings.AddressLine2.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AddressLine3.inputValue}" label="#{bindings.AddressLine3.hints.label}"
+                              required="#{bindings.AddressLine3.hints.mandatory}" columns="50"
+                              maximumLength="#{bindings.AddressLine3.hints.precision}"
+                              shortDesc="#{bindings.AddressLine3.hints.tooltip}" id="it3" showRequired="true">
+                    <f:validator binding="#{bindings.AddressLine3.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.PostalCode.inputValue}" label="#{bindings.PostalCode.hints.label}"
+                              required="#{bindings.PostalCode.hints.mandatory}"
+                              columns="#{bindings.PostalCode.hints.displayWidth}"
+                              maximumLength="#{bindings.PostalCode.hints.precision}"
+                              shortDesc="#{bindings.PostalCode.hints.tooltip}" id="it5" showRequired="true">
+                    <f:validator binding="#{bindings.PostalCode.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.CountryCode.attributeValue}"
+                              label="#{bindings.AddressCountryCode.hints.label}"
+                              required="#{bindings.AddressCountryCode.hints.mandatory}"
+                              columns="#{bindings.AddressCountryCode.hints.displayWidth}"
+                              maximumLength="#{bindings.AddressCountryCode.hints.precision}"
+                              shortDesc="#{bindings.AddressCountryCode.hints.tooltip}" id="it4" readOnly="true">
+                    <f:validator binding="#{bindings.AddressCountryCode.validator}"/>
+                </af:inputText>
+                <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                              label="#{bindings.EffectiveStartDate.hints.label}"
+                              required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                              columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id1"
+                              minValue="#{companyAttributesBean.minDatePickerDate}">
+                    <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                              label="#{bindings.EffectiveEndDate.hints.label}"
+                              required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                              columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id2" readOnly="true">
+                    <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                </af:inputDate>
+                <f:facet name="footer">
+                    <af:panelGroupLayout layout="horizontal" id="pgl2">
+                        <af:button actionListener="#{bindings.First.execute}" text="First"
+                                   disabled="#{!bindings.First.enabled}" partialSubmit="true" id="b5"/>
+                        <af:button actionListener="#{bindings.Previous.execute}" text="Previous"
+                                   disabled="#{!bindings.Previous.enabled}" partialSubmit="true" id="b6"/>
+                        <af:button actionListener="#{bindings.Next.execute}" text="Next"
+                                   disabled="#{!bindings.Next.enabled}" partialSubmit="true" id="b7"/>
+                        <af:button actionListener="#{bindings.Last.execute}" text="Last"
+                                   disabled="#{!bindings.Last.enabled}" partialSubmit="true" id="b4"/>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:panelFormLayout>
+            <f:facet name="toolbar"/>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.Correspondence']}" id="sdi2" immediate="true">
+            <af:panelGroupLayout id="pgl3" rendered="#{pageFlowScope.createInd == 'Y'}">
+                <af:button text="#{coreLabels['G.Add']}" id="b9"
+                           rendered="#{securityContext.userInRole['comms-consultant'] || pageFlowScope.createInd == 'Y'}"
+                           icon="/adf/images/add_16x16.png"
+                           disabled="#{!bindings.CreateWithParams2.enabled}"
+                           actionListener="#{bindings.CreateWithParams2.execute}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b10"
+                           actionListener="#{companyAttributesBean.saveCorrEffectiveDateActionListener}" icon="/adf/images/save_16x16.png"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b11" actionListener="#{bindings.Rollback1.execute}"
+                           disabled="#{!bindings.Rollback1.enabled}" immediate="true"
+                           icon="/adf/images/remove_16x16.png">
+                    <af:resetActionListener/>
+                </af:button>
+            </af:panelGroupLayout>
+            <af:panelFormLayout id="pfl2">
+                <f:facet name="footer">
+                    <af:panelGroupLayout id="pgl4">
+                        <af:button text="First" id="b12" actionListener="#{bindings.First1.execute}"
+                                   disabled="#{!bindings.First1.enabled}" partialSubmit="true"/>
+                        <af:button text="Previous" id="b13" actionListener="#{bindings.Previous1.execute}"
+                                   disabled="#{!bindings.Previous1.enabled}" partialSubmit="true"/>
+                        <af:button text="Next" id="b14" actionListener="#{bindings.Next1.execute}"
+                                   disabled="#{!bindings.Next1.enabled}" partialSubmit="true"/>
+                        <af:button text="Last" id="b15" actionListener="#{bindings.Last1.execute}"
+                                   disabled="#{!bindings.Last1.enabled}" partialSubmit="true"/>
+                    </af:panelGroupLayout>
+                </f:facet>
+                <af:inputText value="#{bindings.AddressLine11.inputValue}" label="#{bindings.AddressLine11.hints.label}"
+                              required="#{bindings.AddressLine11.hints.mandatory}"
+                              columns="#{bindings.AddressLine11.hints.displayWidth}"
+                              maximumLength="#{bindings.AddressLine11.hints.precision}"
+                              shortDesc="#{bindings.AddressLine11.hints.tooltip}" id="it8" showRequired="true">
+                    <f:validator binding="#{bindings.AddressLine11.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AddressLine21.inputValue}" label="#{bindings.AddressLine21.hints.label}"
+                              required="#{bindings.AddressLine21.hints.mandatory}"
+                              columns="#{bindings.AddressLine21.hints.displayWidth}"
+                              maximumLength="#{bindings.AddressLine21.hints.precision}"
+                              shortDesc="#{bindings.AddressLine21.hints.tooltip}" id="it9">
+                    <f:validator binding="#{bindings.AddressLine21.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AddressLine31.inputValue}" label="#{bindings.AddressLine31.hints.label}"
+                              required="#{bindings.AddressLine31.hints.mandatory}"
+                              columns="#{bindings.AddressLine31.hints.displayWidth}"
+                              maximumLength="#{bindings.AddressLine31.hints.precision}"
+                              shortDesc="#{bindings.AddressLine31.hints.tooltip}" id="it10" showRequired="true">
+                    <f:validator binding="#{bindings.AddressLine31.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.PostalCode1.inputValue}" label="#{bindings.PostalCode1.hints.label}"
+                              required="#{bindings.PostalCode1.hints.mandatory}"
+                              columns="#{bindings.PostalCode1.hints.displayWidth}"
+                              maximumLength="#{bindings.PostalCode1.hints.precision}"
+                              shortDesc="#{bindings.PostalCode1.hints.tooltip}" id="it6" showRequired="true">
+                    <f:validator binding="#{bindings.PostalCode1.validator}"/>
+                </af:inputText>
+                <af:selectOneChoice value="#{bindings.AddressCountryCode1.inputValue}"
+                                    label="#{bindings.AddressCountryCode1.label}"
+                                    required="#{bindings.AddressCountryCode1.hints.mandatory}"
+                                    shortDesc="#{bindings.AddressCountryCode1.hints.tooltip}" id="soc2"
+                                    valuePassThru="true" showRequired="true">
+                    <f:selectItems value="#{bindings.AddressCountryCode1.items}" id="si2"/>
+                    <f:validator binding="#{bindings.AddressCountryCode1.validator}"/>
+                </af:selectOneChoice>
+                <af:inputDate value="#{bindings.EffectiveStartDate1.inputValue}"
+                              label="#{bindings.EffectiveStartDate1.hints.label}"
+                              required="#{bindings.EffectiveStartDate1.hints.mandatory}"
+                              columns="#{bindings.EffectiveStartDate1.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveStartDate1.hints.tooltip}" id="id3">
+                    <f:validator binding="#{bindings.EffectiveStartDate1.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveStartDate1.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.EffectiveEndDate1.inputValue}"
+                              label="#{bindings.EffectiveEndDate1.hints.label}"
+                              required="#{bindings.EffectiveEndDate1.hints.mandatory}"
+                              columns="#{bindings.EffectiveEndDate1.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveEndDate1.hints.tooltip}" id="id4">
+                    <f:validator binding="#{bindings.EffectiveEndDate1.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveEndDate1.format}"/>
+                </af:inputDate>
+            </af:panelFormLayout>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t2">
+                        <af:button text="#{coreLabels['G.Export']}" id="b8" icon="/adf/images/excel_16x16.png"
+                                   rendered="#{securityContext.userInRole['comms-consultant']}">
+                            <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                               filename="#{coreLabels['G.History']}.xls"/>
+                        </af:button>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.CompanyAddressAuditRoView.collectionModel}" var="row"
+                          rows="#{bindings.CompanyAddressAuditRoView.rangeSize}"
+                          emptyText="#{bindings.CompanyAddressAuditRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.CompanyAddressAuditRoView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CompanyAddressAuditRoView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CompanyAddressAuditRoView.rangeSize}" id="t1"
+                          displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c2">
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.TransactionDatetime.label}"
+                               id="c1" width="110" align="center">
+                        <af:outputText value="#{row.TransactionDatetime}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.TransactionDatetime.tooltip}"
+                                       id="ot1">
+                            <af:convertDateTime pattern="#{bindings.CompanyAddressAuditRoView.hints.TransactionDatetime.format}"
+                                                type="both"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.TransactionUsername.label}"
+                               id="c3">
+                        <af:outputText value="#{row.TransactionUsername}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.TransactionUsername.tooltip}"
+                                       id="ot3"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.TransactionDesc.label}" id="c2"
+                               width="200">
+                        <af:outputText value="#{row.TransactionDesc}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.TransactionDesc.tooltip}"
+                                       id="ot2"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.AddressTypeCode.label}" id="c4"
+                               width="70">
+                        <af:outputText value="#{row.AddressTypeCode}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.AddressTypeCode.tooltip}"
+                                       id="ot4"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.EffectiveStartDate.label}"
+                               id="c5">
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.EffectiveStartDate.tooltip}"
+                                       id="ot5">
+                            <af:convertDateTime pattern="#{bindings.CompanyAddressAuditRoView.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.AddressLine1.label}" id="c7"
+                               width="150">
+                        <af:outputText value="#{row.AddressLine1}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.AddressLine1.tooltip}"
+                                       id="ot7"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.AddressLine2.label}" id="c8"
+                               width="150">
+                        <af:outputText value="#{row.AddressLine2}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.AddressLine2.tooltip}"
+                                       id="ot8"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.AddressLine3.label}" id="c9"
+                               width="150">
+                        <af:outputText value="#{row.AddressLine3}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.AddressLine3.tooltip}"
+                                       id="ot9"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.AddressCountryCode.label}"
+                               id="c10" width="60">
+                        <af:outputText value="#{row.AddressCountryCode}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.AddressCountryCode.tooltip}"
+                                       id="ot10"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAddressAuditRoView.hints.PostalCode.label}" id="c11"
+                               align="right" width="70">
+                        <af:outputText value="#{row.PostalCode}"
+                                       shortDesc="#{bindings.CompanyAddressAuditRoView.hints.PostalCode.tooltip}"
+                                       id="ot11"/>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

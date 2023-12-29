@@ -1,0 +1,652 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" topHeight="auto">
+        <f:facet name="start"/>
+        <f:facet name="end"/>
+        <f:facet name="top">
+        </f:facet>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+            <af:panelTabbed position="above" id="pt1" styleClass="AFStretchWidth">
+                <af:showDetailItem id="tab1" text="Premiums Received" disclosed="true" stretchChildren="first">
+                    <af:panelGroupLayout layout="vertical" id="pgl1">
+                        <af:query id="qryId1" headerText="Search" disclosed="true"
+                                  value="#{bindings.SearchCommsPaymentsReceivedVOCriteriaQuery.queryDescriptor}"
+                                  model="#{bindings.SearchCommsPaymentsReceivedVOCriteriaQuery.queryModel}"
+                                  queryListener="#{bindings.SearchCommsPaymentsReceivedVOCriteriaQuery.processQuery}"
+                                  queryOperationListener="#{bindings.SearchCommsPaymentsReceivedVOCriteriaQuery.processQueryOperation}"
+                                  resultComponentId="::pc1:resId1"/>
+                    </af:panelGroupLayout>
+                    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                        <f:facet name="menus"/>
+                        <f:facet name="toolbar">
+                            <af:toolbar id="t1">
+                                <af:button text="#{coreLabels['G.Export']}" id="b1" icon="/adf/images/excel_16x16.png">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="resId1"
+                                                                       filename="Premiums Received.xls"/>
+                                </af:button>
+                            </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.AllCommsPaymentsReceived.collectionModel}" var="row"
+                                  rows="#{bindings.AllCommsPaymentsReceived.rangeSize}"
+                                  emptyText="#{bindings.AllCommsPaymentsReceived.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="1" scrollPolicy="page"
+                                  selectedRowKeys="#{bindings.AllCommsPaymentsReceived.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.AllCommsPaymentsReceived.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.AllCommsPaymentsReceived.rangeSize}"
+                                  id="resId1" columnStretching="column:resId1c16" displayRow="selected"
+                                  styleClass="AFStretchWidth" filterVisible="true">
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.ApplicationId.label}"
+                                       id="resId1c14" width="100" sortable="true">
+                                <af:outputText value="#{row.ApplicationId}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.ApplicationId.tooltip}"
+                                               id="ot14">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.AllCommsPaymentsReceived.hints.ApplicationId.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.ParentgroupCode.label}"
+                                       id="c3">
+                                <af:outputText value="#{row.ParentgroupCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.ParentgroupCode.tooltip}"
+                                               id="ot27"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.GroupCode.label}"
+                                       id="resId1c1" width="100" sortable="true">
+                                <af:outputText value="#{row.GroupCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.GroupCode.tooltip}"
+                                               id="ot1"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.CountryCode.label}"
+                                       id="resId1c2" width="40" sortable="true">
+                                <af:outputText value="#{row.CountryCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.CountryCode.tooltip}"
+                                               id="ot2"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.ProductCode.label}"
+                                       id="resId1c3" width="60" sortable="true">
+                                <af:outputText value="#{row.ProductCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.ProductCode.tooltip}"
+                                               id="ot3"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.PolicyCode.label}"
+                                       id="resId1c15" width="80" sortable="true">
+                                <af:outputText value="#{row.PolicyCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.PolicyCode.tooltip}"
+                                               id="ot15"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.PersonCode.label}"
+                                       id="resId1c4" width="90" sortable="true">
+                                <af:outputText value="#{row.PersonCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.PersonCode.tooltip}"
+                                               id="ot4"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.ContributionDate.label}"
+                                       id="resId1c5" sortable="true">
+                                <af:outputText value="#{row.ContributionDate}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.ContributionDate.tooltip}"
+                                               id="ot5">
+                                    <af:convertDateTime pattern="#{bindings.AllCommsPaymentsReceived.hints.ContributionDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.PaymentType.label}" id="c1"
+                                       width="60">
+                                <af:outputText value="#{row.PaymentType}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.PaymentType.tooltip}"
+                                               id="ot11"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.FinanceReceiptNo.label}"
+                                       id="resId1c6" width="150" sortable="true">
+                                <af:outputText value="#{row.FinanceReceiptNo}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.FinanceReceiptNo.tooltip}"
+                                               id="ot6"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.FinanceReceiptDate.label}"
+                                       id="resId1c7" sortable="true" width="80">
+                                <af:outputText value="#{row.FinanceReceiptDate}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.FinanceReceiptDate.tooltip}"
+                                               id="ot7">
+                                    <af:convertDateTime pattern="#{bindings.AllCommsPaymentsReceived.hints.FinanceReceiptDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.FinanceInvoiceNo.label}"
+                                       id="resId1c8" sortable="true" filterable="true" width="60">
+                                <af:outputText value="#{row.FinanceInvoiceNo}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.FinanceInvoiceNo.tooltip}"
+                                               id="ot8"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.FinanceInvoiceDate.label}"
+                                       id="resId1c9" sortable="true" width="80">
+                                <af:outputText value="#{row.FinanceInvoiceDate}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.FinanceInvoiceDate.tooltip}"
+                                               id="ot9">
+                                    <af:convertDateTime pattern="#{bindings.AllCommsPaymentsReceived.hints.FinanceInvoiceDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.FinanceReceiptAmt.label}"
+                                       id="resId1c10" sortable="true" width="80">
+                                <af:outputText value="#{row.FinanceReceiptAmt}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.FinanceReceiptAmt.tooltip}"
+                                               id="ot10">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.AllCommsPaymentsReceived.hints.FinanceReceiptAmt.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsReceived.hints.ProcessedDesc.label}"
+                                       id="resId1c16" sortable="true" filterable="true">
+                                <af:outputText value="#{row.ProcessedDesc}"
+                                               shortDesc="#{bindings.AllCommsPaymentsReceived.hints.ProcessedDesc.tooltip}"
+                                               id="ot16"/>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+                <af:showDetailItem id="tab2" text="#{coreLabels['G.PaymentsFailed']}"
+                                   rendered="#{securityContext.userInRole['team-leads']}">
+                    <af:panelGroupLayout layout="vertical" id="pgl2">
+                        <af:query id="qryId3" headerText="Search" disclosed="true"
+                                  value="#{bindings.CommsPaymentsFailedVOCriteriaNQuery.queryDescriptor}"
+                                  model="#{bindings.CommsPaymentsFailedVOCriteriaNQuery.queryModel}"
+                                  queryListener="#{bindings.CommsPaymentsFailedVOCriteriaNQuery.processQuery}"
+                                  queryOperationListener="#{bindings.CommsPaymentsFailedVOCriteriaNQuery.processQueryOperation}"
+                                  resultComponentId="::pc3:t6"/>
+                    </af:panelGroupLayout>
+                    <af:panelCollection id="pc3" styleClass="AFStretchWidth">
+                        <f:facet name="menus">
+                            <af:menu text="File" id="m2">
+                                <af:commandMenuItem text="Export File" id="cmi2">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="t6"
+                                                                       filename="Premium Payments Failed.xls"
+                                                                       title="Premium Payments Failed"/>
+                                </af:commandMenuItem>
+                            </af:menu>
+                        </f:facet>
+                        <f:facet name="toolbar">
+                            <af:toolbar id="t4" flex="100">
+                                <af:button text="Save Changes" id="b5"
+                                           actionListener="#{pageFlowScope.AllPremiumInvoices.saveAndRefresh}"/>
+                                <af:button text="Save Changes" rendered="false" id="b3" actionListener="#{bindings.Commit.execute}"
+                                           action="#{pageFlowScope.AllPremiumInvoices.saveAndRefresh}"/>
+                            </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.AllCommsPaymentsFailedVO13.collectionModel}" var="row"
+                                  rows="#{bindings.AllCommsPaymentsFailedVO13.rangeSize}"
+                                  emptyText="#{bindings.AllCommsPaymentsFailedVO13.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="0"
+                                  selectedRowKeys="#{bindings.AllCommsPaymentsFailedVO13.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.AllCommsPaymentsFailedVO13.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.AllCommsPaymentsFailedVO13.rangeSize}"
+                                  id="t6" partialTriggers="::b5">
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.ArchivedYn.label}"
+                                       id="c46" align="center">
+                                <af:selectBooleanCheckbox value="#{row.bindings.ArchivedYn.inputValue}"
+                                                          label="#{row.bindings.ArchivedYn.label}"
+                                                          shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.ArchivedYn.tooltip}"
+                                                          id="sbc1" autoSubmit="true" 
+                                                        valueChangeListener="#{pageFlowScope.AllPremiumInvoices.onChkBox}"
+                                                          partialTriggers="cl1 cl2"/>
+                            <f:facet name="header">
+                                <af:panelGroupLayout id="pg1" layout="vertical">
+                                    <af:commandLink id="cl1" text="Select All" 
+                                            action="#{pageFlowScope.AllPremiumInvoices.onSelectAll}"
+                                                    partialTriggers="sbc1"/>
+                                    <af:commandLink id="cl2" text="Deselect All" partialTriggers="sbc1"
+                                            action="#{pageFlowScope.AllPremiumInvoices.onDeselectAll}"/>
+                                </af:panelGroupLayout>
+                            </f:facet>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.ProcessedInd.label}"
+                                       id="c47">
+                                <af:outputText value="#{row.ProcessedInd}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.ProcessedInd.tooltip}"
+                                               id="ot26"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.ProcessedDesc.label}"
+                                       id="c35">
+                                <af:outputText value="#{row.ProcessedDesc}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.ProcessedDesc.tooltip}"
+                                               id="ot12"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.ApplicationId.label}"
+                                       id="c36">
+                                <af:outputText value="#{row.ApplicationId}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.ApplicationId.tooltip}"
+                                               id="ot13">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.AllCommsPaymentsFailedVO13.hints.ApplicationId.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.CountryCode.label}"
+                                       id="c37">
+                                <af:outputText value="#{row.CountryCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.CountryCode.tooltip}"
+                                               id="ot17"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.ParentgroupCode.label}"
+                                       id="c4">
+                                <af:outputText value="#{row.ParentgroupCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.ParentgroupCode.tooltip}"
+                                               id="ot28"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.GroupCode.label}"
+                                       id="c38">
+                                <af:outputText value="#{row.GroupCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.GroupCode.tooltip}"
+                                               id="ot18"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.ProductCode.label}"
+                                       id="c39">
+                                <af:outputText value="#{row.ProductCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.ProductCode.tooltip}"
+                                               id="ot19"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.PolicyCode.label}"
+                                       id="c40">
+                                <af:outputText value="#{row.PolicyCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.PolicyCode.tooltip}"
+                                               id="ot20"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.PersonCode.label}"
+                                       id="c41">
+                                <af:outputText value="#{row.PersonCode}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.PersonCode.tooltip}"
+                                               id="ot21"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.ContributionDate.label}"
+                                       id="c42">
+                                <af:outputText value="#{row.ContributionDate}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.ContributionDate.tooltip}"
+                                               id="ot22">
+                                    <af:convertDateTime pattern="#{bindings.AllCommsPaymentsFailedVO13.hints.ContributionDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.FinanceReceiptNo.label}"
+                                       id="c43">
+                                <af:outputText value="#{row.FinanceReceiptNo}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.FinanceReceiptNo.tooltip}"
+                                               id="ot23"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.FinanceReceiptDate.label}"
+                                       id="c44">
+                                <af:outputText value="#{row.FinanceReceiptDate}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.FinanceReceiptDate.tooltip}"
+                                               id="ot24">
+                                    <af:convertDateTime pattern="#{bindings.AllCommsPaymentsFailedVO13.hints.FinanceReceiptDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllCommsPaymentsFailedVO13.hints.PaymentType.label}"
+                                       id="c45">
+                                <af:outputText value="#{row.PaymentType}"
+                                               shortDesc="#{bindings.AllCommsPaymentsFailedVO13.hints.PaymentType.tooltip}"
+                                               id="ot25"/>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+                <af:showDetailItem text="#{coreLabels['G.PaymentsArchived']}" id="sdi1"
+                                   rendered="#{securityContext.userInRole['team-leads']}">
+                    <af:panelGroupLayout layout="vertical" id="pgl3">
+                        <af:query id="qryId4" headerText="Search" disclosed="true"
+                                  value="#{bindings.CommsPaymentsArchivedVOCriteriaNQuery.queryDescriptor}"
+                                  model="#{bindings.CommsPaymentsArchivedVOCriteriaNQuery.queryModel}"
+                                  queryListener="#{bindings.CommsPaymentsArchivedVOCriteriaNQuery.processQuery}"
+                                  queryOperationListener="#{bindings.CommsPaymentsArchivedVOCriteriaNQuery.processQueryOperation}"
+                                  resultComponentId="::pc2:t3"/>
+                    </af:panelGroupLayout>
+                    <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+                        <f:facet name="menus">
+                            <af:menu text="File" id="m1">
+                                <af:commandMenuItem text="Export" id="cmi1">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                                       filename="Premium Payments Archived"/>
+                                </af:commandMenuItem>
+                            </af:menu>
+                        </f:facet>
+                        <f:facet name="toolbar">
+                            <af:toolbar id="t5" flex="100">
+                                <af:button text="Save Changes" id="b2"
+                                           action="#{pageFlowScope.AllPremiumInvoices.saveAndRefresh}"/>
+                            </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.CommsPaymentsArchivedVO1.collectionModel}" var="row"
+                                  rows="#{bindings.CommsPaymentsArchivedVO1.rangeSize}"
+                                  emptyText="#{bindings.CommsPaymentsArchivedVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="0"  scrollPolicy="page"
+                                  selectedRowKeys="#{bindings.CommsPaymentsArchivedVO1.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.CommsPaymentsArchivedVO1.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.CommsPaymentsArchivedVO1.rangeSize}"
+                                  filterModel="#{bindings.CommsPaymentsArchivedVO1Query.queryDescriptor}"
+                                  filterVisible="true" 
+                                  queryListener="#{bindings.CommsPaymentsArchivedVO1Query.processQuery}" varStatus="vs"
+                                  id="t3" >
+                            <af:column headerText="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedInd.label}"
+                                       id="c31">
+                                <af:selectOneChoice value="#{row.bindings.ProcessedInd.inputValue}"
+                                                    label="#{row.bindings.ProcessedInd.label}"
+                                                    required="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedInd.mandatory}"
+                                                    shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedInd.tooltip}"
+                                                    id="soc2">
+                                    <f:selectItems value="#{row.bindings.ProcessedInd.items}" id="si2"/>
+                                    <f:validator binding="#{row.bindings.ProcessedInd.validator}"/>
+                                </af:selectOneChoice>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.ApplicationId.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.ApplicationId.label}"
+                                       id="c2">
+                                <af:inputText value="#{row.bindings.ApplicationId.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.ApplicationId.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.ApplicationId.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.ApplicationId.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.ApplicationId.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.ApplicationId.tooltip}"
+                                              id="it1">
+                                    <f:validator binding="#{row.bindings.ApplicationId.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsPaymentsArchivedVO1.hints.ApplicationId.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.CommsCalcSnapshotNo.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.CommsCalcSnapshotNo.label}"
+                                       id="c15" rendered="false">
+                                <af:inputText value="#{row.bindings.CommsCalcSnapshotNo.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.CommsCalcSnapshotNo.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.CommsCalcSnapshotNo.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.CommsCalcSnapshotNo.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.CommsCalcSnapshotNo.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.CommsCalcSnapshotNo.tooltip}"
+                                              id="it11">
+                                    <f:validator binding="#{row.bindings.CommsCalcSnapshotNo.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsPaymentsArchivedVO1.hints.CommsCalcSnapshotNo.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.CommsPaymentsArchivedVO1.hints.ParentgroupCode.label}"
+                                       id="c5">
+                                <af:inputListOfValues id="parentgroupCodeId"
+                                                      popupTitle="Search and Select: #{bindings.CommsPaymentsArchivedVO1.hints.ParentgroupCode.label}"
+                                                      value="#{row.bindings.ParentgroupCode.inputValue}"
+                                                      model="#{row.bindings.ParentgroupCode.listOfValuesModel}"
+                                                      required="#{bindings.CommsPaymentsArchivedVO1.hints.ParentgroupCode.mandatory}"
+                                                      columns="#{bindings.CommsPaymentsArchivedVO1.hints.ParentgroupCode.displayWidth}"
+                                                      shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.ParentgroupCode.tooltip}">
+                                    <f:validator binding="#{row.bindings.ParentgroupCode.validator}"/>
+                                </af:inputListOfValues>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.GroupCode.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.GroupCode.label}" id="c25">
+                                <af:inputText value="#{row.bindings.GroupCode.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.GroupCode.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.GroupCode.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.GroupCode.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.GroupCode.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.GroupCode.tooltip}"
+                                              id="it18">
+                                    <f:validator binding="#{row.bindings.GroupCode.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.CountryCode.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.CountryCode.label}"
+                                       id="c17">
+                                <af:inputText value="#{row.bindings.CountryCode.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.CountryCode.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.CountryCode.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.CountryCode.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.CountryCode.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.CountryCode.tooltip}"
+                                              id="it12">
+                                    <f:validator binding="#{row.bindings.CountryCode.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.ProductCode.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.ProductCode.label}"
+                                       id="c32">
+                                <af:inputText value="#{row.bindings.ProductCode.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.ProductCode.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.ProductCode.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.ProductCode.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.ProductCode.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.ProductCode.tooltip}"
+                                              id="it24">
+                                    <f:validator binding="#{row.bindings.ProductCode.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.PolicyCode.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.PolicyCode.label}"
+                                       id="c29">
+                                <af:inputText value="#{row.bindings.PolicyCode.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.PolicyCode.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.PolicyCode.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.PolicyCode.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.PolicyCode.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.PolicyCode.tooltip}"
+                                              id="it21">
+                                    <f:validator binding="#{row.bindings.PolicyCode.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.PersonCode.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.PersonCode.label}"
+                                       id="c28">
+                                <af:inputText value="#{row.bindings.PersonCode.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.PersonCode.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.PersonCode.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.PersonCode.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.PersonCode.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.PersonCode.tooltip}"
+                                              id="it20">
+                                    <f:validator binding="#{row.bindings.PersonCode.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.ContributionDate.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.ContributionDate.label}"
+                                       id="c16">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.CommsPaymentsArchivedVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ContributionDate.value}"
+                                                  id="id5">
+                                        <af:convertDateTime pattern="#{bindings.CommsPaymentsArchivedVO1.hints.ContributionDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:inputDate value="#{row.bindings.ContributionDate.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.ContributionDate.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.ContributionDate.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.ContributionDate.displayWidth}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.ContributionDate.tooltip}"
+                                              id="id6">
+                                    <f:validator binding="#{row.bindings.ContributionDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.CommsPaymentsArchivedVO1.hints.ContributionDate.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.PaymentType.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.PaymentType.label}"
+                                       id="c27">
+                                <af:inputText value="#{row.bindings.PaymentType.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.PaymentType.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.PaymentType.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.PaymentType.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.PaymentType.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.PaymentType.tooltip}"
+                                              id="it19">
+                                    <f:validator binding="#{row.bindings.PaymentType.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptNo.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptNo.label}"
+                                       id="c24">
+                                <af:inputText value="#{row.bindings.FinanceReceiptNo.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptNo.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptNo.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptNo.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptNo.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptNo.tooltip}"
+                                              id="it17">
+                                    <f:validator binding="#{row.bindings.FinanceReceiptNo.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptDate.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptDate.label}"
+                                       id="c23">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.CommsPaymentsArchivedVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.FinanceReceiptDate.value}"
+                                                  id="id9">
+                                        <af:convertDateTime pattern="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:inputDate value="#{row.bindings.FinanceReceiptDate.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptDate.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptDate.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptDate.displayWidth}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptDate.tooltip}"
+                                              id="id10">
+                                    <f:validator binding="#{row.bindings.FinanceReceiptDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptDate.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceNo.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceNo.label}"
+                                       id="c21">
+                                <af:inputText value="#{row.bindings.FinanceInvoiceNo.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceNo.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceNo.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceNo.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceNo.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceNo.tooltip}"
+                                              id="it15">
+                                    <f:validator binding="#{row.bindings.FinanceInvoiceNo.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceDate.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceDate.label}"
+                                       id="c20">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.CommsPaymentsArchivedVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.FinanceInvoiceDate.value}"
+                                                  id="id7">
+                                        <af:convertDateTime pattern="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:inputDate value="#{row.bindings.FinanceInvoiceDate.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceDate.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceDate.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceDate.displayWidth}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceDate.tooltip}"
+                                              id="id8">
+                                    <f:validator binding="#{row.bindings.FinanceInvoiceDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceInvoiceDate.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptAmt.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptAmt.label}"
+                                       id="c22">
+                                <af:inputText value="#{row.bindings.FinanceReceiptAmt.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptAmt.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptAmt.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptAmt.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptAmt.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptAmt.tooltip}"
+                                              id="it16">
+                                    <f:validator binding="#{row.bindings.FinanceReceiptAmt.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsPaymentsArchivedVO1.hints.FinanceReceiptAmt.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedDesc.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedDesc.label}"
+                                       id="c30">
+                                <af:inputText value="#{row.bindings.ProcessedDesc.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedDesc.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedDesc.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedDesc.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedDesc.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.ProcessedDesc.tooltip}"
+                                              id="it22">
+                                    <f:validator binding="#{row.bindings.ProcessedDesc.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.CurrencyCode.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.CurrencyCode.label}"
+                                       id="c18" rendered="false">
+                                <af:inputText value="#{row.bindings.CurrencyCode.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.CurrencyCode.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.CurrencyCode.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.CurrencyCode.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.CurrencyCode.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.CurrencyCode.tooltip}"
+                                              id="it13">
+                                    <f:validator binding="#{row.bindings.CurrencyCode.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.ExchangeRate.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.ExchangeRate.label}"
+                                       id="c19" rendered="false">
+                                <af:inputText value="#{row.bindings.ExchangeRate.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.ExchangeRate.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.ExchangeRate.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.ExchangeRate.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.ExchangeRate.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.ExchangeRate.tooltip}"
+                                              id="it14">
+                                    <f:validator binding="#{row.bindings.ExchangeRate.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsPaymentsArchivedVO1.hints.ExchangeRate.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.LastUpdateDatetime.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.LastUpdateDatetime.label}"
+                                       id="c26" rendered="false">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.CommsPaymentsArchivedVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.LastUpdateDatetime.value}"
+                                                  id="id11">
+                                        <af:convertDateTime pattern="#{bindings.CommsPaymentsArchivedVO1.hints.LastUpdateDatetime.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:inputDate value="#{row.bindings.LastUpdateDatetime.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.LastUpdateDatetime.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.LastUpdateDatetime.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.LastUpdateDatetime.displayWidth}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.LastUpdateDatetime.tooltip}"
+                                              id="id12">
+                                    <f:validator binding="#{row.bindings.LastUpdateDatetime.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.CommsPaymentsArchivedVO1.hints.LastUpdateDatetime.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsPaymentsArchivedVO1.hints.Username.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommsPaymentsArchivedVO1.hints.Username.label}" id="c33"
+                                       rendered="false">
+                                <af:inputText value="#{row.bindings.Username.inputValue}"
+                                              label="#{bindings.CommsPaymentsArchivedVO1.hints.Username.label}"
+                                              required="#{bindings.CommsPaymentsArchivedVO1.hints.Username.mandatory}"
+                                              columns="#{bindings.CommsPaymentsArchivedVO1.hints.Username.displayWidth}"
+                                              maximumLength="#{bindings.CommsPaymentsArchivedVO1.hints.Username.precision}"
+                                              shortDesc="#{bindings.CommsPaymentsArchivedVO1.hints.Username.tooltip}"
+                                              id="it25">
+                                    <f:validator binding="#{row.bindings.Username.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+            </af:panelTabbed>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

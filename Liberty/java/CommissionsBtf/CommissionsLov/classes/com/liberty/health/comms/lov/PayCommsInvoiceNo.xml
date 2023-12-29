@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PayCommsInvoiceNo"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.lov.PayCommsInvoiceNoRowImpl"
+  ComponentClass="com.liberty.health.comms.lov.PayCommsInvoiceNoImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="PayCommsInvoiceNo_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[SELECT 'ALL' invoice_no      
+FROM DUAL     
+union All     
+select DISTINCT TO_CHAR(invoice_no) invoice_no        
+from invoice           
+order by invoice_no desc]]></SQLQuery>
+  <ViewAttribute
+    Name="InvoiceNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="40"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_NO"
+    Expression="INVOICE_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="40"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.lov.common.PayCommsInvoiceNoMsgBundle"/>
+  </ResourceBundle>
+</ViewObject>

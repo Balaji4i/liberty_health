@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="createNewBrokerPageDef"
+                Package="fragment.broker">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables">
+            <variable Name="pCompanyName" Type="java.lang.String"/>
+        </variableIterator>
+        <iterator Binds="CaptureCompanyView" RangeSize="1" DataControl="CaptureBrokerAMDataControl"
+                  id="CaptureCompanyViewIterator"/>
+        <iterator Binds="CaptureCompanyCountryView" RangeSize="10" DataControl="CaptureBrokerAMDataControl"
+                  id="CaptureCompanyCountryViewIterator"/>
+        <iterator Binds="CountryLovView1" RangeSize="-1" DataControl="CaptureBrokerAMDataControl"
+                  id="CountryLovView1Iterator"/>
+        <iterator Binds="CountryLovView_N1" RangeSize="25" DataControl="OhiStructureAMDataControl"
+                  id="CountryLovView_N1Iterator"/>
+    </executables>
+    <bindings>
+        <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+                DataControl="CaptureBrokerAMDataControl"/>
+        <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="CaptureBrokerAMDataControl"/>
+        <attributeValues IterBinding="CaptureCompanyViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CaptureCompanyViewIterator" id="CompanyName">
+            <AttrNames>
+                <Item Value="CompanyName"/>
+            </AttrNames>
+        </attributeValues>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_AddressInd" id="AddressInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="AddressInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_CompanyAgreementInd"
+                id="CompanyAgreementInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="CompanyAgreementInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_CompanyRegDocInd"
+                id="CompanyRegDocInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="CompanyRegDocInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_DisAgreementApplicationInd"
+                id="DisAgreementApplicationInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="DisAgreementApplicationInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_IdDocInd" id="IdDocInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="IdDocInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_InternalBrokerInd"
+                id="InternalBrokerInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="InternalBrokerInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_LetterOfIntentInd"
+                id="LetterOfIntentInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="LetterOfIntentInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_ReferralAgreementInd"
+                id="ReferralAgreementInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="ReferralAgreementInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_TaxIdNoInd" id="TaxIdNoInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="TaxIdNoInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_VatRegInd" id="VatRegInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="VatRegInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_WhtCertInd" id="WhtCertInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="WhtCertInd"/>
+            </AttrNames>
+        </button>
+        <button IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_MultinationalInd"
+                id="MultinationalInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="MultinationalInd"/>
+            </AttrNames>
+        </button>
+        <action IterBinding="CaptureCompanyViewIterator" id="CreateInsert"
+                InstanceName="CaptureBrokerAMDataControl.CaptureCompanyView" DataControl="CaptureBrokerAMDataControl"
+                RequiresUpdateModel="true" Action="createInsertRow"/>
+        <tree IterBinding="CaptureCompanyCountryViewIterator" id="CaptureCompanyCountryView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.vo.CompanyCountryVO"
+                            Name="CaptureCompanyCountryView0">
+                <AttrNames>
+                    <Item Value="CountryCode"/>
+                    <Item Value="MinPayoutAmt"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="CountryLovView1Iterator" id="CountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <action IterBinding="CaptureCompanyCountryViewIterator" id="Delete"
+                InstanceName="CaptureBrokerAMDataControl.CaptureCompanyCountryView"
+                DataControl="CaptureBrokerAMDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+        <listOfValues IterBinding="CaptureCompanyViewIterator" StaticList="false" Uses="LOV_PreferredCurrencyCode"
+                      id="PreferredCurrencyCode"/>
+        <attributeValues IterBinding="CaptureCompanyCountryViewIterator" id="CaptureCountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CaptureCompanyCountryViewIterator" id="CaptureCompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="getMaxMultinetAmount" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="getMaxMultinetAmount" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.dataProvider"
+                      ReturnName="data.MaintainBrokerageAMDataControl.methodResults.getMaxMultinetAmount_getMaxMultinetAmount_dataControl_dataProvider_getMaxMultinetAmount_result"/>
+        <attributeValues IterBinding="CaptureCompanyViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="createCompanyFunction" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="createCompanyFunction" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.dataProvider">
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="companyTableIdNo" NDValue="6" NDType="java.lang.Integer"/>
+            <NamedData NDName="companyTableTypeIdNo" NDValue="#{pageFlowScope.createBrokerageBean.companyTableTypeIdNo}"
+                       NDType="java.lang.Integer"/>
+        </methodAction>
+        <methodAction id="checkBrokerageName" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="checkBrokerageName" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.dataProvider"
+                      ReturnName="data.MaintainBrokerageAMDataControl.methodResults.checkBrokerageName_checkBrokerageName_dataControl_dataProvider_checkBrokerageName_result">
+            <NamedData NDName="companyName" NDValue="#{bindings.pCompanyName}" NDType="java.lang.String"/>
+        </methodAction>
+        <attributeValues IterBinding="variables" id="pCompanyName1">
+            <AttrNames>
+                <Item Value="pCompanyName"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="CountryLovView_N1Iterator" ListOperMode="navigation" ListIter="CountryLovView_N1Iterator"
+              id="CountryLovView_N1" DTSupportsMRU="true" SelectItemValueMode="ListObject">
+            <AttrNames>
+                <Item Value="Code"/>
+                <Item Value="Name"/>
+            </AttrNames>
+        </list>
+        <action IterBinding="CaptureCompanyCountryViewIterator" id="CreateWithParams"
+                InstanceName="CaptureBrokerAMDataControl.CaptureCompanyCountryView"
+                DataControl="CaptureBrokerAMDataControl" RequiresUpdateModel="true" Action="createWithParams">
+            <NamedData NDName="CompanyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="CountryCode" NDValue="#{bindings.CountryLovView_N1.inputValue}" 
+							NDType="java.lang.String"/>
+            <NamedData NDName="EffectiveStartDate" NDValue="#{bindings.EffectiveStartDate.inputValue}"
+                       NDType="oracle.jbo.domain.Date"/>
+            <NamedData NDName="MinPayoutAmt" NDValue="0" NDType="java.lang.String"/>
+
+        </action>
+    </bindings>
+</pageDefinition>

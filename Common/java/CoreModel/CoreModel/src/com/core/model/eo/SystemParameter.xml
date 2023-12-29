@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="SystemParameter"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="SYSTEM_PARAMETER"
+  AliasName="SystemParameter"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache">
+  <Attribute
+    Name="SystemName"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="SYSTEM_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SYSTEM_PARAMETER"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SystemName.SystemName"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="ParameterSection"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="PARAMETER_SECTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SYSTEM_PARAMETER"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SystemParameter.ParameterSection"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="ParameterKey"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    Precision="100"
+    ColumnName="PARAMETER_KEY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SYSTEM_PARAMETER"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SystemParameter.ParameterKey"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="ParameterValue"
+    Precision="200"
+    ColumnName="PARAMETER_VALUE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SYSTEM_PARAMETER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SystemParameter.ParameterValue"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="UserUpdateInd"
+    Precision="1"
+    ColumnName="USER_UPDATE_IND"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SYSTEM_PARAMETER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUpdateDatetime"
+    IsNotNull="true"
+    ColumnName="LAST_UPDATE_DATETIME"
+    SQLType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    TableName="SYSTEM_PARAMETER"/>
+  <Attribute
+    Name="Username"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="USERNAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SYSTEM_PARAMETER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="SystemName1"
+    Association="com.core.model.eo.assoc.SystemParameterFk1Assoc"
+    AssociationEnd="com.core.model.eo.assoc.SystemParameterFk1Assoc.SystemName1"
+    AssociationOtherEnd="com.core.model.eo.assoc.SystemParameterFk1Assoc.SystemParameter"
+    Type="com.core.model.eo.classes.CoreEntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="SystemParameterPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYSTEM_PARAMETER_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.eo.SystemParameter.SystemName"/>
+      <Item Value="com.core.model.eo.SystemParameter.ParameterSection"/>
+      <Item Value="com.core.model.eo.SystemParameter.ParameterKey"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SystemParameterFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SYSTEM_NAME_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="SYSTEM_PARAMETER_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.eo.SystemParameter.SystemName"/>
+    </AttrArray>
+  </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.core.model.CoreModelBundle"/>
+  </ResourceBundle>
+</Entity>

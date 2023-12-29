@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setProductVcPageDef"
+                Package="btf.ohi" SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setProductVc" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setProductVc"
+                      IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                      InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView">
+            <NamedData NDName="groupCode" NDValue="#{pageFlowScope.groupCode}" NDType="java.lang.String"/>
+            <NamedData NDName="productCode" NDValue="#{pageFlowScope.productCode}" NDType="java.lang.String"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

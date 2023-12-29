@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-ohi-policy-broker-flow">
+    <default-activity>allOhiPolicyBrokers</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <view id="allOhiPolicyBrokers">
+      <page>/WEB-INF/fragments/ohi/allOhiPolicyBrokers.jsff</page>
+    </view>
+    <task-flow-call id="maintain-ohi-company-comm-percentages">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml</document>
+        <id>maintain-ohi-commission-percentages</id>
+      </task-flow-reference>
+      <input-parameter id="__13">
+        <name>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.CompanyIdNo.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__14">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__15">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__16">
+        <name>personCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__17">
+        <name>policyCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__18">
+        <name>levelCodeInd</name>
+        <value>C</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-group-comm-percentages">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml</document>
+        <id>maintain-ohi-commission-percentages</id>
+      </task-flow-reference>
+      <input-parameter id="__7">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__8">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__9">
+        <name>groupCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.GroupCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__10">
+        <name>personCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__11">
+        <name>policyCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__12">
+        <name>levelCodeInd</name>
+        <value>G</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-product-comm-percentages">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml</document>
+        <id>maintain-ohi-commission-percentages</id>
+      </task-flow-reference>
+      <input-parameter id="__31">
+        <name>levelCodeInd</name>
+        <value>O</value>
+      </input-parameter>
+      <input-parameter id="__32">
+        <name>policyCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__33">
+        <name>personCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__34">
+        <name>groupCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.GroupCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__35">
+        <name>productCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.ProductCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__36">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-policy-comm-percentages">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml</document>
+        <id>maintain-ohi-commission-percentages</id>
+      </task-flow-reference>
+      <input-parameter id="__25">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__26">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__27">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__28">
+        <name>personCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__29">
+        <name>policyCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.PolicyCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__30">
+        <name>levelCodeInd</name>
+        <value>P</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-person-comm-percentages">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml</document>
+        <id>maintain-ohi-commission-percentages</id>
+      </task-flow-reference>
+      <input-parameter id="__19">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__20">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__21">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__22">
+        <name>personCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.InseCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__23">
+        <name>policyCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__24">
+        <name>levelCodeInd</name>
+        <value>I</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-group-hold-indicator-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml</document>
+        <id>maintain-ohi-hold-indicator-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__66">
+        <name>personCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__67">
+        <name>levelCodeInd</name>
+        <value>G</value>
+      </input-parameter>
+      <input-parameter id="__68">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__69">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__70">
+        <name>policyCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__71">
+        <name>groupCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.GroupCode.inputValue}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-company-hold-indicator-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml</document>
+        <id>maintain-ohi-hold-indicator-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__60">
+        <name>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.CompanyIdNo.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__61">
+        <name>levelCodeInd</name>
+        <value>C</value>
+      </input-parameter>
+      <input-parameter id="__62">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__63">
+        <name>policyCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__64">
+        <name>personCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__65">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-person-hold-indicator-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml</document>
+        <id>maintain-ohi-hold-indicator-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__54">
+        <name>policyCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.InseCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__55">
+        <name>levelCodeInd</name>
+        <value>I</value>
+      </input-parameter>
+      <input-parameter id="__56">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__57">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__58">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__59">
+        <name>personCode</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-policy-hold-indicator-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml</document>
+        <id>maintain-ohi-hold-indicator-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__48">
+        <name>groupCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.PolicyCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__49">
+        <name>levelCodeInd</name>
+        <value>P</value>
+      </input-parameter>
+      <input-parameter id="__50">
+        <name>policyCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__51">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__52">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__53">
+        <name>personCode</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-product-hold-indicator-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml</document>
+        <id>maintain-ohi-hold-indicator-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__42">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__43">
+        <name>productCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.ProductCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__44">
+        <name>personCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef.ProductGroupCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__45">
+        <name>policyCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__46">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__47">
+        <name>levelCodeInd</name>
+        <value>O</value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>allOhiPolicyBrokers</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>goGroup</from-outcome>
+        <to-activity-id>maintain-ohi-group-comm-percentages</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome>goCompany</from-outcome>
+        <to-activity-id>maintain-ohi-company-comm-percentages</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__4">
+        <from-outcome>goPerson</from-outcome>
+        <to-activity-id>maintain-ohi-person-comm-percentages</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__5">
+        <from-outcome>goPolicy</from-outcome>
+        <to-activity-id>maintain-ohi-policy-comm-percentages</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__6">
+        <from-outcome>goProduct</from-outcome>
+        <to-activity-id>maintain-ohi-product-comm-percentages</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__37">
+        <from-outcome>goHoldGroup</from-outcome>
+        <to-activity-id>maintain-ohi-group-hold-indicator-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__38">
+        <from-outcome>goHoldCompany</from-outcome>
+        <to-activity-id>maintain-ohi-company-hold-indicator-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__39">
+        <from-outcome>goHoldPerson</from-outcome>
+        <to-activity-id>maintain-ohi-person-hold-indicator-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__40">
+        <from-outcome>goHoldPolicy</from-outcome>
+        <to-activity-id>maintain-ohi-policy-hold-indicator-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__41">
+        <from-outcome>goHoldProduct</from-outcome>
+        <to-activity-id>maintain-ohi-product-hold-indicator-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

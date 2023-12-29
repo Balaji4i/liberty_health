@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiEnrlProdProdFkAssoc"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+    <DesignTime>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <AssociationEnd
+      Name="OhiProducts"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.eo.OhiProductsEO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_minCardinality" Value="1"/>
+            <Attr Name="_aggregation" Value="0"/>
+            <Attr Name="_finderName" Value="OhiProducts"/>
+            <Attr Name="_foreignKey" Value="com.liberty.health.comms.model.eo.OhiProductsEO.OhiProductsPk"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiProductsEO.EnprId"/>
+        </AttrArray>
+    </AssociationEnd>
+    <AssociationEnd
+      Name="OhiEnrollmentProducts"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.model.eo.OhiEnrollmentProductsEO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_aggregation" Value="0"/>
+            <Attr Name="_finderName" Value="OhiEnrollmentProducts"/>
+            <Attr Name="_foreignKey"
+              Value="com.liberty.health.comms.model.eo.OhiEnrollmentProductsEO.OhiEnrlProdProdFk"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiEnrollmentProductsEO.EnprId"/>
+        </AttrArray>
+    </AssociationEnd>
+</Association>

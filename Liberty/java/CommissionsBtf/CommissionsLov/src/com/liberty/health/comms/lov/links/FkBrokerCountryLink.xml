@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkBrokerCountryLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="FkBrokerCountryLink_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewLinkDefEnd
+      Name="BrokerLovView"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.lov.BrokerLovView">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="BrokerLovView"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.lov.BrokerLovView.CompanyIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ViewLinkDefEnd
+      Name="CompanyCountryLovView"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.lov.CompanyCountryLovView">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="CompanyCountryLovView"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.lov.CompanyCountryLovView.CompanyIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.lov.links.common.FkBrokerCountryLinkMsgBundle"/>
+    </ResourceBundle>
+</ViewLink>

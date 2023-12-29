@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelStretchLayout id="psl1" topHeight="auto" dimensionsFrom="auto" bottomHeight="auto">
+    <f:facet name="top">
+      <af:panelGroupLayout layout="scroll" id="pgl1">
+        <af:panelHeader text="#{coreLabels['G.Company']}" id="ph1">
+          <af:query id="qryId1" headerText="Search" disclosed="true"
+                    value="#{bindings.SearchCompanyRoViewCriteriaQuery.queryDescriptor}"
+                    model="#{bindings.SearchCompanyRoViewCriteriaQuery.queryModel}"
+                    queryListener="#{bindings.SearchCompanyRoViewCriteriaQuery.processQuery}"
+                    queryOperationListener="#{bindings.SearchCompanyRoViewCriteriaQuery.processQueryOperation}"
+                    resultComponentId="::pc1:resId1" rendered="false" rows="7" maxColumns="2"/>
+          <af:query id="qryId2" headerText="Search" disclosed="true"
+                    value="#{bindings.SearchCompanyRoViewCriteriaQuery4.queryDescriptor}"
+                    model="#{bindings.SearchCompanyRoViewCriteriaQuery4.queryModel}"
+                    queryListener="#{bindings.SearchCompanyRoViewCriteriaQuery4.processQuery}"
+                    queryOperationListener="#{bindings.SearchCompanyRoViewCriteriaQuery4.processQueryOperation}"
+                    resultComponentId="::pc1:resId1" rendered="false" rows="7" maxColumns="2"/>
+         
+              <af:query id="qryId3" headerText="Search" disclosed="true"
+                        value="#{bindings.SearchCompanyRoViewCriteriaQuery1.queryDescriptor}"
+                        model="#{bindings.SearchCompanyRoViewCriteriaQuery1.queryModel}"
+                        queryListener="#{bindings.SearchCompanyRoViewCriteriaQuery1.processQuery}"
+                        queryOperationListener="#{bindings.SearchCompanyRoViewCriteriaQuery1.processQueryOperation}"
+                        resultComponentId="::pc1:resId1" rows="7" maxColumns="2"/>
+          
+        </af:panelHeader>
+        <!--<af:outputText value="#{sessionScope.countryList}" id="ot12"/>-->
+      </af:panelGroupLayout>
+    </f:facet>
+    <f:facet name="bottom"/>
+    <f:facet name="end"/>
+    <f:facet name="center">
+      <af:panelGroupLayout id="pgl2" layout="scroll" styleClass="AFStretchWidth">
+        <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto" styleClass="AFStretchWidth">
+          <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t1">
+                  <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png" rendered="#{securityContext.userInRole['comms-consultant']}" action="create"/>
+                  <af:button text="#{coreLabels['G.ViewBrokers']}" id="b2" icon="/adf/images/view_16x16.png"
+                             action="viewBrokers" disabled="#{bindings.AllCompanyRoView.estimatedRowCount == 0}"
+                             partialTriggers="resId1 ::qryId1"/>
+                             <af:button text="#{coreLabels['G.Export']}" id="b5" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                                <af:exportCollectionActionListener type="excelHTML" exportedId="resId1"
+                                                                   filename="#{coreLabels['G.Company']}.xls"/>
+                            </af:button>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.AllCompanyRoView.collectionModel}" var="row"
+                        rows="#{bindings.AllCompanyRoView.rangeSize}"
+                        emptyText="#{bindings.AllCompanyRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.AllCompanyRoView.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.AllCompanyRoView.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.AllCompanyRoView.rangeSize}" id="resId1"
+                        displayRow="selected" filterVisible="false" allDetailsEnabled="false">
+                <af:column headerText="#{bindings.AllCompanyRoView.hints.CompanyIdNo.label}" id="resId1c1"
+                           sortable="true">
+
+                   <af:switcher id="s1" defaultFacet="maintain"
+                                facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.CompanyIdNo}" id="ot5">
+                        <af:convertNumber groupingUsed="false" type="number"/>
+                      </af:outputText>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.CompanyIdNo}" id="l5"
+                                                     action="edit"/>
+                                        </f:facet>
+                                    </af:switcher>        
+                </af:column>
+                <af:column headerText="#{bindings.AllCompanyRoView.hints.CompanyName.label}" id="resId1c4" width="300"
+                           sortable="true">
+                  <af:outputText value="#{row.CompanyName}"
+                                 shortDesc="#{bindings.AllCompanyRoView.hints.CompanyName.tooltip}" id="ot4"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCompanyRoView.hints.BrokerStatusDesc.label}" id="resId1c7"
+                           width="150" sortable="true">
+                  <af:outputText value="#{row.BrokerStatusDesc}"
+                                 shortDesc="#{bindings.AllCompanyRoView.hints.BrokerStatusDesc.tooltip}" id="ot7"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCompanyRoView.hints.CountryCode.label}" id="c6">
+                  <af:outputText value="#{row.CountryCode}"
+                                 shortDesc="#{bindings.AllCompanyRoView.hints.CountryCode.tooltip}" id="ot12"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCompanyRoView.hints.BrokerTypeDesc.label}" id="resId1c8"
+                           width="150" sortable="true" filterable="false">
+                  <af:outputText value="#{row.BrokerTypeDesc}"
+                                 shortDesc="#{bindings.AllCompanyRoView.hints.BrokerTypeDesc.tooltip}" id="ot8"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCompanyRoView.hints.MultinationalInd.label}" id="resId1c2"
+                           align="center">
+                  <af:selectBooleanCheckbox id="sbc1" selected="#{row.MultinationalInd == 'Y'}"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCompanyRoView.hints.InternalBrokerInd.label}" id="resId1c3"
+                           align="center">
+                  <af:selectBooleanCheckbox id="sbc2" selected="#{row.InternalBrokerInd == 'Y'}"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCompanyRoView.hints.BrokerFunctionDesc.label}" id="resId1c5"
+                           width="150">
+                  <af:outputText value="#{row.BrokerFunctionDesc}"
+                                 shortDesc="#{bindings.AllCompanyRoView.hints.BrokerFunctionDesc.tooltip}" id="ot9"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCompanyRoView.hints.BrokerStatementDesc.label}" id="resId1c6"
+                           width="150">
+                  <af:outputText value="#{row.BrokerStatementDesc}"
+                                 shortDesc="#{bindings.AllCompanyRoView.hints.BrokerStatementDesc.tooltip}" id="ot6"/>
+                </af:column>
+                <af:column id="c4" headerText="#{bindings.AllCompanyRoView.hints.HoldInd.label}" align="center"
+                           width="80">
+                  <af:switcher id="s2" defaultFacet="maintain"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.HoldInd}" id="ot10">
+                        <af:convertNumber groupingUsed="false" type="number"/>
+                      </af:outputText>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.HoldInd}" id="l1"
+                                                     action="goHold"/>
+                                        </f:facet>
+                                    </af:switcher>
+                </af:column>
+                <af:column id="c5" headerText="#{bindings.AllCompanyRoView.hints.HoldReason.label}">
+                  <af:outputText value="#{row.HoldReason}" id="ot11"/>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:showDetailItem>
+          <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1" styleClass="AFStretchWidth">
+            <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t3">
+                  <af:button text="#{coreLabels['G.Export']}" id="b3" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                       filename="#{coreLabels['G.History']}"/>
+                  </af:button>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.CompanyAuditRoView1.collectionModel}" var="row"
+                        rows="#{bindings.CompanyAuditRoView1.rangeSize}"
+                        emptyText="#{bindings.CompanyAuditRoView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.CompanyAuditRoView1.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.CompanyAuditRoView1.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.CompanyAuditRoView1.rangeSize}" id="t2"
+                        displayRow="selected" styleClass="AFStretchWidth" columnStretching="last">
+                <af:column headerText="#{bindings.CompanyAuditRoView1.hints.TransactionDatetime.label}" id="c1"
+                           align="center">
+                  <af:outputText value="#{row.TransactionDatetime}"
+                                 shortDesc="#{bindings.CompanyAuditRoView1.hints.TransactionDatetime.tooltip}" id="ot1">
+                    <af:convertDateTime pattern="#{bindings.CompanyAuditRoView1.hints.TransactionDatetime.format}"
+                                        type="both"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.CompanyAuditRoView1.hints.TransactionUsername.label}" id="c2">
+                  <af:outputText value="#{row.TransactionUsername}"
+                                 shortDesc="#{bindings.CompanyAuditRoView1.hints.TransactionUsername.tooltip}"
+                                 id="ot2"/>
+                </af:column>
+                <af:column headerText="#{bindings.CompanyAuditRoView1.hints.TransactionDesc.label}" id="c3">
+                  <af:outputText value="#{row.TransactionDesc}"
+                                 shortDesc="#{bindings.CompanyAuditRoView1.hints.TransactionDesc.tooltip}" id="ot3"/>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:showDetailItem>
+        </af:panelTabbed>
+      </af:panelGroupLayout>
+    </f:facet>
+  </af:panelStretchLayout>
+</jsp:root>

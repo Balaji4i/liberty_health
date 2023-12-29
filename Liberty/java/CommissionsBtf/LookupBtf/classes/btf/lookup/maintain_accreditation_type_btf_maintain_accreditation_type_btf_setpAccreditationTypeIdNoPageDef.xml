@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_accreditation_type_btf_maintain_accreditation_type_btf_setpAccreditationTypeIdNoPageDef"
+                Package="btf.lookup" SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpAccreditationTypeIdNo" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="setpAccreditationTypeIdNo" IsViewObjectMethod="true"
+                      DataControl="AccrediationAMDataControl"
+                      InstanceName="data.AccrediationAMDataControl.AccreditationTypeByPkView">
+            <NamedData NDName="value" NDValue="#{pageFlowScope.accreditationTypeIdNo}" NDType="java.lang.Integer"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

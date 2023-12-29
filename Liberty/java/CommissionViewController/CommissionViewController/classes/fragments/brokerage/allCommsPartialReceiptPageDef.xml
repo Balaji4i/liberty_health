@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24" id="allCommsPartialReceiptPageDef"
+                Package="fragments.brokerage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="OhiGroupCodes1" RangeSize="-1" DataControl="DashboardAMDataControl" id="OhiGroupCodes1Iterator"
+              Refresh="ifNeeded"/>
+    <iterator Binds="CommsPartialReceiptInactiveVO1" RangeSize="-1" DataControl="MaintainBrokerageAMDataControl"
+              id="CommsPartialReceiptInactiveVO1Iterator" Refresh="always" CacheResults="false"/>
+    <searchRegion Binds="CommsPartialReceiptInactiveVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="CommsPartialReceiptInactiveVO1Query"/>
+    <iterator Binds="CommsPartialReceiptVO1" RangeSize="-1" DataControl="MaintainBrokerageAMDataControl"
+              id="CommsPartialReceiptVO1Iterator" Refresh="ifNeeded"/>
+    <searchRegion Binds="CommsPartialReceiptVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="CommsPartialReceiptVO1Query"/>
+    <iterator Binds="SystemParameter1" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="SystemParameter1Iterator"/>
+  </executables>
+  <bindings>
+    <methodAction id="validatePartialRec" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="validatePartialRec" IsViewObjectMethod="false"
+                  DataControl="MaintainBrokerageAMDataControl"
+                  InstanceName="data.MaintainBrokerageAMDataControl.dataProvider">
+      <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo}" NDType="java.lang.String"/>
+      <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode}" NDType="java.lang.String"/>
+      <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode}" NDType="java.lang.String"/>
+      <NamedData NDName="effStartDate" NDValue="#{bindings.EffectiveStartDate}" NDType="oracle.jbo.domain.Date"/>
+      <NamedData NDName="effEndDate" NDValue="#{bindings.EffectiveEndDate}" NDType="oracle.jbo.domain.Date"/>
+      <NamedData NDName="username" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="CommsPartialReceiptInactiveVO1Iterator" id="CommsPartialReceiptInactiveVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CommsPartialReceiptInactiveVO"
+                      Name="CommsPartialReceiptInactiveVO10">
+        <AttrNames>
+          <Item Value="CommsPartialPk"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="GroupCode"/>
+          <Item Value="Bu"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CommsPercentage"/>
+          <Item Value="InterfaceToComms"/>
+          <Item Value="ActiveYn"/>
+          <Item Value="ApprovedBy"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="LastUpdatedBy"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="setCreatedBy" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setCreatedBy"
+                  IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                  InstanceName="data.MaintainBrokerageAMDataControl.CommsPartialReceiptVO1">
+      <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="CommsPartialReceiptVO1Iterator" id="CommsPartialReceiptVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CommsPartialReceiptVO"
+                      Name="CommsPartialReceiptVO10">
+        <AttrNames>
+          <Item Value="CommsPartialPk"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CountryCode"/>
+          <Item Value="Bu"/>
+          <Item Value="GroupCode"/>
+          <Item Value="CommsPercentage"/>
+          <Item Value="InterfaceToComms"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="ActiveYn"/>
+          <Item Value="ApprovedBy"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreationDate"/>
+          <Item Value="LastUpdateDate"/>
+          <Item Value="LastUpdatedBy"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="CommsPartialReceiptVO1Iterator" id="CreateInsert" RequiresUpdateModel="true"
+            Action="createInsertRow"/>
+    <action IterBinding="CommsPartialReceiptVO1Iterator" id="Execute" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <action id="Commit" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true"
+            Action="commitTransaction"/>
+    <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+            DataControl="MaintainBrokerageAMDataControl"/>
+    <action IterBinding="CommsPartialReceiptVO1Iterator" id="Create" RequiresUpdateModel="true" Action="createRow"/>
+    <tree IterBinding="SystemParameter1Iterator" id="SystemParameter1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.SystemParameterVO" Name="SystemParameter10">
+        <AttrNames>
+          <Item Value="ParameterSection"/>
+          <Item Value="ParameterKey"/>
+          <Item Value="ParameterValue"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

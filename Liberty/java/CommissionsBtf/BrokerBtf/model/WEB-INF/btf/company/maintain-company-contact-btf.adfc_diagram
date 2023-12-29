@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <MethodCall
+      id="MethodCall7">
+      <property
+         name="activityId">setByPrimaryKeyViewCriteria</property>
+      <property
+         name="x">196.35156</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setByPrimaryKeyViewCriteria&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">142.56836</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <View
+      id="View8">
+      <property
+         name="activityId">maintainCompanyContacts</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">596.03516</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>maintainCompanyContacts&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">120.79883</property>
+      <property
+         name="page">/WEB-INF/fragment/company/maintainCompanyContacts.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase10"
+      from="MethodCall7"
+      to="MethodCall8">
+      <property
+         name="fromOutcome">setPrimaryKeyViewcriteria</property>
+      <property
+         name="sdm:polyPoints">B50,196.35156,196.21777,258.0,272.1953,L50</property>
+   </ControlFlowCase>
+   <MethodCall
+      id="MethodCall8">
+      <property
+         name="activityId">setCorrPrimaryKeyViewCriteria</property>
+      <property
+         name="x">299.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setCorrPrimaryKeyViewCriteria&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">272.5459</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase12"
+      from="MethodCall8"
+      to="View8">
+      <property
+         name="tosrcid">__11</property>
+      <property
+         name="fromOutcome">setCorrPrimaryKeyViewcriteria</property>
+      <property
+         name="fromsrcid">__10</property>
+      <property
+         name="sdm:polyPoints">R50,340.0,272.1953,555.03516,120.44824,L50</property>
+   </ControlFlowCase>
+</SDM>

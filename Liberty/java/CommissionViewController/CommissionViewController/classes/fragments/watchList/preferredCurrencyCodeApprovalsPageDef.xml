@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14"
+                id="preferredCurrencyCodeApprovalsPageDef" Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="CompanyByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="CompanyByPkViewIterator"/>
+    <iterator Binds="Approvals1" RangeSize="25" DataControl="MaintainBrokerageAMDataControl" id="Approvals1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="CompanyByPkViewIterator" id="CompanyByPkView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.vo.CompanyVO" Name="CompanyByPkView0">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="PreferredCurrencyCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="Approvals1Iterator" id="Approvals1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.vo.ApprovalsVO" Name="Approvals10">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="ValueToApprove"/>
+          <Item Value="ApprovalUser"/>
+          <Item Value="RejectUser"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CompanyName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="Approvals1Iterator" id="Execute" RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+            DataControl="MaintainBrokerageAMDataControl"/>
+  </bindings>
+</pageDefinition>

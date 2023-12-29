@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allCompanyTablePageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllCompanyTableView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="AllCompanyTableViewIterator"/>
+    <searchRegion Criteria="SearchCompanyTableVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" Binds="AllCompanyTableViewIterator"
+                  id="SearchCompanyTableVOCriteriaQuery"/>
+    <iterator Binds="CompanyTableAuditView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="CompanyTableAuditViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllCompanyTableViewIterator" id="AllCompanyTableView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyTableVO" Name="AllCompanyTableView0">
+        <AttrNames>
+          <Item Value="CompanyTableDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="CompanyTableIdNo"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="Username"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllCompanyTableViewIterator" id="CompanyTableIdNo">
+      <AttrNames>
+        <Item Value="CompanyTableIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="CompanyTableAuditViewIterator" id="CompanyTableAuditView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyTableAuditRoView"
+                      Name="CompanyTableAuditView0">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionDesc"/>
+          <Item Value="TransactionUsername"/>
+          <Item Value="CompanyTableDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

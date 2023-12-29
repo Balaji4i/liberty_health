@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-broker-comms-submit-flow">
+    <default-activity>allBrokerCommsExceptions</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <managed-bean id="__1">
+      <managed-bean-name>brokerStatementsBean</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.beans.BrokerStatements</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="allBrokerStatementSubmit">
+      <page>/WEB-INF/fragments/brokers/allBrokerStatementSubmit.jsff</page>
+    </view>
+    <view id="allBrokerCommsExceptions">
+      <page>/WEB-INF/fragments/brokers/allBrokerCommsExceptions.jsff</page>
+    </view>
+    <control-flow-rule id="__2">
+      <from-activity-id>allBrokerCommsExceptions</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>Continue</from-outcome>
+        <to-activity-id>allBrokerStatementSubmit</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>allBrokerStatementSubmit</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>Return</from-outcome>
+        <to-activity-id>allBrokerCommsExceptions</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

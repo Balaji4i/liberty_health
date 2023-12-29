@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_exchange_rate_flow_maintain_exchange_rate_flow_setByCurrencyCodeViewCriteriaPageDef"
+                Package="btf.lookup" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="setByCurrencyCodeViewCriteria" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setByCurrencyCodeViewCriteria" IsViewObjectMethod="true" DataControl="LookupAMDataControl"
+                  InstanceName="data.LookupAMDataControl.ExchangeRatesByCodeView">
+      <NamedData NDName="fromCode" NDValue="#{pageFlowScope.fromCurrencyCode}" NDType="java.lang.String"/>
+      <NamedData NDName="toCode" NDValue="#{pageFlowScope.toCurrencyCode}" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

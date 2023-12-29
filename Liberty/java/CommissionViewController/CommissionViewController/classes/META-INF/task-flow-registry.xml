@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="META-INF/adfc-config.xml" id="" type="" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/brokerage/all-broker-partial-flow.xml" id="all-broker-partial-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/brokerage/all-brokerage-flow.xml" id="all-brokerage-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/brokers/all-broker-comms-submit-flow.xml" id="all-broker-comms-submit-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/brokers/all-brokers-flow.xml" id="all-brokers-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/all-commission-fusion-payables-interface.xml" id="all-commission-fusion-payables-interface" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/all-commission-fusion-premiums-group-history.xml" id="all-commission-fusion-premiums-group-history" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/all-commission-payments-per-group.xml" id="all-commission-payments-per-group" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/all-comms-calc-approvals.xml" id="all-comms-calc-approvals" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/all-comms-run-flow.xml" id="all-comms-run-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/all-job-dashboard-flow.xml" id="all-job-dashboard-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="pStage"/>
+      <input-parameter name="pOutFileName"/>
+      <input-parameter name="pCountryCode"/>
+      <input-parameter name="pFileName"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/flows/comms/all-payments-received-flow.xml" id="all-payments-received-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/all-report-dashboard-flow.xml" id="all-report-dashboard-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/brokerage-payments-adjustments.xml" id="brokerage-payments-adjustments" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/commission-accurals-flow.xml" id="commission-accurals-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/fusion-premium-recon.xml" id="fusion-premium-recon" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/fusionTF.xml" id="fusionTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/flows/comms/parent-group-comm-perc-tf.xml" id="parent-group-comm-perc-tf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/flows/dashboard/all-dashboard-flow.xml" id="all-dashboard-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="checkRun"/>
+      <input-parameter name="localCode"/>
+      <input-parameter name="webApplObjectNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-accreditation-type-flow.xml" id="all-accreditation-type-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-address-type-flow.xml" id="all-address-type-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-bank-account-type-flow.xml" id="all-bank-account-type-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-broker-table-flow.xml" id="all-broker-table-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-company-contact-type-flow.xml" id="all-company-contact-type-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-company-fee-type-flow.xml" id="all-company-fee-type-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-company-table-flow.xml" id="all-company-table-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-country-taxes-flow.xml" id="all-country-taxes-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-error-transactions-flow.xml" id="all-error-transactions-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-exchange-rate-flow.xml" id="all-exchange-rate-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/lookup/all-medware-compare-flow.xml" id="all-medware-compare-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/ohi/all-ohi-policy-broker-flow.xml" id="all-ohi-policy-broker-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/payment/all-invoices-flow.xml" id="all-invoices-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/util/all-system-parameter-flow.xml" id="all-system-parameter-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/flows/watchlist/all-comms-watchlist-flow.xml" id="all-comms-watchlist-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="menuItemName"/>
+      <input-parameter name="webApplObjectNo"/>
+   </task-flow-descriptor>
+</task-flow-registry>

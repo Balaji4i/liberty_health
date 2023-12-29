@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_company_accreditation_btf_maintain_company_accreditation_btf_setByPkViewCriteriaPageDef"
+                Package="btf.company" SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setByPkViewCriteria" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="setByPkViewCriteria" IsViewObjectMethod="true"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyAccreditationByPkView">
+            <NamedData NDName="companyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="oracle.jbo.domain.Number"/>
+            <NamedData NDName="countryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

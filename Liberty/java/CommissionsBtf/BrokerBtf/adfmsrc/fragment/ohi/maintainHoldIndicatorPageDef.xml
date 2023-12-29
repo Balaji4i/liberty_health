@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainHoldIndicatorPageDef"
+                Package="fragment.ohi">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="MaintainHoldIndicatorView" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="MaintainHoldIndicatorViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="MaintainHoldIndicatorViewIterator" id="MaintainHoldIndicatorView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.HoldIndicatorView"
+                      Name="MaintainHoldIndicatorView0">
+        <AttrNames>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="HoldInd"/>
+          <Item Value="HoldReason"/>
+          <Item Value="Username"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <button IterBinding="MaintainHoldIndicatorViewIterator" StaticList="false" Uses="LOV_HoldInd" id="HoldInd"
+            DTSupportsMRU="false">
+      <AttrNames>
+        <Item Value="HoldInd"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="true"/>
+        <Item Value="false"/>
+      </ValueList>
+    </button>
+            <action IterBinding="MaintainHoldIndicatorViewIterator" id="CreateWithParams" RequiresUpdateModel="true"
+                Action="createWithParams">
+            <NamedData NDName="ProductCode" NDType="java.lang.String" NDValue="#{pageFlowScope.productCode}"/>
+            <NamedData NDName="GroupCode" NDType="java.lang.String" NDValue="#{pageFlowScope.groupCode}"/>
+            <NamedData NDName="InseCode" NDType="java.lang.String" NDValue="#{pageFlowScope.personCode}"/>
+            <NamedData NDName="PolicyCode" NDType="java.lang.String" NDValue="#{pageFlowScope.policyCode}"/>
+      <NamedData NDName="CompanyIdNo" NDType="java.lang.Integer" NDValue="#{pageFlowScope.companyIdNo}"/>
+    </action>
+    <attributeValues IterBinding="MaintainHoldIndicatorViewIterator" id="EffectiveEndDate">
+      <AttrNames>
+        <Item Value="EffectiveEndDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainHoldIndicatorViewIterator" id="EffectiveStartDate">
+      <AttrNames>
+        <Item Value="EffectiveStartDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainHoldIndicatorViewIterator" id="HoldReason">
+      <AttrNames>
+        <Item Value="HoldReason"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainHoldIndicatorViewIterator" id="BrokerIdNo">
+      <AttrNames>
+        <Item Value="BrokerIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainHoldIndicatorViewIterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainHoldIndicatorViewIterator" id="GroupCode">
+      <AttrNames>
+        <Item Value="GroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainHoldIndicatorViewIterator" id="InseCode">
+      <AttrNames>
+        <Item Value="InseCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainHoldIndicatorViewIterator" id="PolicyCode">
+      <AttrNames>
+        <Item Value="PolicyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainHoldIndicatorViewIterator" id="ProductCode">
+      <AttrNames>
+        <Item Value="ProductCode"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                  IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                  InstanceName="data.OhiStructureAMDataControl.MaintainHoldIndicatorView">
+      <NamedData NDName="compIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+      <NamedData NDName="brokerIdNo" NDValue="#{bindings.BrokerIdNo.inputValue}" NDType="java.lang.Integer"/>
+      <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="productCode" NDValue="#{bindings.ProductCode.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="policyCode" NDValue="#{bindings.PolicyCode.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="memberCode" NDValue="#{bindings.InseCode.inputValue}" NDType="java.lang.String"/>
+    </methodAction>
+    <action id="Commit" DataControl="OhiStructureAMDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allAccreditationTypePageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllAccreditationTypeView" RangeSize="25" DataControl="LookupAMDataControl"
+              id="AllAccreditationTypeViewIterator"/>
+    <searchRegion Criteria="__ImplicitViewCriteria__" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllAccreditationTypeViewIterator" id="ImplicitViewCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="AllAccreditationTypeViewIterator" id="AccreditationTypeIdNo">
+      <AttrNames>
+        <Item Value="AccreditationTypeIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AllAccreditationTypeViewIterator" id="AllAccreditationTypeView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.AccreditationTypeVO"
+                      Name="AllAccreditationTypeView0">
+        <AttrNames>
+          <Item Value="AccreditationTypeIdNo"/>
+          <Item Value="AccreditationTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

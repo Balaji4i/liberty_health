@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyFunctionEO"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="COMPANY_FUNCTION"
+  AliasName="CompanyFunctionEO"
+  BindingStyle="OracleName"
+  RowClass="com.liberty.health.comms.model.eo.CompanyFunctionEOImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+    <DesignTime>
+        <Attr Name="_isCodegen" Value="true"/>
+        <Attr Name="_codeGenFlag2" Value="Access"/>
+    </DesignTime>
+    <Attribute
+      Name="CompanyIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="COMPANY_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_FUNCTION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CompanyTableIdNo"
+      IsNotNull="true"
+      Precision="2"
+      Scale="0"
+      ColumnName="COMPANY_TABLE_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_FUNCTION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert"
+      DefaultValue="1">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerTableDesc']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+        Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_FUNCTION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="CompanyFunctionEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+        Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_FUNCTION">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="CompanyFunctionEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CompanyTableTypeIdNo"
+      IsNotNull="true"
+      Precision="2"
+      Scale="0"
+      ColumnName="COMPANY_TABLE_TYPE_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_FUNCTION"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="com.liberty.health.comms.model.eo.CompanyFunctionEO.CompanyTableTypeIdNo_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+        Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_FUNCTION"
+      HistoryColumn="DateHistory">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LastUpdate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_FUNCTION"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Username']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+      Name="Company"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyFunctionFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyFunctionFkAssoc.Company"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyFunctionFkAssoc.CompanyFunction"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <AccessorAttribute
+      Name="CompanyTableType"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyTableTypeFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyTableTypeFkAssoc.CompanyTableType"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyTableTypeFkAssoc.CompanyFunction"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="CompanyFunctionPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="COMPANY_FUNCTION_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFunctionEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFunctionEO.CompanyTableIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFunctionEO.EffectiveStartDate"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyFunctionFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_FUNCTION_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFunctionEO.CompanyIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyTableTypeFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_TABLE_TYPE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_TABLE_TYPE_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFunctionEO.CompanyTableIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFunctionEO.CompanyTableTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="fk_CompanyFunctionEO">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_TABLE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="FK_COMPANY_FUNCTION_EO"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFunctionEO.CompanyTableIdNo"/>
+        </AttrArray>
+    </Key>
+    <validation:MethodValidationBean
+      Name="CompanyFunctionStartDateRule"
+      ResId="ValidAfterDate"
+      ResBundleId="com.core.liberty.resources.messages.CORE_messages"
+      MethodName="validateCompanyStartDate">
+        <validation:OnAttributes>
+            <validation:Item
+              Value="EffectiveStartDate"/>
+        </validation:OnAttributes>
+        <validation:ResExpressions
+          Name="CompanyFunctionStartDateRule_ResExprList">
+            <validation:Expression
+              Name="ValidObject1"
+              trustMode="untrusted"
+              CodeSourceName="CompanyFunctionEORow"/>
+            <validation:Expression
+              Name="ValidObject2"
+              trustMode="untrusted"
+              CodeSourceName="CompanyFunctionEORow"/>
+        </validation:ResExpressions>
+    </validation:MethodValidationBean>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

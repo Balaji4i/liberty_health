@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiPolicyBrokersEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="OHI_POLICY_BROKERS"
+  AliasName="OhiPolicyBrokersEO"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache">
+    <Attribute
+      Name="PoliId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="POLI_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICY_BROKERS"
+      PrimaryKey="true"
+        IsUpdateable="while_insert"/>
+    <Attribute
+      Name="PobrId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="POBR_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICY_BROKERS"
+      PrimaryKey="true"
+        IsUpdateable="while_insert"/>
+    <Attribute
+      Name="BrokerIdNo"
+      Precision="9"
+      Scale="0"
+      ColumnName="BROKER_ID_NO"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICY_BROKERS"
+        IsUpdateable="while_insert"/>
+    <Attribute
+      Name="CompanyIdNo"
+      Precision="9"
+      Scale="0"
+      ColumnName="COMPANY_ID_NO"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICY_BROKERS"
+        IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Company']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="OHI_POLICY_BROKERS"
+        PrimaryKey="true">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="OHI_POLICY_BROKERS">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="OHI_POLICY_BROKERS"
+        HistoryColumn="DateHistory"/>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="20"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_POLICY_BROKERS"
+        HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+    </Attribute>
+    <AccessorAttribute
+      Name="OhiPolicies"
+      Association="com.liberty.health.comms.model.eo.assoc.OhiPolicyBrokersPoliciesFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.OhiPolicyBrokersPoliciesFkAssoc.OhiPolicies"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.OhiPolicyBrokersPoliciesFkAssoc.OhiPolicyBrokers"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="OhiPolicyBrokersPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="OHI_POLICY_BROKERS_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyBrokersEO.PoliId"/>
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyBrokersEO.PobrId"/>
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyBrokersEO.EffectiveStartDate"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="OhiPolicyBrokersBrokerFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="BROKER_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="OHI_POLICY_BROKERS_BROKER_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyBrokersEO.BrokerIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="OhiPolicyBrokersCompanyFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="OHI_POLICY_BROKERS_COMPANY_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyBrokersEO.CompanyIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="OhiPolicyBrokersPoliciesFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="OHI_POLICIES_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="OHI_POLICY_BROKERS_POLICIES_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyBrokersEO.PoliId"/>
+        </AttrArray>
+    </Key>
+    <ResourceBundle>
+        <PropertiesBundle
+            PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCurrentCommsRunPageDef"
+                Package="fragments.comms">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="SearchCommsRunRoView" RangeSize="25" DataControl="CommsRunAMDataControl"
+                  id="SearchCommsRunRoViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="CurrentCommsRunCompareView" RangeSize="-1" DataControl="CommsRunAMDataControl"
+                  id="CurrentCommsRunCompareViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="CommsCalcCompareSummaryVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+                  id="CommsCalcCompareSummaryVO1Iterator" Refresh="ifNeeded" CacheResults="false"/>
+        <iterator Binds="CommsCalcCompareDetailVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+                  id="CommsCalcCompareDetailVO1Iterator" Refresh="ifNeeded" CacheResults="false"/>
+        <iterator Binds="CommsCalcCompareAllDetailVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+                  id="CommsCalcCompareAllDetailVO1Iterator" Refresh="ifNeeded" CacheResults="false"/>
+        <searchRegion Binds="CommsCalcCompareAllDetailVO1Iterator" Criteria=""
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      id="CommsCalcCompareAllDetailVO1Query"/>
+    </executables>
+    <bindings>
+        <listOfValues IterBinding="SearchCommsRunRoViewIterator" StaticList="false" Uses="LOV_CompanyIdNo"
+                      id="CompanyIdNo"/>
+        <listOfValues IterBinding="SearchCommsRunRoViewIterator" StaticList="false" Uses="LOV_GroupCode"
+                      id="GroupCode"/>
+        <list IterBinding="SearchCommsRunRoViewIterator" StaticList="false" Uses="LOV_CountryCode" id="CountryCode"
+              DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <listOfValues IterBinding="SearchCommsRunRoViewIterator" StaticList="false" Uses="LOV_ProductCode"
+                      id="ProductCode"/>
+        <methodAction id="searchCommsRun" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchCommsRun"
+                      IsViewObjectMethod="true" DataControl="CommsRunAMDataControl"
+                      InstanceName="data.CommsRunAMDataControl.CurrentCommsRunCompareView">
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode1.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="productCode" NDValue="#{bindings.ProductCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}"
+                       NDType="oracle.jbo.domain.Number"/>
+        </methodAction>
+        <methodAction id="executeCommissionRun" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="executeCommissionRun" IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                      InstanceName="data.CommsRunAMDataControl.dataProvider"
+                      ReturnName="data.CommsRunAMDataControl.methodResults.executeCommissionRun_executeCommissionRun_dataControl_dataProvider_executeCommissionRun_result">
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode1.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="product_code" NDValue="#{bindings.ProductCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+            <NamedData NDName="parentgroupCode" NDValue="#{bindings.ParentgroupCode.inputValue}" NDType="java.lang.String"/>
+        </methodAction>
+        <methodAction id="approveCommissionRun" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="approveCommissionRun" IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                      InstanceName="data.CommsRunAMDataControl.dataProvider"
+                      ReturnName="data.CommsRunAMDataControl.methodResults.approveCommissionRun_approveCommissionRun_dataControl_dataProvider_approveCommissionRun_result">
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode1.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="product_code" NDValue="#{bindings.ProductCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="consultantUsername" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+            <NamedData NDName="parentgroupCode" NDValue="#{bindings.ParentgroupCode.inputValue}" NDType="java.lang.String"/>
+        </methodAction>
+        <methodAction id="searchCommsRunResults" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="searchCommsRunResults" IsViewObjectMethod="true" DataControl="CommsRunAMDataControl"
+                      InstanceName="data.CommsRunAMDataControl.CommsCalcCompareSummaryVO1">
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode1.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="productCode" NDValue="#{bindings.ProductCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="parentgroupCode" NDValue="#{bindings.ParentgroupCode.inputValue}" NDType="java.lang.String"/>
+            
+        </methodAction>
+        <methodAction id="returnAllCommsDetail" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="returnAllCommsDetail" IsViewObjectMethod="true" DataControl="CommsRunAMDataControl"
+                      InstanceName="data.CommsRunAMDataControl.CommsCalcCompareAllDetailVO1">
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode1.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="productCode" NDValue="#{bindings.ProductCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="parentgroupCode" NDValue="#{bindings.ParentgroupCode.inputValue}" NDType="java.lang.String"/>
+        </methodAction>
+        <tree IterBinding="CommsCalcCompareSummaryVO1Iterator" id="CommsCalcCompareSummaryVO1">
+            <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsCalcCompareSummaryVO"
+                            Name="CommsCalcCompareSummaryVO10">
+                <AttrNames>
+                    <Item Value="CalculationDatetime"/>
+                    <Item Value="CommsCalcTypeDesc"/>
+                    <Item Value="CountryCode"/>
+                    <Item Value="BrokerIdNo"/>
+                    <Item Value="BrokerName"/>
+                    <Item Value="CompanyIdNo"/>
+                    <Item Value="CompanyName"/>
+                    <Item Value="GroupCode"/>
+                    <Item Value="GroupName"/>
+                    <Item Value="ProductCode"/>
+                    <Item Value="ProductName"/>
+                    <Item Value="TotalPaymentReceivet"/>
+                    <Item Value="TotalCommsCalculated"/>
+                    <Item Value="TotalCommsCalculatedExch"/>
+                    <Item Value="CommsPerc"/>
+                    <Item Value="ParentgroupCode"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <tree IterBinding="CommsCalcCompareDetailVO1Iterator" id="CommsCalcCompareDetailVO1">
+            <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsCalcCompareDetailVO"
+                            Name="CommsCalcCompareDetailVO10">
+                <AttrNames>
+                    <Item Value="CalculationDatetime"/>
+                    <Item Value="CommsCalcTypeDesc"/>
+                    <Item Value="CountryCode"/>
+                    <Item Value="BrokerIdNo"/>
+                    <Item Value="BrokerName"/>
+                    <Item Value="CompanyIdNo"/>
+                    <Item Value="CompanyName"/>
+                    <Item Value="GroupCode"/>
+                    <Item Value="GroupName"/>
+                    <Item Value="ProductCode"/>
+                    <Item Value="ProductName"/>
+                    <Item Value="PersonCode"/>
+                    <Item Value="ContributionDate"/>
+                    <Item Value="PaymentReceiveDate"/>
+                    <Item Value="CommsCalcTypeCode"/>
+                    <Item Value="CommsPerc"/>
+                    <Item Value="PaymentReceiveAmt"/>
+                    <Item Value="CommsCalculatedAmt"/>
+                    <Item Value="InvoiceNo"/>
+                    <Item Value="PreferredCurrencyCode"/>
+                    <Item Value="CommsCalculatedExchAmt"/>
+                    <Item Value="ExchangeRate"/>
+                    <Item Value="ParentgroupCode"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <tree IterBinding="CommsCalcCompareAllDetailVO1Iterator" id="CommsCalcCompareAllDetailVO1">
+            <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO"
+                            Name="CommsCalcCompareAllDetailVO10">
+                <AttrNames>
+                    <Item Value="CalculationDatetime"/>
+                    <Item Value="CommsCalcTypeDesc"/>
+                    <Item Value="CountryCode"/>
+                    <Item Value="BrokerIdNo"/>
+                    <Item Value="BrokerName"/>
+                    <Item Value="CompanyIdNo"/>
+                    <Item Value="CompanyName"/>
+                    <Item Value="GroupCode"/>
+                    <Item Value="GroupName"/>
+                    <Item Value="ProductCode"/>
+                    <Item Value="ProductName"/>
+                    <Item Value="PersonCode"/>
+                    <Item Value="ContributionDate"/>
+                    <Item Value="InvoiceNo"/>
+                    <Item Value="PaymentReceiveDate"/>
+                    <Item Value="PaymentReceiveAmt"/>
+                    <Item Value="CommsPerc"/>
+                    <Item Value="CommsCalculatedAmt"/>
+                    <Item Value="CommsCalculatedExchAmt"/>
+                    <Item Value="ExchangeRate"/>
+                    <Item Value="PreferredCurrencyCode"/>
+                    <Item Value="FinanceReceiptNo"/>
+                    <Item Value="ParentgroupCode"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <listOfValues IterBinding="SearchCommsRunRoViewIterator" StaticList="false" Uses="LOV_CountryCode"
+                      id="CountryCode1"/>
+        <listOfValues IterBinding="SearchCommsRunRoViewIterator" StaticList="false" Uses="LOV_ParentgroupCode"
+                      id="ParentgroupCode"/>
+    </bindings>
+</pageDefinition>

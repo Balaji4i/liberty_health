@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiInsuredEntitiesEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="OHI_INSURED_ENTITIES"
+  AliasName="OhiInsuredEntitiesEO"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache">
+    <Attribute
+      Name="InseId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="INSE_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_INSURED_ENTITIES"
+      PrimaryKey="true"/>
+    <Attribute
+      Name="InseCode"
+      IsNotNull="true"
+      Precision="30"
+      ColumnName="INSE_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_INSURED_ENTITIES">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="RelaIdPers"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="RELA_ID_PERS"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_INSURED_ENTITIES"/>
+    <Attribute
+      Name="Title"
+      Precision="20"
+      ColumnName="TITLE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_INSURED_ENTITIES">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="Initials"
+      Precision="20"
+      ColumnName="INITIALS"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_INSURED_ENTITIES">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="FirstName"
+      Precision="30"
+      ColumnName="FIRST_NAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_INSURED_ENTITIES">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="Surname"
+      Precision="100"
+      ColumnName="SURNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_INSURED_ENTITIES">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="Gender"
+      Precision="1"
+      ColumnName="GENDER"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_INSURED_ENTITIES">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="OHI_INSURED_ENTITIES"/>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="20"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_INSURED_ENTITIES">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+    </Attribute>
+    <AccessorAttribute
+      Name="OhiPolicyEnrollments"
+      Association="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsInseFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsInseFkAssoc.OhiPolicyEnrollments"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsInseFkAssoc.OhiInsuredEntities"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <Key
+      Name="OhiInsuredEntitiesPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="OHI_INSURED_ENTITIES_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiInsuredEntitiesEO.InseId"/>
+        </AttrArray>
+    </Key>
+</Entity>

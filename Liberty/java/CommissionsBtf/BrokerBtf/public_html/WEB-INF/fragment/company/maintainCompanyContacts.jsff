@@ -1,0 +1,270 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+        <af:showDetailItem text="#{coreLabels['G.CurrentDetails']} " id="sdi2">
+            <af:panelGroupLayout id="pgl1" rendered="#{pageFlowScope.createInd == 'Y'}">
+                <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png"
+                           rendered="#{securityContext.userInRole['comms-consultant'] || pageFlowScope.createInd == 'Y'}"
+                           actionListener="#{bindings.CreateWithParams2.execute}"
+                           disabled="#{!bindings.CreateWithParams2.enabled}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b2" icon="/adf/images/save_16x16.png"
+                           actionListener="#{companyAttributesBean.saveAndEffectiveDateActionListener}"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b3" icon="/adf/images/remove_16x16.png"
+                           actionListener="#{bindings.Rollback.execute}" immediate="true"/>
+            </af:panelGroupLayout>
+            <af:panelFormLayout id="pfl1" partialTriggers="b3 b1 b2">
+                <af:selectOneChoice value="#{bindings.CompanyContactTypeIdNo.inputValue}"
+                                    label="#{bindings.CompanyContactTypeIdNo.label}"
+                                    shortDesc="#{bindings.CompanyContactTypeIdNo.hints.tooltip}" id="soc1"
+                                    required="true">
+                    <f:selectItems value="#{bindings.CompanyContactTypeIdNo.items}" id="si1"/>
+                    <f:validator binding="#{bindings.CompanyContactTypeIdNo.validator}"/>
+                </af:selectOneChoice>
+                <af:inputText value="#{bindings.ContactName.inputValue}" label="#{bindings.ContactName.hints.label}"
+                              required="#{bindings.ContactName.hints.mandatory}" columns="50"
+                              maximumLength="#{bindings.ContactName.hints.precision}"
+                              shortDesc="#{bindings.ContactName.hints.tooltip}" id="it11" showRequired="true">
+                    <f:validator binding="#{bindings.ContactName.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ContactDesc.inputValue}" label="#{bindings.ContactDesc.hints.label}"
+                              required="#{bindings.ContactDesc.hints.mandatory}" columns="50"
+                              maximumLength="#{bindings.ContactDesc.hints.precision}"
+                              shortDesc="#{bindings.ContactDesc.hints.tooltip}" id="it16" rows="3" showRequired="true">
+                    <f:validator binding="#{bindings.ContactDesc.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ContactCellphoneNo.inputValue}"
+                              label="#{bindings.ContactCellphoneNo.hints.label}"
+                              required="#{bindings.ContactCellphoneNo.hints.mandatory}" columns="50"
+                              maximumLength="#{bindings.ContactCellphoneNo.hints.precision}"
+                              shortDesc="#{bindings.ContactCellphoneNo.hints.tooltip}" id="it12" showRequired="true">
+                    <f:validator binding="#{bindings.ContactCellphoneNo.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ContactTelephoneNo.inputValue}"
+                              label="#{bindings.ContactTelephoneNo.hints.label}"
+                              required="#{bindings.ContactTelephoneNo.hints.mandatory}" columns="50"
+                              maximumLength="#{bindings.ContactTelephoneNo.hints.precision}"
+                              shortDesc="#{bindings.ContactTelephoneNo.hints.tooltip}" id="it15">
+                    <f:validator binding="#{bindings.ContactTelephoneNo.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ContactEmail.inputValue}" label="#{bindings.ContactEmail.hints.label}"
+                              required="#{bindings.ContactEmail.hints.mandatory}" columns="50"
+                              maximumLength="#{bindings.ContactEmail.hints.precision}"
+                              shortDesc="#{bindings.ContactEmail.hints.tooltip}" id="it13" showRequired="true">
+                    <f:validator binding="#{bindings.ContactEmail.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ContactFaxNo.inputValue}" label="#{bindings.ContactFaxNo.hints.label}"
+                              required="#{bindings.ContactFaxNo.hints.mandatory}"
+                              columns="#{bindings.ContactFaxNo.hints.displayWidth}"
+                              maximumLength="#{bindings.ContactFaxNo.hints.precision}"
+                              shortDesc="#{bindings.ContactFaxNo.hints.tooltip}" id="it14">
+                    <f:validator binding="#{bindings.ContactFaxNo.validator}"/>
+                </af:inputText>
+                <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                              label="#{bindings.EffectiveStartDate.hints.label}"
+                              required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                              columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id3">
+                    <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                              label="#{bindings.EffectiveEndDate.hints.label}"
+                              required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                              columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id4" readOnly="true">
+                    <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                </af:inputDate>
+                <f:facet name="footer">
+                    <af:panelGroupLayout layout="horizontal" id="pgl2">
+                        <af:button actionListener="#{bindings.First.execute}" text="First"
+                                   disabled="#{!bindings.First.enabled}" partialSubmit="true" id="b5"/>
+                        <af:button actionListener="#{bindings.Previous.execute}" text="Previous"
+                                   disabled="#{!bindings.Previous.enabled}" partialSubmit="true" id="b6"/>
+                        <af:button actionListener="#{bindings.Next.execute}" text="Next"
+                                   disabled="#{!bindings.Next.enabled}" partialSubmit="true" id="b7"/>
+                        <af:button actionListener="#{bindings.Last.execute}" text="Last"
+                                   disabled="#{!bindings.Last.enabled}" partialSubmit="true" id="b4"/>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:panelFormLayout>
+        </af:showDetailItem>
+        <af:showDetailItem id="sdi3" text="#{coreLabels['G.Correspondence']}">
+            <af:panelGroupLayout id="pgl3">
+                <af:button text="#{coreLabels['G.Add']}" id="b9"
+                           rendered="#{securityContext.userInRole['comms-consultant'] || pageFlowScope.createInd == 'Y'}"
+                           icon="/adf/images/add_16x16.png"
+                           disabled="#{!bindings.CreateWithParams1.enabled}"
+                           actionListener="#{bindings.CreateWithParams1.execute}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b10"
+                           actionListener="#{companyAttributesBean.saveAndEffectiveDateContactCorr}"
+                           icon="/adf/images/save_16x16.png"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b11" icon="/adf/images/remove_16x16.png"
+                           actionListener="#{bindings.Rollback1.execute}" disabled="#{!bindings.Rollback1.enabled}"
+                           immediate="true">
+                    <af:resetActionListener/>
+                </af:button>
+            </af:panelGroupLayout>
+            <af:panelFormLayout id="pfl2">
+                <f:facet name="footer">
+                    <af:panelGroupLayout id="pgl4">
+                        <af:button text="First" id="b12" actionListener="#{bindings.First1.execute}"
+                                   disabled="#{!bindings.First1.enabled}" partialSubmit="true"/>
+                        <af:button text="Previous" id="b13" actionListener="#{bindings.Previous1.execute}"
+                                   disabled="#{!bindings.Previous1.enabled}" partialSubmit="true"/>
+                        <af:button text="Next" id="b14" actionListener="#{bindings.Next1.execute}"
+                                   disabled="#{!bindings.Next1.enabled}" partialSubmit="true"/>
+                        <af:button text="Last" id="b15" actionListener="#{bindings.Last1.execute}"
+                                   disabled="#{!bindings.Last1.enabled}" partialSubmit="true"/>
+                    </af:panelGroupLayout>
+                </f:facet>
+                <af:inputText value="#{bindings.ContactName1.inputValue}" label="#{bindings.ContactName1.hints.label}"
+                              required="#{bindings.ContactName1.hints.mandatory}"
+                              columns="#{bindings.ContactName1.hints.displayWidth}"
+                              maximumLength="#{bindings.ContactName1.hints.precision}"
+                              shortDesc="#{bindings.ContactName1.hints.tooltip}" id="it1" showRequired="true">
+                    <f:validator binding="#{bindings.ContactName1.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ContactDesc1.inputValue}" label="#{bindings.ContactDesc1.hints.label}"
+                              required="#{bindings.ContactDesc1.hints.mandatory}"
+                              columns="#{bindings.ContactDesc1.hints.displayWidth}"
+                              maximumLength="#{bindings.ContactDesc1.hints.precision}"
+                              shortDesc="#{bindings.ContactDesc1.hints.tooltip}" id="it2" showRequired="true">
+                    <f:validator binding="#{bindings.ContactDesc1.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ContactEmail1.inputValue}" label="#{bindings.ContactEmail1.hints.label}"
+                              required="#{bindings.ContactEmail1.hints.mandatory}"
+                              columns="#{bindings.ContactEmail1.hints.displayWidth}"
+                              maximumLength="#{bindings.ContactEmail1.hints.precision}"
+                              shortDesc="#{bindings.ContactEmail1.hints.tooltip}" id="it3" showRequired="true">
+                    <f:validator binding="#{bindings.ContactEmail1.validator}"/>
+                     <af:validateRegExp pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ContactTelephoneNo1.inputValue}"
+                              label="#{bindings.ContactTelephoneNo1.hints.label}"
+                              required="#{bindings.ContactTelephoneNo1.hints.mandatory}"
+                              columns="#{bindings.ContactTelephoneNo1.hints.displayWidth}"
+                              maximumLength="#{bindings.ContactTelephoneNo1.hints.precision}"
+                              shortDesc="#{bindings.ContactTelephoneNo1.hints.tooltip}" id="it4">
+                    <f:validator binding="#{bindings.ContactTelephoneNo1.validator}"/>
+                      </af:inputText>
+                <af:inputText value="#{bindings.ContactCellphoneNo1.inputValue}"
+                              label="#{bindings.ContactCellphoneNo1.hints.label}"
+                              required="#{bindings.ContactCellphoneNo1.hints.mandatory}"
+                              columns="#{bindings.ContactCellphoneNo1.hints.displayWidth}"
+                              maximumLength="#{bindings.ContactCellphoneNo1.hints.precision}"
+                              shortDesc="#{bindings.ContactCellphoneNo1.hints.tooltip}" id="it5" showRequired="true">
+                    <f:validator binding="#{bindings.ContactCellphoneNo1.validator}"/>
+                   </af:inputText>
+                <af:inputText value="#{bindings.ContactFaxNo1.inputValue}" label="#{bindings.ContactFaxNo1.hints.label}"
+                              required="#{bindings.ContactFaxNo1.hints.mandatory}"
+                              columns="#{bindings.ContactFaxNo1.hints.displayWidth}"
+                              maximumLength="#{bindings.ContactFaxNo1.hints.precision}"
+                              shortDesc="#{bindings.ContactFaxNo1.hints.tooltip}" id="it6">
+                    <f:validator binding="#{bindings.ContactFaxNo1.validator}"/>
+                     </af:inputText>
+                <af:inputDate value="#{bindings.EffectiveStartDate1.inputValue}"
+                              label="#{bindings.EffectiveStartDate1.hints.label}"
+                              required="#{bindings.EffectiveStartDate1.hints.mandatory}"
+                              columns="#{bindings.EffectiveStartDate1.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveStartDate1.hints.tooltip}" id="id1">
+                    <f:validator binding="#{bindings.EffectiveStartDate1.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveStartDate1.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.EffectiveEndDate1.inputValue}"
+                              label="#{bindings.EffectiveEndDate1.hints.label}"
+                              required="#{bindings.EffectiveEndDate1.hints.mandatory}"
+                              columns="#{bindings.EffectiveEndDate1.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveEndDate1.hints.tooltip}" id="id2">
+                    <f:validator binding="#{bindings.EffectiveEndDate1.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveEndDate1.format}"/>
+                </af:inputDate>
+            </af:panelFormLayout>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t2">
+                        <af:button text="#{coreLabels['G.Export']}" id="b8" icon="/adf/images/excel_16x16.png"
+                                   rendered="#{securityContext.userInRole['comms-consultant']}">
+                            <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                               filename="#{coreLabels['G.History']}.xls"/>
+                        </af:button>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.CompanyContactAuditRoView.collectionModel}" var="row"
+                          rows="#{bindings.CompanyContactAuditRoView.rangeSize}"
+                          emptyText="#{bindings.CompanyContactAuditRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.CompanyContactAuditRoView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CompanyContactAuditRoView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CompanyContactAuditRoView.rangeSize}" id="t1"
+                          displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c8">
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.TransactionDatetime.label}"
+                               id="c7" align="center" width="110">
+                        <af:outputText value="#{row.TransactionDatetime}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.TransactionDatetime.tooltip}"
+                                       id="ot6">
+                            <af:convertDateTime pattern="#{bindings.CompanyContactAuditRoView.hints.TransactionDatetime.format}"
+                                                type="both"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.TransactionUsername.label}"
+                               id="c1">
+                        <af:outputText value="#{row.TransactionUsername}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.TransactionUsername.tooltip}"
+                                       id="ot10"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.TransactionDesc.label}" id="c8">
+                        <af:outputText value="#{row.TransactionDesc}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.TransactionDesc.tooltip}"
+                                       id="ot9"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.ContactName.label}" id="c3">
+                        <af:outputText value="#{row.ContactName}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.ContactName.tooltip}"
+                                       id="ot3"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.ContactCellphoneNo.label}"
+                               id="c6">
+                        <af:outputText value="#{row.ContactCellphoneNo}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.ContactCellphoneNo.tooltip}"
+                                       id="ot2"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.ContactEmail.label}" id="c4">
+                        <af:outputText value="#{row.ContactEmail}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.ContactEmail.tooltip}"
+                                       id="ot1"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.ContactFaxNo.label}" id="c2">
+                        <af:outputText value="#{row.ContactFaxNo}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.ContactFaxNo.tooltip}"
+                                       id="ot7"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.ContactTelephoneNo.label}"
+                               id="c9">
+                        <af:outputText value="#{row.ContactTelephoneNo}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.ContactTelephoneNo.tooltip}"
+                                       id="ot4"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.ContactDesc.label}" id="c10">
+                        <af:outputText value="#{row.ContactDesc}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.ContactDesc.tooltip}"
+                                       id="ot8"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyContactAuditRoView.hints.EffectiveStartDate.label}" id="c5"
+                               align="center">
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.CompanyContactAuditRoView.hints.EffectiveStartDate.tooltip}"
+                                       id="ot5">
+                            <af:convertDateTime pattern="#{bindings.CompanyContactAuditRoView.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

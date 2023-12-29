@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allBrokerTablePageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllBrokerTableView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+              id="AllBrokerTableViewIterator"/>
+    <searchRegion Criteria="__ImplicitViewCriteria__" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllBrokerTableViewIterator" id="ImplicitViewCriteriaQuery"/>
+    <iterator Binds="BrokerTableAuditRoView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+              id="BrokerTableAuditRoViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllBrokerTableViewIterator" id="AllBrokerTableView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerTableVO" Name="AllBrokerTableView0">
+        <AttrNames>
+          <Item Value="BrokerTableDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="BrokerTableIdNo"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllBrokerTableViewIterator" id="BrokerTableIdNo">
+      <AttrNames>
+        <Item Value="BrokerTableIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="BrokerTableAuditRoViewIterator" id="BrokerTableAuditRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerTableAuditRoView"
+                      Name="BrokerTableAuditRoView0">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionUsername"/>
+          <Item Value="TransactionDesc"/>
+          <Item Value="BrokerTableDesc"/>
+          <Item Value="EffectiveStartDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

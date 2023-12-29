@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24" id="allReportDashboardPageDef"
+                Package="com.liberty.health.comm.vc.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Name="FromDate" Type="java.lang.String"/>
+      <variable Name="ToDate" Type="java.lang.String"/>
+      <variable Name="CompanyIdNoRun" Type="java.lang.String"/>
+      <variable Name="InvoiceNoRun" Type="java.lang.String"/>
+      <variable Name="IntFromDate" Type="java.lang.String"/>
+      <variable Name="IntToDate" Type="java.lang.String"/>
+      <variable Name="selectedInvoiceNo" Type="java.lang.String"/>
+    </variableIterator>
+    <iterator Binds="FusionPremiumsRecon1" RangeSize="-1" DataControl="DashboardAMDataControl"
+              id="FusionPremiumsRecon1Iterator" Refresh="ifNeeded"/>
+    <searchRegion Binds="FusionPremiumsRecon1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="FusionPremiumsRecon1Query"/>
+    <iterator Binds="FusionGroupPremiumsReconVO1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="FusionGroupPremiumsReconVO1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="OhiGroupCodes1" RangeSize="-1" DataControl="DashboardAMDataControl" id="OhiGroupCodes1Iterator"
+              Refresh="ifNeeded"/>
+    <iterator Binds="CompanyLovBindView1" RangeSize="-1" DataControl="LookupAMDataControl1"
+              id="CompanyLovBindView1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="PayInvoicesLovView1" RangeSize="-1" DataControl="LookupAMDataControl1"
+              id="PayInvoicesLovView1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="CommissionPaymentsPerGroupVO1" RangeSize="25" DataControl="PaymentAMDataControl"
+              id="CommissionPaymentsPerGroupVO1Iterator"/>
+    <searchRegion Criteria="CommissionPaymentsPerGroupCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="CommissionPaymentsPerGroupVO1Iterator" id="CommissionPaymentsPerGroupCriteriaQuery"/>
+    <iterator Binds="FusionPayablesInterfaceVO1" RangeSize="25" DataControl="PaymentAMDataControl"
+              id="FusionPayablesInterfaceVO1Iterator"/>
+    <searchRegion Binds="FusionPayablesInterfaceVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="FusionPayablesInterfaceVO1Query"/>
+    <iterator Binds="FusionPaymentsRecon1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="FusionPaymentsRecon1Iterator"/>
+    <searchRegion Binds="FusionPaymentsRecon1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="FusionPaymentsRecon1Query"/>
+    <iterator Binds="FusionPremInvoiceMedReceipt1" RangeSize="-1" DataControl="DashboardAMDataControl"
+              id="FusionPremInvoiceMedReceipt1Iterator" Refresh="always">
+      <?audit suppress oracle.adf.model.check-page-iterator-faces-refresh-condition?>
+    </iterator>
+    <searchRegion Binds="FusionPremInvoiceMedReceipt1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="FusionPremInvoiceMedReceipt1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="FusionPremiumsRecon1Iterator" id="FusionPremiumsRecon1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionPremiumsReconVO"
+                      Name="FusionPremiumsRecon10">
+        <AttrNames>
+          <Item Value="OrganizationName"/>
+          <Item Value="ReceiptType"/>
+          <Item Value="Status"/>
+          <Item Value="CustomerNumber"/>
+          <Item Value="InvoiceType"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="TrxDate"/>
+          <Item Value="InvoiceAmt"/>
+          <Item Value="InvCsb"/>
+          <Item Value="PaymentAmt"/>
+          <Item Value="Adjustments"/>
+          <Item Value="CreditMemo"/>
+          <Item Value="TaxAmount"/>
+          <Item Value="BalanceAmt"/>
+          <Item Value="TemplColour"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="FusionPremiumsRecon1Iterator" id="Execute1" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <list IterBinding="OhiGroupCodes1Iterator" ListOperMode="navigation" ListIter="OhiGroupCodes1Iterator"
+          id="OhiGroupCodes1" DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="GroupCode"/>
+      </AttrNames>
+    </list>
+    <action IterBinding="FusionGroupPremiumsReconVO1Iterator" id="Execute3" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <methodAction id="submitFusionGroupReconJob" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="submitFusionGroupReconJob" IsViewObjectMethod="false" DataControl="DashboardAMDataControl"
+                  InstanceName="data.DashboardAMDataControl.dataProvider">
+      <NamedData NDName="groupCode" NDValue="#{bindings.OhiGroupCodes1}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="FusionGroupPremiumsReconVO1Iterator" id="FusionGroupPremiumsReconVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionGroupPremiumsReconVO"
+                      Name="FusionGroupPremiumsReconVO10">
+        <AttrNames>
+          <Item Value="KeyValue"/>
+          <Item Value="Bu"/>
+          <Item Value="GroupCode"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="InvoiceAmt"/>
+          <Item Value="PaymentAmt"/>
+          <Item Value="SelfbuildTotal"/>
+          <Item Value="Adjustments"/>
+          <Item Value="CreditMemo"/>
+          <Item Value="TaxAmt"/>
+          <Item Value="BalanceAmt"/>
+          <Item Value="GlDateClosed"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="OhiGroupCodes1Iterator" id="GroupCode">
+      <AttrNames>
+        <Item Value="GroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="FromDate1">
+      <AttrNames>
+        <Item Value="FromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="ToDate1">
+      <AttrNames>
+        <Item Value="ToDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="submitFusionPayReconJob" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="submitFusionPayReconJob" IsViewObjectMethod="false" DataControl="DashboardAMDataControl"
+                  InstanceName="data.DashboardAMDataControl.dataProvider">
+      <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNoRun1}" NDType="java.lang.String"/>
+      <NamedData NDName="invNo" NDValue="#{bindings.InvoiceNoRun1}" NDType="java.lang.String"/>
+      <NamedData NDName="fromDate" NDValue="#{bindings.FromDate1}" NDType="java.lang.String"/>
+      <NamedData NDName="toDate" NDValue="#{bindings.ToDate1}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="variables" id="IntFromDate1">
+      <AttrNames>
+        <Item Value="IntFromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="IntToDate1">
+      <AttrNames>
+        <Item Value="IntToDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="submitFusionPayablesRecon" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="submitFusionPayablesRecon" IsViewObjectMethod="false" DataControl="PaymentAMDataControl"
+                  InstanceName="bindings.submitFusionPayablesRecon.dataControl.dataProvider">
+      <NamedData NDName="fromDate" NDValue="#{bindings.IntFromDate1}" NDType="java.lang.String"/>
+      <NamedData NDName="toDate" NDValue="#{bindings.IntToDate1}" NDType="java.lang.String"/>
+    </methodAction>
+    <action IterBinding="FusionPayablesInterfaceVO1Iterator" id="Execute2" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <tree IterBinding="FusionPayablesInterfaceVO1Iterator" id="FusionPayablesInterfaceVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO"
+                      Name="FusionPayablesInterfaceVO10">
+        <AttrNames>
+          <Item Value="InterfacedYn"/>
+          <Item Value="Status"/>
+          <Item Value="Bu"/>
+          <Item Value="VendorNumber"/>
+          <Item Value="VendorName"/>
+          <Item Value="VendorSite"/>
+          <Item Value="InvoiceNumber"/>
+          <Item Value="InvoiceType"/>
+          <Item Value="Description"/>
+          <Item Value="InvoiceDate"/>
+          <Item Value="InvoiceCurrency"/>
+          <Item Value="InvoiceAmt"/>
+          <Item Value="Terms"/>
+          <Item Value="CreationDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="FusionPaymentsRecon1Iterator" id="FusionPaymentsRecon1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionPaymentsReconVO"
+                      Name="FusionPaymentsRecon10">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="Bu"/>
+          <Item Value="Source"/>
+          <Item Value="LineTypeLookupCode"/>
+          <Item Value="FusionPayment"/>
+          <Item Value="ReleaseDate"/>
+          <Item Value="CommissionsPayment"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="FusionPaymentsRecon1Iterator" id="Execute4" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <tree IterBinding="FusionPremInvoiceMedReceipt1Iterator" id="FusionPremInvoiceMedReceipt1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionPremInvoiceMedReceiptVO"
+                      Name="FusionPremInvoiceMedReceipt10">
+        <AttrNames>
+          <Item Value="ReceiptNumber"/>
+          <Item Value="ReceivableApplicationId"/>
+          <Item Value="CashReceiptId"/>
+          <Item Value="GroupCode"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="BusinessUnit"/>
+          <Item Value="ReceiptType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="FusionPremInvoiceMedReceipt1Iterator" id="ExecuteWithParams"
+            InstanceName="DashboardAMDataControl.FusionPremInvoiceMedReceipt1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="executeWithParams">
+      <NamedData NDName="pInvNo" NDValue="#{bindings.selectedInvoiceNo1}" NDType="java.lang.String"/>
+    </action>
+    <tree IterBinding="FusionPremInvoiceMedReceipt1Iterator" id="FusionPremInvoiceMedReceipt11">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionPremInvoiceMedReceiptVO"
+                      Name="FusionPremInvoiceMedReceipt110">
+        <AttrNames>
+          <Item Value="ReceiptType"/>
+          <Item Value="ReceiptNumber"/>
+          <Item Value="ReceivableApplicationId"/>
+          <Item Value="CashReceiptId"/>
+          <Item Value="GroupCode"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="BusinessUnit"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="CommissionPaymentsPerGroupVO1Iterator" StaticList="false" Uses="LOV_CompanyIdNo"
+          id="CompanyIdNo3" DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+    <list IterBinding="CommissionPaymentsPerGroupVO1Iterator" StaticList="false" Uses="LOV_GroupCode" id="GroupCode1"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+    <tree IterBinding="CommissionPaymentsPerGroupVO1Iterator" id="CommissionPaymentsPerGroupVO11">
+      <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.CommissionPaymentsPerGroup"
+                      Name="CommissionPaymentsPerGroupVO110">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="GroupCode"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="FinanceInvoiceNo"/>
+          <Item Value="CurrencyCode"/>
+          <Item Value="ReleaseDate"/>
+          <Item Value="PaymentDate"/>
+          <Item Value="TotalAmount"/>
+          <Item Value="TotalPayable"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <listOfValues IterBinding="FusionGroupPremiumsReconVO1Iterator" StaticList="false" Uses="LOV_GroupCode"
+                  id="GroupCode2"/>
+    <attributeValues IterBinding="variables" id="CompanyIdNoRun1">
+      <AttrNames>
+        <Item Value="CompanyIdNoRun"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="InvoiceNoRun1">
+      <AttrNames>
+        <Item Value="InvoiceNoRun"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

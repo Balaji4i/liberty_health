@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">allBrokerStatementSubmit</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">500.0</property>
+      <property
+         name="start">false</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>allBrokerStatementSubmit&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">269.84473</property>
+      <property
+         name="page">/WEB-INF/fragments/brokers/allBrokerStatementSubmit.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <View
+      id="View3">
+      <property
+         name="activityId">allBrokerCommsExceptions</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">161.0</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>allBrokerCommsExceptions&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">267.89648</property>
+      <property
+         name="page">/WEB-INF/fragments/brokers/allBrokerCommsExceptions.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="View3"
+      to="View2">
+      <property
+         name="fromOutcome">Continue</property>
+      <property
+         name="sdm:polyPoints">R46,202.02654,264.0459,459.0,265.99414,L46</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase5"
+      from="View2"
+      to="View3">
+      <property
+         name="fromOutcome">Return</property>
+      <property
+         name="sdm:polyPoints">L54,458.97348,272.99414,202.0,271.0459,R54</property>
+   </ControlFlowCase>
+</SDM>

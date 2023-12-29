@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <MethodCall
+      id="MethodCall2">
+      <property
+         name="activityId">setByPkViewCritiera</property>
+      <property
+         name="x">376.34863</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setByPkViewCritiera&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">265.09766</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <View
+      id="View3">
+      <property
+         name="activityId">maintainCompanyBankDetails</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">651.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>maintainCompanyBankDetails&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">257.24707</property>
+      <property
+         name="page">/WEB-INF/fragment/company/maintainCompanyBankDetails.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="MethodCall2"
+      to="View3">
+      <property
+         name="fromOutcome">setByPkViewCritiera</property>
+      <property
+         name="sdm:polyPoints">R50,417.34863,264.74707,610.0,256.89648,L50</property>
+   </ControlFlowCase>
+   <TaskFlowReturn
+      id="TaskFlowReturn5">
+      <property
+         name="activityId">taskFlowReturn1</property>
+      <property
+         name="x">925.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>taskFlowReturn1&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Return&lt;/p>&lt;p>Outcome:  taskFlowReturn1&lt;/p></property>
+      <property
+         name="y">259.24707</property>
+      <property
+         name="finish">true</property>
+      <property
+         name="exceptionHandler">false</property>
+   </TaskFlowReturn>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase6"
+      from="View3"
+      to="TaskFlowReturn5">
+      <property
+         name="fromOutcome">back</property>
+      <property
+         name="sdm:polyPoints">R50,692.0,256.89648,884.0,258.89648,L50</property>
+   </ControlFlowCase>
+</SDM>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelStretchLayout id="psl1">
+    <f:facet name="center">
+      <af:panelHeader text="#{coreLabels['G.UnhandledException']}" id="ph1" messageType="error">
+        <f:facet name="context"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="toolbar">
+          <af:toolbar id="t1">
+            <af:commandToolbarButton text="#{coreLabels['G.Back']}" id="ctb1"
+                                     icon="/adf/images/save_16x16.png"
+                                     action="#{customExceptionHandlerBean.backButtonAction}"/>
+            <af:commandToolbarButton text="#{coreLabels['G.PrintablePage']}" id="ctb2"
+                                     icon="/adf/images/print_16x16.png">
+              <af:showPrintablePageBehavior/>
+            </af:commandToolbarButton>
+          </af:toolbar>
+        </f:facet>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:decorativeBox id="db1">
+          <f:facet name="center">
+            <af:outputText value="outputText1#{customExceptionHandlerBean.stacktrace}" id="ot1"/>
+          </f:facet>
+          <f:facet name="top">
+            <af:outputText value="#{controllerContext.currentViewPort.exceptionData.message}" id="ot2"/>
+          </f:facet>
+        </af:decorativeBox>
+      </af:panelHeader>
+      <!-- id="af_one_column_stretched"   -->
+    </f:facet>
+  </af:panelStretchLayout>
+</jsp:root>

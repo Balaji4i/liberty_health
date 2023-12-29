@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InvoiceDetailFkLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  EntityAssociation="com.liberty.health.comms.model.eo.assoc.InvoiceDetailFkAssoc">
+    <ViewLinkDefEnd
+      Name="Invoice"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.payment.vo.InvoiceVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_minCardinality" Value="1"/>
+            <Attr Name="_finderName" Value="Invoice"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.payment.vo.InvoiceVO.InvoiceNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ViewLinkDefEnd
+      Name="InvoiceDetail"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.model.payment.vo.InvoiceDetailVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="InvoiceDetail"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.payment.vo.InvoiceDetailVO.InvoiceNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+</ViewLink>

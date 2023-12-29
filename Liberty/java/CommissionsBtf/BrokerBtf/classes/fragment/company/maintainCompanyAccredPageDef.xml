@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCompanyAccredPageDef"
+                Package="fragment.company">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyAccreditationByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyAccreditationByPkViewIterator"/>
+        <iterator Binds="BrokerAccreditationByPkView" RangeSize="10" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerAccreditationByPkViewIterator"/>
+        <iterator Binds="CompanyAccreditationAuditRoView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyAccreditationAuditRoViewIterator"/>
+    </executables>
+    <bindings>
+        <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+        <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+        <action IterBinding="CompanyAccreditationByPkViewIterator" id="CreateWithParams"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyAccreditationByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="createWithParams">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="CountryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+        </action>
+        <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                      IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyAccreditationByPkView">
+            <NamedData NDName="compIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributesBean.currentDate}"
+                       NDType="oracle.jbo.domain.Date"/>
+        </methodAction>
+        <tree IterBinding="CompanyAccreditationAuditRoViewIterator" id="CompanyAccreditationAuditRoView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyAccreditationAuditRoView"
+                            Name="CompanyAccreditationAuditRoView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="CompanyAccredStartDate"/>
+                    <Item Value="CompanyAccredEndDate"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="CompanyAccredNo"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <tree IterBinding="CompanyAccreditationByPkViewIterator" id="CompanyAccreditationByPkView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyAccreditationVO"
+                            Name="CompanyAccreditationByPkView0">
+                <AttrNames>
+                    <Item Value="AccreditationTypeIdNo"/>
+                    <Item Value="CompanyAccredNo"/>
+                    <Item Value="CompanyAccredStartDate"/>
+                    <Item Value="CompanyAccredEndDate"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                    <Item Value="CountryCode"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="CompanyAccreditationByPkViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAccreditationByPkViewIterator" id="CountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAccreditationByPkViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAccreditationByPkViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAccreditationByPkViewIterator" id="CompanyAccredStartDate">
+            <AttrNames>
+                <Item Value="CompanyAccredStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAccreditationByPkViewIterator" id="CompanyAccredEndDate">
+            <AttrNames>
+                <Item Value="CompanyAccredEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAccreditationByPkViewIterator" id="LastUpdateDatetime">
+            <AttrNames>
+                <Item Value="LastUpdateDatetime"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAccreditationByPkViewIterator" id="Username">
+            <AttrNames>
+                <Item Value="Username"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAccreditationByPkViewIterator" id="AccreditationTypeIdNo">
+            <AttrNames>
+                <Item Value="AccreditationTypeIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <action IterBinding="CompanyAccreditationByPkViewIterator" id="Execute"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyAccreditationByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="iteratorExecute"/>
+    </bindings>
+</pageDefinition>

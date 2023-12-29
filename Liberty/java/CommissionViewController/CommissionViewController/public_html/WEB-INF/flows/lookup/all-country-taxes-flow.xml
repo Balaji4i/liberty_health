@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-country-taxes-flow">
+    <default-activity>allCountryTaxes</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <view id="allCountryTaxes">
+      <page>/WEB-INF/fragments/lookup/allCountryTaxes.jsff</page>
+    </view>
+    <task-flow-call id="maintain-country-taxes">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/lookup/maintain-country-taxes-btf.xml</document>
+        <id>maintain-country-taxes-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__4">
+        <name>CountryCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allCountryTaxesPageDef.CountryCode}</value>
+      </input-parameter>
+      <input-parameter id="__5">
+        <name>TaxesAction</name>
+        <value>Create</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-country-taxes-edit">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/lookup/maintain-country-taxes-btf.xml</document>
+        <id>maintain-country-taxes-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__6">
+        <name>TaxesAction</name>
+        <value>Edit</value>
+      </input-parameter>
+      <input-parameter id="__7">
+        <name>CountryCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allCountryTaxesPageDef.CountryCode}</value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__2">
+      <from-activity-id>allCountryTaxes</from-activity-id>
+      <control-flow-case id="__1">
+        <from-outcome>Edit</from-outcome>
+        <to-activity-id>maintain-country-taxes-edit</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__8">
+        <from-outcome>Add</from-outcome>
+        <to-activity-id>maintain-country-taxes</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

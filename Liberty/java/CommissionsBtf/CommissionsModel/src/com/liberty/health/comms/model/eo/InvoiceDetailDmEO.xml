@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InvoiceDetailDmEO"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="INVOICE_DETAIL_DM"
+  AliasName="InvoiceDetailDmEO"
+  BindingStyle="OracleName"
+  RowClass="com.liberty.health.comms.model.eo.InvoiceDetailDmEOImpl"
+  DefClass="com.liberty.health.comms.model.eo.InvoiceDetailDmEODefImpl"
+  CollClass="com.liberty.health.comms.model.eo.InvoiceDetailDmEOCollImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|DML|Def|Coll|VarAccess"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Attribute
+    Name="InvoiceNo"
+    IsNotNull="true"
+    Precision="9"
+    Scale="0"
+    ColumnName="INVOICE_NO"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="INVOICE_DETAIL_DM"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="FeeTypeIdNo"
+    IsNotNull="true"
+    Precision="9"
+    Scale="0"
+    ColumnName="FEE_TYPE_ID_NO"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="INVOICE_DETAIL_DM"/>
+  <Attribute
+    Name="FeeTypeAmt"
+    IsNotNull="true"
+    Precision="22"
+    Scale="9"
+    ColumnName="FEE_TYPE_AMT"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="INVOICE_DETAIL_DM"/>
+  <Attribute
+    Name="FeeTypeExchAmt"
+    IsNotNull="true"
+    Precision="22"
+    Scale="9"
+    ColumnName="FEE_TYPE_EXCH_AMT"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="INVOICE_DETAIL_DM"/>
+  <Attribute
+    Name="FeeTypeDesc"
+    Precision="200"
+    ColumnName="FEE_TYPE_DESC"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVOICE_DETAIL_DM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUpdateDatetime"
+    IsNotNull="true"
+    ColumnName="LAST_UPDATE_DATETIME"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="INVOICE_DETAIL_DM"/>
+  <Attribute
+    Name="Username"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="USERNAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVOICE_DETAIL_DM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="InvoiceDm"
+    Association="com.liberty.health.comms.model.eo.assoc.InvoiceDmInvoiceDetailDmFkAssoc"
+    AssociationEnd="com.liberty.health.comms.model.eo.assoc.InvoiceDmInvoiceDetailDmFkAssoc.InvoiceDm"
+    AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.InvoiceDmInvoiceDetailDmFkAssoc.InvoiceDetailDm"
+    Type="com.liberty.health.comms.model.eo.InvoiceDmEOImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="InvoicedetaildmeoPrimaryKey"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="INVOICEDETAILDMEO_PRIMARY_KEY"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.InvoiceDetailDmEO.InvoiceNo"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="fk_InvoiceDetailDmEO">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="INVOICEDMEO_PRIMARY_KEY"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="FK_INVOICE_DETAIL_DM_EO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.InvoiceDetailDmEO.InvoiceNo"/>
+    </AttrArray>
+  </Key>
+</Entity>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-invoices-flow">
+    <default-activity>allInvoices</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <managed-bean id="__6">
+      <managed-bean-name>paymentRunBean</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comms.btf.beans.PaymentRun</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__7">
+      <managed-bean-name>Payments</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.beans.Payments</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="allInvoices">
+      <page>/WEB-INF/fragments/payments/allInvoices.jsff</page>
+    </view>
+    <task-flow-call id="create-invoice-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/payment/maintain-invoice-btf.xml</document>
+        <id>maintain-invoice-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__5">
+        <name>invoiceNo</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="edit-invoice-btf1">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/payment/maintain-invoice-btf.xml</document>
+        <id>maintain-invoice-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__4">
+        <name>invoiceNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allInvoicesPageDef.InvoiceNo.inputValue}</value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>allInvoices</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>edit</from-outcome>
+        <to-activity-id>edit-invoice-btf1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome>create</from-outcome>
+        <to-activity-id>create-invoice-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainAccredTypePageDef"
+                Package="fragment">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="AccreditationTypeByPkView" RangeSize="25" DataControl="AccrediationAMDataControl"
+                  id="AccreditationTypeByPkViewIterator"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="AccreditationTypeByPkViewIterator" id="AccreditationTypeIdNo">
+            <AttrNames>
+                <Item Value="AccreditationTypeIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AccreditationTypeByPkViewIterator" id="AccreditationTypeDesc">
+            <AttrNames>
+                <Item Value="AccreditationTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AccreditationTypeByPkViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AccreditationTypeByPkViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="checkAccreditationExists" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="checkAccreditationExists" IsViewObjectMethod="true"
+                      DataControl="BrokerMaintenanceAMDataControl"
+                      InstanceName="data.BrokerMaintenanceAMDataControl.BrokerAccreditationByPkView"
+                      ReturnName="data.BrokerMaintenanceAMDataControl.methodResults.checkAccreditationExists_checkAccreditationExists_dataControl_BrokerAccreditationByPkView_checkAccreditationExists_result"
+                      ReturnType="java.lang.String">
+            <NamedData NDName="accreditationIdNo" NDValue="#{pageFlowScope.accreditationTypeIdNo}"
+                       NDType="java.lang.Integer"/>
+        </methodAction>
+        <action id="Commit" DataControl="AccrediationAMDataControl" RequiresUpdateModel="true"
+                Action="commitTransaction"/>
+        <methodAction id="checkCompanyAccredExists" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="checkCompanyAccredExists" IsViewObjectMethod="true"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyAccreditationByPkView"
+                      ReturnName="data.MaintainBrokerageAMDataControl.methodResults.checkCompanyAccredExists_checkCompanyAccredExists_dataControl_CompanyAccreditationByPkView_checkCompanyAccredExists_result">
+            <NamedData NDName="accreditationIdNo" NDValue="#{pageFlowScope.accreditationTypeIdNo}"
+                       NDType="java.lang.Integer"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

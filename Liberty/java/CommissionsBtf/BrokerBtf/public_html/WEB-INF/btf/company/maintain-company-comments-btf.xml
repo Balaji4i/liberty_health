@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-comments-btf">
+        <default-activity>setpCompanyIdNo</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>oracle.jbo.domain.Number</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__7">
+            <name>createInd</name>
+            <value>#{pageFlowScope.createInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__6">
+            <managed-bean-name>companyAttributesBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <method-call id="setpCompanyIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpCompanyIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainCompanyComments">
+            <page>/WEB-INF/fragment/company/maintainCompanyComments.jsff</page>
+        </view>
+        <task-flow-return id="taskFlowReturn1">
+            <outcome>
+                <name>taskFlowReturn1</name>
+            </outcome>
+        </task-flow-return>
+        <control-flow-rule id="__2">
+            <from-activity-id>maintainCompanyComments</from-activity-id>
+            <control-flow-case id="__3">
+                <from-outcome>back</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__4">
+            <from-activity-id>setpCompanyIdNo</from-activity-id>
+            <control-flow-case id="__5">
+                <from-outcome>setpCompanyIdNo</from-outcome>
+                <to-activity-id>maintainCompanyComments</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommsUserAccessVO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.brokerage.vo.CommsUserAccessVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.brokerage.vo.CommsUserAccessVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.brokerage.vo.CommsUserAccessVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+        Name="pCountryList"
+        Kind="where"
+        Type="java.lang.String">
+    <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="CommsUserAccessVO"/>
+  </Variable>
+  <SQLQuery><![CDATA[SELECT distinct country_code      
+from company_country      
+where 1=1      
+AND trunc(sysdate) between trunc(effective_start_date) and trunc(effective_end_date)      
+AND country_code in (SELECT regexp_substr( replace( :pCountryList ,  '''' , '') , '[^,]+', 1, LEVEL)       
+            FROM DUAL       
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '') , '[^,]+', 1, LEVEL) IS NOT NULL)]]></SQLQuery>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CountryCode"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

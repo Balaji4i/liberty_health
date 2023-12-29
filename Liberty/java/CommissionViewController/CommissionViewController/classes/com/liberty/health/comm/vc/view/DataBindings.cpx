@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.16.48" id="DataBindings"
+             SeparateXMLFiles="false" Package="com.liberty.health.comm.vc.view" ClientType="Generic">
+    <definitionFactories>
+        <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+                 className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+        <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+        <factory nameSpace="http://xmlns.oracle.com/adfm/dvt"
+                 className="oracle.adfinternal.view.faces.dvt.model.binding.FacesBindingFactory"/>
+    </definitionFactories>
+    <pageMap>
+        <page path="/WEB-INF/fragments/lookup/allAddressType.jsff"
+              usageId="com_liberty_health_comm_vc_view_allAddressTypePageDef"/>
+        <page path="/commsVcTestPage.jspx" usageId="com_liberty_health_comm_vc_view_commsVcTestPagePageDef"/>
+        <page path="/WEB-INF/fragments/brokers/allBrokers.jsff"
+              usageId="com_liberty_health_comm_vc_view_allBrokersPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/brokerBankDetailsApproval.jsff"
+              usageId="com_liberty_health_comm_vc_view_brokerBankDetailsApprovalPageDef"/>
+        <page path="/WEB-INF/fragments/brokerage/AllCompany.jsff"
+              usageId="com_liberty_health_comm_vc_view_AllCompanyPageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allBankAccountType.jsff"
+              usageId="com_liberty_health_comm_vc_view_allBankAccountTypePageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allCompanyFeeType.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCompanyFeeTypePageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allCompanyContacType.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCompanyContacTypePageDef1"/>
+        <page path="/WEB-INF/fragments/util/allSystemParameter.jsff"
+              usageId="com_liberty_health_comm_vc_view_allSystemParameterPageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allAccredType.jsff"
+              usageId="com_liberty_health_comm_vc_view_allAccreditationTypePageDef"/>
+        <page path="/WEB-INF/fragments/lookup/AllAccredType.jsff"
+              usageId="com_liberty_health_comm_vc_view_AllAccredTypePageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allBrokerTable.jsff"
+              usageId="com_liberty_health_comm_vc_view_allBrokerTablePageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allCompanyTable.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCompanyTablePageDef"/>
+        <page path="/WEB-INF/fragments/comms/allPaymentsReceived.jsff"
+              usageId="com_liberty_health_comm_vc_view_allPaymentsReceivedPageDef"/>
+        <page path="/WEB-INF/fragments/payments/allInvoices.jsff"
+              usageId="com_liberty_health_comm_vc_view_allInvoicesPageDef"/>
+        <page path="/WEB-INF/fragments/comms/allCommsRun.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCommsRunPageDef"/>
+        <page path="/WEB-INF/fragments/comms/allJobDashboard.jsff"
+              usageId="com_liberty_health_comm_vc_view_allJobDashboardPageDef"/>      
+        <page path="/WEB-INF/fragments/watchList/brokerInvoicesOnHold.jsff"
+              usageId="com_liberty_health_comm_vc_view_brokerStatusDaysPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/brokerageOutstandingPayments.jsff"
+              usageId="com_liberty_health_comm_vc_view_brokerageOutstandingPaymentsPageDef"/>
+        <page path="/WEB-INF/flows/watchlist/all-comms-watchlist-flow.xml#all-comms-watchlist-flow@Execute"
+              usageId="com_liberty_health_comm_vc_view_all_comms_watchlist_flow_all_comms_watchlist_flow_ExecutePageDef"/>
+        <page path="/WEB-INF/flows/watchlist/all-comms-watchlist-flow.xml#all-comms-watchlist-flow@Execute1"
+              usageId="com_liberty_health_comm_vc_view_all_comms_watchlist_flow_all_comms_watchlist_flow_Execute1PageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allMedwareCompare.jsff"
+              usageId="com_liberty_health_comm_vc_view_allMedwareComparePageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allErrorTransacation.jsff"
+              usageId="com_liberty_health_comm_vc_view_allErrorTransacationPageDef"/>
+        <page path="/WEB-INF/fragments/brokers/allBrokerStatementSubmit.jsff"
+              usageId="com_liberty_health_comm_vc_view_allBrokerStatementSubmitPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/missingCommPercBrokers.jsff"
+              usageId="com_liberty_health_comm_vc_view_missingCommPercBrokersPageDef"/>
+        <page path="/WEB-INF/fragments/ohi/allOhiPolicyBrokers.jsff"
+              usageId="com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/commsRunApproval.jsff"
+              usageId="com_liberty_health_comm_vc_view_commsRunApprovalPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/policyCommPercApproval.jsff"
+              usageId="com_liberty_health_comm_vc_view_policyCommPercApprovalPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/companyCommPercApproval.jsff"
+              usageId="com_liberty_health_comm_vc_view_companyCommPercApprovalPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/brokerCommPercApproval.jsff"
+              usageId="com_liberty_health_comm_vc_view_brokerCommPercApprovalPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/memberCommPercApproval.jsff"
+              usageId="com_liberty_health_comm_vc_view_memberCommPercApprovalPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/groupCommPercApproval.jsff"
+              usageId="com_liberty_health_comm_vc_view_groupCommPercApprovalPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/productComPercApproval.jsff"
+              usageId="com_liberty_health_comm_vc_view_productComPercApprovalPageDef"/>
+        <page path="/WEB-INF/flows/dashboard/all-dashboard-flow.xml#all-dashboard-flow@setpLocalCode"
+              usageId="com_liberty_health_comm_vc_view_all_dashboard_flow_all_dashboard_flow_setpLocalCodePageDef"/>
+        <page path="/WEB-INF/fragments/dashboard/allDashboard.jsff"
+              usageId="com_liberty_health_comm_vc_view_allDashboardPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/allGroupRejections.jsff"
+              usageId="com_liberty_health_comm_vc_view_allGroupRejectionsPageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allExchangeRate.jsff"
+              usageId="com_liberty_health_comm_vc_view_allExchangeRatePageDef"/>
+        <page path="/WEB-INF/fragments/watchList/allCompanyRejections.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCompanyRejectionsPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/allProductRejections.jsff"
+              usageId="com_liberty_health_comm_vc_view_allProductRejectionsPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/allPolicyRejections.jsff"
+              usageId="com_liberty_health_comm_vc_view_allPolicyRejectionsPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/allMemberRejections.jsff"
+              usageId="com_liberty_health_comm_vc_view_allMemberRejectionsPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/backDatedErrors.jsff"
+              usageId="com_liberty_health_comm_vc_view_backDatedErrorsPageDef"/>
+        <page path="/WEB-INF/fragments/lookup/allCountryTaxes.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCountryTaxesPageDef"/>
+        <page path="/WEB-INF/fragments/brokers/allBrokerCommsExceptions.jsff"
+              usageId="com_liberty_health_comm_vc_view_allBrokerCommsExceptionsPageDef"/>
+        <page path="/WEB-INF/flows/dashboard/all-dashboard-flow.xml#all-dashboard-flow@submitPremiumJobs"
+              usageId="com_liberty_health_comm_vc_view_all_dashboard_flow_all_dashboard_flow_methodCall1PageDef111"/>
+        <page path="/WEB-INF/fragments/comms/allReportDashboard.jsff" usageId="com_liberty_health_comm_vc_view_allReportDashboardPageDef"/>
+        <page path="/WEB-INF/fragments/brokerage/allCommsPartialReceipt.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCommsPartialReceiptPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/partialReceiptApproval.jsff"
+              usageId="com_liberty_health_comm_vc_view_partialReceiptApprovalPageDef"/>
+        <page path="/WEB-INF/fragments/brokerage/allCommsPartialReceiptAdd.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCommsPartialReceiptAddPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/brokerageWithNoBrokers.jsff"
+              usageId="com_liberty_health_comm_vc_view_brokerageWithNoBrokersPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/partialPaymentsPercDiff.jsff"
+              usageId="com_liberty_health_comm_vc_view_partialPaymentsPercDiffPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/brokerageWithExpiredLic.jsff"
+              usageId="com_liberty_health_comm_vc_view_brokerageWithExpiredLicPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/fusionPayments.jsff"
+              usageId="com_liberty_health_comm_vc_view_fusionPaymentsPageDef"/>
+        <page path="/fustionTFPage.jsf" usageId="com_liberty_health_comm_vc_view_fustionTFPagePageDef"/>
+        <page path="/fusionPage.jsf" usageId="com_liberty_health_comm_vc_view_fusionPagePageDef"/>
+        <page path="/WEB-INF/fragments/comms/allfusionPayments.jsff"
+              usageId="com_liberty_health_comm_vc_view_allfusionPaymentsPageDef"/>
+        <page path="/WEB-INF/fragments/comms/allCommsCalcApprovals.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCommsCalcApprovalsPageDef"/>
+        <page path="/WEB-INF/fragments/comms/allCommissionPaymentsPerGroup.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCommissionPaymentsPerGroupPageDef"/>
+        <page path="/WEB-INF/fragments/comms/allCommissionFusionPayablesInterface.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCommissionFusionPayablesInterfacePageDef"/>
+        <page path="/WEB-INF/fragments/comms/allCommissionFusionPremiumsGroupHistory.jsff"
+              usageId="com_liberty_health_comm_vc_view_allCommissionFusionPremiumsGroupHistoryPageDef"/>
+        <page path="/WEB-INF/fragments/comms/fusionPremiumRecon.jsff"
+              usageId="com_liberty_health_comm_vc_view_fusionPremiumReconPageDef"/>
+        <page path="/WEB-INF/fragments/watchList/preferredCurrencyCodeApprovals.jsff"
+              usageId="com_liberty_health_comm_vc_view_preferredCurrencyCodeApprovalsPageDef"/>
+        <page path="/WEB-INF/fragments/comms/brokeragePaymentsAdjustments.jsff"
+              usageId="com_liberty_health_comm_vc_view_brokeragePaymentsAdjustmentsPageDef"/>
+        <page path="/WEB-INF/fragments/comms/createBrokPaymentsAdjust.jsff"
+              usageId="com_liberty_health_comm_vc_view_createBrokPaymentsAdjustPageDef"/>
+        <page path="/WEB-INF/fragments/comms/commissionAccurals.jsff"
+              usageId="com_liberty_health_comm_vc_view_commissionAccuralsPageDef"/>
+        <page path="/WEB-INF/fragments/comms/commsAccruals.jsff"
+              usageId="com_liberty_health_comm_vc_view_commsAccrualsPageDef"/>
+        <page path="/WEB-INF/fragments/comms/parentGroupCommPerc.jsff"
+              usageId="com_liberty_health_comm_vc_view_parentGroupCommPercPageDef"/>
+    </pageMap>
+    <pageDefinitionUsages>
+        <page id="com_liberty_health_comm_vc_view_allAddressTypePageDef" path="fragments.lookup.allAddressTypePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_commsVcTestPagePageDef"
+              path="com.liberty.health.comm.vc.view.pageDefs.commsVcTestPagePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allBrokersPageDef" path="fragments.brokers.allBrokersPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_brokerBankDetailsApprovalPageDef"
+              path="fragments.watchList.brokerBankDetailsApprovalPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_AllCompanyPageDef" path="fragments.brokerage.AllCompanyPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allBankAccountTypePageDef"
+              path="fragments.lookup.allBankAccountTypePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCompanyFeeTypePageDef"
+              path="fragments.lookup.allCompanyFeeTypePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCompanyContacTypePageDef"
+              path="fragments.lookup.allCompanyContacTypePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCompanyContacTypePageDef1"
+              path="fragments.lookup.allCompanyContacTypePageDef1"/>
+        <page id="com_liberty_health_comm_vc_view_allSystemParameterPageDef"
+              path="fragments.util.allSystemParameterPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allAccreditationTypePageDef"
+              path="fragments.lookup.allAccreditationTypePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_AllAccredTypePageDef" path="fragments.lookup.AllAccredTypePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allBrokerTablePageDef" path="fragments.lookup.allBrokerTablePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCompanyTablePageDef"
+              path="fragments.lookup.allCompanyTablePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allPaymentsReceivedPageDef"
+              path="fragments.comms.allPaymentsReceivedPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allInvoicesPageDef" path="fragments.payments.allInvoicesPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCommsRunPageDef" path="fragments.comms.allCommsRunPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allJobDashboardPageDef" path="fragments.comms.allJobDashboardPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_brokerStatusDaysPageDef"
+              path="fragments.watchList.brokerStatusDaysPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_brokerageOutstandingPaymentsPageDef"
+              path="fragments.watchList.brokerageOutstandingPaymentsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_all_comms_watchlist_flow_all_comms_watchlist_flow_ExecutePageDef"
+              path="flows.watchlist.all_comms_watchlist_flow_all_comms_watchlist_flow_ExecutePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_all_comms_watchlist_flow_all_comms_watchlist_flow_Execute1PageDef"
+              path="flows.watchlist.all_comms_watchlist_flow_all_comms_watchlist_flow_Execute1PageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allMedwareComparePageDef"
+              path="fragments.lookup.allMedwareComparePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allErrorTransacationPageDef"
+              path="fragments.lookup.allErrorTransacationPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allBrokerStatementSubmitPageDef"
+              path="fragments.brokers.allBrokerStatementSubmitPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_missingCommPercBrokersPageDef"
+              path="fragments.watchList.missingCommPercBrokersPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_OhiPolicyBrokersPageDef"
+              path="fragments.ohi.OhiPolicyBrokersPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allOhiPolicyBrokersPageDef"
+              path="fragments.ohi.allOhiPolicyBrokersPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_commsRunApprovalPageDef"
+              path="fragments.watchList.commsRunApprovalPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_policyCommPercApprovalPageDef"
+              path="fragments.watchList.policyCommPercApprovalPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_companyCommPercApprovalPageDef"
+              path="fragments.watchList.companyCommPercApprovalPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_brokerCommPercApprovalPageDef"
+              path="fragments.watchList.brokerCommPercApprovalPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_memberCommPercApprovalPageDef"
+              path="fragments.watchList.memberCommPercApprovalPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_groupCommPercApprovalPageDef"
+              path="fragments.watchList.groupCommPercApprovalPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_productComPercApprovalPageDef"
+              path="fragments.watchList.productComPercApprovalPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_all_dashboard_flow_all_dashboard_flow_setpLocalCodePageDef"
+              path="flows.dashboard.all_dashboard_flow_all_dashboard_flow_setpLocalCodePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allDashboardPageDef" path="fragments.dashboard.allDashboardPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allGroupRejectionsPageDef"
+              path="fragments.watchList.allGroupRejectionsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allExchangeRatePageDef"
+              path="fragments.lookup.allExchangeRatePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCompanyRejectionsPageDef"
+              path="fragments.watchList.allCompanyRejectionsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allProductRejectionsPageDef"
+              path="fragments.watchList.allProductRejectionsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allPolicyRejectionsPageDef"
+              path="fragments.watchList.allPolicyRejectionsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allMemberRejectionsPageDef"
+              path="fragments.watchList.allMemberRejectionsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_backDatedErrorsPageDef"
+              path="fragments.watchList.backDatedErrorsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCountryTaxesPageDef"
+              path="fragments.lookup.allCountryTaxesPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allBrokerCommsExceptionsPageDef"
+              path="fragments.brokers.allBrokerCommsExceptionsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_dashBoardPageDef" path="fragments.dashboard.dashBoardPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_all_dashboard_flow_all_dashboard_flow_methodCall1PageDef111"
+              path="flows.dashboard.all_dashboard_flow_all_dashboard_flow_methodCall1PageDef111"/>
+        <page id="com_liberty_health_comm_vc_view_allReportDashboardPageDef"
+              path="com.liberty.health.comm.vc.view.pageDefs.allReportDashboardPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCommsPartialReceiptPageDef"
+              path="fragments.brokerage.allCommsPartialReceiptPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_partialReceiptApprovalPageDef"
+              path="fragments.watchList.partialReceiptApprovalPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCommsPartialReceiptAddPageDef"
+              path="fragments.brokerage.allCommsPartialReceiptAddPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_brokerageWithNoBrokersPageDef"
+              path="fragments.watchList.brokerageWithNoBrokersPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_partialPaymentsPercDiffPageDef"
+              path="fragments.watchList.partialPaymentsPercDiffPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_brokerageWithExpiredLicPageDef"
+              path="fragments.watchList.brokerageWithExpiredLicPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_fusionPaymentsPageDef"
+              path="fragments.watchList.fusionPaymentsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_fustionTFPagePageDef"
+              path="com.liberty.health.comm.vc.view.pageDefs.fustionTFPagePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_fusionPagePageDef"
+              path="com.liberty.health.comm.vc.view.pageDefs.fusionPagePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allfusionPaymentsPageDef"
+              path="fragments.comms.allfusionPaymentsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCommsCalcApprovalsPageDef"
+              path="fragments.comms.allCommsCalcApprovalsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCommissionPaymentsPerGroupPageDef"
+              path="fragments.comms.allCommissionPaymentsPerGroupPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCommissionFusionPayablesInterfacePageDef"
+              path="fragments.comms.allCommissionFusionPayablesInterfacePageDef"/>
+        <page id="com_liberty_health_comm_vc_view_allCommissionFusionPremiumsGroupHistoryPageDef"
+              path="fragments.comms.allCommissionFusionPremiumsGroupHistoryPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_fusionPremiumReconPageDef"
+              path="fragments.comms.fusionPremiumReconPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_preferredCurrencyCodeApprovalsPageDef"
+              path="fragments.watchList.preferredCurrencyCodeApprovalsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_brokeragePaymentsAdjustmentsPageDef"
+              path="fragments.comms.brokeragePaymentsAdjustmentsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_createBrokPaymentsAdjustPageDef"
+              path="fragments.comms.createBrokPaymentsAdjustPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_commissionAccuralsPageDef"
+              path="fragments.comms.commissionAccuralsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_commsAccrualsPageDef" path="fragments.comms.commsAccrualsPageDef"/>
+        <page id="com_liberty_health_comm_vc_view_parentGroupCommPercPageDef"
+              path="fragments.comms.parentGroupCommPercPageDef"/>
+    </pageDefinitionUsages>
+    <dataControlUsages>
+        <BC4JDataControl id="AddressTypeAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="AddressTypeAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="BrokerMaintenanceAMDataControl" Package="com.liberty.health.comms.model.broker.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="BrokerMaintenanceAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="WatchListAMDataControl" Package="com.liberty.health.comms.model.watchlist.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="WatchListAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="MaintainBrokerageAMDataControl" Package="com.liberty.health.comms.model.brokerage.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="MaintainBrokerageAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="BankAccountTypeAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="MaintainBankAccountTypeAMLocal"
+                         syncMode="Immediate" xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CompanyFeeTypeAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="CompanyFeeTypeAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CompanyContactTypeAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="CompanyContactTypeAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="SystemParameterAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="SystemParameterAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CommsRunAMDataControl" Package="com.liberty.health.comms.model.comms.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="CommsRunAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="PaymentAMDataControl" Package="com.liberty.health.comms.model.payment.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="PaymentAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="AccrediationAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="AccrediationAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="OhiStructureAMDataControl" Package="com.liberty.health.comms.model.ohi.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="OhiStructureAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="LookupAMDataControl1" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="LookupAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="LookupAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="LookupAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="DashboardAMDataControl" Package="com.liberty.health.comms.model.dashboard"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="DashboardAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="AppModuleDataControl" Package="com.liberty.health.comms.model.vo"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="AppModuleLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    </dataControlUsages>
+</Application>

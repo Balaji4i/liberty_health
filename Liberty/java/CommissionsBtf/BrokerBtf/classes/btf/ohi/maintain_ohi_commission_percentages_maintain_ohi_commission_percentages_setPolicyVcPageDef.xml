@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setPolicyVcPageDef"
+                Package="btf.ohi" SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setPolicyVc" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setPolicyVc"
+                      IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                      InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView">
+            <NamedData NDName="policyCode" NDValue="#{pageFlowScope.policyCode}" NDType="java.lang.String"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

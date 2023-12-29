@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyCorrMultinatVO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  OrderBy='"COMPANY_ID_NO","CORRESPONDENCE_TEMPLATE","COUNTRIES"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pcountrylist"
+    Kind="where"
+    Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="CompanyCorrMultinatVO"/>
+  </Variable>
+  <SQLQuery><![CDATA[select distinct               
+    co.company_id_no,               
+    INITCAP(co.company_name)      company_name,               
+    co.effective_start_date       company_start_date,               
+    NVL(co.effective_end_date,TO_DATE('31-JAN-3100'))         company_end_date,              
+    LISTAGG(cc.country_code, ',') WITHIN GROUP (ORDER BY co.company_id_no) countries,              
+  --  cc.effective_start_date       country_start_date,               
+  --  cc.effective_end_date         country_end_date,               
+(CASE WHEN multi.company_table_type_desc = 'N' then              
+       (CASE WHEN count(cc.country_code) > 1 THEN              
+           'background-color:Red;' ELSE -- RED              
+           'background-color:White;' -- GREEN              
+        END)              
+    ELSE              
+      'background-color:White'              
+    END) colour,             
+    multi.company_table_type_desc multinational,       
+    NVL(templ.company_table_type_desc,'No Template') correspondence_template,       
+    (CASE WHEN templ.company_table_type_desc IS NULL THEN       
+         'background-color:Red;' ELSE -- RED              
+           'background-color:White;'       
+     END) templ_colour, 
+     status.company_table_type_id_no  
+from company co, company_country cc,              
+(select distinct cf.company_id_no, cf.effective_start_date, cf.effective_end_date,              
+       ct.company_table_desc,              
+       ctt.company_table_type_desc              
+from company_function cf,              
+     company_table_type ctt,              
+     company_table ct             
+where 1=1              
+  and ct.company_table_desc = 'Multinational'              
+  and cf.company_table_type_id_no = ctt.company_Table_type_id_no              
+  and ctt.company_table_id_no = ct.company_table_id_no              
+  and ctt.company_table_id_no = cf.company_table_id_no              
+--  and cc.company_id_no  = cf.company_id_no              
+  and trunc(sysdate) between trunc(cf.effective_start_date) and trunc(cf.effective_end_date)              
+ -- and trunc(sysdate) between trunc(cc.effective_start_date) and trunc(cc.effective_end_date)              
+  and trunc(sysdate) between trunc(ct.effective_start_date) and trunc(ct.effective_end_date)              
+  and trunc(sysdate) between trunc(ctt.effective_start_date) and trunc(ctt.effective_end_date)              
+  order by 1,2,3 asc) multi,       
+  (select DISTINCT ctt.company_table_type_desc, cc.company_id_no              
+from company cc,                   
+     company_function cf,                   
+     company_table_type ctt,                   
+     company_table ct                   
+where 1=1                   
+  and ct.company_table_desc = 'Corr Template'                   
+  and cf.company_table_type_id_no = ctt.company_Table_type_id_no                   
+  and ctt.company_table_id_no = ct.company_table_id_no                   
+  and ctt.company_table_id_no = cf.company_table_id_no                   
+  and cc.company_id_no  = cf.company_id_no                   
+ -- and cc.company_id_no = cp.company_id_no                   
+  and trunc(sysdate) between trunc(NVL(cf.effective_start_date,TO_DATE('01-JAN-1900'))) and trunc(NVL(cf.effective_end_date,TO_DATE('31-DEC-4712')))                   
+  and trunc(sysdate) between trunc(NVL(cc.effective_start_date,TO_DATE('01-JAN-1900'))) and trunc(NVL(cc.effective_end_date,TO_DATE('31-DEC-4712')))                   
+  and trunc(sysdate) between trunc(NVL(ct.effective_start_date,TO_DATE('01-JAN-1900'))) and trunc(NVL(ct.effective_end_date,TO_DATE('31-DEC-4712')))                   
+  and trunc(sysdate) between trunc(NVL(ctt.effective_start_date,TO_DATE('01-JAN-1900'))) and trunc(NVL(ctt.effective_end_date,TO_DATE('31-DEC-4712')))                   
+) templ,       
+(select DISTINCT cf.company_table_type_id_no, cf.company_id_no              
+from company_function cf  
+       where cf.company_table_id_no = 2 and effective_end_date > sysdate) status 
+where cc.company_id_no = co.company_id_no              
+ and multi.company_id_no(+) = cc.company_id_no              
+ and templ.company_id_no(+) = cc.company_id_no       
+ and status.company_id_no(+) = cc.company_id_no and status.company_table_type_id_no <> 27 
+-- and cc.company_id_no > 1000  
+ and cc.country_code IN (  
+        SELECT  
+            regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level)  
+        FROM  
+            dual  
+        CONNECT BY  
+            regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level) IS NOT NULL  
+    )  
+group by               
+co.company_id_no,               
+    INITCAP(co.company_name)      ,               
+    co.effective_start_date       ,               
+    NVL(co.effective_end_date,TO_DATE('31-JAN-3100'))         ,              
+    multi.company_table_type_desc,       
+     templ.company_table_type_desc, 
+     status.company_table_type_id_no]]></SQLQuery>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMPANY_ID_NO"
+    Expression="COMPANY_ID_NO"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVO.CompanyIdNo_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COMPANY_NAME"
+    Expression="COMPANY_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVO.CompanyName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyStartDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="COMPANY_START_DATE"
+    Expression="COMPANY_START_DATE"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVO.CompanyStartDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyEndDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="COMPANY_END_DATE"
+    Expression="COMPANY_END_DATE"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVO.CompanyEndDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Countries"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRIES"
+    Expression="COUNTRIES"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVO.Countries_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Colour"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="7"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="COLOUR"
+    Expression="COLOUR"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Multinational"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MULTINATIONAL"
+    Expression="MULTINATIONAL"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CorrespondenceTemplate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CORRESPONDENCE_TEMPLATE"
+    Expression="CORRESPONDENCE_TEMPLATE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVO.CorrespondenceTemplate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TemplColour"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="23"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TEMPL_COLOUR"
+    Expression="TEMPL_COLOUR"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="23"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyTableTypeIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMPANY_TABLE_TYPE_ID_NO"
+    Expression="COMPANY_TABLE_TYPE_ID_NO"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CompanyIdNo"/>
+  </AttrArray>
+  <ViewLinkAccessor
+    Name="CompanyCorrExceptionReport"
+    ViewLink="com.liberty.health.comms.model.brokerage.vo.links.CompCorrespExceptionsVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

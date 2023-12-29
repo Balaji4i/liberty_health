@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerFunctionEO"
+    Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="BROKER_FUNCTION"
+  AliasName="BrokerFunctionEO"
+  BindingStyle="OracleName"
+  RowClass="com.liberty.health.comms.model.eo.BrokerFunctionEOImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+    <DesignTime>
+        <Attr Name="_codeGenFlag2" Value="Access"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Attribute
+      Name="BrokerIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="BROKER_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="BROKER_FUNCTION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BrokerTableIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="BROKER_TABLE_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="BROKER_FUNCTION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert"
+      DefaultValue="1">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerTableDesc']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="BROKER_FUNCTION"
+      PrimaryKey="true"
+        RetrievedOnUpdate="true"
+        IsUpdateable="false">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="BrokerFunctionEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="BROKER_FUNCTION"
+      DefaultValue="3100-01-31">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BrokerTableTypeIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="BROKER_TABLE_TYPE_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="BROKER_FUNCTION"
+      DefaultValue="1"
+        RetrievedOnUpdate="true">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerTableTypeDesc']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="java.sql.Timestamp"
+      ColumnType="DATE"
+      TableName="BROKER_FUNCTION"
+      HistoryColumn="DateHistory">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LastUpdate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="BROKER_FUNCTION"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Username']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+        Name="Broker"
+        Association="com.liberty.health.comms.model.eo.assoc.FkBrokerFunctionBrokerAssoc"
+        AssociationEnd="com.liberty.health.comms.model.eo.assoc.FkBrokerFunctionBrokerAssoc.Broker"
+        AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.FkBrokerFunctionBrokerAssoc.BrokerFunction"
+        Type="com.liberty.health.comms.model.eo.BrokerEOImpl"
+        IsUpdateable="true"/>
+    <AccessorAttribute
+        Name="BrokerTableType"
+        Association="com.liberty.health.comms.model.eo.assoc.BrokerTableTypeFkAssoc"
+        AssociationEnd="com.liberty.health.comms.model.eo.assoc.BrokerTableTypeFkAssoc.BrokerTableType"
+        AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.BrokerTableTypeFkAssoc.BrokerFunction"
+        Type="oracle.jbo.server.EntityImpl"
+        IsUpdateable="true"/>
+    <AccessorAttribute
+        Name="BrokerTable"
+        Association="com.liberty.health.comms.model.eo.assoc.FkBrokerFunctionBrokerTableAssoc"
+        AssociationEnd="com.liberty.health.comms.model.eo.assoc.FkBrokerFunctionBrokerTableAssoc.BrokerTable"
+        AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.FkBrokerFunctionBrokerTableAssoc.BrokerFunction"
+        Type="oracle.jbo.RowIterator"
+        IsUpdateable="false"/>
+    <Key
+      Name="BrokerFunctionPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="BROKER_FUNCTION_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerFunctionEO.BrokerIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.BrokerFunctionEO.EffectiveStartDate"/>
+            <Item Value="com.liberty.health.comms.model.eo.BrokerFunctionEO.BrokerTableIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="BrokerFunctionFk">
+        <DesignTime>
+            <Attr Name="_isDisabledConstraint" Value="true"/>
+            <Attr Name="_referencedKey" Value="BROKER_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="BROKER_FUNCTION_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerFunctionEO.BrokerIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="BrokerTableTypeFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="BROKER_FUNCTION_TYPE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="BROKER_TABLE_TYPE_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerFunctionEO.BrokerTableTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="fk_BrokerFunctionEO">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="BROKER_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="FK_BROKER_FUNCTION_EO"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerFunctionEO.BrokerIdNo"/>
+        </AttrArray>
+    </Key>
+    <validation:MethodValidationBean
+      Name="BrokerFunctionStartDateRule"
+      ResId="ValidAfterDate"
+      ResBundleId="com.core.liberty.resources.messages.CORE_messages"
+      MethodName="validateBrokerStartDate">
+        <validation:OnAttributes>
+            <validation:Item
+              Value="EffectiveStartDate"/>
+        </validation:OnAttributes>
+        <validation:ResExpressions
+          Name="BrokerFunctionStartDateRule_ResExprList">
+            <validation:Expression
+              Name="ValidObject1"
+              trustMode="untrusted"
+              CodeSourceName="BrokerFunctionEORow"/>
+            <validation:Expression
+              Name="ValidObject2"
+              trustMode="untrusted"
+              CodeSourceName="BrokerFunctionEORow"/>
+        </validation:ResExpressions>
+    </validation:MethodValidationBean>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

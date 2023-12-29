@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout layout="vertical" id="pgl1">
+    <af:panelHeader text="Commission Accruals" id="ph1" styleClass="AFStretchWidth">
+      <af:query id="qryId1" headerText="Search" disclosed="true"
+                value="#{bindings.CommissionAccrualsQuery.queryDescriptor}"
+                model="#{bindings.CommissionAccrualsQuery.queryModel}"
+                queryListener="#{bindings.CommissionAccrualsQuery.processQuery}"
+                queryOperationListener="#{bindings.CommissionAccrualsQuery.processQueryOperation}"
+                resultComponentId="::pc1:resId1"/>
+    </af:panelHeader>
+    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+      <f:facet name="menus"/>
+      <f:facet name="toolbar">
+      <af:toolbar id="t1">
+        <af:button text="#{coreLabels['G.Export']}" id="b4" icon="/adf/images/excel_16x16.png">
+                <af:exportCollectionActionListener type="excelHTML" exportedId="resId1"
+                                                   filename="Commission_Accurals.xls"/>
+            </af:button>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.CommissionAccurals1.collectionModel}" var="row"
+                rows="#{bindings.CommissionAccurals1.rangeSize}" scrollPolicy="page"
+                emptyText="#{bindings.CommissionAccurals1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" selectedRowKeys="#{bindings.CommissionAccurals1.collectionModel.selectedRow}"
+                selectionListener="#{bindings.CommissionAccurals1.collectionModel.makeCurrent}" rowSelection="single"
+                fetchSize="#{bindings.CommissionAccurals1.rangeSize}"
+                filterModel="#{bindings.CommissionAccrualsQuery.queryDescriptor}" filterVisible="true"
+                queryListener="#{bindings.CommissionAccrualsQuery.processQuery}" varStatus="vs" id="resId1"
+                styleClass="AFStretchWidth">
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.Bu.name}" filterable="true" sortable="true"
+                   headerText="#{bindings.CommissionAccurals1.hints.Bu.label}" id="resId1c1">
+          <af:outputText value="#{row.Bu}" shortDesc="#{bindings.CommissionAccurals1.hints.Bu.tooltip}" id="ot1"/>
+        </af:column>
+        <af:column headerText="#{bindings.CommissionAccurals1.hints.ParentGroupCode.label}" id="c4">
+          <af:outputText value="#{row.ParentGroupCode}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.ParentGroupCode.tooltip}" id="ot20"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.GroupCode.name}" filterable="true" sortable="true"
+                   headerText="#{bindings.CommissionAccurals1.hints.GroupCode.label}" id="resId1c2">
+          <af:outputText value="#{row.GroupCode}" shortDesc="#{bindings.CommissionAccurals1.hints.GroupCode.tooltip}"
+                         id="ot2"/>
+        </af:column>
+        <af:column headerText="#{bindings.CommissionAccurals1.hints.CompanyIdNo.label}" id="c2">
+          <af:outputText value="#{row.CompanyIdNo}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.CompanyIdNo.tooltip}" id="ot11"/>
+        </af:column>
+        <af:column headerText="#{bindings.CommissionAccurals1.hints.CompanyName.label}" id="c3">
+          <af:outputText value="#{row.CompanyName}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.CompanyName.tooltip}" id="ot19"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.FinanceInvoiceDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.FinanceInvoiceDate.label}"
+                   id="resId1c3">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.CommissionAccrualsQuery.queryDescriptor.filterConjunctionCriterion.criterionMap.FinanceInvoiceDate.value}"
+                          id="id1">
+              <af:convertDateTime pattern="#{bindings.CommissionAccurals1.hints.FinanceInvoiceDate.format}"/>
+            </af:inputDate>
+          </f:facet>
+          <af:outputText value="#{row.FinanceInvoiceDate}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.FinanceInvoiceDate.tooltip}" id="ot3">
+            <af:convertDateTime pattern="#{bindings.CommissionAccurals1.hints.FinanceInvoiceDate.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.FinanceInvoiceNumber.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.FinanceInvoiceNumber.label}"
+                   id="resId1c4">
+          <af:outputText value="#{row.FinanceInvoiceNumber}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.FinanceInvoiceNumber.tooltip}" id="ot4"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.FinanceInvoiceType.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.FinanceInvoiceType.label}"
+                   id="resId1c5">
+          <af:outputText value="#{row.FinanceInvoiceType}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.FinanceInvoiceType.tooltip}" id="ot5"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.FinanceInvoiceAmt.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.FinanceInvoiceAmt.label}"
+                   id="resId1c6">
+          <af:outputText value="#{row.FinanceInvoiceAmt}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.FinanceInvoiceAmt.tooltip}" id="ot6">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.CommissionAccurals1.hints.FinanceInvoiceAmt.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.CurrencyCode.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.CurrencyCode.label}" id="resId1c7">
+          <af:outputText value="#{row.CurrencyCode}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.CurrencyCode.tooltip}" id="ot7"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.Optionval.name}" filterable="true" sortable="true"
+                   headerText="#{bindings.CommissionAccurals1.hints.Optionval.label}" id="resId1c8">
+          <af:outputText value="#{row.Optionval}" shortDesc="#{bindings.CommissionAccurals1.hints.Optionval.tooltip}"
+                         id="ot8"/>
+        </af:column>
+        <af:column headerText="#{bindings.CommissionAccurals1.hints.MemoType.label}" id="c5">
+          <af:outputText value="#{row.MemoType}" shortDesc="#{bindings.CommissionAccurals1.hints.MemoType.tooltip}"
+                         id="ot21"/>
+        </af:column>
+        <af:column headerText="#{bindings.CommissionAccurals1.hints.WhtPerc.label}" id="c6">
+          <af:outputText value="#{row.WhtPerc}" shortDesc="#{bindings.CommissionAccurals1.hints.WhtPerc.tooltip}"
+                         id="ot22">
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.CommissionAccurals1.hints.WhtPerc.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column headerText="#{bindings.CommissionAccurals1.hints.CountryCode.label}" id="c1" visible="false">
+          <af:outputText value="#{row.CountryCode}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.CountryCode.tooltip}" id="ot10"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.ContributionDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.ContributionDate.label}"
+                   id="resId1c9">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.CommissionAccrualsQuery.queryDescriptor.filterConjunctionCriterion.criterionMap.ContributionDate.value}"
+                          id="id2">
+              <af:convertDateTime pattern="#{bindings.CommissionAccurals1.hints.ContributionDate.format}"/>
+            </af:inputDate>
+          </f:facet>
+          <af:outputText value="#{row.ContributionDate}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.ContributionDate.tooltip}" id="ot9">
+            <af:convertDateTime pattern="#{bindings.CommissionAccurals1.hints.ContributionDate.format}"/>
+          </af:outputText>
+        </af:column>
+        
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.CommsPerc.name}" filterable="true" sortable="true"
+                   headerText="#{bindings.CommissionAccurals1.hints.CommsPerc.label}" id="resId1c12">
+          <af:outputText value="#{row.CommsPerc}" shortDesc="#{bindings.CommissionAccurals1.hints.CommsPerc.tooltip}"
+                         id="ot12">
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.CommissionAccurals1.hints.CommsPerc.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.CalculatedCommsAmt.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.CalculatedCommsAmt.label}"
+                   id="resId1c13">
+          <af:outputText value="#{row.CalculatedCommsAmt}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.CalculatedCommsAmt.tooltip}" id="ot13">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.CommissionAccurals1.hints.CalculatedCommsAmt.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column headerText="#{bindings.CommissionAccurals1.hints.WhtAmt.label}" id="c7">
+          <af:outputText value="#{row.WhtAmt}" shortDesc="#{bindings.CommissionAccurals1.hints.WhtAmt.tooltip}"
+                         id="ot23">
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.CommissionAccurals1.hints.WhtAmt.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.GeneratedInFusion.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.GeneratedInFusion.label}"
+                   id="resId1c14">
+          <af:outputText value="#{row.GeneratedInFusion}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.GeneratedInFusion.tooltip}" id="ot14"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.FusionApInvoice.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.FusionApInvoice.label}"
+                   id="resId1c15">
+          <af:outputText value="#{row.FusionApInvoice}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.FusionApInvoice.tooltip}" id="ot15"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.CreationDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.CreationDate.label}" id="resId1c16">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.CommissionAccrualsQuery.queryDescriptor.filterConjunctionCriterion.criterionMap.CreationDate.value}"
+                          id="id3">
+              <af:convertDateTime pattern="#{bindings.CommissionAccurals1.hints.CreationDate.format}"/>
+            </af:inputDate>
+          </f:facet>
+          <af:outputText value="#{row.CreationDate}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.CreationDate.tooltip}" id="ot16">
+            <af:convertDateTime pattern="#{bindings.CommissionAccurals1.hints.CreationDate.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.LastUpdateDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.LastUpdateDate.label}"
+                   id="resId1c17">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.CommissionAccrualsQuery.queryDescriptor.filterConjunctionCriterion.criterionMap.LastUpdateDate.value}"
+                          id="id4">
+              <af:convertDateTime pattern="#{bindings.CommissionAccurals1.hints.LastUpdateDate.format}"/>
+            </af:inputDate>
+          </f:facet>
+          <af:outputText value="#{row.LastUpdateDate}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.LastUpdateDate.tooltip}" id="ot17">
+            <af:convertDateTime pattern="#{bindings.CommissionAccurals1.hints.LastUpdateDate.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionAccurals1.hints.LastUpdatedBy.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionAccurals1.hints.LastUpdatedBy.label}"
+                   id="resId1c18">
+          <af:outputText value="#{row.LastUpdatedBy}"
+                         shortDesc="#{bindings.CommissionAccurals1.hints.LastUpdatedBy.tooltip}" id="ot18"/>
+        </af:column>
+      </af:table>
+    </af:panelCollection>
+  </af:panelGroupLayout>
+</ui:composition>

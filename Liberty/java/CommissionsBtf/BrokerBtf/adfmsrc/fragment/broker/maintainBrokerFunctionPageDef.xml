@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainBrokerFunctionPageDef"
+                Package="fragment.broker">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BrokerAttributesByBrokerView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerAttributesByBrokerViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="BrokerFunctionAuditRoView" RangeSize="-1" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerFunctionAuditRoViewIterator" Refresh="ifNeeded"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="BrokerAttributesByBrokerViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerAttributesByBrokerViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <tree IterBinding="BrokerAttributesByBrokerViewIterator" id="BrokerAttributesByBrokerView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerFunctionVO"
+                            Name="BrokerAttributesByBrokerView0">
+                <AttrNames>
+                    <Item Value="BrokerTableTypeDesc"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                    <Item Value="BrokerIdNo"/>
+                    <Item Value="BrokerTableDesc"/>
+                    <Item Value="BrokerTableIdNo"/>
+                    <Item Value="BrokerTableIdNoFk"/>
+                    <Item Value="BrokerTableTypeIdNo"/>
+                    <Item Value="BrokerTableTypeIdNoFk"/>
+                    <Item Value="LastUpdateDatetime"/>
+                    <Item Value="Username"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <list IterBinding="BrokerAttributesByBrokerViewIterator" StaticList="false" Uses="LOV_BrokerTableIdNo"
+              id="BrokerTableIdNo" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <list IterBinding="BrokerAttributesByBrokerViewIterator" StaticList="false" Uses="LOV_BrokerTableTypeIdNo"
+              id="BrokerTableTypeIdNo" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <action id="Rollback" DataControl="BrokerMaintenanceAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"
+                InstanceName="data.BrokerMaintenanceAMDataControl.BrokerAttributesByBrokerView"/>
+        <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                      IsViewObjectMethod="true" DataControl="BrokerMaintenanceAMDataControl"
+                      InstanceName="data.BrokerMaintenanceAMDataControl.BrokerAttributesByBrokerView">
+            <NamedData NDName="brokerIdNo" NDValue="#{pageFlowScope.brokerIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="currentDate" NDValue="#{pageFlowScope.companyAttributesBean.currentDate}"
+                       NDType="oracle.jbo.domain.Date"/>
+        </methodAction>
+        <tree IterBinding="BrokerFunctionAuditRoViewIterator" id="BrokerFunctionAuditRoView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerFunctionAuditRoView"
+                            Name="BrokerFunctionAuditRoView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <methodAction id="createComment" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="createBrokerComment" IsViewObjectMethod="false"
+                      DataControl="BrokerMaintenanceAMDataControl"
+                      InstanceName="data.BrokerMaintenanceAMDataControl.dataProvider">
+            <NamedData NDName="brokerIdNo" NDValue="#{bindings.BrokerIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="commentDesc"
+                       NDValue="#{bindings.BrokerTableDesc} with value #{bindings.BrokerTableTypeDesc}: #{pageFlowScope.companyAttributesBean.commentDesc}"
+                       NDType="java.lang.String"/>
+        </methodAction>
+        <action IterBinding="BrokerAttributesByBrokerViewIterator" id="CreateWithParams" RequiresUpdateModel="true"
+                Action="createWithParams">
+            <NamedData NDName="BrokerIdNo" NDValue="#{pageFlowScope.brokerIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="BrokerTableIdNo" NDValue="0" NDType="java.lang.String"/>
+            <NamedData NDName="EffectiveStartDate" NDValue="#{pageFlowScope.companyAttributesBean.currentDate}"
+                       NDType="java.lang.String"/>
+        </action>
+        <action id="Rollback1" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="BrokerMaintenanceAMDataControl"/>
+    </bindings>
+</pageDefinition>

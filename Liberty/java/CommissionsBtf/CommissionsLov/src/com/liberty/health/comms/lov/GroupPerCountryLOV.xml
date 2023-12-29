@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="GroupPerCountryLOV"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.lov.GroupPerCountryLOVRowImpl"
+  ComponentClass="com.liberty.health.comms.lov.GroupPerCountryLOVImpl"
+  PageIterMode="Full"
+  OrderBy='"GROUP_CODE"'>
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="GroupPerCountryLOV_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pCountryCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="pFromDate"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[select TRIM(par.g_parent_group) group_code,  TRIM(par.g_name) group_name, TRIM(par.tx_territory) country_code    
+from groups@MEDWARE.LIBERTY.CO.ZA par 
+WHERE 1=1 
+  AND SUBSTR(g_parent_group,1,1) <> ' ' 
+  AND TRIM(par.tx_territory) = :pCountryCode        
+    AND DECODE(par.g_dt_to,0,TO_DATE('47121231','YYYYMMDD'),TO_DATE(par.g_dt_to,'YYYYMMDD')) > TO_DATE(:pFromDate,'YYYYMMDD' )   
+    AND NOT EXISTS (SELECT DISTINCT group_code FROM comms_calc_snapshot WHERE group_code = TRIM(par.g_group) AND country_code = :pCountryCode) 
+    AND EXISTS (select distinct 'x' 
+                from grpstat@MEDWARE.LIBERTY.CO.ZA 
+                where SUBSTR(AG_CODE,1,1) <> ' ' 
+                 and TRIM(g_group) = TRIM(Par.g_group)) 
+UNION 
+select TRIM(par.g_group) group_code,  TRIM(par.g_name) group_name, TRIM(par.tx_territory) country_code    
+from groups@MEDWARE.LIBERTY.CO.ZA par 
+WHERE 1=1 
+  AND SUBSTR(g_parent_group,1,1) = ' ' 
+  AND TRIM(par.tx_territory) = :pCountryCode        
+    AND DECODE(par.g_dt_to,0,TO_DATE('47121231','YYYYMMDD'),TO_DATE(par.g_dt_to,'YYYYMMDD')) > TO_DATE(:pFromDate,'YYYYMMDD' )  
+    AND NOT EXISTS (SELECT DISTINCT group_code FROM comms_calc_snapshot WHERE group_code = TRIM(par.g_group) AND country_code = :pCountryCode) 
+     AND EXISTS (select distinct 'x' 
+                from grpstat@MEDWARE.LIBERTY.CO.ZA 
+                where SUBSTR(AG_CODE,1,1) <> ' ' 
+                 and TRIM(g_group) = TRIM(Par.g_group))]]></SQLQuery>
+  <ViewAttribute
+    Name="GroupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_CODE"
+    Expression="GROUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GroupName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_NAME"
+    Expression="GROUP_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="GroupCode"/>
+    <Item Value="CountryCode"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.lov.common.GroupPerCountryLOVMsgBundle"/>
+  </ResourceBundle>
+</ViewObject>

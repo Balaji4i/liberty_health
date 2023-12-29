@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+        <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+            <af:panelGroupLayout id="pgl1" rendered="#{pageFlowScope.createInd == 'Y'}">
+                <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png"
+                           rendered="#{securityContext.userInRole['comms-consultant'] || pageFlowScope.createInd == 'Y'}"
+                           actionListener="#{bindings.CreateWithParams.execute}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b2" icon="/adf/images/save_16x16.png"
+                           disabled="#{!bindings.Commit.enabled}"
+                           actionListener="#{pageFlowScope.brokerAttributes.saveAndEffectiveDateActionFunctionListener}"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b3" icon="/adf/images/remove_16x16.png"
+                           actionListener="#{bindings.Rollback.execute}" disabled="#{!bindings.Rollback.enabled}"
+                           immediate="true">
+                    <af:resetActionListener/>
+                </af:button>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl2" layout="vertical">
+                <af:panelFormLayout id="pfl1" partialTriggers="::b1 ::b3 ::b2" visible="#{bindings.Rollback.enabled}">
+                    <af:selectOneChoice value="#{bindings.CompanyTableIdNo.inputValue}"
+                                        label="#{bindings.CompanyTableIdNo.label}"
+                                        required="#{bindings.CompanyTableIdNo.hints.mandatory}"
+                                        shortDesc="#{bindings.CompanyTableIdNo.hints.tooltip}" id="soc1"
+                                        autoSubmit="true">
+                        <f:selectItems value="#{bindings.CompanyTableIdNo.items}" id="si1"/>
+                        <f:validator binding="#{bindings.CompanyTableIdNo.validator}"/>
+                    </af:selectOneChoice>
+                    <af:selectOneChoice value="#{bindings.CompanyTableTypeIdNo.inputValue}"
+                                        label="#{bindings.CompanyTableTypeIdNo.label}" required="false"
+                                        shortDesc="#{bindings.CompanyTableTypeIdNo.hints.tooltip}" id="soc2"
+                                        partialTriggers="soc1" immediate="false">
+                        <f:selectItems value="#{bindings.CompanyTableTypeIdNo.items}" id="si2"/>
+                        <f:validator binding="#{bindings.CompanyTableTypeIdNo.validator}"/>
+                    </af:selectOneChoice>
+                    <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                                  label="#{bindings.EffectiveStartDate.hints.label}"
+                                  required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id1">
+                        <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                    </af:inputDate>
+                    <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                                  label="#{bindings.EffectiveEndDate.hints.label}"
+                                  required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id2" readOnly="true"
+                                  rendered="false">
+                        <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                    </af:inputDate>
+                    <af:inputText label="#{coreLabels['G.Comment']}" id="it1" rows="3"
+                                  binding="#{pageFlowScope.brokerAttributes.commentDescInputTextBox}"
+                                  valueChangeListener="#{pageFlowScope.brokerAttributes.commentDescValueChangeListener}"
+                                  required="false" showRequired="true" autoSubmit="true" autoTab="true"
+                                  value="#{pageFlowScope.brokerAttributes.commentDesc}"/>
+                </af:panelFormLayout>
+                <af:table value="#{bindings.BrokerAttributesByBrokerView.collectionModel}" var="row"
+                          rows="#{bindings.BrokerAttributesByBrokerView.rangeSize}"
+                          emptyText="#{bindings.BrokerAttributesByBrokerView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.BrokerAttributesByBrokerView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.BrokerAttributesByBrokerView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.BrokerAttributesByBrokerView.rangeSize}" id="t1"
+                          partialTriggers="::b1 ::b3 ::b2" displayRow="selected" immediate="true"
+                          rendered="#{!bindings.Rollback.enabled}">
+                    <af:column headerText="#{bindings.BrokerAttributesByBrokerView.hints.CompanyTableDesc.label}"
+                               id="c1">
+                        <af:outputText id="l1" value="#{row.CompanyTableDesc}"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.BrokerAttributesByBrokerView.hints.CompanyTableTypeDesc.label}"
+                               id="c2" width="300">
+                        <af:outputText value="#{row.CompanyTableTypeDesc}"
+                                       shortDesc="#{bindings.BrokerAttributesByBrokerView.hints.CompanyTableTypeDesc.tooltip}"
+                                       id="ot3"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.BrokerAttributesByBrokerView.hints.EffectiveStartDate.label}"
+                               id="c3" align="center">
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.BrokerAttributesByBrokerView.hints.EffectiveStartDate.tooltip}"
+                                       id="ot4">
+                            <af:convertDateTime pattern="#{bindings.BrokerAttributesByBrokerView.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.BrokerAttributesByBrokerView.hints.EffectiveEndDate.label}"
+                               id="c4" align="center">
+                        <af:outputText value="#{row.EffectiveEndDate}"
+                                       shortDesc="#{bindings.BrokerAttributesByBrokerView.hints.EffectiveEndDate.tooltip}"
+                                       id="ot2">
+                            <af:convertDateTime pattern="#{bindings.BrokerAttributesByBrokerView.hints.EffectiveEndDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                </af:table>
+            </af:panelGroupLayout>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t3">
+                        <af:button text="#{coreLabels['G.Export']}" id="b4" icon="/adf/images/excel_16x16.png"
+                                   rendered="#{securityContext.userInRole['comms-consultant']}">
+                            <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                               filename="#{coreLabels['G.History']}.xls"/>
+                        </af:button>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.CompanyFunctionAuditRoView.collectionModel}" var="row"
+                          rows="#{bindings.CompanyFunctionAuditRoView.rangeSize}"
+                          emptyText="#{bindings.CompanyFunctionAuditRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.CompanyFunctionAuditRoView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CompanyFunctionAuditRoView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CompanyFunctionAuditRoView.rangeSize}" id="t2"
+                          displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c5">
+                    <af:column headerText="#{bindings.CompanyFunctionAuditRoView.hints.TransactionDatetime.label}"
+                               id="c6" align="center">
+                        <af:outputText value="#{row.TransactionDatetime}"
+                                       shortDesc="#{bindings.CompanyFunctionAuditRoView.hints.TransactionDatetime.tooltip}"
+                                       id="ot7">
+                            <af:convertDateTime pattern="#{bindings.CompanyFunctionAuditRoView.hints.TransactionDatetime.format}"
+                                                type="both"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFunctionAuditRoView.hints.TransactionUsername.label}"
+                               id="c8">
+                        <af:outputText value="#{row.TransactionUsername}"
+                                       shortDesc="#{bindings.CompanyFunctionAuditRoView.hints.TransactionUsername.tooltip}"
+                                       id="ot5"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFunctionAuditRoView.hints.TransactionDesc.label}" id="c5">
+                        <af:outputText value="#{row.TransactionDesc}"
+                                       shortDesc="#{bindings.CompanyFunctionAuditRoView.hints.TransactionDesc.tooltip}"
+                                       id="ot8"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFunctionAuditRoView.hints.CompanyIdNo.label}" id="c7">
+                        <af:outputText value="#{row.CompanyIdNo}"
+                                       shortDesc="#{bindings.CompanyFunctionAuditRoView.hints.CompanyIdNo.tooltip}"
+                                       id="ot6">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CompanyFunctionAuditRoView.hints.CompanyIdNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFunctionAuditRoView.hints.EffectiveStartDate.label}"
+                               id="c9" align="center">
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.CompanyFunctionAuditRoView.hints.EffectiveStartDate.tooltip}"
+                                       id="ot1">
+                            <af:convertDateTime pattern="#{bindings.CompanyFunctionAuditRoView.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

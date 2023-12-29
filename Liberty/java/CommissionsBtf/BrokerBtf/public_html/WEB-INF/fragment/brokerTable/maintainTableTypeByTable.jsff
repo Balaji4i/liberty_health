@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelHeader text="#{coreLabels['G.BrokerTableType']} " id="ph1">
+        <f:facet name="context"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+            <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+                <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                    <f:facet name="menus"/>
+                    <f:facet name="toolbar">
+                        <af:toolbar id="t2">
+                            <af:button text="#{coreLabels['G.Add']}" id="b1"
+                                       disabled="#{!bindings.CreateInsert.enabled}" icon="/adf/images/add_16x16.png"
+                                       rendered="#{securityContext.userInRole['comms-consultant']}">
+                                <af:showPopupBehavior popupId="p1" triggerType="click"/>
+                            </af:button>
+                            <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                                      popupFetchListener="#{brokerTableBean.brokerTableTypePopUpDialogListener}"
+                                      popupCanceledListener="#{brokerTableBean.BrokerTableTypePopUpCancelListener}"
+                                      contentDelivery="lazyUncached">
+                                <af:dialog id="d1" dialogListener="#{brokerTableBean.okCancelDialogListener}">
+                                    <f:facet name="buttonBar"/>
+                                    <af:panelFormLayout id="pfl1">
+                                        <af:inputText value="#{bindings.BrokerTableTypeDesc.inputValue}"
+                                                      label="#{bindings.BrokerTableTypeDesc.hints.label}"
+                                                      required="#{bindings.BrokerTableTypeDesc.hints.mandatory}"
+                                                      columns="#{bindings.BrokerTableTypeDesc.hints.displayWidth}"
+                                                      maximumLength="#{bindings.BrokerTableTypeDesc.hints.precision}"
+                                                      shortDesc="#{bindings.BrokerTableTypeDesc.hints.tooltip}" id="it1"
+                                                      autoSubmit="false">
+                                            <f:validator binding="#{bindings.BrokerTableTypeDesc.validator}"/>
+                                        </af:inputText>
+                                        <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                                                      label="#{bindings.EffectiveStartDate.hints.label}"
+                                                      required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                                                      columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                                                      shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id3"
+                                                      minValue="#{brokerAttributesBean.minDatePickerDate}">
+                                            <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                                            <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                                        </af:inputDate>
+                                        <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                                                      label="#{bindings.EffectiveEndDate.hints.label}"
+                                                      required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                                                      columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                                                      shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id4"
+                                                      readOnly="true">
+                                            <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                                            <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                                        </af:inputDate>
+                                    </af:panelFormLayout>
+                                </af:dialog>
+                            </af:popup>
+                        </af:toolbar>
+                    </f:facet>
+                    <f:facet name="statusbar"/>
+                    <af:table value="#{bindings.BrokerTableTypeByTableView.collectionModel}" var="row"
+                              rows="#{bindings.BrokerTableTypeByTableView.rangeSize}"
+                              emptyText="#{bindings.BrokerTableTypeByTableView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="1"
+                              selectedRowKeys="#{bindings.BrokerTableTypeByTableView.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.BrokerTableTypeByTableView.collectionModel.makeCurrent}"
+                              rowSelection="single" fetchSize="#{bindings.BrokerTableTypeByTableView.rangeSize}" id="t1"
+                              partialTriggers="::b1 ::p1" displayRow="selected" styleClass="AFStretchWidth">
+                        <af:column headerText="#{bindings.BrokerTableTypeByTableView.hints.BrokerTableTypeDesc.label}"
+                                   id="c2" width="200">
+                            <af:outputText value="#{row.BrokerTableTypeDesc}"
+                                           shortDesc="#{bindings.BrokerTableTypeByTableView.hints.BrokerTableTypeDesc.tooltip}"
+                                           id="ot2"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.BrokerTableTypeByTableView.hints.EffectiveStartDate.label}"
+                                   id="c4" align="center">
+                            <af:outputText value="#{row.EffectiveStartDate}"
+                                           shortDesc="#{bindings.BrokerTableTypeByTableView.hints.EffectiveStartDate.tooltip}"
+                                           id="ot1">
+                                <af:convertDateTime pattern="#{bindings.BrokerTableTypeByTableView.hints.EffectiveStartDate.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.BrokerTableTypeByTableView.hints.EffectiveEndDate.label}"
+                                   id="c5" align="center">
+                            <af:inputDate value="#{row.bindings.EffectiveEndDate.inputValue}"
+                                          label="#{bindings.BrokerTableTypeByTableView.hints.EffectiveEndDate.label}"
+                                          required="#{bindings.BrokerTableTypeByTableView.hints.EffectiveEndDate.mandatory}"
+                                          columns="#{bindings.BrokerTableTypeByTableView.hints.EffectiveEndDate.displayWidth}"
+                                          shortDesc="#{bindings.BrokerTableTypeByTableView.hints.EffectiveEndDate.tooltip}"
+                                          id="id2">
+                                <f:validator binding="#{row.bindings.EffectiveEndDate.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.BrokerTableTypeByTableView.hints.EffectiveEndDate.format}"/>
+                            </af:inputDate>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:showDetailItem>
+            <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+                <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+                    <f:facet name="menus"/>
+                    <f:facet name="toolbar">
+                        <af:toolbar id="t4">
+                            <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"
+                                       rendered="#{securityContext.userInRole['comms-consultant']}">
+                                <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                                   filename="#{coreLabels['G.History']}.xls"/>
+                            </af:button>
+                        </af:toolbar>
+                    </f:facet>
+                    <f:facet name="statusbar"/>
+                    <af:table value="#{bindings.BrokerTableTypeAuditView.collectionModel}" var="row"
+                              rows="#{bindings.BrokerTableTypeAuditView.rangeSize}"
+                              emptyText="#{bindings.BrokerTableTypeAuditView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="1"
+                              selectedRowKeys="#{bindings.BrokerTableTypeAuditView.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.BrokerTableTypeAuditView.collectionModel.makeCurrent}"
+                              rowSelection="single" fetchSize="#{bindings.BrokerTableTypeAuditView.rangeSize}" id="t3"
+                              displayRow="selected" styleClass="AFStretchWidth">
+                        <af:column headerText="#{bindings.BrokerTableTypeAuditView.hints.TransactionDatetime.label}"
+                                   id="c1" align="center">
+                            <af:outputText value="#{row.TransactionDatetime}"
+                                           shortDesc="#{bindings.BrokerTableTypeAuditView.hints.TransactionDatetime.tooltip}"
+                                           id="ot3">
+                                <af:convertDateTime pattern="#{bindings.BrokerTableTypeAuditView.hints.TransactionDatetime.format}"
+                                                    type="both"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.BrokerTableTypeAuditView.hints.TransactionUsername.label}"
+                                   id="c3">
+                            <af:outputText value="#{row.TransactionUsername}"
+                                           shortDesc="#{bindings.BrokerTableTypeAuditView.hints.TransactionUsername.tooltip}"
+                                           id="ot4"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.BrokerTableTypeAuditView.hints.TransactionDesc.label}" id="c6"
+                                   width="350">
+                            <af:outputText value="#{row.TransactionDesc}"
+                                           shortDesc="#{bindings.BrokerTableTypeAuditView.hints.TransactionDesc.tooltip}"
+                                           id="ot5"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.BrokerTableTypeAuditView.hints.BrokerTableTypeDesc.label}"
+                                   id="c7">
+                            <af:outputText value="#{row.BrokerTableTypeDesc}"
+                                           shortDesc="#{bindings.BrokerTableTypeAuditView.hints.BrokerTableTypeDesc.tooltip}"
+                                           id="ot6"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.BrokerTableTypeAuditView.hints.BrokerTableIdNo.label}"
+                                   id="c8">
+                            <af:outputText value="#{row.BrokerTableIdNo}"
+                                           shortDesc="#{bindings.BrokerTableTypeAuditView.hints.BrokerTableIdNo.tooltip}"
+                                           id="ot7">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.BrokerTableTypeAuditView.hints.BrokerTableIdNo.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.BrokerTableTypeAuditView.hints.EffectiveStartDate.label}"
+                                   id="c9" align="center">
+                            <af:outputText value="#{row.EffectiveStartDate}"
+                                           shortDesc="#{bindings.BrokerTableTypeAuditView.hints.EffectiveStartDate.tooltip}"
+                                           id="ot8">
+                                <af:convertDateTime pattern="#{bindings.BrokerTableTypeAuditView.hints.EffectiveStartDate.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.BrokerTableTypeAuditView.hints.EffectiveEndDate.label}"
+                                   id="c10" align="center">
+                            <af:outputText value="#{row.EffectiveEndDate}"
+                                           shortDesc="#{bindings.BrokerTableTypeAuditView.hints.EffectiveEndDate.tooltip}"
+                                           id="ot9">
+                                <af:convertDateTime pattern="#{bindings.BrokerTableTypeAuditView.hints.EffectiveEndDate.format}"/>
+                            </af:outputText>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:showDetailItem>
+        </af:panelTabbed>
+    </af:panelHeader>
+</jsp:root>

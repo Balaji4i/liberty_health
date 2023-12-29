@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintainCompanyBankDetailsPageDef" Package="fragment.company">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyBankDetailsByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyBankDetailsByPkViewIterator"/>
+    </executables>
+    <bindings>
+        <action IterBinding="CompanyBankDetailsByPkViewIterator" id="CreateWithParams" RequiresUpdateModel="true"
+                Action="createWithParams">
+            <NamedData NDName="CompanyIdNo" NDType="java.lang.String" NDValue="#{pageFlowScope.companyIdNo}"/>
+            <NamedData NDName="CountryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+        </action>
+        <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+        <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+        <list IterBinding="CompanyBankDetailsByPkViewIterator" StaticList="false" Uses="LOV_BankAccTypeIdNo"
+              id="BankAccTypeIdNo" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="AccHolderName">
+            <AttrNames>
+                <Item Value="AccHolderName"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="BankAccName">
+            <AttrNames>
+                <Item Value="BankAccName"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="BankAccNo">
+            <AttrNames>
+                <Item Value="BankAccNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="BankName">
+            <AttrNames>
+                <Item Value="BankName"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="BankBranchCode">
+            <AttrNames>
+                <Item Value="BankBranchCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="BankBranchName">
+            <AttrNames>
+                <Item Value="BankBranchName"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="BankSwiftCode">
+            <AttrNames>
+                <Item Value="BankSwiftCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="IbanNibNo">
+            <AttrNames>
+                <Item Value="IbanNibNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="CreatedUsername">
+            <AttrNames>
+                <Item Value="CreatedUsername"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="AuthUsername">
+            <AttrNames>
+                <Item Value="AuthUsername"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="BankAccTypeDesc">
+            <AttrNames>
+                <Item Value="BankAccTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="CountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="approveBankingDetails" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="approveBankingDetails" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="bindings.approveBankingDetails.dataControl.dataProvider">
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}"
+                       NDType="oracle.jbo.domain.Number"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="currentDate" NDValue="#{bindings.EffectiveStartDate.inputValue}"
+                       NDType="java.util.Date"/>
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+        </methodAction>
+        <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                      IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyBankDetailsByPkView">
+            <NamedData NDName="compIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributesBean.currentDate}"
+                       NDType="oracle.jbo.domain.Date"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="WebApplObject"
+  Version="12.2.1.0.31"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="WEB_APPL_OBJECT"
+  AliasName="WebApplObject"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache">
+  <Attribute
+    Name="WebApplObjectNo"
+    IsNotNull="true"
+    ColumnName="WEB_APPL_OBJECT_NO"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    TableName="WEB_APPL_OBJECT"
+    PrimaryKey="true"
+    IsUpdateable="while_insert">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObject.WebApplObjectNo"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="SystemName"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="SYSTEM_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="WEB_APPL_OBJECT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SystemName.SystemName"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="ParentWebApplObjectNo"
+    ColumnName="PARENT_WEB_APPL_OBJECT_NO"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    TableName="WEB_APPL_OBJECT">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObject.ParentWebApplObjectNo"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="ObjectTypeNo"
+    IsNotNull="true"
+    Precision="5"
+    Scale="0"
+    ColumnName="OBJECT_TYPE_NO"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="WEB_APPL_OBJECT">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObjectType.ObjectTypeNo"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="MenuSortSeqNo"
+    Precision="5"
+    Scale="0"
+    ColumnName="MENU_SORT_SEQ_NO"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="WEB_APPL_OBJECT">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObject.MenuSortSeqNo"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="UrlPathName"
+    Precision="200"
+    ColumnName="URL_PATH_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="WEB_APPL_OBJECT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObject.UrlPathName"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="ActiveFromDate"
+    ColumnName="ACTIVE_FROM_DATE"
+    SQLType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    TableName="WEB_APPL_OBJECT">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObject.ActiveFromDate"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="RemoveFromDate"
+    ColumnName="REMOVE_FROM_DATE"
+    SQLType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    TableName="WEB_APPL_OBJECT">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObject.RemoveFromDate"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <AccessorAttribute
+    Name="WebApplObjectType"
+    Association="com.core.model.eo.assoc.WebApplObjectNoFk2Assoc"
+    AssociationEnd="com.core.model.eo.assoc.WebApplObjectNoFk2Assoc.WebApplObjectType"
+    AssociationOtherEnd="com.core.model.eo.assoc.WebApplObjectNoFk2Assoc.WebApplObject"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="WebApplObjectLangMenu"
+    Association="com.core.model.eo.assoc.WebApplObjectLangMenuFk1Assoc"
+    AssociationEnd="com.core.model.eo.assoc.WebApplObjectLangMenuFk1Assoc.WebApplObjectLangMenu"
+    AssociationOtherEnd="com.core.model.eo.assoc.WebApplObjectLangMenuFk1Assoc.WebApplObject"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="SystemName1"
+    Association="com.core.model.eo.assoc.WebApplObjectNoFk1Assoc"
+    AssociationEnd="com.core.model.eo.assoc.WebApplObjectNoFk1Assoc.SystemName1"
+    AssociationOtherEnd="com.core.model.eo.assoc.WebApplObjectNoFk1Assoc.WebApplObject"
+    Type="com.core.model.eo.classes.CoreEntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="WebApplObjectNoPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="WEB_APPL_OBJECT_NO_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.eo.WebApplObject.WebApplObjectNo"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="WebApplObjectNoFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="SYSTEM_NAME_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="WEB_APPL_OBJECT_NO_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.eo.WebApplObject.SystemName"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="WebApplObjectNoFk2">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="WEB_APPL_OBJECT_TYPE_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="WEB_APPL_OBJECT_NO_FK2"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.eo.WebApplObject.ObjectTypeNo"/>
+    </AttrArray>
+  </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.core.model.CoreModelBundle"/>
+  </ResourceBundle>
+</Entity>

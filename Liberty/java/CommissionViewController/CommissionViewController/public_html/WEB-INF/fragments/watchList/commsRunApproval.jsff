@@ -1,0 +1,299 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelTabbed position="above" id="pt1">
+    <af:showDetailItem id="tab2" text="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}"
+                       stretchChildren="first">
+      <af:panelStretchLayout id="psl1" topHeight="auto" inlineStyle="width:723px;">
+        <f:facet name="start"/>
+        <f:facet name="end"/>
+        <f:facet name="top">
+          <af:panelHeader text="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}" id="ph1">
+            <af:query id="qryId1" headerText="Search" disclosed="true"
+                      value="#{bindings.CommsCalcApprovalsRoViewCriteriaQuery.queryDescriptor}"
+                      model="#{bindings.CommsCalcApprovalsRoViewCriteriaQuery.queryModel}"
+                      queryListener="#{bindings.CommsCalcApprovalsRoViewCriteriaQuery.processQuery}"
+                      queryOperationListener="#{bindings.CommsCalcApprovalsRoViewCriteriaQuery.processQueryOperation}"
+                      resultComponentId="::pc1:resId1"/>
+          </af:panelHeader>
+        </f:facet>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+          <af:panelGroupLayout layout="scroll" id="pgl1">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t1">
+                  <af:button text="#{coreLabels['G.Approve']}" id="b1"
+                             rendered="#{securityContext.userInRole['team-leads']}">
+                    <af:showPopupBehavior popupId="p1" triggerType="click"/>
+                  </af:button>
+                  <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"
+                             rendered="#{securityContext.userInRole['comms-consultant']}">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="resId1"
+                                                       filename="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}.xls"/>
+                  </af:button>
+                  <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+                    <af:dialog id="d1" dialogListener="#{watchListBean.commsRunApprovalDialogListener}"
+                               title="#{coreLabels['G.Confirmation']}">
+                      <f:facet name="buttonBar"/>
+                      <af:outputText value="#{coreLabels['G.CommissionRunApprovalMsg']}" id="ot14"/>
+                    </af:dialog>
+                  </af:popup>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.AllCommsCalcApprovalsRoView.collectionModel}" var="row"
+                        rows="#{bindings.AllCommsCalcApprovalsRoView.rangeSize}"
+                        emptyText="#{bindings.AllCommsCalcApprovalsRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="1" scrollPolicy="page"
+                        selectedRowKeys="#{bindings.AllCommsCalcApprovalsRoView.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.AllCommsCalcApprovalsRoView.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.AllCommsCalcApprovalsRoView.rangeSize}" id="resId1"
+                        displayRow="selected" styleClass="AFStretchWidth">
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.Username.label}" id="resId1c1">
+                  <af:selectOneChoice value="#{row.bindings.Username.inputValue}" label="#{row.bindings.Username.label}"
+                                      required="#{bindings.AllCommsCalcApprovalsRoView.hints.Username.mandatory}"
+                                      shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.Username.tooltip}"
+                                      readOnly="true" id="soc1">
+                    <f:selectItems value="#{row.bindings.Username.items}" id="si1"/>
+                    <f:validator binding="#{row.bindings.Username.validator}"/>
+                  </af:selectOneChoice>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.CommsCalcTypeDesc.label}"
+                           id="resId1c2">
+                  <af:outputText value="#{row.CommsCalcTypeDesc}"
+                                 shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.CommsCalcTypeDesc.tooltip}"
+                                 id="ot1"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.CalculationDatetime.label}"
+                           id="resId1c9" width="150">
+                  <af:outputText value="#{row.CalculationDatetime}"
+                                 shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.CalculationDatetime.tooltip}"
+                                 id="ot7"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.CompanyIdNo.label}" id="resId1c3"
+                           width="80">
+                  <af:outputText value="#{row.CompanyIdNo}"
+                                 shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.CompanyIdNo.tooltip}" id="ot2">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.AllCommsCalcApprovalsRoView.hints.CompanyIdNo.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.CompanyName.label}" id="resId1c4"
+                           width="250">
+                  <af:outputText value="#{row.CompanyName}"
+                                 shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.CompanyName.tooltip}"
+                                 id="ot3"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.GroupCode.label}" id="resId1c5">
+                  <af:outputText value="#{row.GroupCode}"
+                                 shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.GroupCode.tooltip}" id="ot4"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.CountryCode.label}" id="resId1c6"
+                           width="80">
+                  <af:selectOneChoice value="#{row.bindings.CountryCode.inputValue}"
+                                      label="#{row.bindings.CountryCode.label}"
+                                      required="#{bindings.AllCommsCalcApprovalsRoView.hints.CountryCode.mandatory}"
+                                      shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.CountryCode.tooltip}"
+                                      readOnly="true" id="soc2">
+                    <f:selectItems value="#{row.bindings.CountryCode.items}" id="si2"/>
+                    <f:validator binding="#{row.bindings.CountryCode.validator}"/>
+                  </af:selectOneChoice>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.PaymentReceiveAmt.label}"
+                           id="resId1c10" align="right" width="80">
+                  <af:outputText value="#{row.PaymentReceiveAmt}"
+                                 shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.PaymentReceiveAmt.tooltip}"
+                                 id="ot8">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.AllCommsCalcApprovalsRoView.hints.PaymentReceiveAmt.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.CommsCalculatedAmt.label}"
+                           id="resId1c11" align="right" width="80">
+                  <af:outputText value="#{row.CommsCalculatedAmt}"
+                                 shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.CommsCalculatedAmt.tooltip}"
+                                 id="ot9">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.AllCommsCalcApprovalsRoView.hints.CommsCalculatedAmt.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.CommsCalculatedExchAmt.label}"
+                           id="c1" align="right" width="80">
+                  <af:outputText value="#{row.CommsCalculatedExchAmt}"
+                                 shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.CommsCalculatedExchAmt.tooltip}"
+                                 id="ot6">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.AllCommsCalcApprovalsRoView.hints.CommsCalculatedExchAmt.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllCommsCalcApprovalsRoView.hints.ExchangeRateCurrencyCode.label}"
+                           id="c2" align="center" width="80">
+                  <af:outputText value="#{row.ExchangeRateCurrencyCode}"
+                                 shortDesc="#{bindings.AllCommsCalcApprovalsRoView.hints.ExchangeRateCurrencyCode.tooltip}"
+                                 id="ot10"/>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:panelGroupLayout>
+        </f:facet>
+      </af:panelStretchLayout>
+    </af:showDetailItem>
+    <!--<af:showDetailItem id="tab1" text="#{coreLabels['G.CommissionPreApprovalChecks']}">
+      <af:panelCollection id="pc2" inlineStyle="width:1248px;">
+        <f:facet name="menus">
+          <af:menu text="File" id="m1">
+            <af:commandMenuItem text="Export" id="cmi1">
+              <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                 filename="Commissions Pre Approval Checks.xls"
+                                                 title="Commissions Pre Approval Checks"/>
+            </af:commandMenuItem>
+          </af:menu>
+        </f:facet>
+        <f:facet name="toolbar"/>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.CommsPreApprovalChecks1.collectionModel}" var="row"
+                  rows="#{bindings.CommsPreApprovalChecks1.rangeSize}"
+                  emptyText="#{bindings.CommsPreApprovalChecks1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" scrollPolicy="page"
+                  selectedRowKeys="#{bindings.CommsPreApprovalChecks1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.CommsPreApprovalChecks1.collectionModel.makeCurrent}"
+                  rowSelection="single" fetchSize="#{bindings.CommsPreApprovalChecks1.rangeSize}"
+                  filterModel="#{bindings.CommsPreApprovalChecks1Query.queryDescriptor}" filterVisible="true"
+                  queryListener="#{bindings.CommsPreApprovalChecks1Query.processQuery}" varStatus="vs" id="t2">
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.BrokerageCode.name}" filterable="true"
+                     sortable="true" headerText="Brokerage Code" id="c3">
+            <af:outputText value="#{row.BrokerageCode}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.BrokerageCode.tooltip}" id="ot5">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.CommsPreApprovalChecks1.hints.BrokerageCode.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.CountryCode.name}" filterable="true"
+                     sortable="true" headerText="Country Code" id="c4">
+            <af:outputText value="#{row.CountryCode}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.CountryCode.tooltip}" id="ot11"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.GroupCode.name}" filterable="true"
+                     sortable="true" headerText="Group Code" id="c5">
+            <af:outputText value="#{row.GroupCode}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.GroupCode.tooltip}" id="ot12"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.FinanceInvoiceNo.name}" filterable="true"
+                     sortable="true" headerText="Finance Invoice Number" id="c6" align="center">
+            <af:outputText value="#{row.FinanceInvoiceNo}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.FinanceInvoiceNo.tooltip}" id="ot13"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.CommsCalcTypeCode.name}" filterable="true"
+                     sortable="true" headerText="Comms Calc Type" id="c7" align="center">
+            <af:outputText value="#{row.CommsCalcTypeCode}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.CommsCalcTypeCode.tooltip}" id="ot15"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.CommsCalculated.name}" filterable="true"
+                     sortable="true" headerText="Comms Calculated" id="c8" align="right">
+            <af:outputText value="#{row.CommsCalculated}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.CommsCalculated.tooltip}" id="ot16">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.CommsPreApprovalChecks1.hints.CommsCalculated.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.ExchangeRateCurrencyCode.name}"
+                     filterable="true" sortable="true" headerText="Exchange Rate Currency" id="c9" align="center">
+            <af:outputText value="#{row.ExchangeRateCurrencyCode}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.ExchangeRateCurrencyCode.tooltip}"
+                           id="ot17"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.ExchangeRate.name}" filterable="true"
+                     sortable="true" headerText="Exchange Rate" id="c10">
+            <af:outputText value="#{row.ExchangeRate}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.ExchangeRate.tooltip}" id="ot18">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.CommsPreApprovalChecks1.hints.ExchangeRate.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.PaymentCurrency.name}" filterable="true"
+                     sortable="true" headerText="Payment Currency" id="c11" align="center">
+            <af:outputText value="#{row.PaymentCurrency}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.PaymentCurrency.tooltip}" id="ot19"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.CommsPreApprovalChecks1.hints.PaymentAmt.name}" filterable="true"
+                     sortable="true" headerText="Payment Amount" id="c12" align="right">
+            <af:outputText value="#{row.PaymentAmt}"
+                           shortDesc="#{bindings.CommsPreApprovalChecks1.hints.PaymentAmt.tooltip}" id="ot20">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.CommsPreApprovalChecks1.hints.PaymentAmt.format}"/>
+            </af:outputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailItem>-->
+  <!--  <af:showDetailItem text="Comms Calc Pkg Approvals" id="sdi1" flex="0" rendered="false">
+      <af:panelStretchLayout id="psl2" styleClass="AFStretchWidth" topHeight="160px" bottomHeight="15px"
+                             inlineStyle="height:470px;">
+        <f:facet name="start"/>
+        <f:facet name="end"/>
+        <f:facet name="top">
+          <af:panelHeader text="Comms Calc Pkg Approval" id="ph2" styleClass="AFStretchWidth">
+            <af:query id="qryId2" headerText="Search" disclosed="true"
+                      value="#{bindings.CommsCalcPkgApprovalRoViewCriteriaQuery.queryDescriptor}"
+                      model="#{bindings.CommsCalcPkgApprovalRoViewCriteriaQuery.queryModel}"
+                      queryListener="#{bindings.CommsCalcPkgApprovalRoViewCriteriaQuery.processQuery}"
+                      queryOperationListener="#{bindings.CommsCalcPkgApprovalRoViewCriteriaQuery.processQueryOperation}"
+                      resultComponentId="::pc2:resId2" styleClass="AFStretchWidth"/>
+          </af:panelHeader>
+        </f:facet>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+          <af:panelGroupLayout layout="vertical" id="pgl2" styleClass="AFStretchWidth">
+            <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar"/>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.CommsCalcPkgApprovalRoView1.collectionModel}" var="row"
+                        rows="#{bindings.CommsCalcPkgApprovalRoView1.rangeSize}"
+                        emptyText="#{bindings.CommsCalcPkgApprovalRoView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="0"
+                        selectedRowKeys="#{bindings.CommsCalcPkgApprovalRoView1.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.CommsCalcPkgApprovalRoView1.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.CommsCalcPkgApprovalRoView1.rangeSize}"
+                        filterModel="#{bindings.CommsCalcPkgApprovalRoViewCriteriaQuery.queryDescriptor}"
+                        filterVisible="true"
+                        queryListener="#{bindings.CommsCalcPkgApprovalRoViewCriteriaQuery.processQuery}" varStatus="vs"
+                        id="resId2" styleClass="AFStretchWidth">
+                <af:column sortProperty="#{bindings.CommsCalcPkgApprovalRoView1.hints.CompanyIdNo.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.CommsCalcPkgApprovalRoView1.hints.CompanyIdNo.label}" id="resId2c1"
+                           width="680">
+                  <af:outputText value="#{row.CompanyIdNo}"
+                                 shortDesc="#{bindings.CommsCalcPkgApprovalRoView1.hints.CompanyIdNo.tooltip}"
+                                 id="ot5"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.CommsCalcPkgApprovalRoView1.hints.CountryCode.name}"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.CommsCalcPkgApprovalRoView1.hints.CountryCode.label}" id="resId2c2"
+                           width="-91">
+                  <af:outputText value="#{row.CountryCode}"
+                                 shortDesc="#{bindings.CommsCalcPkgApprovalRoView1.hints.CountryCode.tooltip}"
+                                 id="ot11"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.CommsCalcPkgApprovalRoView1.hints.GroupCode.name}" filterable="true"
+                           sortable="true" headerText="#{bindings.CommsCalcPkgApprovalRoView1.hints.GroupCode.label}"
+                           id="resId2c3" width="150">
+                  <af:outputText value="#{row.GroupCode}"
+                                 shortDesc="#{bindings.CommsCalcPkgApprovalRoView1.hints.GroupCode.tooltip}" id="ot12"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.CommsCalcPkgApprovalRoView1.hints.Username.name}" filterable="true"
+                           sortable="true" headerText="#{bindings.CommsCalcPkgApprovalRoView1.hints.Username.label}"
+                           id="resId2c4" width="100">
+                  <af:outputText value="#{row.Username}"
+                                 shortDesc="#{bindings.CommsCalcPkgApprovalRoView1.hints.Username.tooltip}" id="ot13"/>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:panelGroupLayout>
+        </f:facet>
+      </af:panelStretchLayout>
+    </af:showDetailItem>-->
+  </af:panelTabbed>
+</jsp:root>

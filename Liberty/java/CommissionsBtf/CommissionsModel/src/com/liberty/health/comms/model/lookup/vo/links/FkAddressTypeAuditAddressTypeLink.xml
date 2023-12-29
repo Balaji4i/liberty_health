@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkAddressTypeAuditAddressTypeLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.lookup.vo.links.FkAddressTypeAuditAddressTypeLink_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewLinkDefEnd
+      Name="AddressType"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.lookup.vo.AddressTypeVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="AddressType"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.lookup.vo.AddressTypeVO.AddressTypeCode"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ViewLinkDefEnd
+      Name="AddressTypeAuditRoView"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.model.lookup.vo.AddressTypeAuditRoView">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="AddressTypeAuditRoView"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.lookup.vo.AddressTypeAuditRoView.AddressTypeCode"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewLink>

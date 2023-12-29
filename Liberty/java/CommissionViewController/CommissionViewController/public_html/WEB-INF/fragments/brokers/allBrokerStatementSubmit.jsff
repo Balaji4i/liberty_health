@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:panelHeader text="#{coreLabels['G.BrokerStatement']}" id="ph1">
+        <f:facet name="context"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:panelBox text="#{coreLabels['G.BrokerRunComms']}" id="pb2">
+            <f:facet name="toolbar"/>
+            <af:panelFormLayout id="pfl1" partialTriggers="b1 p2 d2" labelAlignment="start" inlineStyle="width:691px;">
+                <af:selectOneChoice value="#{bindings.TemplateCode.inputValue}" label="#{bindings.TemplateCode.label}"
+                                    required="true" shortDesc="#{bindings.TemplateCode.hints.tooltip}" id="soc1"
+                                    autoSubmit="true">
+                    <f:selectItems value="#{bindings.TemplateCode.items}" id="si1"/>
+                    <f:validator binding="#{bindings.TemplateCode.validator}"/>
+                </af:selectOneChoice>
+                <af:inputListOfValues id="languageCodeId"
+                                      popupTitle="Search and Select: #{bindings.LanguageCode.hints.label}"
+                                      value="#{bindings.LanguageCode.inputValue}"
+                                      label="#{bindings.LanguageCode.hints.label}"
+                                      model="#{bindings.LanguageCode.listOfValuesModel}"
+                                      required="#{bindings.LanguageCode.hints.mandatory}" columns="20"
+                                      shortDesc="#{bindings.LanguageCode.hints.tooltip}"
+                                      binding="#{pageFlowScope.brokerStatementsBean.languageCodeInput}">
+                    <f:validator binding="#{bindings.LanguageCode.validator}"/>
+                </af:inputListOfValues>
+                <af:inputDate value="#{bindings.StatementStartDate.inputValue}"
+                              label="#{bindings.StatementStartDate.hints.label}"
+                              required="#{bindings.TemplateCode.inputValue == &quot;COM000004&quot; ? true : false}"
+                              columns="#{bindings.StatementStartDate.hints.displayWidth}"
+                              shortDesc="#{bindings.StatementStartDate.hints.tooltip}" id="id1"
+                              partialTriggers="soc1" autoSubmit="true">
+                    <f:validator binding="#{bindings.StatementStartDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.StatementStartDate.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.StatementEndDate.inputValue}"
+                              label="#{bindings.StatementEndDate.hints.label}"
+                              required="#{bindings.TemplateCode.inputValue == &quot;COM000004&quot; ? true : false}"
+                              columns="#{bindings.StatementEndDate.hints.displayWidth}"
+                              shortDesc="#{bindings.StatementEndDate.hints.tooltip}" id="id2"
+                              partialTriggers="soc1" autoSubmit="true">
+                    <f:validator binding="#{bindings.StatementEndDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.StatementEndDate.format}"/>
+                </af:inputDate>
+                <af:switcher id="s2" defaultFacet="notbulk"
+                             facetName='#{bindings.TemplateCode.inputValue == "COM000004" ? "bulk" : "notbulk"}'>
+                    <f:facet name="bulk">
+                        <af:panelFormLayout id="pfl3">
+                            <af:selectOneChoice value="#{bindings.CountryCode.inputValue}"
+                                                label="#{bindings.CountryCode.label}"
+                                                required="#{bindings.CountryCode.hints.mandatory}"
+                                                shortDesc="#{bindings.CountryCode.hints.tooltip}" id="soc2">
+                                <f:selectItems value="#{bindings.CountryCode.items}" id="si2"/>
+                                <f:validator binding="#{bindings.CountryCode.validator}"/>
+                            </af:selectOneChoice>
+                            <af:inputListOfValues id="ilov1"
+                                                  popupTitle="Search and Select: #{bindings.CompanyIdNo.hints.label}"
+                                                  value="#{bindings.CompanyIdNo.inputValue}"
+                                                  label="#{bindings.CompanyIdNo.hints.label}"
+                                                  model="#{bindings.CompanyIdNo.listOfValuesModel}" required="true"
+                                                  columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                                                  shortDesc="#{bindings.CompanyIdNo.hints.tooltip}">
+                                <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+                                <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+                            </af:inputListOfValues>
+                        </af:panelFormLayout>
+                    </f:facet>
+                    <f:facet name="notbulk">
+                        <af:panelFormLayout id="pfl2" styleClass="100px; 300px;">
+                            <af:inputListOfValues id="brokerIdNoId"
+                                                  popupTitle="Search and Select: #{bindings.BrokerIdNo.hints.label}"
+                                                  value="#{bindings.BrokerIdNo.inputValue}"
+                                                  label="#{bindings.BrokerIdNo.hints.label}"
+                                                  model="#{bindings.BrokerIdNo.listOfValuesModel}"
+                                                  columns="#{bindings.BrokerIdNo.hints.displayWidth}"
+                                                  shortDesc="#{bindings.BrokerIdNo.hints.tooltip}"
+                                                  binding="#{pageFlowScope.brokerStatementsBean.brokerIdNoInput}">
+                                <f:validator binding="#{bindings.BrokerIdNo.validator}"/>
+                                <af:convertNumber groupingUsed="false" pattern="#{bindings.BrokerIdNo.format}"/>
+                            </af:inputListOfValues>
+                            <af:inputListOfValues id="ilov2"
+                                                  popupTitle="Search and Select: #{bindings.CompanyIdNo.hints.label}"
+                                                  value="#{bindings.CompanyIdNo.inputValue}"
+                                                  label="#{bindings.CompanyIdNo.hints.label}"
+                                                  model="#{bindings.CompanyIdNo.listOfValuesModel}" required="true"
+                                                  columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                                                  shortDesc="#{bindings.CompanyIdNo.hints.tooltip}"
+                                                  binding="#{pageFlowScope.brokerStatementsBean.companyIdNoInput}">
+                                <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+                                <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+                            </af:inputListOfValues>
+                        </af:panelFormLayout>
+                    </f:facet>
+                </af:switcher>
+                <f:facet name="footer">
+                    <af:toolbar id="t1">
+                        <af:button text="#{coreLabels['G.Submit']}" id="b1"
+                                   actionListener="#{pageFlowScope.brokerStatementsBean.executeBrokerStatementActionListener}"/>
+                        <af:button text="Cancel" id="b3" actionListener="#{bindings.Rollback.execute}" immediate="true">
+                            <af:resetActionListener/>
+                        </af:button>
+                        <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                                  binding="#{pageFlowScope.brokerStatementsBean.successMsgPopUp}"
+                                  popupCanceledListener="#{pageFlowScope.brokerStatementsBean.cancelActionListener}">
+                            <af:dialog id="d2" title="#{coreLabels['G.Status']}" type="ok"
+                                       dialogListener="#{pageFlowScope.brokerStatementsBean.dialogActionListener}">
+                                <f:facet name="buttonBar"/>
+                                <af:switcher id="s1" defaultFacet="info"
+                                             facetName="#{pageFlowScope.brokerStatementsBean.returnMsg == null ? 'info' : 'error'}">
+                                    <f:facet name="info">
+                                        <af:outputText value="#{coreLabels['G.Success']}" id="ot1"/>
+                                    </f:facet>
+                                    <f:facet name="error">
+                                        <af:outputText value="#{pageFlowScope.brokerStatementsBean.returnMsg }"
+                                                       id="ot14"/>
+                                    </f:facet>
+                                </af:switcher>
+                            </af:dialog>
+                        </af:popup>
+                        <af:button text="Return to Report" id="b2" action="Return"/>
+                    </af:toolbar>
+                </f:facet>
+            </af:panelFormLayout>
+        </af:panelBox>
+    </af:panelHeader>
+</jsp:root>

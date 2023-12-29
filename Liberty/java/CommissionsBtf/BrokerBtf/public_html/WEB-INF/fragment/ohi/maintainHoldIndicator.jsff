@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" endWidth="auto" topHeight="auto" bottomHeight="auto">
+        <f:facet name="end"/>
+        <f:facet name="top">
+            <af:panelHeader text="#{coreLabels['G.MaintainHoldIndicators']}" id="ph1">
+                <f:facet name="context"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t2">
+                        <af:button text="#{coreLabels['G.Save']}" id="b1" icon="/adf/images/save_16x16.png" actionListener="#{pageFlowScope.percentageBean.saveButtonActionListener}"/>
+                        <af:button text="#{coreLabels['G.Cancel']}" id="b2" immediate="true"
+                                   icon="/adf/images/remove_16x16.png" action="cancel"/>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+            </af:panelHeader>
+        </f:facet>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+            <af:panelGroupLayout id="pgl1" partialTriggers="pc1:b3 b5">
+                <af:switcher id="s1" defaultFacet="view" facetName="#{pageFlowScope.percentageBean.ohiHoldFacetName}">
+                    <f:facet name="view">
+                        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t3">
+                                    <af:button actionListener="#{pageFlowScope.percentageBean.createActionListener}"
+                                               text="#{coreLabels['G.Add']}"
+                                               disabled="#{!bindings.CreateWithParams.enabled}" id="b3"
+                                               icon="/adf/images/add_16x16.png"/>
+                                    <af:button text="#{coreLabels['G.Export']}" id="b4"
+                                               icon="/adf/images/excel_16x16.png">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                                           filename="#{coreLabels['G.CommissionsPercentages']}.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.MaintainHoldIndicatorView.collectionModel}" var="row"
+                                      rows="#{bindings.MaintainHoldIndicatorView.rangeSize}"
+                                      emptyText="#{bindings.MaintainHoldIndicatorView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.MaintainHoldIndicatorView.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.MaintainHoldIndicatorView.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.MaintainHoldIndicatorView.rangeSize}"
+                                      id="t1" displayRow="selected" columnStretching="column:c2"
+                                      styleClass="AFStretchWidth">
+                                <af:column headerText="#{bindings.MaintainHoldIndicatorView.hints.EffectiveStartDate.label}"
+                                           id="c4">
+                                    <af:outputText value="#{row.EffectiveStartDate}"
+                                                   shortDesc="#{bindings.MaintainHoldIndicatorView.hints.EffectiveStartDate.tooltip}"
+                                                   id="ot3">
+                                        <af:convertDateTime pattern="#{bindings.MaintainHoldIndicatorView.hints.EffectiveStartDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.MaintainHoldIndicatorView.hints.EffectiveEndDate.label}"
+                                           id="c5">
+                                    <af:outputText value="#{row.EffectiveEndDate}"
+                                                   shortDesc="#{bindings.MaintainHoldIndicatorView.hints.EffectiveEndDate.tooltip}"
+                                                   id="ot4">
+                                        <af:convertDateTime pattern="#{bindings.MaintainHoldIndicatorView.hints.EffectiveEndDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.MaintainHoldIndicatorView.hints.HoldInd.label}"
+                                           id="c1" align="center" width="80">
+                                    <af:outputText value="#{row.bindings.HoldInd.inputValue}" id="ot5"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.MaintainHoldIndicatorView.hints.HoldReason.label}"
+                                           id="c2">
+                                    <af:outputText value="#{row.HoldReason}"
+                                                   shortDesc="#{bindings.MaintainHoldIndicatorView.hints.HoldReason.tooltip}"
+                                                   id="ot1"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.MaintainHoldIndicatorView.hints.Username.label}"
+                                           id="c3">
+                                    <af:outputText value="#{row.Username}"
+                                                   shortDesc="#{bindings.MaintainHoldIndicatorView.hints.Username.tooltip}"
+                                                   id="ot2"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </f:facet>
+                    <f:facet name="maintain">
+                        <af:panelFormLayout id="pfl1">
+                            <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                                          label="#{bindings.EffectiveStartDate.hints.label}"
+                                          required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                                          columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                                          shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id2">
+                                <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                            </af:inputDate>
+                            <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                                          label="#{bindings.EffectiveEndDate.hints.label}"
+                                          required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                                          columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                                          shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id1">
+                                <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                            </af:inputDate>
+                            <af:selectBooleanCheckbox value="#{bindings.HoldInd.inputValue}"
+                                                      label="#{bindings.HoldInd.label}"
+                                                      shortDesc="#{bindings.HoldInd.hints.tooltip}" id="sbc1"/>
+                            <af:inputText value="#{bindings.HoldReason.inputValue}"
+                                          label="#{bindings.HoldReason.hints.label}"
+                                          required="#{bindings.HoldReason.hints.mandatory}"
+                                          columns="#{bindings.HoldReason.hints.displayWidth}"
+                                          maximumLength="#{bindings.HoldReason.hints.precision}"
+                                          shortDesc="#{bindings.HoldReason.hints.tooltip}" id="it1">
+                                <f:validator binding="#{bindings.HoldReason.validator}"/>
+                            </af:inputText>
+                            <f:facet name="footer">
+                                <af:toolbar id="t4">
+                                    <af:button text="#{coreLabels['G.Continue']}" id="b5"
+                                               actionListener="#{pageFlowScope.percentageBean.doneActionListener}"/>
+                                </af:toolbar>
+                            </f:facet>
+                        </af:panelFormLayout>
+                    </f:facet>
+                </af:switcher>
+            </af:panelGroupLayout>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

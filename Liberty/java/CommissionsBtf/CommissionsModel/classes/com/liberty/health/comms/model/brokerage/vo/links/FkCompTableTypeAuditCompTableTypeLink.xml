@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkCompTableTypeAuditCompTableTypeLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.brokerage.vo.links.FkCompTableTypeAuditCompTableTypeLink_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewLinkDefEnd
+      Name="CompanyTableType"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.brokerage.vo.CompanyTableTypeVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="CompanyTableType"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.brokerage.vo.CompanyTableTypeVO.CompanyTableTypeIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ViewLinkDefEnd
+      Name="CompanyTableTypeAuditRoView"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.model.brokerage.vo.CompanyTableTypeAuditRoView">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="CompanyTableTypeAuditRoView"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.brokerage.vo.CompanyTableTypeAuditRoView.CompanyTableTypeIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewLink>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-bank-account-type-flow">
+    <default-activity>allBankAccountType</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <view id="allBankAccountType">
+      <page>/WEB-INF/fragments/lookup/allBankAccountType.jsff</page>
+    </view>
+    <task-flow-call id="create-bank-account-type-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/lookup/maintain-bank-account-type-btf.xml</document>
+        <id>maintain-bank-account-type-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__5">
+        <name>bankAccountTypeIdNo</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="edit-bank-account-type-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/lookup/maintain-bank-account-type-btf.xml</document>
+        <id>maintain-bank-account-type-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__6">
+        <name>bankAccountTypeIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allBankAccountTypePageDef.BankAccTypeIdNo}</value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>allBankAccountType</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>create</from-outcome>
+        <to-activity-id>create-bank-account-type-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome>edit</from-outcome>
+        <to-activity-id>edit-bank-account-type-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

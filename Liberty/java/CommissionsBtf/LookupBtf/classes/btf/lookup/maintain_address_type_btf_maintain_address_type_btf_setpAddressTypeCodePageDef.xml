@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_address_type_btf_maintain_address_type_btf_setpAddressTypeCodePageDef" Package="btf.lookup"
+                SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpAddressTypeCode" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="setpAddressTypeCode" IsViewObjectMethod="true" DataControl="AddressTypeAMDataControl"
+                      InstanceName="data.AddressTypeAMDataControl.AddressTypeByPk">
+            <NamedData NDName="value" NDValue="#{pageFlowScope.addressTypeCode}" NDType="java.lang.String"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

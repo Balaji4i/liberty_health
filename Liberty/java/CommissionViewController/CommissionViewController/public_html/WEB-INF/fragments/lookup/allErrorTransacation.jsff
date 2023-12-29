@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelStretchLayout id="psl1" topHeight="auto">
+    <f:facet name="start"/>
+    <f:facet name="end"/>
+    <f:facet name="top">
+      <af:panelGroupLayout layout="vertical" id="pgl2">
+        <af:panelHeader text="#{coreLabels['G.UploadTransaction']}" id="ph1">
+          <af:query id="qryId1" headerText="Search" disclosed="true"
+                    value="#{bindings.UploadsInErrorViewCriteriaQuery.queryDescriptor}"
+                    model="#{bindings.UploadsInErrorViewCriteriaQuery.queryModel}"
+                    queryListener="#{bindings.UploadsInErrorViewCriteriaQuery.processQuery}"
+                    queryOperationListener="#{bindings.UploadsInErrorViewCriteriaQuery.processQueryOperation}"
+                    resultComponentId="::pc1:t2"/>
+        </af:panelHeader>
+      </af:panelGroupLayout>
+    </f:facet>
+    <f:facet name="bottom"/>
+    <f:facet name="center">
+      <af:panelGroupLayout layout="scroll" id="pgl1">
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar">
+            <af:toolbar id="t1">
+              <af:button text="#{coreLabels['G.Export']}" id="b1" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                   filename="#{coreLabels['G.UploadTransaction']}.xls"/>
+              </af:button>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.AllErrorUpldTransactionView.collectionModel}" var="row"
+                    rows="#{bindings.AllErrorUpldTransactionView.rangeSize}"
+                    emptyText="#{bindings.AllErrorUpldTransactionView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    rowBandingInterval="1" scrollPolicy="page"
+                    selectedRowKeys="#{bindings.AllErrorUpldTransactionView.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.AllErrorUpldTransactionView.collectionModel.makeCurrent}"
+                    rowSelection="single" fetchSize="#{bindings.AllErrorUpldTransactionView.rangeSize}" id="t2"
+                    columnStretching="column:c5" displayRow="selected">
+            <af:column headerText="#{bindings.AllErrorUpldTransactionView.hints.UpldTrnNo.label}" id="c1">
+              <af:outputText value="#{row.UpldTrnNo}"
+                             shortDesc="#{bindings.AllErrorUpldTransactionView.hints.UpldTrnNo.tooltip}" id="ot1">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.AllErrorUpldTransactionView.hints.UpldTrnNo.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column headerText="#{bindings.AllErrorUpldTransactionView.hints.TrnTypeDesc.label}" id="c2" width="250">
+              <af:outputText value="#{row.TrnTypeDesc}"
+                             shortDesc="#{bindings.AllErrorUpldTransactionView.hints.TrnTypeDesc.tooltip}" id="ot2"/>
+            </af:column>
+            <af:column headerText="#{bindings.AllErrorUpldTransactionView.hints.TrnDatetime.label}" id="c3">
+              <af:outputText value="#{row.TrnDatetime}"
+                             shortDesc="#{bindings.AllErrorUpldTransactionView.hints.TrnDatetime.tooltip}" id="ot3">
+                <af:convertDateTime pattern="#{bindings.AllErrorUpldTransactionView.hints.TrnDatetime.format}"
+                                    type="both"/>
+              </af:outputText>
+            </af:column>
+            <af:column headerText="#{bindings.AllErrorUpldTransactionView.hints.UpldTrnDate.label}" id="c4">
+              <af:outputText value="#{row.UpldTrnDate}"
+                             shortDesc="#{bindings.AllErrorUpldTransactionView.hints.UpldTrnDate.tooltip}" id="ot4">
+                <af:convertDateTime pattern="#{bindings.AllErrorUpldTransactionView.hints.UpldTrnDate.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column headerText="#{bindings.AllErrorUpldTransactionView.hints.ErrorDesc.label}" id="c5">
+              <af:outputText value="#{row.ErrorDesc}"
+                             shortDesc="#{bindings.AllErrorUpldTransactionView.hints.ErrorDesc.tooltip}" id="ot5"/>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+      </af:panelGroupLayout>
+    </f:facet>
+  </af:panelStretchLayout>
+</jsp:root>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-attributes-btf">
+        <default-activity>router1</default-activity>
+        <transaction>
+            <requires-transaction/>
+        </transaction>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__10">
+            <name>createInd</name>
+            <value>#{pageFlowScope.createInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__11">
+            <name>newCompanyInd</name>
+            <value>#{pageFlowScope.newCompanyInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__12">
+            <managed-bean-name>brokerAttributes</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>pageFlow</managed-bean-scope>
+        </managed-bean>
+        <managed-bean id="__13">
+            <managed-bean-name>currentDate</managed-bean-name>
+            <managed-bean-class>java.util.Date</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <managed-bean id="__21">
+            <managed-bean-name>companyAttributes</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <method-call id="setBrokerCompanyBrokerIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpBrokerIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="setStatementCompanyIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpBrokerIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="setStatusCompanyIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpBrokerIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="setCompanyTypeCompanyIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpBrokerIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainBrokerAttributes">
+            <page>/WEB-INF/fragment/company/maintainBrokerAttributes.jsff</page>
+        </view>
+        <router id="router1">
+            <case id="__19">
+                <expression>#{pageFlowScope.newCompanyInd == 'N'}</expression>
+                <outcome>createManual</outcome>
+            </case>
+            <case id="__20">
+                <expression>#{pageFlowScope.newCompanyInd == 'Y'}</expression>
+                <outcome>createAuto</outcome>
+            </case>
+            <default-outcome>create</default-outcome>
+        </router>
+        <method-call id="createStatus">
+            <method>#{bindings.CreateWithParams.execute}</method>
+            <outcome>
+                <fixed-outcome>CreateWithParams</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="createType">
+            <method>#{bindings.CreateWithParams.execute}</method>
+            <outcome>
+                <fixed-outcome>CreateWithParams</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="createStatement">
+            <method>#{bindings.CreateWithParams.execute}</method>
+            <outcome>
+                <fixed-outcome>CreateWithParams</fixed-outcome>
+            </outcome>
+        </method-call>
+        <control-flow-rule id="__2">
+            <from-activity-id>setCompanyTypeCompanyIdNo</from-activity-id>
+            <control-flow-case id="__3">
+                <from-outcome>setpBrokerIdNo</from-outcome>
+                <to-activity-id>setBrokerCompanyBrokerIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__4">
+            <from-activity-id>setStatementCompanyIdNo</from-activity-id>
+            <control-flow-case id="__5">
+                <from-outcome>setpBrokerIdNo</from-outcome>
+                <to-activity-id>setCompanyTypeCompanyIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__6">
+            <from-activity-id>setBrokerCompanyBrokerIdNo</from-activity-id>
+            <control-flow-case id="__7">
+                <from-outcome>setpBrokerIdNo</from-outcome>
+                <to-activity-id>maintainBrokerAttributes</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__8">
+            <from-activity-id>setStatusCompanyIdNo</from-activity-id>
+            <control-flow-case id="__9">
+                <from-outcome>setpBrokerIdNo</from-outcome>
+                <to-activity-id>setStatementCompanyIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__14">
+            <from-activity-id>router1</from-activity-id>
+            <control-flow-case id="__15">
+                <from-outcome>createManual</from-outcome>
+                <to-activity-id>setStatusCompanyIdNo</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__16">
+                <from-outcome>createAuto</from-outcome>
+                <to-activity-id>createStatus</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__17">
+            <from-activity-id>createStatus</from-activity-id>
+            <control-flow-case id="__18">
+                <from-outcome>CreateWithParams</from-outcome>
+                <to-activity-id>createType</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__22">
+            <from-activity-id>createType</from-activity-id>
+            <control-flow-case id="__23">
+                <from-outcome>CreateWithParams</from-outcome>
+                <to-activity-id>createStatement</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__24">
+            <from-activity-id>createStatement</from-activity-id>
+            <control-flow-case id="__25">
+                <from-outcome>CreateWithParams</from-outcome>
+                <to-activity-id>setBrokerCompanyBrokerIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

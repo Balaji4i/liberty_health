@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24"
+                id="maintainBrokerFunctionBackDatePageDef" Package="fragment.broker">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="BrokerAttributesByBrokerView1" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+              id="BrokerAttributesByBrokerView1Iterator" Refresh="ifNeeded"/>
+    <searchRegion Binds="BrokerAttributesByBrokerView1Iterator" Criteria="BrokerFunctionVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="BrokerAttributesByBrokerView1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="BrokerAttributesByBrokerView1Iterator" id="BrokerAttributesByBrokerView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerFunctionVO"
+                      Name="BrokerAttributesByBrokerView10">
+        <AttrNames>
+          <Item Value="BrokerIdNo"/>
+          <Item Value="BrokerTableTypeIdNo"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="BrokerTableIdNo"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="Username"/>
+          <Item Value="BrokerTableDesc"/>
+          <Item Value="BrokerTableIdNoFk"/>
+          <Item Value="BrokerTableTypeDesc"/>
+          <Item Value="BrokerTableTypeIdNoFk"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+            DataControl="BrokerMaintenanceAMDataControl"/>
+    <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+            DataControl="BrokerMaintenanceAMDataControl"/>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerageWithNoPercentageRovView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+  OrderBy='"COMPANY_ID_NO"'>
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.watchlist.vo.BrokerageWithNoPercentageRovView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+        Name="pCountryList"
+        Kind="where"
+        Type="java.lang.String">
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="BrokerageWithNoPercentageRovView"/>
+    </Variable>
+    <SQLQuery><![CDATA[select c.company_id_no, b_multi_net.company_table_type_desc multinational_ind,                   
+c.company_name,                
+b_function.company_table_type_desc broker_function_desc,             
+b_statement.company_table_type_desc broker_statement_desc,             
+b_status.company_table_type_desc broker_status_desc,             
+b_type.company_table_type_desc broker_type_desc,     
+c.effective_start_date, c.effective_end_date  ,cc.country_code   
+from company c,   company_country cc,  
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,         
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no               
+         from company_function bf, company_table bt, company_table_type btt                
+        where bf.company_table_id_no = bt.company_table_id_no                
+          and bf.company_table_id_no = 3               
+          and bf.company_table_type_id_no = btt.company_table_type_id_no  
+		  and bf.company_table_id_no = btt.company_table_id_no			   
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_function,             
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,         
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no          
+         from company_function bf, company_table bt, company_table_type btt                
+        where bf.company_table_id_no = bt.company_table_id_no                
+          and bf.company_table_id_no = 2              
+          and bf.company_table_type_id_no = btt.company_table_type_id_no  
+and bf.company_table_id_no = btt.company_table_id_no		   
+          and sysdate between bf.effective_start_date and bf.effective_end_date) b_status,                
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,         
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no               
+         from company_function bf, company_table bt, company_table_type btt                
+        where bf.company_table_id_no = bt.company_table_id_no                 
+          and bf.company_table_id_no = 1     
+          and bf.company_table_type_id_no = btt.company_table_type_id_no     
+and bf.company_table_id_no = btt.company_table_id_no		   
+          and sysdate between bf.effective_start_date and bf.effective_end_date) b_statement,                          
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,         
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no          
+         from company_function bf, company_table bt, company_table_type btt                
+        where bf.company_table_id_no = bt.company_table_id_no                
+          and bf.company_table_id_no = 4       
+          and bf.company_table_type_id_no = btt.company_table_type_id_no 
+and bf.company_table_id_no = btt.company_table_id_no		   
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_type,        
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,         
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no          
+         from company_function bf, company_table bt, company_table_type btt                
+        where bf.company_table_id_no = bt.company_table_id_no                
+          and bf.company_table_id_no = 6              
+          and bf.company_table_type_id_no = btt.company_table_type_id_no  
+and bf.company_table_id_no = btt.company_table_id_no		   
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_multi_net      
+where not exists (select null      
+                    from ohi_comm_perc      
+                  where c.company_id_no = company_id_no    
+                    and auth_username is not null   
+                    and group_code IS NULL    
+                    AND product_code IS NULL       
+                  AND inse_code IS NULL    
+                  AND poep_id IS NULL   
+                  AND policy_code IS NULL   
+                    and sysdate between effective_Start_date and effective_end_date)     
+    and c.company_id_no = b_function.company_id_no(+)         
+    and nvl(b_function.rank_no,1) = 1         
+  and c.company_id_no = b_status.company_id_no(+)            
+    and nvl(b_status.rank_no,1) = 1         
+  and c.company_id_no = b_statement.company_id_no(+)          
+    and nvl(b_statement.rank_no,1) = 1         
+  and c.company_id_no = b_type.company_id_no(+)         
+    and nvl(b_type.rank_no,1) = 1       
+    and c.company_id_no = b_multi_net.company_id_no(+)     
+    and c.company_id_no = cc.company_id_no   
+    and  cc.country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')      
+ , '[^,]+', 1, LEVEL)              
+            FROM DUAL              
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')    
+, '[^,]+', 1, LEVEL) IS NOT NULL)   
+    and nvl(b_multi_net.rank_no,1) = 1]]></SQLQuery>
+    <ViewAttribute
+      Name="CompanyIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="9"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="COMPANY_ID_NO"
+      Expression="COMPANY_ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="MultinationalInd"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="MULTINATIONAL_IND"
+      Expression="MULTINATIONAL_IND"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.MultinationalInd']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COMPANY_NAME"
+      Expression="COMPANY_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Company']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerFunctionDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_FUNCTION_DESC"
+      Expression="BROKER_FUNCTION_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerFunction']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerStatementDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_STATEMENT_DESC"
+      Expression="BROKER_STATEMENT_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerStatement']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerStatusDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_STATUS_DESC"
+      Expression="BROKER_STATUS_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerStatus']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerTypeDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_TYPE_DESC"
+      Expression="BROKER_TYPE_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="EffectiveStartDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="EFFECTIVE_START_DATE"
+      Expression="EFFECTIVE_START_DATE"
+      SQLType="DATE">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="EffectiveEndDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="EFFECTIVE_END_DATE"
+      Expression="EFFECTIVE_END_DATE"
+      SQLType="DATE">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CountryCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="4"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="COUNTRY_CODE"
+        Expression="COUNTRY_CODE"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+    </ViewAttribute>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="CompanyIdNo"/>
+        <Item Value="MultinationalInd"/>
+        <Item Value="BrokerStatementDesc"/>
+        <Item Value="BrokerStatusDesc"/>
+        <Item Value="CountryCode"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

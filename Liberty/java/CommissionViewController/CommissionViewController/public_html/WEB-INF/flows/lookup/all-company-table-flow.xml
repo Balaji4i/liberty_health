@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-company-table-flow">
+    <default-activity>allCompanyTable</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <view id="allCompanyTable">
+      <page>/WEB-INF/fragments/lookup/allCompanyTable.jsff</page>
+    </view>
+    <task-flow-call id="create-company-table-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/companyTable/maintain-company-table-btf.xml</document>
+        <id>maintain-company-table-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__4">
+        <name>tableTypeIdNo</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="edit-company-table-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/companyTable/maintain-company-table-btf.xml</document>
+        <id>maintain-company-table-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__5">
+        <name>tableTypeIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allCompanyTablePageDef.CompanyTableIdNo.inputValue}</value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>allCompanyTable</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>create</from-outcome>
+        <to-activity-id>create-company-table-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome>edit</from-outcome>
+        <to-activity-id>edit-company-table-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_current_comms_run_btf_maintain_current_comms_run_btf_CommitPageDef" Package="btf.comms"
+                SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="CommsRunAMDataControl"/>
+    </bindings>
+</pageDefinition>

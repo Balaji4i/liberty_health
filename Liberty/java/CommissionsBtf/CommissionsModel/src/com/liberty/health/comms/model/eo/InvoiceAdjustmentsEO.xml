@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InvoiceAdjustmentsEO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="INVOICE"
+  AliasName="InvoiceAdjustmentsEO"
+  BindingStyle="OracleName"
+  RowClass="com.liberty.health.comms.model.eo.InvoiceAdjustmentsEOImpl"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Init|Access|DML"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Attribute
+    Name="InvoiceNo"
+    IsNotNull="true"
+    Precision="9"
+    Scale="0"
+    ColumnName="INVOICE_NO"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="INVOICE"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="InvoiceDate"
+    IsNotNull="true"
+    ColumnName="INVOICE_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="INVOICE"
+    HistoryColumn="DateHistory"/>
+  <Attribute
+    Name="PaymentReceiveDate"
+    IsNotNull="true"
+    ColumnName="PAYMENT_RECEIVE_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="INVOICE"
+    HistoryColumn="DateHistory"/>
+  <Attribute
+    Name="CountryCode"
+    IsNotNull="true"
+    Precision="4"
+    ColumnName="COUNTRY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CompanyIdNo"
+    IsNotNull="true"
+    Precision="9"
+    Scale="0"
+    ColumnName="COMPANY_ID_NO"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="INVOICE"/>
+  <Attribute
+    Name="InvoiceTypeIdNo"
+    IsNotNull="true"
+    Precision="2"
+    Scale="0"
+    ColumnName="INVOICE_TYPE_ID_NO"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="INVOICE"/>
+  <Attribute
+    Name="ReleaseDate"
+    ColumnName="RELEASE_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="INVOICE"/>
+  <Attribute
+    Name="ReleaseHoldReason"
+    Precision="250"
+    ColumnName="RELEASE_HOLD_REASON"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PaymentDate"
+    ColumnName="PAYMENT_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="INVOICE"/>
+  <Attribute
+    Name="PaymentRejectDate"
+    ColumnName="PAYMENT_REJECT_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="INVOICE"/>
+  <Attribute
+    Name="PaymentRejectDesc"
+    Precision="500"
+    ColumnName="PAYMENT_REJECT_DESC"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="500"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PaymentAmt"
+    Precision="22"
+    Scale="9"
+    ColumnName="PAYMENT_AMT"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="INVOICE"/>
+  <Attribute
+    Name="PaymentExchRate"
+    Precision="15"
+    Scale="9"
+    ColumnName="PAYMENT_EXCH_RATE"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="INVOICE">
+    <validation:PreDefinedValidationBean
+      Name="PaymentExchRateRule0"
+      ResId="com.liberty.health.comms.model.eo.InvoiceAdjustmentsEO.PaymentExchRate_Rule_0"
+      Description="Precision : (15,9)"
+      ValName="Precision : (15,9)"
+      Subtype="PRECISION_SCALE"/>
+  </Attribute>
+  <Attribute
+    Name="CurrencyCode"
+    Precision="4"
+    ColumnName="CURRENCY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUpdateDatetime"
+    IsNotNull="true"
+    ColumnName="LAST_UPDATE_DATETIME"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="INVOICE"
+    HistoryColumn="DateHistory"/>
+  <Attribute
+    Name="Username"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="USERNAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVOICE"
+    HistoryColumn="UserHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceTaxCodes"
+    Precision="50"
+    ColumnName="INVOICE_TAX_CODES"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="InvoiceDetail"
+    Association="com.liberty.health.comms.model.eo.InvoiceDetailFkAssoc"
+    AssociationEnd="com.liberty.health.comms.model.eo.InvoiceDetailFkAssoc.InvoiceDetail"
+    AssociationOtherEnd="com.liberty.health.comms.model.eo.InvoiceDetailFkAssoc.InvoiceAdjustments"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="Company"
+    Association="com.liberty.health.comms.model.eo.InvoiceCompanyFkAssoc"
+    AssociationEnd="com.liberty.health.comms.model.eo.InvoiceCompanyFkAssoc.Company"
+    AssociationOtherEnd="com.liberty.health.comms.model.eo.InvoiceCompanyFkAssoc.InvoiceAdjustments"
+    Type="com.liberty.health.comms.model.eo.CompanyEOImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="InvoiceDetail1"
+    Association="com.liberty.health.comms.model.eo.assoc.InvoiceAdjustDetailFkAssoc"
+    AssociationEnd="com.liberty.health.comms.model.eo.assoc.InvoiceAdjustDetailFkAssoc.InvoiceDetail1"
+    AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.InvoiceAdjustDetailFkAssoc.InvoiceAdjustments1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="InvoicePk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="INVOICE_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.InvoiceAdjustmentsEO.InvoiceNo"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="InvoiceCompanyFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="COMPANY_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="INVOICE_COMPANY_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.InvoiceAdjustmentsEO.CompanyIdNo"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="InvoiceInvTypeFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="INVOICE_TYPE_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="INVOICE_INV_TYPE_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.InvoiceAdjustmentsEO.InvoiceTypeIdNo"/>
+    </AttrArray>
+  </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</Entity>

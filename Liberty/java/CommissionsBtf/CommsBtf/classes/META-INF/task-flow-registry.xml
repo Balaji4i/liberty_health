@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="META-INF/adfc-config.xml" id="" type="" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/btf/comms/maintain-current-comms-run-btf.xml" id="maintain-current-comms-run-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="productCode"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="countryCode"/>
+      <input-parameter name="groupCode"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/payment/maintain-invoice-btf.xml" id="maintain-invoice-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="invoiceNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/payment/maintain-invoices-by-company-btf.xml" id="maintain-invoices-by-company-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="countryCode"/>
+   </task-flow-descriptor>
+</task-flow-registry>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCompanyTableTypePageDef"
+                Package="fragment.companyTable">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyTableTypeByTableView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyTableTypeByTableViewIterator"/>
+        <iterator Binds="CompanyTableTypeAuditView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyTableTypeAuditViewIterator"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="CompanyTableTypeByTableViewIterator" id="CompanyTableTypeByTableView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyTableTypeVO"
+                            Name="CompanyTableTypeByTableView0">
+                <AttrNames>
+                    <Item Value="CompanyTableTypeDesc"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                    <Item Value="CompanyTableIdNo"/>
+                    <Item Value="CompanyTableTypeIdNo"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="CompanyTableTypeByTableViewIterator" id="CompanyTableTypeDesc">
+            <AttrNames>
+                <Item Value="CompanyTableTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyTableTypeByTableViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyTableTypeByTableViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Rollback" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <action IterBinding="CompanyTableTypeByTableViewIterator" id="CreateInsert"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyTableTypeByTableView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="createWithParams">
+            <NamedData NDName="CompanyTableIdNo" NDValue="#{pageFlowScope.tableIdNo}" NDType="java.lang.Integer"/>
+        </action>
+        <tree IterBinding="CompanyTableTypeAuditViewIterator" id="CompanyTableTypeAuditView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyTableTypeAuditRoView"
+                            Name="CompanyTableTypeAuditView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="CompanyTableTypeDesc"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+    </bindings>
+</pageDefinition>

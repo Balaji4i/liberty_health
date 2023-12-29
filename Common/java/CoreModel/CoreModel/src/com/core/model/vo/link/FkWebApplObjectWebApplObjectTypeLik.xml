@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkWebApplObjectWebApplObjectTypeLik"
+  Version="12.2.1.0.31"
+  InheritPersonalization="merge"
+  EntityAssociation="com.core.model.eo.assoc.WebApplObjectNoFk2Assoc">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.core.model.vo.link.FkWebApplObjectWebApplObjectTypeLik_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="WebApplObjectTypeView"
+    Cardinality="1"
+    Source="true"
+    Owner="com.core.model.vo.WebApplObjectTypeView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="WebApplObjectTypeView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.vo.WebApplObjectTypeView.ObjectTypeNo"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="WebApplObjectView"
+    Cardinality="-1"
+    Owner="com.core.model.vo.WebApplObjectView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="WebApplObjectView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.vo.WebApplObjectView.ObjectTypeNo"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.core.model.CoreModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

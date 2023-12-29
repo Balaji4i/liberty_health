@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="allCommsCalcApprovalsPageDef"
+                Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllCommsCalcApprovalsRoView" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="AllCommsCalcApprovalsRoViewIterator"/>
+    <searchRegion Binds="AllCommsCalcApprovalsRoViewIterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="AllCommsCalcApprovalsRoView1Query"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="AllCommsCalcApprovalsRoViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AllCommsCalcApprovalsRoViewIterator" id="GroupCode">
+            <AttrNames>
+                <Item Value="GroupCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AllCommsCalcApprovalsRoViewIterator" id="CountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Commit" DataControl="CommsRunAMDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action id="Rollback" DataControl="CommsRunAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <attributeValues IterBinding="AllCommsCalcApprovalsRoViewIterator" id="ConsultantUsername">
+            <AttrNames>
+                <Item Value="Username"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="approveCommissionRun" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="approveCommissionRun" IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                      InstanceName="data.CommsRunAMDataControl.dataProvider"
+                      ReturnName="data.CommsRunAMDataControl.methodResults.approveCommissionRun_approveCommissionRun_dataControl_dataProvider_approveCommissionRun_result">
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="consultantUsername" NDValue="#{bindings.ConsultantUsername.inputValue}"
+                       NDType="java.lang.String"/>
+            <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="product_code" NDType="java.lang.String"/>
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+            <NamedData NDName="parentgroupCode" NDValue="#{bindings.ParentgroupCode.inputValue}" NDType="java.lang.String"/>
+        </methodAction>
+        <action IterBinding="AllCommsCalcApprovalsRoViewIterator" id="Execute"
+                InstanceName="WatchListAMDataControl.AllCommsCalcApprovalsRoView" DataControl="WatchListAMDataControl"
+                RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="AllCommsCalcApprovalsRoViewIterator" id="Execute1" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <tree IterBinding="AllCommsCalcApprovalsRoViewIterator" id="AllCommsCalcApprovalsRoView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.CommsCalcApprovalsRoView"
+                      Name="AllCommsCalcApprovalsRoView10">
+        <AttrNames>
+          <Item Value="CommsCalcTypeDesc"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="GroupCode"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CommsPerc"/>
+          <Item Value="ProductCode"/>
+          <Item Value="ProductName"/>
+          <Item Value="Username"/>
+          <Item Value="CalculationDatetime"/>
+          <Item Value="ExchangeRateCurrencyCode"/>
+          <Item Value="PaymentReceiveAmt"/>
+          <Item Value="CommsCalculatedAmt"/>
+          <Item Value="CommsCalculatedExchAmt"/>
+          <Item Value="CalcDateTime"/>
+          <Item Value="ParentgroupCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllCommsCalcApprovalsRoViewIterator" id="ParentgroupCode">
+      <AttrNames>
+        <Item Value="ParentgroupCode"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

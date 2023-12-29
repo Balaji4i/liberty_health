@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ConsultantLovView"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="ConsultantLovView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+      Name="pCurrentDate"
+      Kind="viewcriteria"
+      Type="oracle.jbo.domain.Date">
+        <TransientExpression
+          Name="VariableScript"
+          trustMode="untrusted"
+          CodeSourceName="ConsultantLovView"/>
+    </Variable>
+    <SQLQuery><![CDATA[select b.broker_id_no, b.broker_name, b.broker_last_name, person_title_code, company_id_no,     
+       b_status.broker_table_type_desc status_desc,    
+       b.effective_start_date,    
+       b.effective_end_date    
+from broker b, broker_function bf, broker_table_type btt,    
+ (select bf.broker_id_no, btt.broker_table_type_desc             
+         from broker_function bf, broker_table bt, broker_table_type btt             
+        where bf.broker_table_id_no = bt.broker_table_id_no             
+          and upper(broker_table_desc) = 'STATUS'             
+          and bf.broker_table_type_id_no = btt.broker_table_type_id_no             
+          and trunc(sysdate) between bf.effective_start_date and bf.effective_end_date) b_status    
+where b.broker_id_no = bf.broker_id_no     
+  and trunc(sysdate) between bf.effective_start_date and bf.effective_end_date     
+  and bf.broker_table_id_no = btt.broker_table_id_no     
+  and bf.broker_table_type_id_no = btt.broker_table_type_id_no     
+  and upper(btt.broker_table_type_desc) like '%CONSULTANT%'    
+  and b.broker_id_no = b_status.broker_id_no(+)]]></SQLQuery>
+    <ViewAttribute
+      Name="BrokerIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="java.lang.Integer"
+      ColumnType="INTEGER"
+      AliasName="BROKER_ID_NO"
+      Expression="BROKER_ID_NO"
+      SQLType="INTEGER">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_NAME"
+      Expression="BROKER_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Name']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerLastName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_LAST_NAME"
+      Expression="BROKER_LAST_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LastName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="PersonTitleCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="12"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PERSON_TITLE_CODE"
+      Expression="PERSON_TITLE_CODE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="12"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Title']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="9"
+      Scale="0"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      AliasName="COMPANY_ID_NO"
+      Expression="COMPANY_ID_NO"
+      SQLType="INTEGER">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Company']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="StatusDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="STATUS_DESC"
+      Expression="STATUS_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerStatus']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="EffectiveStartDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="EFFECTIVE_START_DATE"
+      Expression="EFFECTIVE_START_DATE"
+      SQLType="DATE">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="EffectiveEndDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="EFFECTIVE_END_DATE"
+      Expression="EFFECTIVE_END_DATE"
+      SQLType="DATE">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewCriteria
+      Name="SearchConsultantViewCriteria"
+      ViewObjectName="com.liberty.health.comms.lov.ConsultantLovView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="ConsultantLovViewCriteria_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="ConsultantLovViewCriteria_ConsultantLovViewCriteria_row_0_BrokerIdNo"
+              ViewAttribute="BrokerIdNo"
+              Operator="="
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="BrokerName"
+              ViewAttribute="BrokerName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="ConsultantLovViewCriteria_ConsultantLovViewCriteria_row_0_BrokerLastName"
+              ViewAttribute="BrokerLastName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="EffectiveStartDate"
+              ViewAttribute="EffectiveStartDate"
+              Operator="ONORBEFORE"
+              Conjunction="AND"
+              Value=":pCurrentDate"
+              IsBindVarValue="true"
+              Required="Optional">
+                <Properties>
+                    <CustomProperties>
+                        <Property
+                          Name="renderedMode"
+                          Value="Never"/>
+                    </CustomProperties>
+                </Properties>
+            </ViewCriteriaItem>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="BrokerIdNo"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.lov.common.ConsultantLovViewMsgBundle"/>
+    </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AllJobsSubmittedRunDetailsVO"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  OrderBy='"JOB_ID" DESC'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[select ASJR.log_id job_id,  
+       ASJR.req_start_date requested_start_date,  
+       ASJR.actual_Start_date actual_start_date,  
+       ASJR.job_name,  
+       ASJR.status,   
+       extract( minute from ASJR.run_duration ) ||':'|| extract( second from ASJR.run_duration ) run_time     
+from ALL_SCHEDULER_JOB_RUN_DETAILS ASJR 
+WHERE NOT EXISTS (SELECT 'X' FROM ALL_SCHEDULER_JOBS asj WHERE ASJR.JOB_NAME = asj.JOB_NAME AND ASJ.STATE <> 'SCHEDULED') 
+UNION 
+SELECT 99999999999999 job_id,  
+       trunc(last_start_date) requested_start_date,  
+       null actual_start_date,  
+       job_name,  
+       state status,   
+       '0' run_time    
+  FROM ALL_SCHEDULER_JOBS   ASJ 
+WHERE STATE = 'RUNNING']]></SQLQuery>
+  <ViewAttribute
+    Name="JobId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="JOB_ID"
+    Expression="JOB_ID"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.JobId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RequestedStartDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="REQUESTED_START_DATE"
+    Expression="REQUESTED_START_DATE"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.RequestedStartDate_LABEL"/>
+        <FMT_FORMATTER
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.RequestedStartDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.RequestedStartDate_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ActualStartDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="ACTUAL_START_DATE"
+    Expression="ACTUAL_START_DATE"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMAT
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.ActualStartDate_FMT_FORMAT"/>
+        <FMT_FORMATTER
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.ActualStartDate_FMT_FORMATTER"/>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.ActualStartDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="JobName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="261"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="JOB_NAME"
+    Expression="JOB_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="261"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.JobName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Status"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STATUS"
+    Expression="STATUS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="RunTime"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="81"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="RUN_TIME"
+    Expression="RUN_TIME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="81"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.RunTime_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OutputFile"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO.OutputFile_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Log"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="JobId"/>
+    <Item Value="JobName"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

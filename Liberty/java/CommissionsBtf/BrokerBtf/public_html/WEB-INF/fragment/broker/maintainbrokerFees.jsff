@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+        <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+            <af:panelGroupLayout id="pgl1" rendered="#{pageFlowScope.createInd == 'Y'}">
+                <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png"
+                           rendered="#{securityContext.userInRole['comms-consultant'] || pageFlowScope.createInd == 'Y'}"
+                           disabled="#{!bindings.CreateInsert.enabled}"
+                           actionListener="#{bindings.CreateInsert.execute}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b2" icon="/adf/images/save_16x16.png"
+                           disabled="#{!bindings.Commit.enabled}"
+                           actionListener="#{companyAttributesBean.saveAndEffectiveDateActionListener}"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b3" icon="/adf/images/remove_16x16.png"
+                           disabled="#{!bindings.Rollback.enabled}" actionListener="#{bindings.Rollback.execute}"
+                           immediate="true">
+                    <af:resetActionListener/>
+                </af:button>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl2" layout="vertical">
+                <af:panelFormLayout id="pfl1" rows="2" maxColumns="2" visible="#{bindings.Rollback.enabled}"
+                                    partialTriggers="::b1 ::b2 ::b3">
+                    <af:inputText value="#{bindings.CompanyIdNo.inputValue}" label="#{bindings.CompanyIdNo.hints.label}"
+                                  required="#{bindings.CompanyIdNo.hints.mandatory}"
+                                  columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyIdNo.hints.precision}"
+                                  shortDesc="#{bindings.CompanyIdNo.hints.tooltip}" id="it1" visible="false">
+                        <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+                    </af:inputText>
+                    <af:selectOneChoice value="#{bindings.CompanyFeeTypeIdNo.inputValue}"
+                                        label="#{bindings.CompanyFeeTypeIdNo.label}"
+                                        required="#{bindings.CompanyFeeTypeIdNo.hints.mandatory}"
+                                        shortDesc="#{bindings.CompanyFeeTypeIdNo.hints.tooltip}" id="soc1">
+                        <f:selectItems value="#{bindings.CompanyFeeTypeIdNo.items}" id="si1"/>
+                        <f:validator binding="#{bindings.CompanyFeeTypeIdNo.validator}"/>
+                    </af:selectOneChoice>
+                    <af:inputText value="#{bindings.FeeAmt.inputValue}" label="#{bindings.FeeAmt.hints.label}"
+                                  required="#{bindings.FeeAmt.hints.mandatory}"
+                                  columns="#{bindings.FeeAmt.hints.displayWidth}"
+                                  maximumLength="#{bindings.FeeAmt.hints.precision}"
+                                  shortDesc="#{bindings.FeeAmt.hints.tooltip}" id="it2">
+                        <f:validator binding="#{bindings.FeeAmt.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.FeeAmt.format}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.FeePerc.inputValue}" label="#{bindings.FeePerc.hints.label}"
+                                  required="#{bindings.FeePerc.hints.mandatory}"
+                                  columns="#{bindings.FeePerc.hints.displayWidth}"
+                                  maximumLength="#{bindings.FeePerc.hints.precision}"
+                                  shortDesc="#{bindings.FeePerc.hints.tooltip}" id="it3">
+                        <f:validator binding="#{bindings.FeePerc.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.FeePerc.format}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.FeeFreqNo.inputValue}" label="#{bindings.FeeFreqNo.hints.label}"
+                                  required="#{bindings.FeeFreqNo.hints.mandatory}"
+                                  columns="#{bindings.FeeFreqNo.hints.displayWidth}"
+                                  maximumLength="#{bindings.FeeFreqNo.hints.precision}"
+                                  shortDesc="#{bindings.FeeFreqNo.hints.tooltip}" id="it4">
+                        <f:validator binding="#{bindings.FeeFreqNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.FeeFreqNo.format}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.FeeCommentDesc.inputValue}"
+                                  label="#{bindings.FeeCommentDesc.hints.label}"
+                                  required="#{bindings.FeeCommentDesc.hints.mandatory}" columns="50"
+                                  maximumLength="#{bindings.FeeCommentDesc.hints.precision}"
+                                  shortDesc="#{bindings.FeeCommentDesc.hints.tooltip}" id="it5">
+                        <f:validator binding="#{bindings.FeeCommentDesc.validator}"/>
+                    </af:inputText>
+                    <af:inputDate value="#{bindings.LastUpdateDatetime.inputValue}"
+                                  label="#{bindings.LastUpdateDatetime.hints.label}"
+                                  required="#{bindings.LastUpdateDatetime.hints.mandatory}"
+                                  columns="#{bindings.LastUpdateDatetime.hints.displayWidth}"
+                                  shortDesc="#{bindings.LastUpdateDatetime.hints.tooltip}" id="id3" visible="false">
+                        <f:validator binding="#{bindings.LastUpdateDatetime.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.LastUpdateDatetime.format}"/>
+                    </af:inputDate>
+                    <af:inputText value="#{bindings.Username.inputValue}" label="#{bindings.Username.hints.label}"
+                                  required="#{bindings.Username.hints.mandatory}"
+                                  columns="#{bindings.Username.hints.displayWidth}"
+                                  maximumLength="#{bindings.Username.hints.precision}"
+                                  shortDesc="#{bindings.Username.hints.tooltip}" id="it6" visible="false">
+                        <f:validator binding="#{bindings.Username.validator}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.CompanyFeeTypeDesc.inputValue}"
+                                  label="#{bindings.CompanyFeeTypeDesc.hints.label}"
+                                  required="#{bindings.CompanyFeeTypeDesc.hints.mandatory}"
+                                  columns="#{bindings.CompanyFeeTypeDesc.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyFeeTypeDesc.hints.precision}"
+                                  shortDesc="#{bindings.CompanyFeeTypeDesc.hints.tooltip}" id="it7" visible="false">
+                        <f:validator binding="#{bindings.CompanyFeeTypeDesc.validator}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.CompanyFeeTypeIdNoFk.inputValue}"
+                                  label="#{bindings.CompanyFeeTypeIdNoFk.hints.label}"
+                                  required="#{bindings.CompanyFeeTypeIdNoFk.hints.mandatory}"
+                                  columns="#{bindings.CompanyFeeTypeIdNoFk.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyFeeTypeIdNoFk.hints.precision}"
+                                  shortDesc="#{bindings.CompanyFeeTypeIdNoFk.hints.tooltip}" id="it8" visible="false">
+                        <f:validator binding="#{bindings.CompanyFeeTypeIdNoFk.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyFeeTypeIdNoFk.format}"/>
+                    </af:inputText>
+                    <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                                  label="#{bindings.EffectiveStartDate.hints.label}"
+                                  required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id1">
+                        <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                    </af:inputDate>
+                    <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                                  label="#{bindings.EffectiveEndDate.hints.label}"
+                                  required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id2">
+                        <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                    </af:inputDate>
+                </af:panelFormLayout>
+                <af:table value="#{bindings.BrokerFeeByBrokerView.collectionModel}" var="row"
+                          rows="#{bindings.BrokerFeeByBrokerView.rangeSize}"
+                          emptyText="#{bindings.BrokerFeeByBrokerView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.BrokerFeeByBrokerView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.BrokerFeeByBrokerView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.BrokerFeeByBrokerView.rangeSize}" id="t1"
+                          width="AFStretchWidth" displayRow="selected" contextMenuSelect="true"
+                          partialTriggers="::b1 ::b2 ::b3" visible="#{!bindings.Rollback.enabled}">
+                    <f:facet name="contextMenu"/>
+                    <af:column headerText="#{bindings.BrokerFeeByBrokerView.hints.CompanyFeeTypeDesc.label}" id="c1"
+                               width="200">
+                        <af:outputText value="#{row.CompanyFeeTypeDesc}"
+                                       shortDesc="#{bindings.BrokerFeeByBrokerView.hints.CompanyFeeTypeDesc.tooltip}"
+                                       id="ot3"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.BrokerFeeByBrokerView.hints.FeeAmt.label}" id="c4" width="100"
+                               align="right">
+                        <af:outputText value="#{row.FeeAmt}"
+                                       shortDesc="#{bindings.BrokerFeeByBrokerView.hints.FeeAmt.tooltip}" id="ot1">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.BrokerFeeByBrokerView.hints.FeeAmt.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.BrokerFeeByBrokerView.hints.FeePerc.label}" id="c5" width="100"
+                               align="right">
+                        <af:outputText value="#{row.FeePerc}"
+                                       shortDesc="#{bindings.BrokerFeeByBrokerView.hints.FeePerc.tooltip}" id="ot6">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.BrokerFeeByBrokerView.hints.FeePerc.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.BrokerFeeByBrokerView.hints.FeeFreqNo.label}" id="c6" width="100"
+                               align="right">
+                        <af:outputText value="#{row.FeeFreqNo}"
+                                       shortDesc="#{bindings.BrokerFeeByBrokerView.hints.FeeFreqNo.tooltip}" id="ot4">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.BrokerFeeByBrokerView.hints.FeeFreqNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.BrokerFeeByBrokerView.hints.FeeCommentDesc.label}" id="c7"
+                               width="100">
+                        <af:outputText value="#{row.FeeCommentDesc}"
+                                       shortDesc="#{bindings.BrokerFeeByBrokerView.hints.FeeCommentDesc.tooltip}"
+                                       id="ot7"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.BrokerFeeByBrokerView.hints.EffectiveStartDate.label}" id="c2"
+                               width="99" align="center">
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.BrokerFeeByBrokerView.hints.EffectiveStartDate.tooltip}"
+                                       id="ot2">
+                            <af:convertDateTime pattern="#{bindings.BrokerFeeByBrokerView.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.BrokerFeeByBrokerView.hints.EffectiveEndDate.label}" id="c3"
+                               align="center">
+                        <af:outputText value="#{row.EffectiveEndDate}"
+                                       shortDesc="#{bindings.BrokerFeeByBrokerView.hints.EffectiveEndDate.tooltip}"
+                                       id="ot8">
+                            <af:convertDateTime pattern="#{bindings.BrokerFeeByBrokerView.hints.EffectiveEndDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column id="c16" headerText="#{bindings.BrokerFeeByBrokerView.hints.LastRunDate.label}">
+                        <af:outputText value="#{row.LastRunDate}"
+                                       shortDesc="#{bindings.BrokerFeeByBrokerView.hints.LastRunDate.tooltip}"
+                                       id="ot16">
+                            <af:convertDateTime pattern="#{bindings.BrokerFeeByBrokerView.hints.EffectiveEndDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                </af:table>
+            </af:panelGroupLayout>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t2">
+                        <af:button text="#{coreLabels['G.Export']}" id="b8" icon="/adf/images/excel_16x16.png"
+                                   rendered="#{securityContext.userInRole['comms-consultant']}">
+                            <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                               filename="#{coreLabels['G.History']}.xls"/>
+                        </af:button>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.CompanyFeeAuditView.collectionModel}" var="row"
+                          rows="#{bindings.CompanyFeeAuditView.rangeSize}"
+                          emptyText="#{bindings.CompanyFeeAuditView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.CompanyFeeAuditView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CompanyFeeAuditView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CompanyFeeAuditView.rangeSize}" id="t3"
+                          displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c11">
+                    <af:column headerText="#{bindings.CompanyFeeAuditView.hints.TransactionDatetime.label}" id="c10"
+                               align="center" width="110">
+                        <af:outputText value="#{row.TransactionDatetime}"
+                                       shortDesc="#{bindings.CompanyFeeAuditView.hints.TransactionDatetime.tooltip}"
+                                       id="ot13">
+                            <af:convertDateTime pattern="#{bindings.CompanyFeeAuditView.hints.TransactionDatetime.format}"
+                                                type="both"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFeeAuditView.hints.TransactionUsername.label}" id="c15">
+                        <af:outputText value="#{row.TransactionUsername}"
+                                       shortDesc="#{bindings.CompanyFeeAuditView.hints.TransactionUsername.tooltip}"
+                                       id="ot11"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFeeAuditView.hints.TransactionDesc.label}" id="c11"
+                               width="250">
+                        <af:outputText value="#{row.TransactionDesc}"
+                                       shortDesc="#{bindings.CompanyFeeAuditView.hints.TransactionDesc.tooltip}"
+                                       id="ot15"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFeeAuditView.hints.EffectiveStartDate.label}" id="c9"
+                               align="center" width="80">
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.CompanyFeeAuditView.hints.EffectiveStartDate.tooltip}"
+                                       id="ot9">
+                            <af:convertDateTime pattern="#{bindings.CompanyFeeAuditView.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFeeAuditView.hints.FeeAmt.label}" id="c13" align="right"
+                               width="80">
+                        <af:outputText value="#{row.FeeAmt}"
+                                       shortDesc="#{bindings.CompanyFeeAuditView.hints.FeeAmt.tooltip}" id="ot14">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CompanyFeeAuditView.hints.FeeAmt.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFeeAuditView.hints.FeePerc.label}" id="c12" align="right"
+                               width="80">
+                        <af:outputText value="#{row.FeePerc}"
+                                       shortDesc="#{bindings.CompanyFeeAuditView.hints.FeePerc.tooltip}" id="ot12">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CompanyFeeAuditView.hints.FeePerc.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFeeAuditView.hints.FeeFreqNo.label}" id="c14" align="right"
+                               width="80">
+                        <af:outputText value="#{row.FeeFreqNo}"
+                                       shortDesc="#{bindings.CompanyFeeAuditView.hints.FeeFreqNo.tooltip}" id="ot10">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CompanyFeeAuditView.hints.FeeFreqNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyFeeAuditView.hints.FeeCommentDesc.label}" id="c8"
+                               width="250">
+                        <af:outputText value="#{row.FeeCommentDesc}"
+                                       shortDesc="#{bindings.CompanyFeeAuditView.hints.FeeCommentDesc.tooltip}"
+                                       id="ot5"/>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_broker_table_btf_maintain_broker_table_btf_CreateInsertPageDef" Package="btf.broker"
+                SkipValidation="true">
+    <parameters/>
+    <executables>
+        <iterator Binds="BrokerTableByPkView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerTableByPkViewIterator"/>
+    </executables>
+    <bindings>
+        <action IterBinding="BrokerTableByPkViewIterator" id="CreateInsert" RequiresUpdateModel="true"
+                Action="createInsertRow"/>
+    </bindings>
+</pageDefinition>

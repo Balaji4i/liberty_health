@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.broker.vo.BrokerRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewAccessor
+      Name="ActiveLov1"
+      ViewObjectName="com.core.model.lov.ActiveLov"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+      Name="PersonTitleLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.PersonTitleLovView"
+      RowLevelBinds="true"/>
+    <ListBinding
+      Name="LOV_EmailNotificationInd"
+      ListVOName="ActiveLov1"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="EmailNotificationInd"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+      Name="LOV_SmsNotificationInd"
+      ListVOName="ActiveLov1"
+      NullValueFlag="start"
+      NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="SmsNotificationInd"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+      Name="LOV_PersonTitleCode"
+      ListVOName="PersonTitleLovView1"
+      NullValueFlag="start"
+      NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="PersonTitleCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="PersonTitleCode"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="PersonTitleName"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <SQLQuery><![CDATA[select b.broker_id_no,        
+b.person_title_code,        
+b.initials,        
+b.broker_name,        
+b.broker_last_name,        
+b.passport_code,        
+b.id_no,          
+b.sms_notification_ind,        
+b.email_notification_ind,        
+c.company_name,        
+parent_broker.broker_id_no parent_broker_id_no,        
+parent_broker.broker_name parent_broker_name,        
+parent_broker.broker_last_name parent_broker_last_name,        
+kam_broker.broker_id_no kam_broker_id_no,        
+kam_broker.broker_name kam_broker_name,        
+kam_broker.broker_last_name kam_broker_last_name,        
+b.business_dev_mgr_name,               
+b_status.broker_table_type_desc broker_status_desc,        
+b_type.broker_table_type_desc broker_type_desc,  
+home_telephone_no,  
+email_address,  
+work_telephone_no,  
+cellphone_no  
+from broker b,        
+     company c,             
+     (select broker_id_no, broker_name, broker_last_name        
+        from broker) parent_broker,        
+     (select broker_id_no, broker_name, broker_last_name        
+        from broker) kam_broker,        
+      (select distinct bf.broker_id_no, btt.broker_table_type_desc, bf.effective_start_date,        
+       rank() over (partition by bf.broker_id_no order by bf.effective_start_date desc) rank_no              
+         from broker_function bf, broker_table bt, broker_table_type btt               
+        where bf.broker_table_id_no = bt.broker_table_id_no               
+          and bf.broker_table_id_no =  2             
+          and bf.broker_table_type_id_no = btt.broker_table_type_id_no               
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_status,                         
+      (select distinct bf.broker_id_no, btt.broker_table_type_desc, bf.effective_start_date,        
+       rank() over (partition by bf.broker_id_no order by bf.effective_start_date desc) rank_no              
+         from broker_function bf, broker_table bt, broker_table_type btt               
+        where bf.broker_table_id_no = bt.broker_table_id_no               
+          and bf.broker_table_id_no =  1             
+          and bf.broker_table_type_id_no = btt.broker_table_type_id_no               
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_type                  
+where b.company_id_no = c.company_id_no(+)            
+  and b.parent_broker_id_no = parent_broker.broker_id_no(+)        
+  and b.parent_broker_id_no = kam_broker.broker_id_no(+)            
+  and b.broker_id_no = b_status.broker_id_no(+)     
+   and nvl(b_status.rank_no,1) = 1  
+  and b.broker_id_no = b_type.broker_id_no(+) 
+  and nvl(b_type.rank_no,1) = 1]]></SQLQuery>
+    <ViewAttribute
+      Name="BrokerIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="java.lang.Integer"
+      ColumnType="INTEGER"
+      AliasName="BROKER_ID_NO"
+      Expression="BROKER_ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="PersonTitleCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="12"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PERSON_TITLE_CODE"
+      Expression="PERSON_TITLE_CODE"
+      SQLType="VARCHAR"
+      LOVName="LOV_PersonTitleCode">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="12"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <CONTROLTYPE
+                  Value="choice"/>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.PersonTitleCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="Initials"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="10"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="INITIALS"
+      Expression="INITIALS"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="10"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Initials']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_NAME"
+      Expression="BROKER_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerLastName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_LAST_NAME"
+      Expression="BROKER_LAST_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerLastName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="PassportCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PASSPORT_CODE"
+      Expression="PASSPORT_CODE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.PassportCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="IdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="20"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="ID_NO"
+      Expression="ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.IdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="SmsNotificationInd"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="1"
+      Type="java.lang.String"
+      ColumnType="CHAR"
+      AliasName="SMS_NOTIFICATION_IND"
+      Expression="SMS_NOTIFICATION_IND"
+      SQLType="VARCHAR"
+      LOVName="LOV_SmsNotificationInd">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <CONTROLTYPE
+                  Value="check_box"/>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.SmsNotificationInd']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="EmailNotificationInd"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="1"
+      Type="java.lang.String"
+      ColumnType="CHAR"
+      AliasName="EMAIL_NOTIFICATION_IND"
+      Expression="EMAIL_NOTIFICATION_IND"
+      SQLType="VARCHAR"
+      LOVName="LOV_EmailNotificationInd">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <CONTROLTYPE
+                  Value="check_box"/>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EmailNotificationInd']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COMPANY_NAME"
+      Expression="COMPANY_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="ParentBrokerIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="9"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="PARENT_BROKER_ID_NO"
+      Expression="PARENT_BROKER_ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ParentBrokerIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="ParentBrokerName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PARENT_BROKER_NAME"
+      Expression="PARENT_BROKER_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ParentBrokerName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="ParentBrokerLastName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PARENT_BROKER_LAST_NAME"
+      Expression="PARENT_BROKER_LAST_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ParentBrokerLastName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="KamBrokerIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="9"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="KAM_BROKER_ID_NO"
+      Expression="KAM_BROKER_ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.KamBrokerIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="KamBrokerName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="KAM_BROKER_NAME"
+      Expression="KAM_BROKER_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Name']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="KamBrokerLastName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="KAM_BROKER_LAST_NAME"
+      Expression="KAM_BROKER_LAST_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BusinessDevMgrName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="250"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BUSINESS_DEV_MGR_NAME"
+      Expression="BUSINESS_DEV_MGR_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BusinessDevMgrName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerStatusDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_STATUS_DESC"
+      Expression="BROKER_STATUS_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Status']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerTypeDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_TYPE_DESC"
+      Expression="BROKER_TYPE_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="HomeTelephoneNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="HOME_TELEPHONE_NO"
+      Expression="HOME_TELEPHONE_NO"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.HomeTelephoneNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="EmailAddress"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="250"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="EMAIL_ADDRESS"
+      Expression="EMAIL_ADDRESS"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Email']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="WorkTelephoneNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="WORK_TELEPHONE_NO"
+      Expression="WORK_TELEPHONE_NO"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.WorkTelephoneNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CellphoneNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="CELLPHONE_NO"
+      Expression="CELLPHONE_NO"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CellphoneNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewCriteria
+      Name="BrokerSearchViewCriteria"
+      ViewObjectName="com.liberty.health.comms.model.broker.vo.BrokerRoView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="BrokerRoViewCriteria_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="BrokerRoViewCriteria_BrokerRoViewCriteria_row_0_BrokerIdNo"
+              ViewAttribute="BrokerIdNo"
+              Operator="="
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="BrokerName"
+              ViewAttribute="BrokerName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="BrokerLastName"
+              ViewAttribute="BrokerLastName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="PassportCode"
+              ViewAttribute="PassportCode"
+              Operator="="
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="IdNo"
+              ViewAttribute="IdNo"
+              Operator="="
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="CompanyName"
+              ViewAttribute="CompanyName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="BrokerCountryRoView"
+              ViewAttribute="BrokerCountryRoView"
+              Operator="EXISTS"
+              Conjunction="AND"
+              IsNestedCriteria="true"
+              Required="Optional">
+                <ViewCriteria
+                  Name="BrokerCountryRoViewNestedCriteria"
+                  ViewObjectName="com.liberty.health.comms.model.broker.vo.BrokerCountryRoView"
+                  Conjunction="AND">
+                    <ViewCriteriaRow
+                      Name="BrokerCountryRoViewNestedCriteria_row_0"
+                      UpperColumns="1">
+                        <ViewCriteriaItem
+                          Name="CountryCode"
+                          ViewAttribute="CountryCode"
+                          Operator="="
+                          Conjunction="AND"
+                            Required="Required"/>
+                    </ViewCriteriaRow>
+                </ViewCriteria>
+            </ViewCriteriaItem>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="BrokerIdNo"/>
+    </AttrArray>
+    <ViewLinkAccessor
+      Name="BrokerAuditRoView"
+      ViewLink="com.liberty.health.comms.model.broker.vo.links.FkBrokerAuditBrokerRoLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ViewLinkAccessor
+      Name="BrokerComments"
+      ViewLink="com.liberty.health.comms.model.broker.vo.links.FkBrokerCommentBrokerRoLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ViewLinkAccessor
+      Name="BrokerCountryRoView"
+      ViewLink="com.liberty.health.comms.model.broker.vo.links.FkBrokerRoBrokerCountryRoViewLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

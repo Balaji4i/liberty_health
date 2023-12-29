@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommissionsWatchListRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  OrderBy='"MENU_SORT_SEQ_NO"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.liberty.health.comms.model.watchlist.vo.CommissionsWatchListRoViewImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+  ComponentInterface="com.liberty.health.comms.model.watchlist.vo.common.CommissionsWatchListRoView">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+        <Attr Name="_codeGenFlag2" Value="Coll|VarAccess"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.watchlist.vo.CommissionsWatchListRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+      Name="pLocalCode"
+      Kind="viewcriteria"
+      Type="java.lang.String"/>
+    <SQLQuery><![CDATA[select  wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                            
+from  util.upld_trn, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                            
+where process_datetime= to_date(trim(get_system_parameter('LB_HEALTH_COMMS','SYSTEM','SYSTEM_START_DATE')))                            
+  and wao.web_appl_object_no = 14                            
+  and wao.web_appl_object_no = w.web_appl_object_no                            
+group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0                          
+union                            
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                            
+from company c,  web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w ,                           
+(select distinct bf.company_id_no, btt.company_Table_type_id_no, btt.company_table_type_desc, bf.effective_start_date,                           
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                           
+         from company_function bf, company_table bt, company_table_type btt                                  
+        where bf.company_table_id_no = bt.company_table_id_no                                  
+          and bt.company_table_id_no  = 2                               
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                                  
+          and sysdate between bf.effective_start_date and bf.effective_end_date) status                           
+where c.company_id_no = status.company_id_no(+)                           
+  and nvl(status.rank_no,1) = 1                           
+  and company_Table_type_id_no = 24                           
+  and c.effective_Start_date-trunc(sysdate) <= to_number(get_system_parameter('LB_HEALTH_COMMS','WATCHLIST','MAX_PREG_REG_DAYS'))                           
+   and wao.web_appl_object_no = 13                            
+  and wao.web_appl_object_no = w.web_appl_object_no                            
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0                           
+union                            
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc,menu_item_name, url_path_name, menu_sort_seq_no                            
+from invoice i,  web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                           
+where release_date is null                           
+   and wao.web_appl_object_no = 26                            
+  and wao.web_appl_object_no = w.web_appl_object_no                            
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0                          
+union                          
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                            
+from company c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w ,                          
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                              
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                                    
+         from company_function bf, company_table bt, company_table_type btt                                     
+        where bf.company_table_id_no = bt.company_table_id_no                                     
+          and bf.company_table_id_no = 3                                    
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                                     
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_function,                                  
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                              
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                               
+         from company_function bf, company_table bt, company_table_type btt                                     
+        where bf.company_table_id_no = bt.company_table_id_no                                     
+          and bf.company_table_id_no = 2                                   
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                                     
+          and sysdate between bf.effective_start_date and bf.effective_end_date) b_status,                                     
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                              
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                                    
+         from company_function bf, company_table bt, company_table_type btt                                     
+        where bf.company_table_id_no = bt.company_table_id_no                                      
+          and bf.company_table_id_no = 1                          
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                                     
+          and sysdate between bf.effective_start_date and bf.effective_end_date) b_statement,                                               
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                              
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                               
+         from company_function bf, company_table bt, company_table_type btt                                     
+        where bf.company_table_id_no = bt.company_table_id_no                                     
+          and bf.company_table_id_no = 4                            
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                                     
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_type,                             
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                              
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                               
+         from company_function bf, company_table bt, company_table_type btt                                     
+        where bf.company_table_id_no = bt.company_table_id_no                                     
+          and bf.company_table_id_no = 6                                   
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                                     
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_multi_net                           
+where not exists (select null                         
+                    from ohi_comm_perc                         
+                  where c.company_id_no = company_id_no                       
+                    and auth_username is not null                      
+                    and group_code IS NULL                       
+                    AND product_code IS NULL                          
+                  AND inse_code IS NULL                       
+                  AND poep_id IS NULL                      
+                  AND policy_code IS NULL                      
+                    and sysdate between effective_Start_date and effective_end_date)                          
+    and c.company_id_no = b_function.company_id_no(+)                              
+    and nvl(b_function.rank_no,1) = 1                              
+  and c.company_id_no = b_status.company_id_no(+)                                 
+    and nvl(b_status.rank_no,1) = 1                              
+  and c.company_id_no = b_statement.company_id_no(+)                               
+    and nvl(b_statement.rank_no,1) = 1                              
+  and c.company_id_no = b_type.company_id_no(+)                              
+    and nvl(b_type.rank_no,1) = 1                            
+    and c.company_id_no = b_multi_net.company_id_no(+)                              
+    and nvl(b_multi_net.rank_no,1) = 1                          
+  and wao.web_appl_object_no = 28                            
+  and wao.web_appl_object_no = w.web_appl_object_no                            
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0                           
+union all                        
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                        
+from ohi_comm_perc o , company c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                          
+where o.company_id_no = c.company_id_no                        
+  and auth_username is null and reject_username is null                        
+  and o.company_id_no is not null                        
+    and wao.web_appl_object_no = 30                            
+  and wao.web_appl_object_no = w.web_appl_object_no                           
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) >0   
+union all
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                       
+from web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                         
+where exists (select cc.country_code , c.company_id_no, c.company_name  from company c
+left join broker b on b.company_id_no = c.company_id_no
+left join company_country cc on cc.company_id_no = c.company_id_no
+where b.company_id_no is null)                      
+    and wao.web_appl_object_no = 48                           
+  and wao.web_appl_object_no = w.web_appl_object_no                         
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                           
+having count(*) >0
+union all
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                       
+from ohi_comm_perc ocp, comms_on_partial_receipt copr, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                         
+where (ocp.group_code = copr.group_code     and                 
+(copr.comms_percentage <> ocp.comm_perc  and
+        not (ocp.effective_start_date > ocp.effective_end_date or ocp.effective_start_date = ocp.effective_end_date or
+             ocp.effective_end_date < copr.effective_start_date))
+        and active_yn = 'Y' )    and wao.web_appl_object_no = 49                          
+  and wao.web_appl_object_no = w.web_appl_object_no                          
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                           
+having count(*) >0
+union all
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                    
+   from company_accreditation coma
+       , country_accreditation coua
+       , company c
+       , accreditation_type aty
+       , web_appl_object wao          
+       , WEB_APPL_OBJECT_LANG_MENU w           
+ WHERE coua.country_code = coma.country_code
+   AND c.company_id_no = coma.company_id_no
+   AND aty.accreditation_type_id_no = coua.accreditation_type_id_no
+    and wao.web_appl_object_no = 50                        
+  and wao.web_appl_object_no = w.web_appl_object_no                
+    group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                        
+having count(*) > 0  
+union all   
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                    
+   from approvals a
+       , web_appl_object wao          
+       , WEB_APPL_OBJECT_LANG_MENU w           
+ WHERE a.company_table_id_no = 8 and a.company_table_type_id_no = 1 and a.responded is null
+  and wao.web_appl_object_no = 58                         
+  and wao.web_appl_object_no = w.web_appl_object_no                 
+    group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                        
+having count(*) > 0  
+union all
+ select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                        
+from ohi_comm_perc o , ohi_groups c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                          
+where o.group_code = c.group_code                        
+  and auth_username is null and reject_username is null                        
+  and o.group_code is not null                        
+  and wao.web_appl_object_no = 32                            
+  and wao.web_appl_object_no = w.web_appl_object_no                           
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0                        
+union all                        
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                        
+from ohi_comm_perc o , ohi_products c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                          
+where o.product_code = c.product_code                        
+  and auth_username is null and reject_username is null                        
+  and o.product_code is not null                        
+  and wao.web_appl_object_no = 33                            
+  and wao.web_appl_object_no = w.web_appl_object_no                           
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0                        
+union all                          
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                        
+from ohi_comm_perc o , ohi_insured_entities c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                          
+where o.inse_code = c.inse_code                        
+  and auth_username is null and reject_username is null                        
+  and o.inse_code is not null                        
+  and wao.web_appl_object_no = 35                            
+  and wao.web_appl_object_no = w.web_appl_object_no                           
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0                        
+union all                        
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                        
+from ohi_comm_perc o , ohi_policies c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                          
+where o.policy_code = c.policy_code                        
+  and auth_username is null and reject_username is null                        
+  and o.policy_code is not null                        
+  and wao.web_appl_object_no = 34                            
+  and wao.web_appl_object_no = w.web_appl_object_no                           
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0                        
+union all                          
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                        
+from ohi_comm_perc o , broker c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                          
+where o.broker_id_no = c.broker_id_no                        
+  and auth_username is null and reject_username is null                        
+  and o.broker_id_no is not null                        
+  and wao.web_appl_object_no = 31                            
+  and wao.web_appl_object_no = w.web_appl_object_no                           
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0                   
+union all                   
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                        
+from ohi_comm_perc o , ohi_groups c  , web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                   
+where o.group_code = c.group_code                     
+  and auth_username is null                     
+    and reject_username is not null                    
+  and o.group_code is not null                   
+    and product_code is null                   
+  and wao.web_appl_object_no = 36                            
+  and wao.web_appl_object_no = w.web_appl_object_no                    
+    group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0              
+union all             
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                       
+ FROM ohi_comm_perc            ocp              
+      ,ohi_products                 comp              
+       , web_appl_object wao             
+       , WEB_APPL_OBJECT_LANG_MENU w              
+ WHERE ocp.product_code = comp.product_code                
+   AND auth_username     IS NULL              
+   AND reject_username   IS NOT NULL              
+   AND ocp.product_code IS NOT NULL             
+    and wao.web_appl_object_no = 38                           
+  and wao.web_appl_object_no = w.web_appl_object_no                   
+    group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                           
+having count(*) > 0             
+union all              
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                        
+ FROM ohi_comm_perc ocp            
+       , web_appl_object wao            
+       , WEB_APPL_OBJECT_LANG_MENU w               
+ WHERE auth_username     IS NULL             
+   AND reject_username   IS NOT NULL             
+   AND policy_code IS NOT NULL            
+  and wao.web_appl_object_no = 39                          
+  and wao.web_appl_object_no = w.web_appl_object_no                  
+    group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                          
+having count(*) > 0            
+union all            
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                     
+from ohi_comm_perc o            
+    , ohi_insured_entities c            
+     , web_appl_object wao,            
+     WEB_APPL_OBJECT_LANG_MENU w           
+where o.inse_code = c.inse_code             
+  and auth_username is null             
+  and reject_username is not null             
+  and o.inse_code is not null           
+  and wao.web_appl_object_no = 40                         
+  and wao.web_appl_object_no = w.web_appl_object_no                 
+    group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                         
+having count(*) > 0           
+union all           
+select wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                  
+  FROM ohi_comm_perc            ocp               
+      ,company                  comp              
+      , web_appl_object wao               
+      ,WEB_APPL_OBJECT_LANG_MENU w                   
+ WHERE ocp.company_id_no = comp.company_id_no                 
+   AND auth_username     IS NULL               
+   AND reject_username   IS NOT NULL               
+   AND ocp.company_id_no IS NOT NULL              
+    and wao.web_appl_object_no = 41                            
+  and wao.web_appl_object_no = w.web_appl_object_no                    
+    group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0       
+union all       
+SELECT wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no    
+from comms_on_partial_Receipt c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                          
+where c.active_yn = 'N'   
+  and c.approved_by IS NULL   
+  and wao.web_appl_object_no = 47                            
+  and wao.web_appl_object_no = w.web_appl_object_no                           
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0    
+/*select wao.web_appl_object_no, local_code, menu_item_name||': '||count(*) alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                        
+from comms_recalc c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                          
+where c.processed_date = '10/SEP/57'                       
+  and wao.web_appl_object_no = 42                            
+  and wao.web_appl_object_no = w.web_appl_object_no                           
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(*) > 0   */   
+union all      
+select  wao.web_appl_object_no, local_code, menu_item_name alert_desc, menu_item_name,url_path_name, menu_sort_seq_no                                        
+  from (    
+  select distinct test_run.company_id_no      
+  FROM (SELECT distinct /*index cc COMMS_CALC_TY_FK_IDX*/                    
+               b.company_id_no,      
+               c.company_name,                        
+               group_code,                        
+               country_code,                        
+               cc.product_code,                
+               prod.product_name,                   
+               cc.policy_code,            
+               cc.contribution_date,            
+               cc.payment_receive_Date,            
+               cc.finance_receipt_no,            
+               cc.person_code,      
+               cc.calculation_datetime      
+          from comms_calc_snapshot cc, broker b, company c, -- comms_calc_type ct ,              
+                        (select distinct product_code, product_name                  
+                 from ohi_products) prod                  
+         where cc.broker_id_no = b.broker_id_no                        
+           and b.company_id_no = c.company_id_no                       
+           and cc.product_code = prod.product_code              
+           and cc.comms_calc_type_code = 'T') test_run    
+           --and trunc(calculation_datetime)-trunc(sysdate) < to_number(get_system_parameter('LB_HEALTH_COMMS','COMMS_CALC','MAX_CALC_SHOW_DAYS'))     
+union all      
+select b.company_id_no      
+          from comms_calc_snapshot cc, broker b, company c, comms_calc_type ct ,              
+                        (select distinct product_code, product_name                  
+                 from ohi_products) prod                  
+         where cc.broker_id_no = b.broker_id_no                        
+           and b.company_id_no = c.company_id_no                       
+           and cc.product_code = prod.product_code(+)              
+           and cc.comms_calc_type_code in ('A','R')                        
+           and cc.comms_calc_type_code = ct.comms_calc_type_code                           
+           and invoice_no IS NULL            
+        group by ct.comms_calc_type_desc,                   
+               b.company_id_no,                        
+               c.company_name,                        
+               group_code,                        
+               country_code,                        
+               cc.product_code,                
+               prod.product_name,                
+               cc.username,             
+               to_char(calculation_datetime,'dd-MON-yyy hh:mi:ss'),           
+               EXCHANGE_RATE_CURRENCY_CODE    
+               ) comms,                         
+                web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w                          
+where wao.web_appl_object_no = 29                            
+  and wao.web_appl_object_no = w.web_appl_object_no                            
+ group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no                            
+having count(comms.company_id_no) > 0]]></SQLQuery>
+    <ViewAttribute
+        Name="WebApplObjectNo"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="WEB_APPL_OBJECT_NO"
+        Expression="WEB_APPL_OBJECT_NO"
+        SQLType="NUMERIC"/>
+    <ViewAttribute
+        Name="LocalCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="5"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="LOCAL_CODE"
+        Expression="LOCAL_CODE"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="5"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="AlertDesc"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="242"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="ALERT_DESC"
+        Expression="ALERT_DESC"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="242"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="MenuItemName"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="200"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="MENU_ITEM_NAME"
+        Expression="MENU_ITEM_NAME"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="200"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="UrlPathName"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="200"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="URL_PATH_NAME"
+        Expression="URL_PATH_NAME"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="200"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="MenuSortSeqNo"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="5"
+        Scale="0"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="MENU_SORT_SEQ_NO"
+        Expression="MENU_SORT_SEQ_NO"
+        SQLType="NUMERIC"/>
+    <ViewCriteria
+      Name="CommissionsWatchListLocalViewCriteria"
+      ViewObjectName="com.liberty.health.comms.model.watchlist.vo.CommissionsWatchListRoView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+            Name="CommissionsWatchListLocalViewCriteria_row_0"
+            UpperColumns="1">
+            <ViewCriteriaItem
+                Name="LocalCode"
+                ViewAttribute="LocalCode"
+                Operator="="
+                Conjunction="AND"
+                Value=":pLocalCode"
+                IsBindVarValue="true"
+                Required="Optional"
+				UpperColumns="0"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="WebApplObjectNo"/>
+        <Item Value="LocalCode"/>
+    </AttrArray>
+    <ClientInterface
+      Name="__clientInterface">
+        <Method
+          Name="setpLocalCode"
+          MethodName="setpLocalCode">
+            <Return
+              Name="_return_type_"
+              Type="void"/>
+            <Parameter
+              Name="value"
+              Type="java.lang.String"/>
+        </Method>
+    </ClientInterface>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

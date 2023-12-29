@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:dvt="http://xmlns.oracle.com/dss/adf/faces">
+    <af:panelStretchLayout id="psl2">
+        <f:facet name="start"/>
+        <f:facet name="end"/>
+        <f:facet name="top">
+            <af:panelHeader text="Dashboard" id="ph1">
+                <f:facet name="context">
+                    <af:panelGroupLayout id="pgl22">
+                        <af:button text="#{coreLabels['G.Refresh']}" id="b1" icon="/adf/images/undo_16x16.png"
+                                   actionListener="#{dashboardBean.refreshActionListener}" styleClass="WBButton"
+                                   rendered="false"/>
+                    </af:panelGroupLayout>
+                </f:facet>
+                <f:facet name="toolbar"/>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+                <af:panelFormLayout id="pfl2" visible="false">
+                    <af:inputText value="#{bindings.LocalCode.inputValue}" label="#{bindings.LocalCode.hints.label}"
+                                  required="#{bindings.LocalCode.hints.mandatory}"
+                                  columns="#{bindings.LocalCode.hints.displayWidth}"
+                                  maximumLength="#{bindings.LocalCode.hints.precision}"
+                                  shortDesc="#{bindings.LocalCode.hints.tooltip}" id="it1">
+                        <f:validator binding="#{bindings.LocalCode.validator}"/>
+                    </af:inputText>
+                </af:panelFormLayout>
+            </af:panelHeader>
+        </f:facet>
+        <f:facet name="bottom"/>
+        <f:facet name="center"/>
+    </af:panelStretchLayout>
+</jsp:root>

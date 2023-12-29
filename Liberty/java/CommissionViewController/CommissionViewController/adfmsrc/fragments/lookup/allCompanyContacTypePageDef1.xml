@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24" id="allCompanyContacTypePageDef1"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllCompanyContactTypeVo" RangeSize="25" DataControl="CompanyContactTypeAMDataControl"
+              id="AllCompanyContactTypeVoIterator"/>
+    <searchRegion Criteria="AllCompanyContactTypeDesc" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllCompanyContactTypeVoIterator" id="AllCompanyContactTypeDescQuery"/>
+    <iterator Binds="CompanyContactTypeAuditRoView" RangeSize="25" DataControl="CompanyContactTypeAMDataControl"
+              id="CompanyContactTypeAuditRoViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllCompanyContactTypeVoIterator" id="AllCompanyContactTypeVo">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.CompanyContactTypeVO"
+                      Name="AllCompanyContactTypeVo0">
+        <AttrNames>
+          <Item Value="CompanyContactTypeDesc"/>
+          <Item Value="CompanyContactTypeIdNo"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="Username"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllCompanyContactTypeVoIterator" id="CompanyContactTypeIdNo">
+      <AttrNames>
+        <Item Value="CompanyContactTypeIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="CompanyContactTypeAuditRoViewIterator" id="CompanyContactTypeAuditRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.CompanyContactTypeAuditRoView"
+                      Name="CompanyContactTypeAuditRoView0">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionUsername"/>
+          <Item Value="TransactionDesc"/>
+          <Item Value="CompanyContactTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkBrokerFunctionBrokerTableAssoc"
+    Version="12.2.1.12.24"
+  InheritPersonalization="merge">
+    <DesignTime>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <AssociationEnd
+      Name="BrokerFunction"
+        Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.eo.BrokerFunctionEO"
+      LockLevel="NONE">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_aggregation" Value="0"/>
+            <Attr Name="_finderName" Value="BrokerFunction"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerFunctionEO.BrokerTableIdNo"/>
+        </AttrArray>
+    </AssociationEnd>
+    <AssociationEnd
+      Name="BrokerTable"
+        Cardinality="-1"
+      Owner="com.liberty.health.comms.model.eo.BrokerTableEO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_aggregation" Value="0"/>
+            <Attr Name="_finderName" Value="BrokerTable"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerTableEO.BrokerTableIdNo"/>
+        </AttrArray>
+    </AssociationEnd>
+</Association>

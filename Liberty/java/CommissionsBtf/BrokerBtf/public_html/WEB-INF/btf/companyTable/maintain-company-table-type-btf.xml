@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-table-type-btf">
+        <default-activity>setpTableIdNo</default-activity>
+        <transaction>
+            <requires-transaction/>
+        </transaction>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>tableIdNo</name>
+            <value>#{pageFlowScope.tableIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <managed-bean id="__2">
+            <managed-bean-name>companyAttributes</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <managed-bean id="__5">
+            <managed-bean-name>companyTable</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.BrokerTable</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <method-call id="setpTableIdNo">
+            <method>#{bindings.setpTableIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpTableIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainCompanyTableType">
+            <page>/WEB-INF/fragment/companyTable/maintainCompanyTableType.jsff</page>
+        </view>
+        <control-flow-rule id="__3">
+            <from-activity-id>setpTableIdNo</from-activity-id>
+            <control-flow-case id="__4">
+                <from-outcome>setpTableIdNo</from-outcome>
+                <to-activity-id>maintainCompanyTableType</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

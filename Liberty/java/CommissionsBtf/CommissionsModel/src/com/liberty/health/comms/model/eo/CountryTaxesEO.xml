@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CountryTaxesEO"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="COUNTRY_TAXES"
+  AliasName="CountryTaxesEO"
+  BindingStyle="OracleName"
+  RowClass="com.liberty.health.comms.model.eo.CountryTaxesEOImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|DML"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Attribute
+    Name="CountryCode"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    Precision="4"
+    ColumnName="COUNTRY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="COUNTRY_TAXES"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AccreditationTypeIdNo"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    Precision="2"
+    Scale="0"
+    ColumnName="ACCREDITATION_TYPE_ID_NO"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="COUNTRY_TAXES"
+    PrimaryKey="true"
+    DefaultValue="3"/>
+  <Attribute
+    Name="EffectiveStartDate"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    ColumnName="EFFECTIVE_START_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="COUNTRY_TAXES"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="EffectiveEndDate"
+    IsNotNull="true"
+    ColumnName="EFFECTIVE_END_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="COUNTRY_TAXES"/>
+  <Attribute
+    Name="AccredLocal"
+    Precision="10"
+    ColumnName="ACCRED_LOCAL"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="COUNTRY_TAXES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AccredMulti"
+    Precision="10"
+    ColumnName="ACCRED_MULTI"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="COUNTRY_TAXES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="NoAccrLocal"
+    Precision="10"
+    ColumnName="NO_ACCR_LOCAL"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="COUNTRY_TAXES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="NoAccrMulti"
+    Precision="10"
+    ColumnName="NO_ACCR_MULTI"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="COUNTRY_TAXES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LastUpdateDatetime"
+    ColumnName="LAST_UPDATE_DATETIME"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="COUNTRY_TAXES"
+    HistoryColumn="DateHistory"/>
+  <Attribute
+    Name="Username"
+    Precision="50"
+    ColumnName="USERNAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="COUNTRY_TAXES"
+    HistoryColumn="UserHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="AccreditationType"
+    Association="com.liberty.health.comms.model.eo.CountryTaxAccreditationFkAssoc"
+    AssociationEnd="com.liberty.health.comms.model.eo.CountryTaxAccreditationFkAssoc.AccreditationType"
+    AssociationOtherEnd="com.liberty.health.comms.model.eo.CountryTaxAccreditationFkAssoc.CountryTaxes"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="CountryTaxesPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="COUNTRY_TAXES_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.CountryTaxesEO.CountryCode"/>
+      <Item Value="com.liberty.health.comms.model.eo.CountryTaxesEO.AccreditationTypeIdNo"/>
+      <Item Value="com.liberty.health.comms.model.eo.CountryTaxesEO.EffectiveStartDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="CountryTaxAccreditationFk">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="ACCREDITATION_TYPE_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="COUNTRY_TAX_ACCREDITATION_FK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.CountryTaxesEO.AccreditationTypeIdNo"/>
+    </AttrArray>
+  </Key>
+</Entity>

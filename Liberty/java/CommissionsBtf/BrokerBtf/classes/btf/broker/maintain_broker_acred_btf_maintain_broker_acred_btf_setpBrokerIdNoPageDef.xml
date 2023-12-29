@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_broker_acred_btf_maintain_broker_acred_btf_setpBrokerIdNoPageDef" Package="btf.broker"
+                SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpBrokerIdNo" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setpBrokerIdNo"
+                      IsViewObjectMethod="true" DataControl="BrokerMaintenanceAMDataControl"
+                      InstanceName="data.BrokerMaintenanceAMDataControl.BrokerAccreditationByPkView">
+            <NamedData NDName="value" NDValue="#{pageFlowScope.brokerIdNo}" NDType="oracle.jbo.domain.Number"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

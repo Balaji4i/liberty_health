@@ -1,0 +1,27 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="META-INF/adfc-config.xml" id="" type="" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/btf/lookup/Maintain-Company-Contact-Type-Btf.xml" id="Maintain-Company-Contact-Type-Btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="companyContactTypeIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/lookup/maintain-accreditation-type-btf.xml" id="maintain-accreditation-type-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="accreditationTypeIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/lookup/maintain-address-type-btf.xml" id="maintain-address-type-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="addressTypeCode"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/lookup/maintain-bank-account-type-btf.xml" id="maintain-bank-account-type-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="bankAccountTypeIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/lookup/maintain-company-fee-type-btf.xml" id="maintain-company-fee-type-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="companyFeeTypeIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/lookup/maintain-country-taxes-btf.xml" id="maintain-country-taxes-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="CountryCode"/>
+      <input-parameter name="TaxesAction"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/lookup/maintain-exchange-rate-flow.xml" id="maintain-exchange-rate-flow" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="fromCurrencyCode"/>
+      <input-parameter name="toCurrencyCode"/>
+   </task-flow-descriptor>
+</task-flow-registry>

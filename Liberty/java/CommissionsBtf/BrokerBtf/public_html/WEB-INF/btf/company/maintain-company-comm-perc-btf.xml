@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-com-perc-btf">
+        <default-activity>setCompanyVc</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__4">
+            <name>createInd</name>
+            <value>#{pageFlowScope.createInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__5">
+            <managed-bean-name>companyAttributesBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <view id="maintainBrokerCommPerc">
+            <page>/WEB-INF/fragment/broker/maintainBrokerCommPerc.jsff</page>
+        </view>
+        <method-call id="setCompanyVc">
+            <method>#{bindings.setCompanyVc.execute}</method>
+            <outcome>
+                <fixed-outcome>setCompanyVc</fixed-outcome>
+            </outcome>
+        </method-call>
+        <control-flow-rule id="__7">
+            <from-activity-id>setCompanyVc</from-activity-id>
+            <control-flow-case id="__8">
+                <from-outcome>setCompanyVc</from-outcome>
+                <to-activity-id>maintainBrokerCommPerc</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

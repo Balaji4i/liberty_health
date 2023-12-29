@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="brokerBankDetailsApprovalPageDef" Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllBankAccApprovalRoView" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="AllBankAccApprovalRoViewIterator"/>
+    <iterator Binds="CompanyBankDetailsByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="CompanyBankDetailsByPkViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllBankAccApprovalRoViewIterator" id="AllBankAccApprovalRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.BankAccApprovalRoView"
+                      Name="AllBankAccApprovalRoView0">
+        <AttrNames>
+          <Item Value="CompanyName"/>
+          <Item Value="CountryCode"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="BankAccTypeDesc"/>
+          <Item Value="AccHolderName"/>
+          <Item Value="BankAccName"/>
+          <Item Value="BankAccNo"/>
+          <Item Value="BankName"/>
+          <Item Value="BankBranchCode"/>
+          <Item Value="BankBranchName"/>
+          <Item Value="BankSwiftCode"/>
+          <Item Value="IbanNibNo"/>
+          <Item Value="CreatedUsername"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="approveBankingDetails" RequiresUpdateModel="false" Action="invokeMethod"
+                  MethodName="approveBankingDetails" IsViewObjectMethod="false"
+                  DataControl="MaintainBrokerageAMDataControl"
+                  InstanceName="data.MaintainBrokerageAMDataControl.dataProvider">
+      <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="oracle.jbo.domain.Number"/>
+      <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="currentDate" NDValue="#{bindings.EffectiveStartDate.inputValue}" NDType="java.util.Date"/>
+      <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="AllBankAccApprovalRoViewIterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllBankAccApprovalRoViewIterator" id="CountryCode">
+      <AttrNames>
+        <Item Value="CountryCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllBankAccApprovalRoViewIterator" id="EffectiveStartDate">
+      <AttrNames>
+        <Item Value="EffectiveStartDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CompanyBankDetailsByPkViewIterator" id="AuthUsername">
+      <AttrNames>
+        <Item Value="AuthUsername"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true"
+            Action="commitTransaction"/>
+    <action id="Rollback" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="false"
+            Action="rollbackTransaction"/>
+    <action IterBinding="AllBankAccApprovalRoViewIterator" id="Execute"
+            InstanceName="WatchListAMDataControl.AllBankAccApprovalRoView" DataControl="WatchListAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+  </bindings>
+</pageDefinition>

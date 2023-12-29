@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkSysParamAuditSystemParamLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.core.model.vo.link.FkSysParamAuditSystemParamLink_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="SystemParameterView"
+    Cardinality="1"
+    Source="true"
+    Owner="com.core.model.vo.SystemParameterView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="SystemParameterView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.vo.SystemParameterView.SystemName"/>
+      <Item Value="com.core.model.vo.SystemParameterView.ParameterSection"/>
+      <Item Value="com.core.model.vo.SystemParameterView.ParameterKey"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="SystemParameterAuditRoView"
+    Cardinality="-1"
+    Owner="com.core.model.vo.SystemParameterAuditRoView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="SystemParameterAuditRoView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.vo.SystemParameterAuditRoView.SystemName"/>
+      <Item Value="com.core.model.vo.SystemParameterAuditRoView.ParameterSection"/>
+      <Item Value="com.core.model.vo.SystemParameterAuditRoView.ParameterKey"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.core.model.CoreModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

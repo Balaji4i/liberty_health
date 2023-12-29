@@ -1,0 +1,25 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<JLibraryNode nselem="JLibraryNode" class="oracle.jdeveloper.library.JLibraryNode" deployedByDefault="true" xmlns="http://xmlns.oracle.com/jdeveloper/110000jlibrarynode">
+   <classPath>
+      <entries>
+         <Item path="../../../../lib-repo/3rdparty/barbecue-1.5-beta1.jar" jar-entry=""/>
+         <Item path="../../../../lib-repo/3rdparty/BarbecueRotateRenderer.jar" jar-entry=""/>
+         <Item path="../../../../lib-repo/3rdparty/iText-2.1.7.jar" jar-entry=""/>
+         <Item path="../../../../lib-repo/3rdparty/jasperreports-3.7.4.jar" jar-entry=""/>
+         <Item path="../../../../lib-repo/3rdparty/jasperreports-applet-3.7.4.jar" jar-entry=""/>
+         <Item path="../../../../lib-repo/3rdparty/jasperreports-fonts-3.7.4.jar" jar-entry=""/>
+         <Item path="../../../../lib-repo/3rdparty/jasperreports-javaflow-3.7.4.jar" jar-entry=""/>
+         <Item path="../../../../lib-repo/3rdparty/PDFRenderer.jar" jar-entry=""/>
+         <Item path="../../../../lib-repo/3rdparty/poi-3.5-FINAL-20090928.jar" jar-entry=""/>
+         <Item path="../../../../lib-repo/common/core-Model-121200.jar" jar-entry=""/>
+      </entries>
+   </classPath>
+   <docPath>
+      <entries class="[Ljava.net.URL;"/>
+   </docPath>
+   <locked>true</locked>
+   <name>ADF Library Dependencies</name>
+   <sourcePath>
+      <entries class="[Ljava.net.URL;"/>
+   </sourcePath>
+</JLibraryNode>

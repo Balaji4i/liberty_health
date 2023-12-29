@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="fusionPremiumsReportVO"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.dashboard.vo.fusionPremiumsReportVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.dashboard.vo.fusionPremiumsReportVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.dashboard.vo.fusionPremiumsReportVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[with      
+   xmlData      
+as      
+(        
+  SELECT  INVOICE_NO||(case when check_if_number(CUSTOMER_NUMBER) is not null then  
+            'UGIND' ELSE  
+            CUSTOMER_NUMBER      
+        END) KEY 
+        ,ORGANIZATION_NAME      
+        ,CUSTOMER_NAME      
+        ,(case when check_if_number(CUSTOMER_NUMBER) is not null then  
+            'UGIND' ELSE  
+            CUSTOMER_NUMBER      
+        END) CUSTOMER_NUMBER      
+        ,INVOICE_TYPE      
+        ,INVOICE_NO      
+        ,DUE_DATE      
+        ,TRX_DATE      
+        ,GL_DATE      
+        ,GL_DATE_CLOSED      
+        ,CURRENCY_CODE      
+        ,CITY      
+        ,PAYMENT_SCHEDULE_CLASS      
+        ,INVOICE_AMT      
+        ,PAYMENT_AMT      
+        ,ADJUSTMENTS      
+        ,CREDIT_MEMO      
+        ,TAX_AMOUNT      
+        ,BALANCE_AMT      
+  from ws_soap_inbound t,      
+       XMLTABLE('//DATA_DS/G_1'         
+              PASSING XMLTYPE(t.payload)      
+            COLUMNS       
+            ORGANIZATION_NAME varchar2(150) PATH 'ORGANIZATION_NAME/text()',      
+            CUSTOMER_NAME varchar2(150) PATH 'CUSTOMER_NAME/text()',      
+            CUSTOMER_NUMBER varchar2(150) PATH 'CUSTOMER_NUMBER/text()',      
+            INVOICE_TYPE varchar2(150) PATH 'INVOICE_TYPE/text()',      
+            INVOICE_NO varchar2(150) PATH 'INVOICE_NO/text()',      
+            DUE_DATE date PATH 'DUE_DATE/text()',      
+            TRX_DATE date PATH 'TRX_DATE/text()',      
+            GL_DATE date PATH 'GL_DATE/text()',      
+            GL_DATE_CLOSED date PATH 'GL_DATE_CLOSED/text()',      
+            CURRENCY_CODE varchar2(20) PATH 'CURRENCY_CODE/text()',      
+            CITY varchar2(200) PATH 'CITY/text()',      
+            PAYMENT_SCHEDULE_CLASS varchar2(100) PATH 'PAYMENT_SCHEDULE_CLASS/text()',      
+            INVOICE_AMT number PATH 'INVOICE_AMT/text()',      
+            PAYMENT_AMT number PATH 'PAYMENT_AMT/text()',      
+            ADJUSTMENTS number PATH  'ADJUSTMENTS/text()',      
+            CREDIT_MEMO number PATH 'CREDIT_MEMO/text()',      
+            TAX_AMOUNT number PATH 'TAX_AMOUNT/text()',      
+            BALANCE_AMT number PATH 'BALANCE_AMT/text()')   
+        WHERE process_name = 'FUSION_BILLING' 
+        --AND INVOICE_NO = '1528' 
+        ),   
+      cpr as ( 
+       select FINANCE_INVOICE_NO||group_code key,FINANCE_INVOICE_NO,group_code, SUM(FINANCE_RECEIPT_AMT) total_Receipt_amt     
+          from comms_payments_Received cpr 
+         /*where finance_invoice_no in ( 
+          select invoice_no from ws_soap_inbound t,     
+           XMLTABLE('//DATA_DS/G_1'        
+                  PASSING XMLTYPE(t.payload)     
+                COLUMNS      
+                INVOICE_NO varchar2(150) PATH 'INVOICE_NO/text()'    
+          ))*/ 
+           group by FINANCE_INVOICE_NO,group_code 
+          )      
+    select ORGANIZATION_NAME organization_name    
+          ,(CASE WHEN (PAYMENT_AMT <> 0 AND BALANCE_AMT <> 0) THEN    
+           'Partial'     
+           WHEN PAYMENT_AMT = 0 THEN    
+           'No Receipt' ELSE    
+           'Full'    
+         END) receipt_type    
+        ,CUSTOMER_NUMBER CUSTOMER_NUMBER      
+        ,INVOICE_TYPE INVOICE_TYPE      
+        ,INVOICE_NO INVOICE_NO        
+        ,TRX_DATE TRX_DATE        
+         ,(CASE WHEN (PAYMENT_AMT <> 0 AND BALANCE_AMT <> 0) THEN    
+           ROUND(sysdate-TRX_DATE,0)     
+           WHEN PAYMENT_AMT = 0 THEN    
+           ROUND(sysdate-TRX_DATE,0) ELSE    
+           0    
+         END) DAYS_LATE     
+        ,INVOICE_AMT INVOICE_AMT       
+        ,nvl(cpr.total_Receipt_amt,0) inv_csb      
+        ,PAYMENT_AMT PAYMENT_AMT      
+        ,ADJUSTMENTS ADJUSTMENTS      
+        ,CREDIT_MEMO CREDIT_MEMO      
+        ,TAX_AMOUNT TAX_AMOUNT      
+        ,BALANCE_AMT BALANCE_AMT      
+    from xmlData x, cpr , ohi_groups og      
+      where x.KEY = cpr.key 
+       and og.group_code = CUSTOMER_NUMBER    
+       and ((x.PAYMENT_AMT <> cpr.total_Receipt_amt) OR      
+           cpr.total_Receipt_amt IS NULL      
+           ) 
+    UNION 
+select  ORGANIZATION_NAME organization_name    
+          ,(CASE WHEN (PAYMENT_AMT <> 0 AND BALANCE_AMT <> 0) THEN    
+           'Partial'     
+           WHEN PAYMENT_AMT = 0 THEN    
+           'No Receipt' ELSE    
+           'Full'    
+         END) receipt_type    
+        ,CUSTOMER_NUMBER CUSTOMER_NUMBER      
+        ,INVOICE_TYPE INVOICE_TYPE      
+        ,INVOICE_NO INVOICE_NO        
+        ,TRX_DATE TRX_DATE        
+         ,(CASE WHEN (PAYMENT_AMT <> 0 AND BALANCE_AMT <> 0) THEN    
+           ROUND(sysdate-TRX_DATE,0)     
+           WHEN PAYMENT_AMT = 0 THEN    
+           ROUND(sysdate-TRX_DATE,0) ELSE    
+           0    
+         END) DAYS_LATE     
+        ,INVOICE_AMT INVOICE_AMT       
+        ,0 inv_csb      
+        ,PAYMENT_AMT PAYMENT_AMT      
+        ,ADJUSTMENTS ADJUSTMENTS      
+        ,CREDIT_MEMO CREDIT_MEMO      
+        ,TAX_AMOUNT TAX_AMOUNT      
+        ,BALANCE_AMT BALANCE_AMT      
+    from 
+(        
+  SELECT  INVOICE_NO||(case when check_if_number(CUSTOMER_NUMBER) is not null then  
+            'UGIND' ELSE  
+            CUSTOMER_NUMBER      
+        END) KEY 
+        ,ORGANIZATION_NAME      
+        ,CUSTOMER_NAME      
+        ,(case when check_if_number(CUSTOMER_NUMBER) is not null then  
+            'UGIND' ELSE  
+            CUSTOMER_NUMBER      
+        END) CUSTOMER_NUMBER      
+        ,INVOICE_TYPE      
+        ,INVOICE_NO      
+        ,DUE_DATE      
+        ,TRX_DATE      
+        ,GL_DATE      
+        ,GL_DATE_CLOSED      
+        ,CURRENCY_CODE      
+        ,CITY      
+        ,PAYMENT_SCHEDULE_CLASS      
+        ,INVOICE_AMT      
+        ,PAYMENT_AMT      
+        ,ADJUSTMENTS      
+        ,CREDIT_MEMO      
+        ,TAX_AMOUNT      
+        ,BALANCE_AMT      
+  from ws_soap_inbound t,      
+       XMLTABLE('//DATA_DS/G_1'         
+              PASSING XMLTYPE(t.payload)      
+            COLUMNS       
+            ORGANIZATION_NAME varchar2(150) PATH 'ORGANIZATION_NAME/text()',      
+            CUSTOMER_NAME varchar2(150) PATH 'CUSTOMER_NAME/text()',      
+            CUSTOMER_NUMBER varchar2(150) PATH 'CUSTOMER_NUMBER/text()',      
+            INVOICE_TYPE varchar2(150) PATH 'INVOICE_TYPE/text()',      
+            INVOICE_NO varchar2(150) PATH 'INVOICE_NO/text()',      
+            DUE_DATE date PATH 'DUE_DATE/text()',      
+            TRX_DATE date PATH 'TRX_DATE/text()',      
+            GL_DATE date PATH 'GL_DATE/text()',      
+            GL_DATE_CLOSED date PATH 'GL_DATE_CLOSED/text()',      
+            CURRENCY_CODE varchar2(20) PATH 'CURRENCY_CODE/text()',      
+            CITY varchar2(200) PATH 'CITY/text()',      
+            PAYMENT_SCHEDULE_CLASS varchar2(100) PATH 'PAYMENT_SCHEDULE_CLASS/text()',      
+            INVOICE_AMT number PATH 'INVOICE_AMT/text()',      
+            PAYMENT_AMT number PATH 'PAYMENT_AMT/text()',      
+            ADJUSTMENTS number PATH  'ADJUSTMENTS/text()',      
+            CREDIT_MEMO number PATH 'CREDIT_MEMO/text()',      
+            TAX_AMOUNT number PATH 'TAX_AMOUNT/text()',      
+            BALANCE_AMT number PATH 'BALANCE_AMT/text()')   
+        WHERE process_name = 'FUSION_BILLING' 
+        --AND INVOICE_NO = '1528' 
+        ) X 
+    where not exists (SELECT 'X' FROM comms_payments_Received cpr where x.invoice_no = cpr.FINANCE_INVOICE_NO and x.customer_number = cpr.group_code )]]></SQLQuery>
+  <ViewAttribute
+    Name="OrganizationName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ORGANIZATION_NAME"
+    Expression="ORGANIZATION_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReceiptType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="RECEIPT_TYPE"
+    Expression="RECEIPT_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CustomerNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CUSTOMER_NUMBER"
+    Expression="CUSTOMER_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_TYPE"
+    Expression="INVOICE_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_NO"
+    Expression="INVOICE_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TrxDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="TRX_DATE"
+    Expression="TRX_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="DaysLate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="DAYS_LATE"
+    Expression="DAYS_LATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="InvoiceAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Double"
+    ColumnType="NUMBER"
+    AliasName="INVOICE_AMT"
+    Expression="INVOICE_AMT"
+    SQLType="DOUBLE"/>
+  <ViewAttribute
+    Name="InvCsb"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Double"
+    ColumnType="NUMBER"
+    AliasName="INV_CSB"
+    Expression="INV_CSB"
+    SQLType="DOUBLE"/>
+  <ViewAttribute
+    Name="PaymentAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Double"
+    ColumnType="NUMBER"
+    AliasName="PAYMENT_AMT"
+    Expression="PAYMENT_AMT"
+    SQLType="DOUBLE"/>
+  <ViewAttribute
+    Name="Adjustments"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Double"
+    ColumnType="NUMBER"
+    AliasName="ADJUSTMENTS"
+    Expression="ADJUSTMENTS"
+    SQLType="DOUBLE"/>
+  <ViewAttribute
+    Name="CreditMemo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Double"
+    ColumnType="NUMBER"
+    AliasName="CREDIT_MEMO"
+    Expression="CREDIT_MEMO"
+    SQLType="DOUBLE"/>
+  <ViewAttribute
+    Name="TaxAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Double"
+    ColumnType="NUMBER"
+    AliasName="TAX_AMOUNT"
+    Expression="TAX_AMOUNT"
+    SQLType="DOUBLE"/>
+  <ViewAttribute
+    Name="BalanceAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Double"
+    ColumnType="NUMBER"
+    AliasName="BALANCE_AMT"
+    Expression="BALANCE_AMT"
+    SQLType="DOUBLE"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CustomerNumber"/>
+    <Item Value="InvoiceType"/>
+    <Item Value="InvoiceNo"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

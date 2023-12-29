@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allInvoicesPageDef"
+                Package="fragments.payments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Name="countryCodeWht" Type="java.lang.String"/>
+      <variable Name="companyIdNoWht" Type="java.lang.String"/>
+      <variable Name="companyNameWht" Type="java.lang.String"/>
+      <variable Name="paymentDateWhtFrom" Type="java.util.Date"/>
+      <variable Name="paymentDateWhtTo" Type="java.util.Date"/>
+      <variable Name="invoiceTypeIdWht" Type="java.lang.Integer"/>
+    </variableIterator>
+    <iterator Binds="AllInvoiceView" RangeSize="25" DataControl="PaymentAMDataControl" id="AllInvoiceViewIterator"/>
+    <searchRegion Criteria="SearchInvoiceVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllInvoiceViewIterator" id="SearchInvoiceVOCriteriaQuery"/>
+    <iterator Binds="SearchPaymentRoView" RangeSize="25" DataControl="PaymentAMDataControl"
+              id="SearchPaymentRoViewIterator"/>
+    <iterator Binds="InvoicesPaidWhtVO1" RangeSize="25" DataControl="PaymentAMDataControl"
+              id="InvoicesPaidWhtVO1Iterator"/>
+    <searchRegion Binds="InvoicesPaidWhtVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="InvoicesPaidWhtVO1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllInvoiceViewIterator" id="AllInvoiceView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.InvoiceVO" Name="AllInvoiceView0">
+        <AttrNames>
+          <Item Value="InvoiceDate"/>
+          <Item Value="ContributionDate"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="ReleaseDate"/>
+          <Item Value="ReleaseHoldReason"/>
+          <Item Value="PaymentDate"/>
+          <Item Value="PaymentAmt"/>
+          <Item Value="PaymentExchRate"/>
+          <Item Value="CurrencyCode"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="PaymentRejectDate"/>
+          <Item Value="PaymentRejectDesc"/>
+          <Item Value="InvoiceTaxCodes"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllInvoiceViewIterator" id="InvoiceNo">
+      <AttrNames>
+        <Item Value="InvoiceNo"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="SearchPaymentRoViewIterator" StaticList="false" Uses="LOV_CompanyIdNo" id="CompanyIdNo"/>
+    <list IterBinding="SearchPaymentRoViewIterator" StaticList="false" Uses="LOV_CountryCode" id="CountryCode"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="SearchPaymentRoViewIterator" id="InvoiceNo1">
+      <AttrNames>
+        <Item Value="InvoiceNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllInvoiceViewIterator" id="InvoiceTaxCodes">
+      <AttrNames>
+        <Item Value="InvoiceTaxCodes"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="executePaymentRun" RequiresUpdateModel="true" Action="invokeMethod" MethodName="executePaymentRun"
+                  IsViewObjectMethod="false" DataControl="PaymentAMDataControl"
+                  InstanceName="bindings.executePaymentRun.dataControl.dataProvider"
+                  ReturnName="data.PaymentAMDataControl.methodResults.executePaymentRun_executePaymentRun_dataControl_dataProvider_executePaymentRun_result">
+      <NamedData NDName="invoiceNo" NDValue="#{bindings.InvoiceNo.inputValue}" NDType="java.lang.Integer"/>
+      <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+      <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="InvoicesPaidWhtVO1Iterator" id="InvoicesPaidWhtVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.InvoicesPaidWhtVO" Name="InvoicesPaidWhtVO10">
+        <AttrNames>
+          <Item Value="InvoiceNo"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="BusinessUnit"/>
+          <Item Value="CountryCode"/>
+          <Item Value="InvoiceType"/>
+          <Item Value="ReleaseDate"/>
+          <Item Value="PaymentDate"/>
+          <Item Value="ReleaseToPayment"/>
+          <Item Value="InvoiceCurrencyCode"/>
+          <Item Value="PaymentCurrencyCode"/>
+          <Item Value="CommPercentage"/>
+          <Item Value="CommissionTotal"/>
+          <Item Value="TotalTax"/>
+          <Item Value="TotalPaid"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="variables" id="countryCodeWht1">
+      <AttrNames>
+        <Item Value="countryCodeWht"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="companyIdNoWht1">
+      <AttrNames>
+        <Item Value="companyIdNoWht"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="companyNameWht1">
+      <AttrNames>
+        <Item Value="companyNameWht"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="paymentDateWhtFrom1">
+      <AttrNames>
+        <Item Value="paymentDateWhtFrom"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="paymentDateWhtTo1">
+      <AttrNames>
+        <Item Value="paymentDateWhtTo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="invoiceTypeIdWht1">
+      <AttrNames>
+        <Item Value="invoiceTypeIdWht"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setCriteriaParms" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setCriteriaParms"
+                  IsViewObjectMethod="true" DataControl="PaymentAMDataControl"
+                  InstanceName="data.PaymentAMDataControl.InvoicesPaidWhtVO1">
+      <NamedData NDName="companyIdNo" NDValue="#{bindings.companyIdNoWht1.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="companyName" NDValue="#{bindings.companyNameWht1.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="countryCode" NDValue="#{bindings.countryCodeWht1.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="invoiceTypeIdNo" NDValue="#{bindings.invoiceTypeIdWht1.inputValue}"
+                 NDType="java.lang.Integer"/>
+      <NamedData NDName="paymentDateFrom" NDValue="#{bindings.paymentDateWhtFrom1.inputValue}" NDType="java.util.Date"/>
+      <NamedData NDName="paymentDateTo" NDValue="#{bindings.paymentDateWhtTo1.inputValue}" NDType="java.util.Date"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

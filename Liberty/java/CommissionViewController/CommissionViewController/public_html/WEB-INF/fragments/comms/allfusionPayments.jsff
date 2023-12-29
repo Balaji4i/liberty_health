@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelTabbed position="above" id="pt1">
+    <af:showDetailItem id="tab1" text="Fusion Commission Payments Reconciliation" disclosed="true">
+      <af:panelGroupLayout id="pgl2">
+        <af:button actionListener="#{bindings.Execute1.execute}" text="Refresh Data"
+                   disabled="#{!bindings.Execute1.enabled}" id="b3"/>
+      </af:panelGroupLayout>
+      <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+        <f:facet name="menus">
+        <af:menu text="File" id="m6">
+            <af:commandMenuItem text="Export" id="cmi6">
+                <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                   filename="Fusion Commissions Payments Reconciliation.xls"
+                                                   title="Fusion Commissions Payments Reconciliation"/>
+            </af:commandMenuItem>
+            </af:menu>
+        </f:facet>
+        <f:facet name="toolbar"/>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.FusionPaymentsRecon1.collectionModel}" var="row"
+                  rows="#{bindings.FusionPaymentsRecon1.rangeSize}" scrollPolicy="page"
+                  emptyText="#{bindings.FusionPaymentsRecon1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.FusionPaymentsRecon1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.FusionPaymentsRecon1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.FusionPaymentsRecon1.rangeSize}" width="1495"
+                  filterModel="#{bindings.FusionPaymentsRecon1Query.queryDescriptor}" filterVisible="true"
+                  queryListener="#{bindings.FusionPaymentsRecon1Query.processQuery}" varStatus="vs" id="t2"
+                  styleClass="AFStretchWidth" partialTriggers=":::b3">
+          <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.CompanyIdNo.name}" filterable="true"
+                     sortable="true" headerText="Brokerage Code" id="c21">
+            <af:outputText value="#{row.CompanyIdNo}"
+                           shortDesc="#{bindings.FusionPaymentsRecon1.hints.CompanyIdNo.tooltip}" id="ot21"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.InvoiceNo.name}" filterable="true"
+                     sortable="true" headerText="Invoice No" id="c22">
+            <af:outputText value="#{row.InvoiceNo}" shortDesc="#{bindings.FusionPaymentsRecon1.hints.InvoiceNo.tooltip}"
+                           id="ot22"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.Bu.name}" filterable="true" sortable="true"
+                     headerText="BU" id="c23">
+            <af:outputText value="#{row.Bu}" shortDesc="#{bindings.FusionPaymentsRecon1.hints.Bu.tooltip}" id="ot23"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.Source.name}" filterable="true" sortable="true"
+                     headerText="#{bindings.FusionPaymentsRecon1.hints.Source.label}" id="c24">
+            <af:outputText value="#{row.Source}" shortDesc="#{bindings.FusionPaymentsRecon1.hints.Source.tooltip}"
+                           id="ot24"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.LineTypeLookupCode.name}" filterable="true"
+                     sortable="true" headerText="Line Type"
+                     id="c25">
+            <af:outputText value="#{row.LineTypeLookupCode}"
+                           shortDesc="#{bindings.FusionPaymentsRecon1.hints.LineTypeLookupCode.tooltip}" id="ot25"/>
+          </af:column>
+          <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.FusionPayment.name}" filterable="true"
+                     sortable="true" headerText="Fusion Payment Amount" id="c26">
+            <af:outputText value="#{row.FusionPayment}"
+                           shortDesc="#{bindings.FusionPaymentsRecon1.hints.FusionPayment.tooltip}" id="ot26">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.FusionPaymentsRecon1.hints.FusionPayment.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.ReleaseDate.name}" filterable="true"
+                     sortable="true" headerText="Commissions Release Date" id="c27">
+            <f:facet name="filter">
+              <af:inputDate value="#{bindings.FusionPaymentsRecon1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ReleaseDate.value}"
+                            id="id3">
+                <af:convertDateTime pattern="#{bindings.FusionPaymentsRecon1.hints.ReleaseDate.format}"/>
+              </af:inputDate>
+            </f:facet>
+            <af:outputText value="#{row.ReleaseDate}"
+                           shortDesc="#{bindings.FusionPaymentsRecon1.hints.ReleaseDate.tooltip}" id="ot27">
+              <af:convertDateTime pattern="#{bindings.FusionPaymentsRecon1.hints.ReleaseDate.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.CommissionsPayment.name}" filterable="true"
+                     sortable="true" headerText="Commissions Payment"
+                     id="c28">
+            <af:outputText value="#{row.CommissionsPayment}"
+                           shortDesc="#{bindings.FusionPaymentsRecon1.hints.CommissionsPayment.tooltip}" id="ot28">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.FusionPaymentsRecon1.hints.CommissionsPayment.format}"/>
+            </af:outputText>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailItem>
+    <af:showDetailItem id="tab2" text="Fusion Payments" disclosed="true">
+      <af:panelGroupLayout id="pgl1">
+        <af:inputText label="Brokerage Code" autoSubmit="true" id="it1"
+                      valueChangeListener="#{pageFlowScope.DashBoard.setCompanyIdNo}"/>
+        <af:inputText label="Invoice No" autoSubmit="true" id="it2"
+                      valueChangeListener="#{pageFlowScope.DashBoard.setInvoiceNo}"/>
+        <af:inputDate label="From Payment Date" id="id1" autoSubmit="true"
+                      valueChangeListener="#{pageFlowScope.DashBoard.setFromDateAttribute}"/>
+        <af:inputDate label="To Payment Date" id="id2" autoSubmit="true"
+                      valueChangeListener="#{pageFlowScope.DashBoard.setToDateAttribute}"/>
+        <!--<af:inputText label="Business Unit" autoSubmit="true" id="it4"
+                      valueChangeListener="#{pageFlowScope.DashBoard.onChangebusinessUnit}"/>-->
+        <!--<af:selectOneChoice value="#{bindings.OrganizationName.inputValue}" label="Business Unit"
+                            required="#{bindings.OrganizationName.hints.mandatory}"
+                            shortDesc="#{bindings.OrganizationName.hints.tooltip}" id="soc2"
+                            valueChangeListener="#{pageFlowScope.DashBoard.onChangebusinessUnit}" autoSubmit="true">
+          <f:selectItems value="#{bindings.OrganizationName.items}" id="si2"/>
+          <f:validator binding="#{bindings.OrganizationName.validator}"/>
+        </af:selectOneChoice>-->
+        <af:selectOneChoice value="#{bindings.BuName1.inputValue}" label="Business Unit"
+                            required="#{bindings.BuName1.hints.mandatory}" shortDesc="#{bindings.BuName1.hints.tooltip}"
+                            id="soc2" valueChangeListener="#{pageFlowScope.DashBoard.onChangebusinessUnit}" autoSubmit="true"
+                            partialTriggers="b1">
+          <f:selectItems value="#{bindings.BuName1.items}" id="si2"/>
+          <f:validator binding="#{bindings.BuName1.validator}"/>
+        </af:selectOneChoice>
+          
+        <af:button actionListener="#{pageFlowScope.DashBoard.submitPaymentReconJob}" text="Submit" partialTriggers="b1"
+                   id="b2"/>
+        <af:button text="Refresh" id="b1" actionListener="#{pageFlowScope.DashBoard.onClickRefresh}" 
+                   partialTriggers="pc1:t1 soc2 b2" disabled="true" binding="#{pageFlowScope.DashBoard.bv_submit}"/>
+      
+      </af:panelGroupLayout>
+      <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+        <f:facet name="menus"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="statusbar"/>
+        <af:table value="#{bindings.FusionPayments1.collectionModel}" var="row"
+                  rows="#{bindings.FusionPayments1.rangeSize}" visible="false"
+                  emptyText="#{bindings.FusionPayments1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" selectedRowKeys="#{bindings.FusionPayments1.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.FusionPayments1.collectionModel.makeCurrent}" rowSelection="single"
+                  fetchSize="#{bindings.FusionPayments1.rangeSize}" id="t1" styleClass="AFStretchWidth"
+                  partialTriggers=":::b1" binding="#{pageFlowScope.DashBoard.bv_tab}">
+          <af:column headerText="Commissions Invoice No" id="c1">
+            <af:outputText value="#{row.CommissionsInvNo}"
+                           shortDesc="#{bindings.FusionPayments1.hints.CommissionsInvNo.tooltip}" id="ot1"/>
+          </af:column>
+          <af:column headerText="Supplier Number" id="c2">
+            <af:outputText value="#{row.SupplierNumber}"
+                           shortDesc="#{bindings.FusionPayments1.hints.SupplierNumber.tooltip}" id="ot2"/>
+          </af:column>
+          <af:column headerText="Supplier Name" id="c3">
+            <af:outputText value="#{row.SupplierName}"
+                           shortDesc="#{bindings.FusionPayments1.hints.SupplierName.tooltip}" id="ot3"/>
+          </af:column>
+          <af:column headerText="Business Unit" id="c4">
+            <af:outputText value="#{row.Bu}" shortDesc="#{bindings.FusionPayments1.hints.Bu.tooltip}" id="ot4"/>
+          </af:column>
+          <af:column headerText="Fusion Invoice No" id="c5">
+            <af:outputText value="#{row.FusionInvoiceNo}"
+                           shortDesc="#{bindings.FusionPayments1.hints.FusionInvoiceNo.tooltip}" id="ot5"/>
+          </af:column>
+          <af:column headerText="Fusion Invoice Date" id="c6">
+            <af:outputText value="#{row.FusionInvoiceDate}"
+                           shortDesc="#{bindings.FusionPayments1.hints.FusionInvoiceDate.tooltip}" id="ot6">
+              <af:convertDateTime pattern="#{bindings.FusionPayments1.hints.FusionInvoiceDate.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column headerText="Invoice Line Amount" id="c7">
+            <af:outputText value="#{row.InvoiceLineAmount}"
+                           shortDesc="#{bindings.FusionPayments1.hints.InvoiceLineAmount.tooltip}" id="ot7">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.FusionPayments1.hints.InvoiceLineAmount.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column headerText="Line Number" id="c8">
+            <af:outputText value="#{row.LineNumber}" shortDesc="#{bindings.FusionPayments1.hints.LineNumber.tooltip}"
+                           id="ot8"/>
+          </af:column>
+          <af:column headerText="Line Type Lookup Code" id="c9">
+            <af:outputText value="#{row.LineTypeLookupCode}"
+                           shortDesc="#{bindings.FusionPayments1.hints.LineTypeLookupCode.tooltip}" id="ot9"/>
+          </af:column>
+          <af:column headerText="Line Description" id="c10">
+            <af:outputText value="#{row.LineDescription}"
+                           shortDesc="#{bindings.FusionPayments1.hints.LineDescription.tooltip}" id="ot10"/>
+          </af:column>
+          <af:column headerText="Check Number" id="c11">
+            <af:outputText value="#{row.CheckNumber}" shortDesc="#{bindings.FusionPayments1.hints.CheckNumber.tooltip}"
+                           id="ot11"/>
+          </af:column>
+          <af:column headerText="Check Date" id="c12">
+            <af:outputText value="#{row.CheckDate}" shortDesc="#{bindings.FusionPayments1.hints.CheckDate.tooltip}"
+                           id="ot12"/>
+          </af:column>
+          <af:column headerText="Source" id="c13">
+            <af:outputText value="#{row.Source}" shortDesc="#{bindings.FusionPayments1.hints.Source.tooltip}"
+                           id="ot13"/>
+          </af:column>
+          <af:column headerText="Inv Currency Code" id="c14">
+            <af:outputText value="#{row.InvCurrencyCode}"
+                           shortDesc="#{bindings.FusionPayments1.hints.InvCurrencyCode.tooltip}" id="ot14"/>
+          </af:column>
+          <af:column headerText="Payment Currency Code" id="c15">
+            <af:outputText value="#{row.PaymentCurrencyCode}"
+                           shortDesc="#{bindings.FusionPayments1.hints.PaymentCurrencyCode.tooltip}" id="ot15"/>
+          </af:column>
+          <af:column headerText="Payment Amount" id="c16">
+            <af:outputText value="#{row.PaymentAmt}" shortDesc="#{bindings.FusionPayments1.hints.PaymentAmt.tooltip}"
+                           id="ot16">
+              <af:convertNumber groupingUsed="false" pattern="#{bindings.FusionPayments1.hints.PaymentAmt.format}"/>
+            </af:outputText>
+          </af:column>
+          <af:column headerText="PayymentType" id="c17">
+            <af:outputText value="#{row.PaymentType}" shortDesc="#{bindings.FusionPayments1.hints.PaymentType.tooltip}"
+                           id="ot17"/>
+          </af:column>
+          <af:column headerText="Prepay Invoice No" id="c18">
+            <af:outputText value="#{row.PrepayInvoiceNo}"
+                           shortDesc="#{bindings.FusionPayments1.hints.PrepayInvoiceNo.tooltip}" id="ot18"/>
+          </af:column>
+          <af:column headerText="Reversal Flag" id="c19">
+            <af:outputText value="#{row.ReversalFlag}"
+                           shortDesc="#{bindings.FusionPayments1.hints.ReversalFlag.tooltip}" id="ot19"/>
+          </af:column>
+          <af:column headerText="#{bindings.FusionPayments1.hints.CountryCode.label}" id="c20">
+            <af:outputText value="#{row.CountryCode}" shortDesc="#{bindings.FusionPayments1.hints.CountryCode.tooltip}"
+                           id="ot20"/>
+          </af:column>
+        </af:table>
+      </af:panelCollection>
+    </af:showDetailItem>
+    
+  </af:panelTabbed>
+</ui:composition>

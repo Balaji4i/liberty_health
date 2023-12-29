@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-company-fee-type-flow">
+    <default-activity>allCompanyFeeType</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <view id="allCompanyFeeType">
+      <page>/WEB-INF/fragments/lookup/allCompanyFeeType.jsff</page>
+    </view>
+    <task-flow-call id="create-company-fee-type-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/lookup/maintain-company-fee-type-btf.xml</document>
+        <id>maintain-company-fee-type-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__1">
+        <name>companyFeeTypeIdNo</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="edit-company-fee-type-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/lookup/maintain-company-fee-type-btf.xml</document>
+        <id>maintain-company-fee-type-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__5">
+        <name>companyFeeTypeIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allCompanyFeeTypePageDef.CompanyFeeTypeIdNo}</value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__2">
+      <from-activity-id>allCompanyFeeType</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>create</from-outcome>
+        <to-activity-id>create-company-fee-type-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__4">
+        <from-outcome>edit</from-outcome>
+        <to-activity-id>edit-company-fee-type-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

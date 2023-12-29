@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24" id="MaintainCopanyTypeNewPageDef"
+                Package="com.liberty.health.comms.lookup.pageDefs">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyContactTypeByPkVo" RangeSize="25" DataControl="CompanyContactTypeAMDataControl"
+                  id="CompanyContactTypeByPkVoIterator"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="CompanyContactTypeByPkVoIterator" id="CompanyContactTypeIdNo">
+            <AttrNames>
+                <Item Value="CompanyContactTypeIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactTypeByPkVoIterator" id="CompanyContactTypeDesc">
+            <AttrNames>
+                <Item Value="CompanyContactTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactTypeByPkVoIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactTypeByPkVoIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allPaymentsReceivedPageDef"
+                Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Name="GroupCode" Type="java.lang.String"/>
+      <variable Name="CountryCode" Type="java.lang.String"/>
+      <variable Name="OptionCode" Type="java.lang.String"/>
+      <variable Name="MemberCode" Type="java.lang.String"/>
+      <variable Name="ContribSdate" Type="java.util.Date"/>
+      <variable Name="ContribEdate" Type="java.util.Date"/>
+      <variable Name="Status" Type="java.lang.String"/>
+    </variableIterator>
+    <searchRegion Criteria="SearchCommsPaymentsReceivedVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllCommsPaymentsReceivedIterator" id="SearchCommsPaymentsReceivedVOCriteriaQuery1"/>
+    <iterator Binds="AllCommsPaymentsReceived" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="AllCommsPaymentsReceivedIterator" Refresh="ifNeeded"/>
+    <iterator Binds="AllCommsPaymentsFailedVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="AllCommsPaymentsFailedVO1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="CommsPaymentsArchivedVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="CommsPaymentsArchivedVO1Iterator" Refresh="ifNeeded"/>
+    <searchRegion Binds="CommsPaymentsArchivedVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="CommsPaymentsArchivedVO1Query"/>
+    <searchRegion Criteria="SearchCommsPaymentsReceivedVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllCommsPaymentsReceivedIterator" id="SearchCommsPaymentsReceivedVOCriteriaQuery"/>
+    <searchRegion Criteria="CommsPaymentsFailedVOCriteria_N"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllCommsPaymentsFailedVO1Iterator" id="CommsPaymentsFailedVOCriteriaNQuery"/>
+    <searchRegion Criteria="CommsPaymentsArchivedVOCriteria_N"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="CommsPaymentsArchivedVO1Iterator" id="CommsPaymentsArchivedVOCriteriaNQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllCommsPaymentsReceivedIterator" id="AllCommsPaymentsReceived">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsPaymentsReceivedVO"
+                      Name="AllCommsPaymentsReceived0">
+        <AttrNames>
+          <Item Value="GroupCode"/>
+          <Item Value="CountryCode"/>
+          <Item Value="ProductCode"/>
+          <Item Value="PersonCode"/>
+          <Item Value="ContributionDate"/>
+          <Item Value="FinanceReceiptNo"/>
+          <Item Value="FinanceReceiptDate"/>
+          <Item Value="FinanceInvoiceNo"/>
+          <Item Value="FinanceInvoiceDate"/>
+          <Item Value="FinanceReceiptAmt"/>
+          <Item Value="ProcessedInd"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="Username"/>
+          <Item Value="ApplicationId"/>
+          <Item Value="PolicyCode"/>
+          <Item Value="ProcessedDesc"/>
+          <Item Value="PaymentType"/>
+          <Item Value="ParentgroupCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="CommsRunAMDataControl"/>
+    <tree IterBinding="CommsPaymentsArchivedVO1Iterator" id="CommsPaymentsArchivedVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsPaymentsArchivedVO"
+                      Name="CommsPaymentsArchivedVO10">
+        <AttrNames>
+          <Item Value="ApplicationId"/>
+          <Item Value="CommsCalcSnapshotNo"/>
+          <Item Value="ContributionDate"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CurrencyCode"/>
+          <Item Value="ExchangeRate"/>
+          <Item Value="FinanceInvoiceDate"/>
+          <Item Value="FinanceInvoiceNo"/>
+          <Item Value="FinanceReceiptAmt"/>
+          <Item Value="FinanceReceiptDate"/>
+          <Item Value="FinanceReceiptNo"/>
+          <Item Value="GroupCode"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="PaymentType"/>
+          <Item Value="PersonCode"/>
+          <Item Value="PolicyCode"/>
+          <Item Value="ProcessedDesc"/>
+          <Item Value="ProcessedInd" Binds="ProcessedInd"/>
+          <Item Value="ProductCode"/>
+          <Item Value="Username"/>
+          <Item Value="ParentgroupCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="CommsPaymentsArchivedVO1Iterator" id="ProcessedInd" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject" StaticList="true">
+      <AttrNames>
+        <Item Value="ProcessedInd"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="TF"/>
+      </ValueList>
+    </list>
+    <attributeValues IterBinding="variables" id="GroupCode1">
+      <AttrNames>
+        <Item Value="GroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="CountryCode1">
+      <AttrNames>
+        <Item Value="CountryCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="OptionCode1">
+      <AttrNames>
+        <Item Value="OptionCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="MemberCode1">
+      <AttrNames>
+        <Item Value="MemberCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="ContribSdate1">
+      <AttrNames>
+        <Item Value="ContribSdate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="ContribEdate1">
+      <AttrNames>
+        <Item Value="ContribEdate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="Status1">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setCriteriaParms" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setCriteriaParms"
+                  IsViewObjectMethod="true" DataControl="CommsRunAMDataControl"
+                  InstanceName="bindings.CommsRunAMDataControl.AllCommsPaymentsFailedVO1">
+      <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode}" NDType="java.lang.String"/>
+      <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode}" NDType="java.lang.String"/>
+      <NamedData NDName="productCode" NDValue="#{bindings.OptionCode}" NDType="java.lang.String"/>
+      <NamedData NDName="personCode" NDValue="#{bindings.MemberCode}" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="setCriteriaParms1" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setCriteriaParms"
+                  IsViewObjectMethod="true" DataControl="CommsRunAMDataControl"
+                  InstanceName="bindings.CommsRunAMDataControl.CommsPaymentsArchivedVO1">
+      <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode}" NDType="java.lang.String"/>
+      <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode}" NDType="java.lang.String"/>
+      <NamedData NDName="productCode" NDValue="#{bindings.OptionCode}" NDType="java.lang.String"/>
+      <NamedData NDName="personCode" NDValue="#{bindings.MemberCode}" NDType="java.lang.String"/>
+    </methodAction>
+    <action IterBinding="AllCommsPaymentsFailedVO1Iterator" id="Execute"
+            InstanceName="CommsRunAMDataControl.AllCommsPaymentsFailedVO1" DataControl="CommsRunAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="CommsPaymentsArchivedVO1Iterator" id="Execute1"
+            InstanceName="CommsRunAMDataControl.CommsPaymentsArchivedVO1" DataControl="CommsRunAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <tree IterBinding="AllCommsPaymentsFailedVO1Iterator" id="AllCommsPaymentsFailedVO11">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsPaymentsFailedVO"
+                      Name="AllCommsPaymentsFailedVO110">
+        <AttrNames>
+          <Item Value="ProcessedInd"/>
+          <Item Value="ProcessedDesc"/>
+          <Item Value="ApplicationId"/>
+          <Item Value="CountryCode"/>
+          <Item Value="GroupCode"/>
+          <Item Value="ProductCode"/>
+          <Item Value="PolicyCode"/>
+          <Item Value="PersonCode"/>
+          <Item Value="ContributionDate"/>
+          <Item Value="FinanceReceiptNo"/>
+          <Item Value="FinanceReceiptDate"/>
+          <Item Value="PaymentType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AllCommsPaymentsFailedVO1Iterator" id="AllCommsPaymentsFailedVO12">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsPaymentsFailedVO"
+                      Name="AllCommsPaymentsFailedVO120">
+        <AttrNames>
+          <Item Value="ProcessedInd"/>
+          <Item Value="ProcessedDesc"/>
+          <Item Value="ApplicationId"/>
+          <Item Value="CountryCode"/>
+          <Item Value="GroupCode"/>
+          <Item Value="ProductCode"/>
+          <Item Value="PolicyCode"/>
+          <Item Value="PersonCode"/>
+          <Item Value="ContributionDate"/>
+          <Item Value="FinanceReceiptNo"/>
+          <Item Value="PaymentType"/>
+          <Item Value="FinanceReceiptDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="AllCommsPaymentsFailedVO1Iterator" id="Execute2" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <button IterBinding="AllCommsPaymentsFailedVO1Iterator" id="ArchivedYn" DTSupportsMRU="false" StaticList="true">
+      <AttrNames>
+        <Item Value="ArchivedYn"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Y"/>
+        <Item Value="N"/>
+      </ValueList>
+    </button>
+    <tree IterBinding="AllCommsPaymentsFailedVO1Iterator" id="AllCommsPaymentsFailedVO13">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsPaymentsFailedVO"
+                      Name="AllCommsPaymentsFailedVO130">
+        <AttrNames>
+          <Item Value="ProcessedInd"/>
+          <Item Value="ProcessedDesc"/>
+          <Item Value="ApplicationId"/>
+          <Item Value="CountryCode"/>
+          <Item Value="GroupCode"/>
+          <Item Value="ProductCode"/>
+          <Item Value="PolicyCode"/>
+          <Item Value="PersonCode"/>
+          <Item Value="ContributionDate"/>
+          <Item Value="FinanceReceiptNo"/>
+          <Item Value="FinanceReceiptDate"/>
+          <Item Value="PaymentType"/>
+          <Item Value="ArchivedYn" Binds="ArchivedYn"/>
+          <Item Value="ParentgroupCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

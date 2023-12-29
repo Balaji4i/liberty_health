@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-dashboard-flow">
+    <default-activity>setpLocalCode</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <task-flow-reentry>
+      <reentry-allowed/>
+    </task-flow-reentry>
+    <input-parameter-definition id="__3">
+      <name>localCode</name>
+      <value>#{pageFlowScope.localCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__11">
+      <name>webApplObjectNo</name>
+      <value>#{pageFlowScope.webApplObjectNo}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__12">
+      <name>checkRun</name>
+      <value>#{pageFlowScope.checkRun}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__9">
+      <managed-bean-name>dashboardBean</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.beans.DashBoard</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <view id="allDashboard">
+      <page>/WEB-INF/fragments/dashboard/allDashboard.jsff</page>
+    </view>
+    <method-call id="setpLocalCode">
+      <method>#{bindings.setpLocalCode.execute}</method>
+      <outcome>
+        <fixed-outcome>setpLocalCode</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="submitPremiumJobs">
+      <method>#{bindings.submitJob.execute}</method>
+      <outcome>
+        <fixed-outcome>submitJob</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__4">
+      <from-activity-id>setpLocalCode</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>setpLocalCode</from-outcome>
+        <to-activity-id>submitPremiumJobs</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

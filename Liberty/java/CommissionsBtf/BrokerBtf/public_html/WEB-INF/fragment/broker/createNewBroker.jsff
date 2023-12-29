@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:panelHeader text="#{coreLabels['G.CaptureBroker']}" id="ph1">
+        <f:facet name="context"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:panelFormLayout id="pfl1" partialTriggers="b1" labelAlignment="start" maxColumns="1">
+            <af:toolbar id="t1">
+                <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png"
+                           rendered="#{securityContext.userInRole['bdm-consultant']}"
+                           actionListener="#{pageFlowScope.createBrokerageBean.createNewRecord}"/>
+            </af:toolbar>
+            <f:facet name="footer">
+                <af:panelGroupLayout id="pgl1">
+                    <af:button actionListener="#{pageFlowScope.createBrokerageBean.saveButtonActionListener}"
+                               text="#{coreLabels['G.Save']}" disabled="#{!bindings.Commit.enabled}" id="b2"
+                               icon="/adf/images/save_16x16.png"/>
+                    <af:spacer width="10" height="10" id="s1"/>
+                    <af:button actionListener="#{pageFlowScope.createBrokerageBean.rollbackActionListener}"
+                               text="#{coreLabels['G.Cancel']}" disabled="#{!bindings.Rollback.enabled}"
+                               immediate="true" id="b3" icon="/adf/images/remove_16x16.png">
+                        <af:resetActionListener/>
+                    </af:button>
+                </af:panelGroupLayout>
+            </f:facet>
+            <af:panelFormLayout id="pfl2" labelAlignment="start" partialTriggers="b1">
+                <af:inputText value="#{bindings.CompanyIdNo.inputValue}" label="#{bindings.CompanyIdNo.hints.label}"
+                              required="#{bindings.CompanyIdNo.hints.mandatory}"
+                              columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                              maximumLength="#{bindings.CompanyIdNo.hints.precision}"
+                              shortDesc="#{bindings.CompanyIdNo.hints.tooltip}" id="it5"
+                              rendered='#{pageFlowScope.createBrokerageBean.onlyForKE eq "Y"}'>
+                    <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+                    <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.CompanyIdNo.inputValue}" label="#{bindings.CompanyIdNo.hints.label}"
+                              required="#{bindings.CompanyIdNo.hints.mandatory}"
+                              columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                              maximumLength="#{bindings.CompanyIdNo.hints.precision}"
+                              shortDesc="#{bindings.CompanyIdNo.hints.tooltip}" id="it1" readOnly="true"
+                              rendered="#{pageFlowScope.createBrokerageBean.onlyForKE != &quot;Y&quot;}">
+                    <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+                    <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.CompanyName.inputValue}" label="#{bindings.CompanyName.hints.label}"
+                              required="#{bindings.CompanyName.hints.mandatory}"
+                              columns="#{bindings.CompanyName.hints.displayWidth}"
+                              maximumLength="#{bindings.CompanyName.hints.precision}"
+                              shortDesc="#{bindings.CompanyName.hints.tooltip}" id="it2"
+                              valueChangeListener="#{pageFlowScope.createBrokerageBean.checkBrokerageName}"
+                              autoSubmit="true">
+                    <f:validator binding="#{bindings.CompanyName.validator}"/>
+                   <!-- <af:validateRegExp pattern="^[a-zA-Z0-9\s]+$" hint="No Special Characters are Allowed"
+                                       messageDetailNoMatch="Please do not use Special Characters in the Brokerage Name"/> -->
+                </af:inputText>
+                <af:selectBooleanCheckbox value="#{bindings.InternalBrokerInd.inputValue}"
+                                          label="#{bindings.InternalBrokerInd.label}"
+                                          shortDesc="#{bindings.InternalBrokerInd.hints.tooltip}" id="sbc6"/>
+                <af:selectBooleanCheckbox value="#{bindings.MultinationalInd.inputValue}"
+                                          label="#{bindings.MultinationalInd.label}"
+                                          shortDesc="#{bindings.MultinationalInd.hints.tooltip}" id="sbc13"
+                                          valueChangeListener="#{pageFlowScope.createBrokerageBean.multiNetValueChangeListener}"
+                                          immediate="true"
+                                          binding="#{pageFlowScope.createBrokerageBean.multiNationalInd}"
+                                          autoSubmit="true"/>
+                <af:inputListOfValues id="preferredCurrencyCodeId" 
+                                      popupTitle="Search and Select: #{bindings.PreferredCurrencyCode.hints.label}"
+                                      value="#{bindings.PreferredCurrencyCode.inputValue}"
+                                      label="#{bindings.PreferredCurrencyCode.hints.label}"
+                                      model="#{bindings.PreferredCurrencyCode.listOfValuesModel}"
+                                      required="#{bindings.PreferredCurrencyCode.hints.mandatory}" columns="20"
+                                      shortDesc="#{bindings.PreferredCurrencyCode.hints.tooltip}" visible="false"
+                                      binding="#{pageFlowScope.createBrokerageBean.currencyCodeInputLov}"
+                                      partialTriggers="sbc13 b1 b2 b3">
+                    <f:validator binding="#{bindings.PreferredCurrencyCode.validator}"/>
+                </af:inputListOfValues>
+                <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                              label="#{bindings.EffectiveStartDate.hints.label}"
+                              required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                              columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id1">
+                    <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                </af:inputDate>
+            </af:panelFormLayout>
+            <af:panelFormLayout id="pfl5">
+                <f:facet name="footer">
+                    <af:toolbar id="t3">
+                        <af:button text="#{coreLabels['G.AddCountry']}" id="b4"
+                                   actionListener="#{bindings.CreateWithParams.execute}"
+                                   binding="#{pageFlowScope.createBrokerageBean.addCountryButton}" disabled="true"
+                                   partialTriggers="b1 b2 b3"/>
+                    </af:toolbar>
+                </f:facet>
+                <af:selectOneChoice value="#{bindings.CountryLovView_N1.inputValue}"
+                                    label="#{bindings.CountryLovView_N1.label}" autoSubmit="true"
+                                    required="#{bindings.CountryLovView_N1.hints.mandatory}"
+                                    shortDesc="#{bindings.CountryLovView_N1.hints.tooltip}" id="soc2"
+                                    binding="#{pageFlowScope.createBrokerageBean.selectedCountry}"
+                                    valueChangeListener="#{pageFlowScope.createBrokerageBean.onChangeCountry}">
+                    <f:selectItems value="#{bindings.CountryLovView_N1.items}" id="si2"/>
+                    <f:validator binding="#{bindings.CountryLovView_N1.validator}"/>
+                </af:selectOneChoice>
+            </af:panelFormLayout>
+            <af:panelFormLayout id="pfl3" labelAlignment="start" partialTriggers="b1">
+                <af:table value="#{bindings.CaptureCompanyCountryView.collectionModel}" var="row"
+                          rows="#{bindings.CaptureCompanyCountryView.rangeSize}"
+                          emptyText="#{bindings.CaptureCompanyCountryView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.CaptureCompanyCountryView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CaptureCompanyCountryView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CaptureCompanyCountryView.rangeSize}" id="t2"
+                          partialTriggers="::b4 b5" displayRow="selected" styleClass="AFStretchWidth">
+                    <af:column headerText="#{bindings.CaptureCompanyCountryView.hints.CountryCode.label}" id="c1">
+                        <af:outputText value="#{row.CountryCode}"
+                                       shortDesc="#{bindings.CaptureCompanyCountryView.hints.CountryCode.tooltip}"
+                                       id="ot1"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CaptureCompanyCountryView.hints.MinPayoutAmt.label}" id="c2"
+                               width="150">
+                        <af:inputText value="#{row.bindings.MinPayoutAmt.inputValue}"
+                                      label="#{bindings.CaptureCompanyCountryView.hints.MinPayoutAmt.label}"
+                                      required="#{bindings.CaptureCompanyCountryView.hints.MinPayoutAmt.mandatory}"
+                                      columns="#{bindings.CaptureCompanyCountryView.hints.MinPayoutAmt.displayWidth}"
+                                      maximumLength="#{bindings.CaptureCompanyCountryView.hints.MinPayoutAmt.precision}"
+                                      shortDesc="#{bindings.CaptureCompanyCountryView.hints.MinPayoutAmt.tooltip}"
+                                      id="it4" autoSubmit="true" autoTab="true">
+                            <f:validator binding="#{row.bindings.MinPayoutAmt.validator}"/>
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CaptureCompanyCountryView.hints.MinPayoutAmt.format}"/>
+                        </af:inputText>
+                        <f:facet name="footer">
+                            <af:inputText label="#{coreLabels['G.Total']}" id="it3"
+                                          value="#{pageFlowScope.createBrokerageBean.totalCountryPayAmt}"
+                                          readOnly="true" partialTriggers="it4 b5 ::t2" dimensionsFrom="parent"
+                                          wrap="hard"/>
+                        </f:facet>
+                    </af:column>
+                    <af:column id="c3">
+                        <af:toolbar id="t4">
+                            <af:button text="#{coreLabels['G.Delete']}" id="b5" icon="/adf/images/delete_16x16.png"
+                                       actionListener="#{bindings.Delete.execute}"/>
+                        </af:toolbar>
+                    </af:column>
+                </af:table>
+            </af:panelFormLayout>
+            <af:panelFormLayout id="pfl4" labelAlignment="start" maxColumns="5">
+                <af:selectBooleanCheckbox value="#{bindings.AddressInd.inputValue}" label="#{bindings.AddressInd.label}"
+                                          shortDesc="#{bindings.AddressInd.hints.tooltip}" id="sbc1"/>
+                <af:selectBooleanCheckbox value="#{bindings.CompanyAgreementInd.inputValue}"
+                                          label="#{bindings.CompanyAgreementInd.label}"
+                                          shortDesc="#{bindings.CompanyAgreementInd.hints.tooltip}" id="sbc2"/>
+                <af:selectBooleanCheckbox value="#{bindings.CompanyRegDocInd.inputValue}"
+                                          label="#{bindings.CompanyRegDocInd.label}"
+                                          shortDesc="#{bindings.CompanyRegDocInd.hints.tooltip}" id="sbc3"/>
+                <af:selectBooleanCheckbox value="#{bindings.DisAgreementApplicationInd.inputValue}"
+                                          label="#{bindings.DisAgreementApplicationInd.label}"
+                                          shortDesc="#{bindings.DisAgreementApplicationInd.hints.tooltip}" id="sbc4"/>
+                <af:selectBooleanCheckbox value="#{bindings.IdDocInd.inputValue}" label="#{bindings.IdDocInd.label}"
+                                          shortDesc="#{bindings.IdDocInd.hints.tooltip}" id="sbc5"/>
+                <af:selectBooleanCheckbox value="#{bindings.LetterOfIntentInd.inputValue}"
+                                          label="#{bindings.LetterOfIntentInd.label}"
+                                          shortDesc="#{bindings.LetterOfIntentInd.hints.tooltip}" id="sbc7"/>
+                <af:selectBooleanCheckbox value="#{bindings.ReferralAgreementInd.inputValue}"
+                                          label="#{bindings.ReferralAgreementInd.label}"
+                                          shortDesc="#{bindings.ReferralAgreementInd.hints.tooltip}" id="sbc9"/>
+                <af:selectBooleanCheckbox value="#{bindings.TaxIdNoInd.inputValue}" label="#{bindings.TaxIdNoInd.label}"
+                                          shortDesc="#{bindings.TaxIdNoInd.hints.tooltip}" id="sbc10"/>
+                <af:selectBooleanCheckbox value="#{bindings.VatRegInd.inputValue}" label="#{bindings.VatRegInd.label}"
+                                          shortDesc="#{bindings.VatRegInd.hints.tooltip}" id="sbc11"/>
+                <af:selectBooleanCheckbox value="#{bindings.WhtCertInd.inputValue}" label="#{bindings.WhtCertInd.label}"
+                                          shortDesc="#{bindings.WhtCertInd.hints.tooltip}" id="sbc12"/>
+            </af:panelFormLayout>
+        </af:panelFormLayout>
+    </af:panelHeader>
+</jsp:root>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_company_bank_detail_btf_maintain_company_bank_detail_btf_setByPkViewCritieraPageDef"
+                Package="btf.company" SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setByPkViewCritiera" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="setByPkViewCritiera" IsViewObjectMethod="true"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyBankDetailsByPkView">
+            <NamedData NDName="companyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

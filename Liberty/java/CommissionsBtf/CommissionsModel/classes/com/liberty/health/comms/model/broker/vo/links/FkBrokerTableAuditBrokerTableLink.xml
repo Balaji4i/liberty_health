@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkBrokerTableAuditBrokerTableLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.broker.vo.links.FkBrokerTableAuditBrokerTableLink_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewLinkDefEnd
+      Name="BrokerTable"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.broker.vo.BrokerTableVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="BrokerTable"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.broker.vo.BrokerTableVO.BrokerTableIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ViewLinkDefEnd
+      Name="BrokerTableAuditRoView"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.model.broker.vo.BrokerTableAuditRoView">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="BrokerTableAuditRoView"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.broker.vo.BrokerTableAuditRoView.BrokerTableIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewLink>

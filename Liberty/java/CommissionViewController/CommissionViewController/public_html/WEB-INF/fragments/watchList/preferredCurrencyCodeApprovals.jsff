@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+        <af:toolbar id="t2">
+          <af:button text="#{coreLabels['G.Approve']}" id="b1" rendered="#{securityContext.userInRole['team-leads']}"
+                     partialTriggers="t1 d1">
+            <af:showPopupBehavior popupId="p1" triggerType="action"/>
+          </af:button>
+          <af:button text="#{coreLabels['G.Reject']}" id="b3" rendered="#{securityContext.userInRole['team-leads']}"
+                     partialTriggers="t1 d4">
+                        <af:showPopupBehavior popupId="p4" triggerType="action"/>
+                    </af:button>
+          <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"  
+                rendered="#{securityContext.userInRole['comms-consultant']}">
+            <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                               filename="Preferred Currency Code Approvals.xls"/>
+          </af:button>
+        <af:button actionListener="#{bindings.Commit.execute}" text="Save" 
+                   id="b5"/>
+        <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+            <af:dialog id="d1" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                       dialogListener="#{watchListBean.preferredCurrApproval}">
+              <f:facet name="buttonBar"/>
+              <af:outputText value="#{coreLabels['G.BankApprovalMessage']}" id="ott2"/>
+            </af:dialog>
+          </af:popup>
+          <af:popup childCreation="deferred" autoCancel="disabled" id="p4">
+                <af:dialog id="d4" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                           dialogListener="#{watchListBean.preferredCurrReject}">
+                    <f:facet name="buttonBar"/>
+                    <af:outputText value="Are you sure you want to reject?" id="ot15"/>
+                </af:dialog>
+            </af:popup>
+        </af:toolbar>
+      </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.Approvals1.collectionModel}" var="row" rows="#{bindings.Approvals1.rangeSize}"
+              emptyText="#{bindings.Approvals1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.Approvals1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.Approvals1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.Approvals1.rangeSize}" id="t1" partialTriggers="::b5"
+              binding="#{watchListBean.bvApprovalTable}">
+      <af:column headerText="#{bindings.Approvals1.hints.CompanyIdNo.label}" id="c1">
+        <af:outputText value="#{row.CompanyIdNo}" shortDesc="#{bindings.Approvals1.hints.CompanyIdNo.tooltip}" id="ot1">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.Approvals1.hints.CompanyIdNo.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column headerText="Broker Name" id="c8">
+        <af:outputText value="#{row.CompanyName}" shortDesc="#{bindings.Approvals1.hints.CompanyName.tooltip}"
+                       id="ot8"/>
+      </af:column>
+      <af:column headerText="#{bindings.Approvals1.hints.ValueToApprove.label}" id="c2">
+        <af:outputText value="#{row.ValueToApprove}" shortDesc="#{bindings.Approvals1.hints.ValueToApprove.tooltip}"
+                       id="ot2"/>
+      </af:column>
+      <af:column headerText="#{bindings.Approvals1.hints.ApprovalUser.label}" id="c3">
+        <af:outputText value="#{row.ApprovalUser}" shortDesc="#{bindings.Approvals1.hints.ApprovalUser.tooltip}"
+                       id="ot3"/>
+      </af:column>
+      <af:column headerText="#{bindings.Approvals1.hints.RejectUser.label}" id="c4">
+        <af:outputText value="#{row.RejectUser}" shortDesc="#{bindings.Approvals1.hints.RejectUser.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column headerText="#{bindings.Approvals1.hints.CreatedBy.label}" id="c7">
+        <af:outputText value="#{row.CreatedBy}" shortDesc="#{bindings.Approvals1.hints.CreatedBy.tooltip}" id="ot7"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+  <af:table value="#{bindings.CompanyByPkView.collectionModel}" var="row" rows="#{bindings.CompanyByPkView.rangeSize}"
+            emptyText="#{bindings.CompanyByPkView.viewable ? 'No data to display.' : 'Access Denied.'}"
+            rowBandingInterval="0" selectedRowKeys="#{bindings.CompanyByPkView.collectionModel.selectedRow}"
+            selectionListener="#{bindings.CompanyByPkView.collectionModel.makeCurrent}" rowSelection="single"
+            fetchSize="#{bindings.CompanyByPkView.rangeSize}" id="t3" rendered="false">
+    <af:column headerText="#{bindings.CompanyByPkView.hints.CompanyIdNo.label}" id="c5">
+      <af:outputText value="#{row.CompanyIdNo}" shortDesc="#{bindings.CompanyByPkView.hints.CompanyIdNo.tooltip}"
+                     id="ot5">
+        <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyByPkView.hints.CompanyIdNo.format}"/>
+      </af:outputText>
+    </af:column>
+    <af:column headerText="#{bindings.CompanyByPkView.hints.PreferredCurrencyCode.label}" id="c6">
+      <af:outputText value="#{row.PreferredCurrencyCode}"
+                     shortDesc="#{bindings.CompanyByPkView.hints.PreferredCurrencyCode.tooltip}" id="ot6"/>
+    </af:column>
+  </af:table>
+</ui:composition>

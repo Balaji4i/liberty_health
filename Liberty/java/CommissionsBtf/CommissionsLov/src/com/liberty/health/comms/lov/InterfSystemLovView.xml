@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InterfSystemLovView"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="InterfSystemLovView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <SQLQuery><![CDATA[select * 
+from util.interf_system]]></SQLQuery>
+    <ViewAttribute
+      Name="InterfSystemIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="java.lang.Integer"
+      ColumnType="INTEGER"
+      AliasName="INTERF_SYSTEM_ID_NO"
+      Expression="INTERF_SYSTEM_ID_NO"
+      SQLType="NUMERIC"/>
+    <ViewAttribute
+      Name="InterfSystemName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="INTERF_SYSTEM_NAME"
+      Expression="INTERF_SYSTEM_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.InterfSystemIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="EffectiveStartDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="java.sql.Timestamp"
+      ColumnType="DATE"
+      AliasName="EFFECTIVE_START_DATE"
+      Expression="EFFECTIVE_START_DATE"
+      SQLType="DATE"/>
+    <ViewAttribute
+      Name="EffectiveEndDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="java.sql.Timestamp"
+      ColumnType="DATE"
+      AliasName="EFFECTIVE_END_DATE"
+      Expression="EFFECTIVE_END_DATE"
+      SQLType="DATE"/>
+    <ViewAttribute
+      Name="LastUpdateDatetime"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="java.sql.Timestamp"
+      ColumnType="DATE"
+      AliasName="LAST_UPDATE_DATETIME"
+      Expression="LAST_UPDATE_DATETIME"
+      SQLType="DATE"/>
+    <ViewAttribute
+      Name="Username"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="USERNAME"
+      Expression="USERNAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+    </ViewAttribute>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="InterfSystemIdNo"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.lov.common.InterfSystemLovViewMsgBundle"/>
+    </ResourceBundle>
+</ViewObject>

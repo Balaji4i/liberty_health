@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCompanyPageDef"
+                Package="fragment.company">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <taskFlow id="maintaincompanydetailbtf1"
+                  taskFlowId="/WEB-INF/btf/company/maintain-company-detail-btf.xml#maintain-company-detail-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+                <parameter id="createInd" value="#{pageFlowScope.showHeaderInd}"/>
+                <parameter id="countryCode" value=""/>
+            </parameters>
+        </taskFlow>
+        <iterator Binds="CompanyByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyByPkViewIterator"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="CompanyByPkViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyByPkViewIterator" id="CompanyName">
+            <AttrNames>
+                <Item Value="CompanyName"/>
+            </AttrNames>
+        </attributeValues>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_AddressInd" id="AddressInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="AddressInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_BankDetailsInd" id="BankDetailsInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="BankDetailsInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_CompanyAgreementInd"
+                id="CompanyAgreementInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="CompanyAgreementInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_CompanyRegDocInd"
+                id="CompanyRegDocInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="CompanyRegDocInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_DisAgreementApplicationInd"
+                id="DisAgreementApplicationInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="DisAgreementApplicationInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_IdDocInd" id="IdDocInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="IdDocInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_InternalBrokerInd"
+                id="InternalBrokerInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="InternalBrokerInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_LetterOfIntentInd"
+                id="LetterOfIntentInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="LetterOfIntentInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_MultinationalInd"
+                id="MultinationalInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="MultinationalInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_ReferralAgreementInd"
+                id="ReferralAgreementInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="ReferralAgreementInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_TaxIdNoInd" id="TaxIdNoInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="TaxIdNoInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_VatRegInd" id="VatRegInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="VatRegInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_WhtCertInd" id="WhtCertInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="WhtCertInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <listOfValues IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_PreferredCurrencyCode"
+                      id="PreferredCurrencyCode"/>
+        <listOfValues IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_ConsultantIdNo"
+                      id="ConsultantIdNo"/>
+    </bindings>
+</pageDefinition>

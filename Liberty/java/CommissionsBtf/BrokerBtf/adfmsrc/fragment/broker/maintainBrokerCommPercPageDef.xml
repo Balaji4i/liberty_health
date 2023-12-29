@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainBrokerCommPercPageDef"
+                Package="fragment.broker">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyPercView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="BrokerCommPercByPkViewIterator"/>
+        <iterator Binds="OhiCommPercAuditView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyCommPercAuditViewIterator"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="BrokerCommPercByPkViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerCommPercByPkViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerCommPercByPkViewIterator" id="BrokerCommDesc">
+            <AttrNames>
+                <Item Value="CommDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerCommPercByPkViewIterator" id="BrokerCommPerc">
+            <AttrNames>
+                <Item Value="CommPerc"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+          <attributeValues IterBinding="BrokerCommPercByPkViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Commit" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true"
+                Action="commitTransaction"/>
+        <action IterBinding="BrokerCommPercByPkViewIterator" id="CreateWithParams"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyPercView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="createWithParams">
+            <NamedData NDName="CreatedUsername" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+        </action>
+        <tree IterBinding="CompanyCommPercAuditViewIterator" id="OhiCommPercAuditView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.OhiCommPercAuditView"
+                            Name="OhiCommPercAuditView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                    <Item Value="CommPerc"/>
+                    <Item Value="CommDesc"/>
+                    <Item Value="CreatedUsername"/>
+                    <Item Value="AuthUsername"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:dvt="http://xmlns.oracle.com/dss/adf/faces">
+    <af:document title="brokersBtfTestPage.jsf" id="d1">
+        <af:messages id="m11"/>
+        <af:form id="f1">
+            <af:region value="#{bindings.maintaincompanyaddressbtf1.regionModel}" id="r1"/>
+        </af:form>
+    </af:document>
+</f:view>

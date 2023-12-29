@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelBox text="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}" id="pb1" showDisclosure="false">
+        <f:facet name="toolbar"/>
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+            <f:facet name="menus"/>
+            <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                    <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"
+                               rendered="#{securityContext.userInRole['comms-consultant']}">
+                        <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                           filename="#{pageFlowScope.menuItemName}.xls"/>
+                    </af:button>
+                </af:toolbar>
+            </f:facet>
+            <f:facet name="statusbar"/>
+            <af:table value="#{bindings.AllBrokerageStatusRoView.collectionModel}" var="row"
+                      rows="#{bindings.AllBrokerageStatusRoView.rangeSize}"
+                      emptyText="#{bindings.AllBrokerageStatusRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="1" scrollPolicy="page"
+                      selectedRowKeys="#{bindings.AllBrokerageStatusRoView.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.AllBrokerageStatusRoView.collectionModel.makeCurrent}"
+                      rowSelection="single" fetchSize="#{bindings.AllBrokerageStatusRoView.rangeSize}" id="t1"
+                      displayRow="selected" styleClass="AFStretchWidth">
+                <af:column headerText="#{bindings.AllBrokerageStatusRoView.hints.CompanyIdNo.label}" id="c1">
+                    <af:link disabled="#{!securityContext.userInRole['comms-consultant']}" text="#{row.CompanyIdNo}"
+                             id="l1" action="goCompany"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerageStatusRoView.hints.CompanyName.label}" id="c2"
+                           width="350">
+                    <af:outputText value="#{row.CompanyName}"
+                                   shortDesc="#{bindings.AllBrokerageStatusRoView.hints.CompanyName.tooltip}" id="ot3"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerageStatusRoView.hints.BrokerStatusDesc.label}" id="c4">
+                    <af:outputText value="#{row.BrokerStatusDesc}"
+                                   shortDesc="#{bindings.AllBrokerageStatusRoView.hints.BrokerStatusDesc.tooltip}"
+                                   id="ot5"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerageStatusRoView.hints.EffectiveStartDate.label}" id="c3"
+                           align="center" width="80">
+                    <af:outputText value="#{row.EffectiveStartDate}"
+                                   shortDesc="#{bindings.AllBrokerageStatusRoView.hints.EffectiveStartDate.tooltip}"
+                                   id="ot4">
+                        <af:convertDateTime pattern="#{bindings.AllBrokerageStatusRoView.hints.EffectiveStartDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerageStatusRoView.hints.NoOfDays.label}" id="c5" align="right"
+                           width="60">
+                    <af:outputText value="#{row.NoOfDays}"
+                                   shortDesc="#{bindings.AllBrokerageStatusRoView.hints.NoOfDays.tooltip}" id="ot6">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.AllBrokerageStatusRoView.hints.NoOfDays.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="Country Code" align="center" id="c6">
+                    <af:outputText value="#{row.CountryCode}"
+                                   shortDesc="#{bindings.AllBrokerageStatusRoView.hints.CountryCode.tooltip}" id="ot1"/>
+                </af:column>
+            </af:table>
+        </af:panelCollection>
+    </af:panelBox>
+</jsp:root>

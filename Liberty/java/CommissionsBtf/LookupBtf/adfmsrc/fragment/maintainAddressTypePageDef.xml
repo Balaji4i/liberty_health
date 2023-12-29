@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainAddressTypePageDef"
+                Package="fragment">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="AddressTypeByPk" RangeSize="25" DataControl="AddressTypeAMDataControl"
+                  id="AddressTypeByPkIterator"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="AddressTypeByPkIterator" id="AddressTypeDesc">
+            <AttrNames>
+                <Item Value="AddressTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AddressTypeByPkIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AddressTypeByPkIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AddressTypeByPkIterator" id="AddressTypeCode">
+            <AttrNames>
+                <Item Value="AddressTypeCode"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

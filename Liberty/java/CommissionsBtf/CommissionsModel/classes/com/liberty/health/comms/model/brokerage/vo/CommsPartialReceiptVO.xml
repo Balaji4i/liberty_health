@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommsPartialReceiptVO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.brokerage.vo.CommsPartialReceiptVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.brokerage.vo.CommsPartialReceiptVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+  ComponentInterface="com.liberty.health.comms.model.brokerage.vo.common.CommsPartialReceiptVO"
+  QueryHint="ALL_ROWS"
+  FetchMode="FETCH_AS_NEEDED">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isCodegen" Value="true"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Variable
+    Name="pCountryList"
+    Kind="where"
+    Type="java.lang.String">
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="CommsPartialReceiptVO"/>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <ViewAccessor
+    Name="CompanyLovView1"
+    ViewObjectName="com.liberty.health.comms.lov.CompanyLovView"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="CountryLovView1"
+    ViewObjectName="com.liberty.health.comms.lov.CountryLovView"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="FusionActiveBuVO1"
+    ViewObjectName="com.liberty.health.comms.model.dashboard.vo.FusionActiveBuVO"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="CommonYN1"
+    ViewObjectName="com.liberty.health.comms.lov.CommonYN"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="OhiGroupLovView1"
+    ViewObjectName="com.liberty.health.comms.lov.OhiGroupLovView"
+    RowLevelBinds="true">
+    <ViewCriteriaUsage
+      Name="OhiGroupLovViewCriteria"
+      FullName="com.liberty.health.comms.lov.OhiGroupLovView.OhiGroupLovViewCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="pCompanyIdNo">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA[CompanyIdNo]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="pCountryCode">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA[CountryCode]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CountryLovView_N1"
+    ViewObjectName="com.liberty.health.comms.model.ohi.vo.CountryLovView_N"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_ActiveYn"
+    ListVOName="CommonYN1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ActiveYn"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="YesNo"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_InterfaceToComms"
+    ListVOName="CommonYN1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="InterfaceToComms"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="YesNo"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CompanyIdNo"
+    ListVOName="CompanyLovView1"
+    NullValueFlag="start"
+    MRUCount="0"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}">
+    <AttrArray Name="AttrNames">
+      <Item Value="CompanyIdNo"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="CompanyIdNo"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CompanyIdNo"/>
+      <Item Value="CompanyName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CountryCode"
+    ListVOName="CountryLovView_N1"
+    NullValueFlag="start"
+    MRUCount="0"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}">
+    <AttrArray Name="AttrNames">
+      <Item Value="CountryCode"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Code"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Name"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_GroupCode"
+    ListVOName="OhiGroupLovView1"
+    NullValueFlag="start"
+    MRUCount="0"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}">
+    <AttrArray Name="AttrNames">
+      <Item Value="GroupCode"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="GroupCode"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Bu"
+    ListVOName="FusionActiveBuVO1"
+    NullValueFlag="start"
+    MRUCount="0"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}">
+    <AttrArray Name="AttrNames">
+      <Item Value="Bu"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="BuName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <SQLQuery><![CDATA[SELECT /*+ ALL_ROWS */   
+       CommsPartialReceiptEO.ACTIVE_YN,   
+       CommsPartialReceiptEO.APPROVED_BY,   
+       CommsPartialReceiptEO.BU,   
+       CommsPartialReceiptEO.COMMS_PARTIAL_PK,   
+       CommsPartialReceiptEO.COMMS_PERCENTAGE,   
+       CommsPartialReceiptEO.COMPANY_ID_NO,   
+       CommsPartialReceiptEO.COUNTRY_CODE,   
+       CommsPartialReceiptEO.CREATED_BY,   
+       CommsPartialReceiptEO.CREATION_DATE,   
+       CommsPartialReceiptEO.EFFECTIVE_END_DATE,   
+       CommsPartialReceiptEO.EFFECTIVE_START_DATE,   
+       CommsPartialReceiptEO.GROUP_CODE,   
+       CommsPartialReceiptEO.INTERFACE_TO_COMMS,   
+       CommsPartialReceiptEO.LAST_UPDATE_DATE,   
+       CommsPartialReceiptEO.LAST_UPDATED_BY  
+FROM  COMMS_ON_PARTIAL_RECEIPT CommsPartialReceiptEO 
+WHERE CommsPartialReceiptEO.COUNTRY_CODE is not null and  
+CommsPartialReceiptEO.COUNTRY_CODE in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')       
+ , '[^,]+', 1, LEVEL)               
+            FROM DUAL               
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')     
+, '[^,]+', 1, LEVEL) IS NOT NULL)]]></SQLQuery>
+  <EntityUsage
+    Name="CommsPartialReceiptEO"
+    Entity="com.liberty.health.comms.model.eo.CommsPartialReceiptEO"/>
+  <ViewAttribute
+    Name="ActiveYn"
+    PrecisionRule="true"
+    EntityAttrName="ActiveYn"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="ACTIVE_YN"
+    LOVName="LOV_ActiveYn">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ApprovedBy"
+    PrecisionRule="true"
+    EntityAttrName="ApprovedBy"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="APPROVED_BY"/>
+  <ViewAttribute
+    Name="Bu"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Bu"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="BU"
+    LOVName="LOV_Bu">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CommsPartialPk"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="CommsPartialPk"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="COMMS_PARTIAL_PK"/>
+  <ViewAttribute
+    Name="CommsPercentage"
+    IsUpdateable="while_insert"
+    IsQueriable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CommsPercentage"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="COMMS_PERCENTAGE"/>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CompanyIdNo"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="COMPANY_ID_NO"
+    LOVName="LOV_CompanyIdNo">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CountryCode"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="COUNTRY_CODE"
+    LOVName="LOV_CountryCode">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CreatedBy"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="EffectiveEndDate"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveEndDate"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="EFFECTIVE_END_DATE"/>
+  <ViewAttribute
+    Name="EffectiveStartDate"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveStartDate"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="EFFECTIVE_START_DATE"/>
+  <ViewAttribute
+    Name="GroupCode"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="GroupCode"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="GROUP_CODE"
+    LOVName="LOV_GroupCode">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InterfaceToComms"
+    PrecisionRule="true"
+    EntityAttrName="InterfaceToComms"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="INTERFACE_TO_COMMS"
+    LOVName="LOV_InterfaceToComms">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ClientInterface
+    Name="__clientInterface">
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setCreatedBy"
+      MethodName="setCreatedBy">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

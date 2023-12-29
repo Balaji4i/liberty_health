@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainBankAccountTypePageDef"
+                Package="fragment">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BankAccountTypeByPk" RangeSize="25" DataControl="BankAccountTypeAMDataControl"
+                  id="BankAccountTypeByPkIterator"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="BankAccountTypeByPkIterator" id="BankAccTypeIdNo1">
+            <AttrNames>
+                <Item Value="BankAccTypeIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BankAccountTypeByPkIterator" id="BankAccTypeDesc1">
+            <AttrNames>
+                <Item Value="BankAccTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BankAccountTypeByPkIterator" id="EffectiveStartDate1">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BankAccountTypeByPkIterator" id="EffectiveEndDate1">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

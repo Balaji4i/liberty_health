@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainBrokerByCompanyPageDef"
+                Package="fragment.broker">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BrokerByCompanyView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerByCompanyViewIterator"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="BrokerByCompanyViewIterator" id="BrokerByCompanyView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerVO" Name="BrokerByCompanyView0">
+                <AttrNames>
+                    <Item Value="BrokerName"/>
+                    <Item Value="BrokerLastName"/>
+                    <Item Value="Initials"/>
+                    <Item Value="PersonTitleCode"/>
+                    <Item Value="BusinessDevMgrName"/>
+                    <Item Value="LanguageCode"/>
+                    <Item Value="IdNo"/>
+                    <Item Value="PassportCode"/>
+                    <Item Value="SmsNotificationInd"/>
+                    <Item Value="EmailNotificationInd"/>
+                    <Item Value="BrokerIdNo"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="BrokerByCompanyViewIterator" id="BrokerIdNo">
+            <AttrNames>
+                <Item Value="BrokerIdNo"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

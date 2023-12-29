@@ -1,0 +1,47 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <MethodCall
+      id="MethodCall3">
+      <property
+         name="activityId">setpTableIdNo</property>
+      <property
+         name="x">260.02344</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setpTableIdNo&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">259.74707</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <View
+      id="View4">
+      <property
+         name="activityId">maintainTableTypeByTable</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">521.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>maintainTableTypeByTable&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">256.84473</property>
+      <property
+         name="page">/WEB-INF/fragment/brokerTable/maintainTableTypeByTable.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase5"
+      from="MethodCall3"
+      to="View4">
+      <property
+         name="fromOutcome">setpTableIdNo</property>
+      <property
+         name="sdm:polyPoints">R50,301.02344,259.39648,480.0,256.49414,L50</property>
+   </ControlFlowCase>
+</SDM>

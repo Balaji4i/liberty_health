@@ -1,0 +1,1 @@
+grant execute on lhhcorr.ws_in_pkg to lhhcom;

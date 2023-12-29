@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+        <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+            <af:panelGroupLayout id="pgl1" rendered="#{pageFlowScope.createInd == 'Y'}">
+                <af:button text="#{coreLabels['G.Add']}" id="b1" disabled="#{!bindings.CreateWithParams.enabled}"
+                           icon="/adf/images/add_16x16.png"
+                           rendered="#{securityContext.userInRole['comms-consultant'] || pageFlowScope.createInd == 'Y'}"
+                           actionListener="#{bindings.CreateWithParams.execute}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b2" icon="/adf/images/save_16x16.png"
+                           actionListener="#{bindings.Commit.execute}"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b3" disabled="#{!bindings.Rollback.enabled}"
+                           immediate="true" icon="/adf/images/remove_16x16.png"
+                           actionListener="#{bindings.Rollback.execute}">
+                    <af:resetActionListener/>
+                </af:button>
+            </af:panelGroupLayout>
+            <af:panelFormLayout id="pfl1" partialTriggers="b1 b2 b3" rows="2">
+                <af:inputText value="#{bindings.BrokerCommPerc.inputValue}"
+                              label="#{bindings.BrokerCommPerc.hints.label}"
+                              required="#{bindings.BrokerCommPerc.hints.mandatory}" columns="20"
+                              maximumLength="#{bindings.BrokerCommPerc.hints.precision}"
+                              shortDesc="#{bindings.BrokerCommPerc.hints.tooltip}" id="it2">
+                    <f:validator binding="#{bindings.BrokerCommPerc.validator}"/>
+                    <af:convertNumber groupingUsed="false" pattern="#{bindings.BrokerCommPerc.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.BrokerCommDesc.inputValue}"
+                              label="#{bindings.BrokerCommDesc.hints.label}"
+                              required="#{bindings.BrokerCommDesc.hints.mandatory}" columns="20"
+                              maximumLength="#{bindings.BrokerCommDesc.hints.precision}"
+                              shortDesc="#{bindings.BrokerCommDesc.hints.tooltip}" id="it1" rows="3">
+                    <f:validator binding="#{bindings.BrokerCommDesc.validator}"/>
+                </af:inputText>
+                <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                              label="#{bindings.EffectiveStartDate.hints.label}"
+                              required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                              columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id1">
+                    <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                              label="#{bindings.EffectiveEndDate.hints.label}"
+                              required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                              columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id2" readOnly="true">
+                    <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                </af:inputDate>
+            </af:panelFormLayout>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t2">
+                        <af:button text="#{coreLabels['G.Export']}" id="b8" icon="/adf/images/excel_16x16.png"
+                                   rendered="#{securityContext.userInRole['comms-consultant']}">
+                            <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                               filename="#{coreLabels['G.History']}.xls"/>
+                        </af:button>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.OhiCommPercAuditView.collectionModel}" var="row"
+                          rows="#{bindings.OhiCommPercAuditView.rangeSize}"
+                          emptyText="#{bindings.OhiCommPercAuditView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.OhiCommPercAuditView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.OhiCommPercAuditView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.OhiCommPercAuditView.rangeSize}" id="t1"
+                          displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c4">
+                    <af:column headerText="#{bindings.OhiCommPercAuditView.hints.TransactionDatetime.label}" id="c9"
+                               width="120">
+                        <af:outputText value="#{row.TransactionDatetime}"
+                                       shortDesc="#{bindings.OhiCommPercAuditView.hints.TransactionDatetime.tooltip}"
+                                       id="ot6">
+                            <af:convertDateTime pattern="#{bindings.OhiCommPercAuditView.hints.TransactionDatetime.format}"
+                                                type="both"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.OhiCommPercAuditView.hints.TransactionUsername.label}" id="c1">
+                        <af:outputText value="#{row.TransactionUsername}"
+                                       shortDesc="#{bindings.OhiCommPercAuditView.hints.TransactionUsername.tooltip}"
+                                       id="ot3"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.OhiCommPercAuditView.hints.TransactionDesc.label}" id="c4">
+                        <af:outputText value="#{row.TransactionDesc}"
+                                       shortDesc="#{bindings.OhiCommPercAuditView.hints.TransactionDesc.tooltip}"
+                                       id="ot9"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.OhiCommPercAuditView.hints.EffectiveStartDate.label}" id="c5"
+                               align="center">
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.OhiCommPercAuditView.hints.EffectiveStartDate.tooltip}"
+                                       id="ot5">
+                            <af:convertDateTime pattern="#{bindings.OhiCommPercAuditView.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.OhiCommPercAuditView.hints.CommPerc.label}" id="c7" align="right">
+                        <af:outputText value="#{row.CommPerc}"
+                                       shortDesc="#{bindings.OhiCommPercAuditView.hints.CommPerc.tooltip}" id="ot8">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.OhiCommPercAuditView.hints.CommPerc.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.OhiCommPercAuditView.hints.CommDesc.label}" id="c3" width="200">
+                        <af:outputText value="#{row.CommDesc}"
+                                       shortDesc="#{bindings.OhiCommPercAuditView.hints.CommDesc.tooltip}" id="ot1"/>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

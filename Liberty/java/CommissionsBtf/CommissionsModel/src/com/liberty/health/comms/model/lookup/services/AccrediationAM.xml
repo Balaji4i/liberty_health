@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AccrediationAM"
+    Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  ComponentClass="com.core.model.services.classes.CoreApplicationModuleImpl"
+  DefClass="com.core.model.services.classes.CoreApplicationModuleDefImpl"
+  ClearCacheOnRollback="true">
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.lookup.services.AccrediationAM_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewUsage
+      Name="AccreditationTypeByPkView"
+      ViewObjectName="com.liberty.health.comms.model.lookup.vo.AccreditationTypeVO">
+        <ViewCriteriaUsage
+          Name="AccreditationTypeByPkViewCriteria"
+          FullName="com.liberty.health.comms.model.lookup.vo.AccreditationTypeVO.AccreditationTypeByPkViewCriteria"/>
+    </ViewUsage>
+    <ViewUsage
+      Name="AllAccreditationTypeView"
+      ViewObjectName="com.liberty.health.comms.model.lookup.vo.AccreditationTypeVO"/>
+    <ViewUsage
+      Name="AccreditationTypeAuditRoView"
+      ViewObjectName="com.liberty.health.comms.model.lookup.vo.AccreditationTypeAuditRoView"/>
+    <ViewLinkUsage
+      Name="FkAccredTypeAuditAccredTypeLink1"
+      ViewLinkObjectName="com.liberty.health.comms.model.lookup.vo.links.FkAccredTypeAuditAccredTypeLink"
+      SrcViewUsageName="com.liberty.health.comms.model.lookup.services.AccrediationAM.AllAccreditationTypeView"
+      DstViewUsageName="com.liberty.health.comms.model.lookup.services.AccrediationAM.AccreditationTypeAuditRoView"
+      Reversed="false"/>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</AppModule>

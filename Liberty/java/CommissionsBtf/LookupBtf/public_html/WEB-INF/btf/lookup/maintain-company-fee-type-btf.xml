@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-fee-type-btf">
+        <default-activity>router1</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__17">
+            <name>companyFeeTypeIdNo</name>
+            <value>#{pageFlowScope.companyFeeTypeIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <router id="router1">
+            <case id="__4">
+                <expression>#{pageFlowScope.companyFeeTypeIdNo ne null}</expression>
+                <outcome>edit</outcome>
+            </case>
+            <case id="__5">
+                <expression>#{pageFlowScope.companyFeeTypeIdNo eq null}</expression>
+                <outcome>create</outcome>
+            </case>
+            <default-outcome>create</default-outcome>
+        </router>
+        <method-call id="CreateInsert">
+            <method>#{bindings.CreateInsert.execute}</method>
+            <outcome>
+                <fixed-outcome>CreateInsert</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="setpCompanyFeeTypeIdNo">
+            <method>#{bindings.setpCompanyFeeTypeIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpCompanyFeeTypeIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainCompanyFeeType">
+            <page>/WEB-INF/fragment/maintainCompanyFeeType.jsff</page>
+        </view>
+        <method-call id="Commit">
+            <method>#{bindings.Commit.execute}</method>
+            <outcome>
+                <fixed-outcome>Commit</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="Rollback">
+            <method>#{bindings.Rollback.execute}</method>
+            <outcome>
+                <fixed-outcome>Rollback</fixed-outcome>
+            </outcome>
+        </method-call>
+        <task-flow-return id="taskFlowReturn1">
+            <outcome>
+                <name>taskFlowReturn1</name>
+            </outcome>
+        </task-flow-return>
+        <control-flow-rule id="__1">
+            <from-activity-id>router1</from-activity-id>
+            <control-flow-case id="__2">
+                <from-outcome>create</from-outcome>
+                <to-activity-id>CreateInsert</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__3">
+                <from-outcome>edit</from-outcome>
+                <to-activity-id>setpCompanyFeeTypeIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__6">
+            <from-activity-id>CreateInsert</from-activity-id>
+            <control-flow-case id="__7">
+                <from-outcome>CreateInsert</from-outcome>
+                <to-activity-id>maintainCompanyFeeType</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__8">
+            <from-activity-id>setpCompanyFeeTypeIdNo</from-activity-id>
+            <control-flow-case id="__9">
+                <from-outcome>setpCompanyFeeTypeIdNo</from-outcome>
+                <to-activity-id>maintainCompanyFeeType</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__10">
+            <from-activity-id>maintainCompanyFeeType</from-activity-id>
+            <control-flow-case id="__11">
+                <from-outcome>save</from-outcome>
+                <to-activity-id>Commit</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__12">
+                <from-outcome>cancel</from-outcome>
+                <to-activity-id>Rollback</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__13">
+            <from-activity-id>Commit</from-activity-id>
+            <control-flow-case id="__14">
+                <from-outcome>Commit</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__15">
+            <from-activity-id>Rollback</from-activity-id>
+            <control-flow-case id="__16">
+                <from-outcome>Rollback</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

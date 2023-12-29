@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-invoice-btf">
+        <default-activity>router1</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>invoiceNo</name>
+            <value>#{pageFlowScope.invoiceNo}</value>
+            <class>oracle.jbo.domain.Number</class>
+        </input-parameter-definition>
+        <managed-bean id="__11">
+            <managed-bean-name>paymentRunBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.btf.beans.PaymentRun</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <method-call id="setpInvoiceNo">
+            <method>#{bindings.setpInvoiceNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpInvoiceNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainInvoice">
+            <page>/WEB-INF/fragments/payment/maintainInvoice.jsff</page>
+        </view>
+        <method-call id="Commit">
+            <method>#{bindings.Commit.execute}</method>
+            <outcome>
+                <fixed-outcome>Commit</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="Rollback">
+            <method>#{bindings.Rollback.execute}</method>
+            <outcome>
+                <fixed-outcome>Rollback</fixed-outcome>
+            </outcome>
+        </method-call>
+        <task-flow-return id="taskFlowReturn1">
+            <outcome>
+                <name>taskFlowReturn1</name>
+            </outcome>
+        </task-flow-return>
+        <router id="router1">
+            <case id="__12">
+                <expression>#{pageFlowScope.invoiceNo == null}</expression>
+                <outcome>create</outcome>
+            </case>
+            <case id="__13">
+                <expression>#{pageFlowScope.invoiceNo != null}</expression>
+                <outcome>edit</outcome>
+            </case>
+            <default-outcome>edit</default-outcome>
+        </router>
+        <method-call id="CreateInsert">
+            <method>#{bindings.CreateInsert.execute}</method>
+            <outcome>
+                <fixed-outcome>CreateInsert</fixed-outcome>
+            </outcome>
+        </method-call>
+        <control-flow-rule id="__2">
+            <from-activity-id>setpInvoiceNo</from-activity-id>
+            <control-flow-case id="__3">
+                <from-outcome>setpInvoiceNo</from-outcome>
+                <to-activity-id>maintainInvoice</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__4">
+            <from-activity-id>maintainInvoice</from-activity-id>
+            <control-flow-case id="__5">
+                <from-outcome>save</from-outcome>
+                <to-activity-id>Commit</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__6">
+                <from-outcome>cancel</from-outcome>
+                <to-activity-id>Rollback</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__7">
+            <from-activity-id>Commit</from-activity-id>
+            <control-flow-case id="__8">
+                <from-outcome>Commit</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__9">
+            <from-activity-id>Rollback</from-activity-id>
+            <control-flow-case id="__10">
+                <from-outcome>Rollback</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__14">
+            <from-activity-id>router1</from-activity-id>
+            <control-flow-case id="__15">
+                <from-outcome>edit</from-outcome>
+                <to-activity-id>setpInvoiceNo</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__16">
+                <from-outcome>create</from-outcome>
+                <to-activity-id>CreateInsert</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__17">
+            <from-activity-id>CreateInsert</from-activity-id>
+            <control-flow-case id="__18">
+                <from-outcome>CreateInsert</from-outcome>
+                <to-activity-id>maintainInvoice</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

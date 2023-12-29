@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.payment.services.PaymentAM">
+        <AppModuleConfig name="PaymentAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.payment.services.PaymentAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.payment.services.PaymentAM"/>
+        </AppModuleConfig>
+        <AppModuleConfig name="PaymentAMShared" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.payment.services.PaymentAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.payment.services.PaymentAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+</BC4JConfig>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommsCalcCompareSummDetailVL"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.comms.views.links.CommsCalcCompareSummDetailVL_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="CommsCalcCompareSummary"
+    Cardinality="1"
+    Source="true"
+    Owner="com.liberty.health.comms.model.comms.views.CommsCalcCompareSummaryVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="CommsCalcCompareSummary"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareSummaryVO.CalculationDatetime"/>
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareSummaryVO.CompanyIdNo"/>
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareSummaryVO.GroupName"/>
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareSummaryVO.ProductName"/>
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareSummaryVO.CountryCode"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="CommsCalcCompareDetail"
+    Cardinality="-1"
+    Owner="com.liberty.health.comms.model.comms.views.CommsCalcCompareDetailVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="CommsCalcCompareDetail"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareDetailVO.CalculationDatetime"/>
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareDetailVO.CompanyIdNo"/>
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareDetailVO.GroupName"/>
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareDetailVO.ProductName"/>
+      <Item Value="com.liberty.health.comms.model.comms.views.CommsCalcCompareDetailVO.CountryCode"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

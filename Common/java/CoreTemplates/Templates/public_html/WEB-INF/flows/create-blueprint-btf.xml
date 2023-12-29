@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-template id="create-blueprint-btf">
+    <template-reference>
+      <document id="__c2">/WEB-INF/flows/exception-template-btf.xml</document>
+      <id id="__c1">exception-template-btf</id>
+    </template-reference>
+    <default-activity id="__c5">CreateInsert</default-activity>
+    <view id="View"></view>
+    <method-call id="CreateInsert"></method-call>
+    <task-flow-return id="returnCreateTaskFlowName">
+      <outcome id="__c6">
+        <name>returnCreateTaskFlowName</name>
+      </outcome>
+    </task-flow-return>
+    <task-flow-return id="commitCreateTaskFlowName">
+      <outcome id="__c7">
+        <name>commitCreateTaskFlowName</name>
+      </outcome>
+    </task-flow-return>
+    <control-flow-rule id="__c4">
+      <from-activity-id id="__c3">*</from-activity-id>
+      <control-flow-case id="__c20">
+        <from-outcome id="__c22">back</from-outcome>
+        <to-activity-id id="__c21">View</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__c8">
+      <from-activity-id id="__c9">CreateInsert</from-activity-id>
+      <control-flow-case id="__c11">
+        <to-activity-id id="__c10">View</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__c12">
+      <from-activity-id id="__c13">View</from-activity-id>
+      <control-flow-case id="__c14">
+        <from-outcome id="__c16">commit</from-outcome>
+        <to-activity-id id="__c15">commitCreateTaskFlowName</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__c18">
+        <from-outcome id="__c19">return</from-outcome>
+        <to-activity-id id="__c17">returnCreateTaskFlowName</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-template>
+</adfc-config>

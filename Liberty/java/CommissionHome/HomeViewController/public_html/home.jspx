@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <f:view>
+        <af:document title="home.jspx" id="d1">
+            <af:messages id="m1"/>
+            <af:form id="f1">
+                <af:pageTemplate viewId="/com/core/templates/pages/libertyHomeTemplate.jspx" id="pt1"
+                                 value="#{bindings.ptb1}">
+                    <f:facet name="copyright">
+                        <af:outputText value="#{coreLabels['G.Home']}" id="ot2" inlineStyle="color:#00154e;"
+                                       partialTriggers="soc2 si3 si4 si5"/>
+                    </f:facet>
+                    <f:facet name="about"/>
+                    <f:facet name="navigation">
+                        <af:panelAccordion discloseMany="false" id="pa1">
+                            <af:showDetailItem id="pane1" text="#{coreLabels['G.Menu']}" inlineStyle="color:#00154e;">
+                                <af:tree value="#{bindings.Menu.treeModel}" var="node"
+                                         selectionListener="#{bindings.Menu.treeModel.makeCurrent}"
+                                         rowSelection="single" id="t1" binding="#{launcherBean.menuTree}"
+                                         initiallyExpanded="true" expandAllEnabled="true" displayRow="first"
+                                         contextMenuSelect="false">
+                                    <?audit suppress oracle.adf.faces.compreqsummary?>
+                                    <f:facet name="nodeStamp">
+                                        <af:link text="#{node.MenuItemName}" id="l2"
+                                                 actionListener="#{launcherBean.MenuActionListener}"
+                                                 disabled="#{node.ParentWebApplObjectNo == null || !securityContext.taskflowViewable[node.UrlPathName]}"/>
+                                    </f:facet>
+                                    <f:facet name="contextMenu"/>
+                                </af:tree>
+                            </af:showDetailItem>
+                            <af:showDetailItem id="pane2" text="#{coreLabels['G.WatchList']}"
+                                               inlineStyle="color:#00154e;"
+                                               disclosureListener="#{launcherBean.watchListMenuDiscloseActionListener}">
+                                <f:facet name="toolbar"/>
+                                <af:tree value="#{bindings.AllCommissionsWatchListView1.treeModel}" var="node"
+                                         selectionListener="#{bindings.AllCommissionsWatchListView1.treeModel.makeCurrent}"
+                                         rowSelection="single" id="t3" binding="#{launcherBean.watchListTree}"
+                                         initiallyExpanded="true" displayRow="first" expandAllEnabled="true"
+                                         contextMenuSelect="false">
+                                    <f:facet name="nodeStamp">
+                                        <af:link text="#{node.AlertDesc}" id="l1"
+                                                 actionListener="#{launcherBean.WatchListActionListener}"
+                                                 disabled="#{!securityContext.taskflowViewable[node.UrlPathName]}"/>
+                                    </f:facet>
+                                </af:tree>
+                            </af:showDetailItem>
+                        </af:panelAccordion>
+                    </f:facet>
+                    <f:facet name="globalLinks"/>
+                    <f:facet name="status">
+                        <af:panelDrawer position="right" id="pd1" maximumHeight="200px" maximumWidth="200px"
+                                        alignId="::pt1">
+                            <af:showDetailItem id="dr1" shortDesc="#{coreLabels['G.Settings']}"
+                                               text="#{coreLabels['G.Settings']}" icon="/adf/images/home_20x20.png">
+                                <af:panelGroupLayout id="pgl1">
+                                    <af:panelFormLayout id="pfl3">
+                                        <f:facet name="footer"/>
+                                        <af:outputText value="#{'Welcome&#160;'}#{securityContext.userName}#{'&#160;'}"
+                                                       id="ot4" inlineStyle="font-size:large;"/>
+                                        <af:spacer width="10" height="10" id="s1"/>
+                                    </af:panelFormLayout>
+                                    <af:panelFormLayout id="pfl1" labelAlignment="start">
+                                        <af:selectOneChoice label="Lanuage"
+                                                            valueChangeListener="#{launcherBean.languageValueChangeListener}"
+                                                            id="soc1" value="#{launcherBean.localCode}"
+                                                            autoSubmit="true">
+                                            <af:selectItem label="English" value="en_ZA" id="si1"/>
+                                            <af:selectItem label="French" value="fr_FR" id="si2"/>
+                                            <af:selectItem label="Protugese" id="si6" value="pt_PT"/>
+                                        </af:selectOneChoice>
+                                        <af:selectOneChoice label="Skin"
+                                                            valueChangeListener="#{launcherBean.skinValueChangeListener}"
+                                                            id="soc2" value="#{launcherBean.skin}" autoSubmit="true">
+                                            <af:selectItem label="Simple" value="alta" id="si3"/>
+                                            <af:selectItem label="Medium" value="blafplus-rich" id="si4"/>
+                                            <af:selectItem label="High" value="fusionFx" id="si5"/>
+                                        </af:selectOneChoice>
+                                        <f:facet name="footer">
+                                            <af:toolbar id="t4">
+                                                <af:link text="Logout" id="gl10"
+                                                         destination="#{'/adfAuthentication?logout=true&amp;end_url=/faces/home.jspx'}"
+                                                         partialTriggers="soc2 si3 si4 si5"/>
+                                            </af:toolbar>
+                                        </f:facet>
+                                    </af:panelFormLayout>
+                                </af:panelGroupLayout>
+                            </af:showDetailItem>
+                        </af:panelDrawer>
+                    </f:facet>
+                    <f:facet name="globalToolbar"/>
+                    <f:facet name="globalSearch"/>
+                    <f:facet name="globalTabs"/>
+                    <f:facet name="welcome">
+                        <af:region value="#{bindings.welcomebtf1.regionModel}" id="r1"/>
+                    </f:facet>
+                    <f:facet name="innerToolbar"/>
+                    <f:attribute name="globalAreaSplitterPosition" value="-2"/>
+                    <f:attribute name="brandingTitle" value=" "/>
+                    <f:attribute name="headerSplitterDisabled" value="true"/>
+                    <f:attribute name="headerSplitterPosition" value="0"/>
+                    <f:attribute name="logoImagePath" value="/adf/images/liberty_2.png"/>
+                    <f:attribute name="legalAreaPosition" value="25"/>
+                    <f:attribute name="navSplitterPosition" value="300"/>
+                    <f:attribute name="statusWidth" value="200px"/>
+                    <f:attribute name="tooManyTabsPopupTitle" value="Too Many Tabs Open"/>
+                </af:pageTemplate>
+                <af:popup childCreation="deferred" autoCancel="enabled" id="p1" contentDelivery="lazyUncached"
+                          popupFetchListener="#{launcherBean.MenuNameChangePopUpFectchListener}">
+                    <af:dialog id="d2" dialogListener="#{launcherBean.menuItemNameDialogListener}">
+                        <?audit suppress oracle.adf.faces.compreqtitle?>
+                        <f:facet name="buttonBar"/>
+                        <af:panelFormLayout id="pfl2" fieldWidth="25" maxColumns="1" rows="1">
+                            <af:inputText value="#{bindings.MenuItemName.inputValue}"
+                                          label="#{bindings.MenuItemName.hints.label}"
+                                          required="#{bindings.MenuItemName.hints.mandatory}" columns="25"
+                                          maximumLength="#{bindings.MenuItemName.hints.precision}"
+                                          shortDesc="#{bindings.MenuItemName.hints.tooltip}" id="it1">
+                                <f:validator binding="#{bindings.MenuItemName.validator}"/>
+                            </af:inputText>
+                        </af:panelFormLayout>
+                    </af:dialog>
+                </af:popup>
+                <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                          popupFetchListener="#{launcherBean.MenuSettingsChangePopUpFectchListener}">
+                    <af:dialog id="d3" dialogListener="#{launcherBean.menuItemNameDialogListener}">
+                        <?audit suppress oracle.adf.faces.compreqtitle?>
+                        <f:facet name="buttonBar"/>
+                        <af:table value="#{bindings.UpdateMenuSortSeqView.collectionModel}" var="row"
+                                  rows="#{bindings.UpdateMenuSortSeqView.rangeSize}"
+                                  emptyText="#{bindings.UpdateMenuSortSeqView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="1"
+                                  selectedRowKeys="#{bindings.UpdateMenuSortSeqView.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.UpdateMenuSortSeqView.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.UpdateMenuSortSeqView.rangeSize}" id="t2"
+                                  columnStretching="column:c1" displayRow="selected">
+                            <?audit suppress oracle.adf.faces.compreqsummary?><?audit suppress oracle.adf.faces.tableneedsrowheader?>
+                            <af:column headerText="#{bindings.UpdateMenuSortSeqView.hints.MenuItemName.label}" id="c1">
+                                <af:outputText value="#{row.MenuItemName}"
+                                               shortDesc="#{bindings.UpdateMenuSortSeqView.hints.MenuItemName.tooltip}"
+                                               id="ot3"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.UpdateMenuSortSeqView.hints.MenuSortSeqNo.label}" id="c2">
+                                <af:inputText value="#{row.bindings.MenuSortSeqNo.inputValue}"
+                                              label="#{bindings.UpdateMenuSortSeqView.hints.MenuSortSeqNo.label}"
+                                              required="#{bindings.UpdateMenuSortSeqView.hints.MenuSortSeqNo.mandatory}"
+                                              columns="15"
+                                              maximumLength="#{bindings.UpdateMenuSortSeqView.hints.MenuSortSeqNo.precision}"
+                                              shortDesc="#{bindings.UpdateMenuSortSeqView.hints.MenuSortSeqNo.tooltip}"
+                                              id="it3">
+                                    <f:validator binding="#{row.bindings.MenuSortSeqNo.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.UpdateMenuSortSeqView.hints.MenuSortSeqNo.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.UpdateMenuSortSeqView.hints.ActiveFromDate.label}"
+                                       id="c3">
+                                <af:inputDate value="#{row.bindings.ActiveFromDate.inputValue}"
+                                              label="#{bindings.UpdateMenuSortSeqView.hints.ActiveFromDate.label}"
+                                              required="#{bindings.UpdateMenuSortSeqView.hints.ActiveFromDate.mandatory}"
+                                              columns="25"
+                                              shortDesc="#{bindings.UpdateMenuSortSeqView.hints.ActiveFromDate.tooltip}"
+                                              id="id1">
+                                    <f:validator binding="#{row.bindings.ActiveFromDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.UpdateMenuSortSeqView.hints.ActiveFromDate.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                            <af:column headerText="#{bindings.UpdateMenuSortSeqView.hints.RemoveFromDate.label}"
+                                       id="c4">
+                                <af:inputDate value="#{row.bindings.RemoveFromDate.inputValue}"
+                                              label="#{bindings.UpdateMenuSortSeqView.hints.RemoveFromDate.label}"
+                                              required="#{bindings.UpdateMenuSortSeqView.hints.RemoveFromDate.mandatory}"
+                                              columns="25"
+                                              shortDesc="#{bindings.UpdateMenuSortSeqView.hints.RemoveFromDate.tooltip}"
+                                              id="id2">
+                                    <f:validator binding="#{row.bindings.RemoveFromDate.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.UpdateMenuSortSeqView.hints.RemoveFromDate.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                        </af:table>
+                    </af:dialog>
+                </af:popup>
+            </af:form>
+        </af:document>
+    </f:view>
+</jsp:root>

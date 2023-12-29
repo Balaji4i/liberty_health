@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="commissionAccuralsPageDef"
+                Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="CommissionAccurals1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="CommissionAccurals1Iterator"/>
+    <searchRegion Criteria="CommissionAccuralsVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" Binds="CommissionAccurals1Iterator"
+                  id="CommissionAccuralsVOCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="CommissionAccurals1Iterator" id="CommissionAccurals1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommissionAccuralsVO"
+                      Name="CommissionAccurals10">
+        <AttrNames>
+          <Item Value="Bu"/>
+          <Item Value="GroupCode"/>
+          <Item Value="FinanceInvoiceDate"/>
+          <Item Value="FinanceInvoiceNumber"/>
+          <Item Value="FinanceInvoiceType"/>
+          <Item Value="FinanceInvoiceAmt"/>
+          <Item Value="CurrencyCode"/>
+          <Item Value="Optionval"/>
+          <Item Value="ContributionDate"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="CommsPerc"/>
+          <Item Value="CalculatedCommsAmt"/>
+          <Item Value="GeneratedInFusion"/>
+          <Item Value="FusionApInvoice"/>
+          <Item Value="CreationDate"/>
+          <Item Value="LastUpdateDate"/>
+          <Item Value="LastUpdatedBy"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

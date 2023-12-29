@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24" id="allJobDashboardPageDef"
+                Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Name="pCountryCode" Type="java.lang.String"/>
+      <variable Name="pStageNo" Type="java.lang.Number"/>
+      <variable Name="pFromDate" Type="java.lang.String"/>
+    </variableIterator>
+    <iterator Binds="CommsJobSubmitVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="CommsJobSubmitVO1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="CommsDMJobSubmit1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="CommsDMJobSubmit1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="AllJobsSubmittedRunDetailsVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="AllJobsSubmittedRunDetailsVO1Iterator" Refresh="ifNeeded"/>
+    <searchRegion Binds="AllJobsSubmittedRunDetailsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="AllJobsSubmittedRunDetailsVO1Query"/>
+    <iterator Binds="CommsDMInvoiceHistoryVO1" RangeSize="-1" DataControl="CommsRunAMDataControl"
+              id="CommsDMInvoiceHistoryVO1Iterator" Refresh="deferred"/>
+    <iterator Binds="CommsDMInvoiceNoUpdateVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="CommsDMInvoiceNoUpdateVO1Iterator"/>
+    <searchRegion Binds="CommsDMInvoiceNoUpdateVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="CommsDMInvoiceNoUpdateVO1Query"/>
+    <iterator Binds="FusionActiveBu1" RangeSize="25" DataControl="DashboardAMDataControl" id="FusionActiveBu1Iterator"/>
+    <iterator Binds="CommsDMSnapshotHistoryVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="CommsDMSnapshotHistoryVO1Iterator"/>
+    <searchRegion Binds="CommsDMSnapshotHistoryVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="CommsDMSnapshotHistoryVO1Query"/>
+    <searchRegion Binds="CommsDMInvoiceHistoryVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="CommsDMInvoiceHistoryVO1Query"/>
+  </executables>
+  <bindings>
+    <list IterBinding="CommsJobSubmitVO1Iterator" StaticList="false" Uses="LOV_JobName" id="JobName"
+          DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="CommsDMJobSubmit1Iterator" id="FromDate">
+      <AttrNames>
+        <Item Value="FromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="CommsDMJobSubmit1Iterator" StaticList="false" Uses="LOV_Country" id="Country"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <list IterBinding="CommsDMJobSubmit1Iterator" StaticList="false" Uses="LOV_Stage" id="Stage" DTSupportsMRU="false"
+          SelectItemValueMode="ListObject"/>
+    <action id="Commit" DataControl="CommsRunAMDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" DataControl="CommsRunAMDataControl" RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <methodAction id="executeScheduledJob" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="executeScheduledJob" IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                  InstanceName="data.CommsRunAMDataControl.dataProvider">
+      <NamedData NDName="jobName" NDValue="#{bindings.JobName.inputValue}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="AllJobsSubmittedRunDetailsVO1Iterator" id="AllJobsSubmittedRunDetailsVO1" ChangeEventPolicy="none">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.AllJobsSubmittedRunDetailsVO"
+                      Name="AllJobsSubmittedRunDetailsVO10">
+        <AttrNames>
+          <Item Value="JobId"/>
+          <Item Value="RequestedStartDate"/>
+          <Item Value="ActualStartDate"/>
+          <Item Value="JobName"/>
+          <Item Value="Status"/>
+          <Item Value="RunTime"/>
+          <Item Value="Log"/>
+          <Item Value="OutputFile"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="getFile" RequiresUpdateModel="true" Action="invokeMethod" MethodName="getFile"
+                  IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                  InstanceName="data.CommsRunAMDataControl.dataProvider"
+                  ReturnName="data.CommsRunAMDataControl.methodResults.getFile_getFile_dataControl_dataProvider_getFile_result">
+      <NamedData NDName="fileName" NDValue="#{pageFlowScope.pFileName}" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="executeApproveDMRun" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="executeApproveDMRun" IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                  InstanceName="bindings.CommsRunAMDataControl.dataProvider">
+      <NamedData NDName="StageNo" NDValue="#{pageFlowScope.pStage}" NDType="java.lang.String"/>
+      <NamedData NDName="countryCode" NDValue="#{pageFlowScope.pCountryCode}" NDType="java.lang.String"/>
+      <NamedData NDName="userName" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="CommsDMInvoiceNoUpdateVO1Iterator" id="CommsDMInvoiceNoUpdateVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsDMInvoiceNoUpdateVO"
+                      Name="CommsDMInvoiceNoUpdateVO10">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="PaymentReceiveDate"/>
+          <Item Value="ExchCurrencyCode"/>
+          <Item Value="InvoiceCurrencyCode"/>
+          <Item Value="TotalCommsCalc"/>
+          <Item Value="TotalInvoice"/>
+          <Item Value="DiffTotal"/>
+          <Item Value="TotalCommsExch"/>
+          <Item Value="TotalInvExch"/>
+          <Item Value="DiffExchTotal"/>
+          <Item Value="TotalInvPayment"/>
+          <Item Value="MinCalcDate"/>
+          <Item Value="MaxCalcDate"/>
+          <Item Value="CommsCalcSnapshotNo"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="CommsDMInvoiceHistoryVO1Iterator" id="ExecuteDmInvoice"
+            InstanceName="CommsRunAMDataControl.CommsDMInvoiceHistoryVO1" DataControl="CommsRunAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="CommsDMInvoiceNoUpdateVO1Iterator" id="ExecuteDmUpdateInv"
+            InstanceName="CommsRunAMDataControl.CommsDMInvoiceNoUpdateVO1" DataControl="CommsRunAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <methodAction id="getOutputFile" RequiresUpdateModel="true" Action="invokeMethod" MethodName="getFile"
+                  IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                  InstanceName="data.CommsRunAMDataControl.dataProvider"
+                  ReturnName="data.CommsRunAMDataControl.methodResults.getFile_getFile_dataControl_dataProvider_getFile_result">
+      <NamedData NDName="fileName" NDValue="#{pageFlowScope.pOutFileName}" NDType="java.lang.String"/>
+    </methodAction>
+    <list IterBinding="FusionActiveBu1Iterator" ListOperMode="navigation" ListIter="FusionActiveBu1Iterator"
+          id="FusionActiveBu1" DTSupportsMRU="true" SelectItemValueMode="ListObject">
+      <AttrNames>
+        <Item Value="BuName"/>
+      </AttrNames>
+    </list>
+    <attributeValues IterBinding="FusionActiveBu1Iterator" id="BuName">
+      <AttrNames>
+        <Item Value="BuName"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="submitJob" RequiresUpdateModel="true" Action="invokeMethod" MethodName="submitJob"
+                  IsViewObjectMethod="false" DataControl="DashboardAMDataControl"
+                  InstanceName="data.DashboardAMDataControl.dataProvider">
+      <NamedData NDName="pBu" NDValue="#{bindings.BuName}" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="submitFusionPayablesImport" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="submitFusionPayablesImport" IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                  InstanceName="data.CommsRunAMDataControl.dataProvider"/>
+    <methodAction id="executeDmJob" RequiresUpdateModel="true" Action="invokeMethod" MethodName="executeDmJob"
+                  IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                  InstanceName="data.CommsRunAMDataControl.dataProvider">
+      <NamedData NDName="stage" NDValue="#{bindings.Stage.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="preLoad" NDValue="Y" NDType="java.lang.String"/>
+      <NamedData NDName="commRunDate" NDValue="#{bindings.FromDate.inputValue}" NDType="java.sql.Date"/>
+      <NamedData NDName="countryCode" NDValue="#{bindings.Country.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="scheme" NDValue="#{pageFlowScope.CommsHistory.delimtedString}" NDType="java.lang.String"/>
+      <NamedData NDName="group" NDValue="#{pageFlowScope.CommsHistory.groupDelimtedString}" NDType="java.lang.String"/>
+      <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+      <NamedData NDName="approve" NDValue="N" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="CommsDMSnapshotHistoryVO1Iterator" id="CommsDMSnapshotHistoryVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsDMSnapshotHistoryVO"
+                      Name="CommsDMSnapshotHistoryVO10">
+        <AttrNames>
+          <Item Value="CalculationDatetime"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="GroupCode"/>
+          <Item Value="ProductCode"/>
+          <Item Value="CommsCalcTypeCode"/>
+          <Item Value="PaymentCurrency"/>
+          <Item Value="PaymentReceiveAmt"/>
+          <Item Value="CommsCalculatedAmt"/>
+          <Item Value="ExchangeRateCurrencyCode"/>
+          <Item Value="ExchangeRate"/>
+          <Item Value="CommsCalculatedExchAmt"/>
+          <Item Value="Bu"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="CommsDMInvoiceHistoryVO1Iterator" id="CommsDMInvoiceHistoryVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsDMInvoiceHistoryVO"
+                      Name="CommsDMInvoiceHistoryVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="InvoiceTypeDesc"/>
+          <Item Value="InvoiceNumber"/>
+          <Item Value="InvoiceDate"/>
+          <Item Value="PaymentReceiveDate"/>
+          <Item Value="ReleaseDate"/>
+          <Item Value="ReleaseHoldReason"/>
+          <Item Value="PaymentDate"/>
+          <Item Value="PaymentRejectDate"/>
+          <Item Value="PaymentRejectDesc"/>
+          <Item Value="InvoicePaymentAmt"/>
+          <Item Value="PaymentExchRate"/>
+          <Item Value="CurrencyCode"/>
+          <Item Value="InvoiceTaxCodes"/>
+          <Item Value="InvDetailAmt"/>
+          <Item Value="InvDetailExchAmt"/>
+          <Item Value="InvDetailDescription"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="CommsDMSnapshotHistoryVO1Iterator" id="ExecuteDMSnapshot"
+            InstanceName="CommsRunAMDataControl.CommsDMSnapshotHistoryVO1" DataControl="CommsRunAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+  </bindings>
+</pageDefinition>

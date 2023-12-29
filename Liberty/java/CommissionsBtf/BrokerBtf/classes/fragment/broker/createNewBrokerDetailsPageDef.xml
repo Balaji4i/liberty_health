@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="createNewBrokerDetailsPageDef"
+                Package="fragment.broker">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables">
+            <variable Name="addCountry" Type="java.lang.String"/>
+            <variable Name="preferredCurrencyCode" Type="java.lang.String"/>
+        </variableIterator>
+        <taskFlow id="maintaincompanyaddressbtf1"
+                  taskFlowId="/WEB-INF/btf/company/maintain-company-address-btf.xml#maintain-company-address-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+                <parameter id="countryCode" value="#{bindings.CountryCode.attributeValue}"/>
+                <parameter id="createInd" value="#{pageFlowScope.createInd}"/>
+            </parameters>
+        </taskFlow>
+        <taskFlow id="maintaincompanyregbtf1"
+                  taskFlowId="/WEB-INF/btf/company/maintain-company-reg-btf.xml#maintain-company-reg-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+                <parameter id="countryCode" value="#{bindings.CountryCode.attributeValue}"/>
+                <parameter id="createInd" value="#{pageFlowScope.createInd}"/>
+            </parameters>
+        </taskFlow>
+        <taskFlow id="maintaincompanycontactbtf1"
+                  taskFlowId="/WEB-INF/btf/company/maintain-company-contact-btf.xml#maintain-company-contact-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+                <parameter id="countryCode" value="#{bindings.CountryCode.attributeValue}"/>
+                <parameter id="createInd" value="#{pageFlowScope.createInd}"/>
+            </parameters>
+        </taskFlow>
+        <taskFlow id="maintaincompanyattributesbtf1"
+                  taskFlowId="/WEB-INF/btf/company/maintain-company-function-btf.xml#maintain-company-function-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+                <parameter id="createInd" value="#{pageFlowScope.createInd}"/>
+                <parameter id="newCompanyInd" value="#{pageFlowScope.newCompanyInd}"/>
+            </parameters>
+        </taskFlow>
+        <taskFlow id="maintainbrokerbycompanybtf1"
+                  taskFlowId="/WEB-INF/btf/broker/maintain-broker-by-company-btf.xml#maintain-broker-by-company-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+            </parameters>
+        </taskFlow>
+        <iterator Binds="CompanyByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyByPkViewIterator" Refresh="ifNeeded"/>
+        <taskFlow id="companyfeesbtf1" taskFlowId="/WEB-INF/btf/company/company-fees-btf.xml#company-fees-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+                <parameter id="createInd" value="#{pageFlowScope.createInd}"/>
+            </parameters>
+        </taskFlow>
+        <taskFlow id="maintaincompanycommentsbtf1"
+                  taskFlowId="/WEB-INF/btf/company/maintain-company-comments-btf.xml#maintain-company-comments-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+                <parameter id="createInd" value="#{pageFlowScope.createInd}"/>
+            </parameters>
+        </taskFlow>
+        <taskFlow id="maintaincompanyaccreditationbtf1"
+                  taskFlowId="/WEB-INF/btf/company/maintain-company-accreditation-btf.xml#maintain-company-accreditation-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+                <parameter id="countryCode" value="#{bindings.CountryCode.attributeValue}"/>
+                <parameter id="createInd" value="#{pageFlowScope.createInd}"/>
+            </parameters>
+        </taskFlow>
+        <iterator Binds="CompanyCountryView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyCountryByCompanyViewIterator" Refresh="ifNeeded"/>
+        <taskFlow id="maintaincompanycompercbtf1"
+                  taskFlowId="/WEB-INF/btf/company/maintain-company-comm-perc-btf.xml#maintain-company-com-perc-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+            <parameters>
+                <parameter id="companyIdNo" value="#{bindings.CompanyIdNo.inputValue}"/>
+                <parameter id="createInd" value="#{pageFlowScope.createInd}"/>
+            </parameters>
+        </taskFlow>
+        <iterator Binds="CompanyCountryAuditView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyCountryAuditViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="CompanyAuditRoView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyAuditRoViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="Approvals2" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="Approvals2Iterator"/>
+    </executables>
+    <bindings>
+        <action id="Rollback" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <action IterBinding="CompanyCountryByCompanyViewIterator" id="CreateWithParams"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyCountryView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="createWithParams">
+            <NamedData NDName="CompanyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+        </action>
+        <attributeValues IterBinding="CompanyByPkViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyByPkViewIterator" id="CompanyName">
+            <AttrNames>
+                <Item Value="CompanyName"/>
+            </AttrNames>
+        </attributeValues>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_AddressInd" id="AddressInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="AddressInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_BankDetailsInd" id="BankDetailsInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="BankDetailsInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_CompanyAgreementInd"
+                id="CompanyAgreementInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="CompanyAgreementInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_CompanyRegDocInd"
+                id="CompanyRegDocInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="CompanyRegDocInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_DisAgreementApplicationInd"
+                id="DisAgreementApplicationInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="DisAgreementApplicationInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_IdDocInd" id="IdDocInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="IdDocInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_InternalBrokerInd"
+                id="InternalBrokerInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="InternalBrokerInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_LetterOfIntentInd"
+                id="LetterOfIntentInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="LetterOfIntentInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_ReferralAgreementInd"
+                id="ReferralAgreementInd" DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="ReferralAgreementInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_TaxIdNoInd" id="TaxIdNoInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="TaxIdNoInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_VatRegInd" id="VatRegInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="VatRegInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <button IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_WhtCertInd" id="WhtCertInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="WhtCertInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <listOfValues IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_PreferredCurrencyCode"
+                      id="PreferredCurrencyCode"/>
+        <listOfValues IterBinding="CompanyByPkViewIterator" StaticList="false" Uses="LOV_ConsultantIdNo"
+                      id="ConsultantIdNo"/>
+        <tree IterBinding="CompanyCountryByCompanyViewIterator" id="CompanyCountryView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.vo.CompanyCountryVO" Name="CompanyCountryView0">
+                <AttrNames>
+                    <Item Value="CompanyIdNo"/>
+                    <Item Value="CountryCode"/>
+                    <Item Value="MinPayoutAmt"/>
+                    <Item Value="LastUpdateDatetime"/>
+                    <Item Value="Username"/>
+                    <Item Value="HoldInd"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <button IterBinding="CompanyCountryByCompanyViewIterator" StaticList="false" Uses="LOV_HoldInd" id="HoldInd"
+                DTSupportsMRU="false">
+            <AttrNames>
+                <Item Value="HoldInd"/>
+            </AttrNames>
+            <ValueList>
+                <Item Value="true"/>
+                <Item Value="false"/>
+            </ValueList>
+        </button>
+        <attributeValues IterBinding="CompanyCountryByCompanyViewIterator" id="CompanyIdNo1">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCountryByCompanyViewIterator" id="MinPayoutAmt">
+            <AttrNames>
+                <Item Value="MinPayoutAmt"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCountryByCompanyViewIterator" id="LastUpdateDatetime">
+            <AttrNames>
+                <Item Value="LastUpdateDatetime"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCountryByCompanyViewIterator" id="Username">
+            <AttrNames>
+                <Item Value="Username"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCountryByCompanyViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCountryByCompanyViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyByPkViewIterator" id="EffectiveStartDate1">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyByPkViewIterator" id="EffectiveEndDate1">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <tree IterBinding="CompanyCountryAuditViewIterator" id="CompanyCountryAuditView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyCountryAuditRoView"
+                            Name="CompanyCountryAuditView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="CountryCode"/>
+                    <Item Value="MinPayoutAmt"/>
+                    <Item Value="HoldInd"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <methodAction id="getCommunicationHubLink" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="getCommunicationHubLink" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.dataProvider"
+                      ReturnName="data.MaintainBrokerageAMDataControl.methodResults.getCommunicationHubLink_getCommunicationHubLink_dataControl_dataProvider_getCommunicationHubLink_result"/>
+        <tree IterBinding="CompanyAuditRoViewIterator" id="CompanyAuditRoView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.vo.CompanyAuditRoView" Name="CompanyAuditRoView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="TransactionDesc"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="CompanyByPkViewIterator" id="BrokerName">
+            <AttrNames>
+                <Item Value="BrokerName"/>
+            </AttrNames>
+        </attributeValues>
+        <listOfValues IterBinding="CompanyCountryByCompanyViewIterator" StaticList="false" Uses="LOV_CountryCode"
+                      id="CountryCode"/>
+        <attributeValues IterBinding="CompanyCountryByCompanyViewIterator" id="CountryCode1">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="CheckMultinational" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="CheckMultinational" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.dataProvider"
+                      ReturnName="data.MaintainBrokerageAMDataControl.methodResults.CheckMultinational_CheckMultinational_dataControl_dataProvider_CheckMultinational_result">
+            <NamedData NDName="CompanyIdNo" NDValue="#{bindings.CompanyIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="ErrMessage" NDType="java.lang.String"/>
+        </methodAction>
+        <attributeValues IterBinding="variables" id="addCountry1">
+            <AttrNames>
+                <Item Value="addCountry"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="variables" id="preferredCurrencyCode1">
+            <AttrNames>
+                <Item Value="preferredCurrencyCode"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="CheckPreferredCurrency" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="CheckPreferredCurrency" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.dataProvider"
+                      ReturnName="data.MaintainBrokerageAMDataControl.methodResults.CheckPreferredCurrency_CheckPreferredCurrency_dataControl_dataProvider_CheckPreferredCurrency_result">
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="newCurrencyCode" NDValue="#{bindings.preferredCurrencyCode1}" NDType="java.lang.String"/>
+        </methodAction>
+        <attributeValues IterBinding="CompanyByPkViewIterator" id="CrossrefCode">
+            <AttrNames>
+                <Item Value="CrossrefCode"/>
+            </AttrNames>
+        </attributeValues>
+        <action IterBinding="Approvals2Iterator" id="CreateWithParams1" RequiresUpdateModel="true"
+        DataControl="MaintainBrokerageAMDataControl"
+                Action="createWithParams">
+            <NamedData NDName="CompanyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyTableIdNo" NDValue="8" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyTableTypeIdNo" NDValue="1" NDType="java.lang.String"/>
+            <NamedData NDName="CreatedBy" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+        </action>
+        <attributeValues IterBinding="Approvals2Iterator" id="CompanyIdNo2">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="Approvals2Iterator" id="CompanyTableIdNo">
+            <AttrNames>
+                <Item Value="CompanyTableIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="Approvals2Iterator" id="CompanyTableTypeIdNo">
+            <AttrNames>
+                <Item Value="CompanyTableTypeIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <listOfValues IterBinding="Approvals2Iterator" StaticList="false" Uses="LOV_ValueToApprove"
+                      id="ValueToApprove"/>
+        <attributeValues IterBinding="Approvals2Iterator" id="CreatedBy">
+            <AttrNames>
+                <Item Value="CreatedBy"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="Approvals2Iterator" StaticList="false" Uses="LOV_ValueToApprove" id="ValueToApprove1"
+              DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+        <action IterBinding="Approvals2Iterator" id="Execute" RequiresUpdateModel="true" Action="iteratorExecute"/>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allMedwareComparePageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllMedwareBrokerView" RangeSize="25" DataControl="LookupAMDataControl"
+              id="AllMedwareBrokerViewIterator"/>
+    <iterator Binds="AllMedwareCompanyView" RangeSize="25" DataControl="LookupAMDataControl"
+              id="AllMedwareCompanyViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllMedwareBrokerViewIterator" id="AllMedwareBrokerView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.MedwareBrokerRoView"
+                      Name="AllMedwareBrokerView0">
+        <AttrNames>
+          <Item Value="AgCode"/>
+          <Item Value="BrokerIdNo"/>
+          <Item Value="BrokerName"/>
+          <Item Value="BrokerLastName"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AllMedwareCompanyViewIterator" id="AllMedwareCompanyView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.MedwareCompanyRoView"
+                      Name="AllMedwareCompanyView0">
+        <AttrNames>
+          <Item Value="AgCode"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllMedwareBrokerViewIterator" id="BrokerIdNo">
+      <AttrNames>
+        <Item Value="BrokerIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllMedwareCompanyViewIterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

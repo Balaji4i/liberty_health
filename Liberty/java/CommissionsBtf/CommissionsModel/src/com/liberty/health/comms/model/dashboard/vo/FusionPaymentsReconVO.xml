@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FusionPaymentsReconVO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.dashboard.vo.FusionPaymentsReconVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.dashboard.vo.FusionPaymentsReconVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.dashboard.vo.FusionPaymentsReconVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pcountrylist"
+    Kind="where"
+    Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="FusionPaymentsReconVO"/>
+  </Variable>
+  <SQLQuery><![CDATA[SELECT DISTINCT  
+    supplier_number         company_id_no,  
+    invoice_num             invoice_no,  
+    operating_unit_name     bu,  
+    source                  source,  
+    line_type_lookup_code   line_type_lookup_code,  
+    SUM(applied_amt)        fusion_payment,  
+    csb.release_date        release_date,  
+    nvl(csb.payment_amt, 0) commissions_payment,  
+    csb.country_code  
+FROM  
+    ws_soap_inbound t,  
+    XMLTABLE ( '//DATA_DS/G_1'  
+            PASSING xmltype(t.payload)  
+        COLUMNS  
+            supplier_number VARCHAR2(150) PATH 'SUPPLIER_NUMBER/text()',  
+            invoice_num VARCHAR2(150) PATH 'INVOICE_NUM/text()',  
+            operating_unit_name VARCHAR2(150) PATH 'OPERATING_UNIT_NAME/text()',  
+            source VARCHAR2(150) PATH 'SOURCE/text()',  
+            line_type_lookup_code VARCHAR2(150) PATH 'LINE_TYPE_LOOKUP_CODE/text()',  
+            applied_amt VARCHAR2(150) PATH 'APPLIED_AMT/text()'  
+    )               fusion,  
+    (  
+        SELECT  
+            invoice_no,  
+            nvl(payment_amt, 0) payment_amt,  
+            release_date,  
+            country_code  
+        FROM  
+            invoice  
+        WHERE  
+            release_date IS NOT NULL  
+            AND country_code IN (  
+                SELECT  
+                    regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level)  
+                FROM  
+                    dual  
+                CONNECT BY  
+                    regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level) IS NOT NULL  
+            )  
+    )               csb  
+WHERE  
+        process_name = 'FUSION_PAYMENTS_INTERFACE'  
+    AND line_type_lookup_code = 'ITEM'  
+    AND csb.invoice_no (+) = fusion.invoice_num  
+    AND csb.country_code IS NOT NULL  
+GROUP BY  
+    supplier_number,  
+    invoice_num,  
+    operating_unit_name,  
+    source,  
+    line_type_lookup_code,  
+    csb.payment_amt,  
+    csb.release_date,  
+    csb.country_code  
+HAVING  
+    SUM(applied_amt) <> nvl(csb.payment_amt, 0)]]></SQLQuery>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COMPANY_ID_NO"
+    Expression="COMPANY_ID_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_NO"
+    Expression="INVOICE_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Bu"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BU"
+    Expression="BU"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Source"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SOURCE"
+    Expression="SOURCE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LineTypeLookupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LINE_TYPE_LOOKUP_CODE"
+    Expression="LINE_TYPE_LOOKUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FusionPayment"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="FUSION_PAYMENT"
+    Expression="FUSION_PAYMENT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ReleaseDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="RELEASE_DATE"
+    Expression="RELEASE_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="CommissionsPayment"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMMISSIONS_PAYMENT"
+    Expression="COMMISSIONS_PAYMENT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CompanyIdNo"/>
+    <Item Value="InvoiceNo"/>
+    <Item Value="Bu"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

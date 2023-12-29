@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allProductRejectionsPageDef"
+                Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="MaintainOhiCommPercentageView" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="MaintainOhiCommPercentageViewIterator" Refresh="ifNeeded"/>
+    <iterator Binds="AllProductCommPercRejectedRoView" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="AllProductCommPercRejectedRoViewIterator" Refresh="ifNeeded"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="RejectUsername">
+      <AttrNames>
+        <Item Value="RejectUsername"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CommPerc">
+      <AttrNames>
+        <Item Value="CommPerc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CommDesc">
+      <AttrNames>
+        <Item Value="CommDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AllProductCommPercRejectedRoViewIterator" id="AllProductCommPercRejectedRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.ProductCommPercRejectedRoView"
+                      Name="AllProductCommPercRejectedRoView0">
+        <AttrNames>
+          <Item Value="GroupCode"/>
+          <Item Value="ProductCode"/>
+          <Item Value="ProductName"/>
+          <Item Value="CommPerc"/>
+          <Item Value="CommDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="RejectDate"/>
+          <Item Value="RejectUsername"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllProductCommPercRejectedRoViewIterator" id="GroupCode">
+      <AttrNames>
+        <Item Value="GroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllProductCommPercRejectedRoViewIterator" id="ProductCode">
+      <AttrNames>
+        <Item Value="ProductCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllProductCommPercRejectedRoViewIterator" id="EffectiveStartDate">
+      <AttrNames>
+        <Item Value="EffectiveStartDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="resubmitForApproval" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resubmitForApproval" IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                  InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView"
+                  ReturnName="data.OhiStructureAMDataControl.methodResults.resubmitForApproval_resubmitForApproval_dataControl_MaintainOhiCommPercentageView_resubmitForApproval_result"/>
+    <methodAction id="setVc" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setUpdateRejectProductVc" IsViewObjectMethod="true"
+                  DataControl="OhiStructureAMDataControl"
+                  InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView">
+      <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="productCode" NDValue="#{bindings.ProductCode.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="startDate" NDValue="#{bindings.EffectiveStartDate.inputValue}"
+                 NDType="oracle.jbo.domain.Date"/>
+    </methodAction>
+    <action IterBinding="AllProductCommPercRejectedRoViewIterator" id="Execute"
+            InstanceName="WatchListAMDataControl.AllProductCommPercRejectedRoView" DataControl="WatchListAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+  </bindings>
+</pageDefinition>

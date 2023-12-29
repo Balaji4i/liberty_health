@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="commsRunApprovalPageDef"
+                Package="fragments.watchList">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="AllCommsCalcApprovalsRoView" RangeSize="25" DataControl="WatchListAMDataControl"
+                  id="AllCommsCalcApprovalsRoViewIterator"/>
+        <searchRegion Criteria="CommsCalcApprovalsRoViewCriteria"
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      Binds="AllCommsCalcApprovalsRoViewIterator" id="CommsCalcApprovalsRoViewCriteriaQuery"/>
+        <!--<iterator Binds="CommsPreApprovalChecks1" RangeSize="25" DataControl="CommsRunAMDataControl"
+                  id="CommsPreApprovalChecks1Iterator"/>
+        <searchRegion Binds="CommsPreApprovalChecks1Iterator" Criteria=""
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      id="CommsPreApprovalChecks1Query"/>-->
+        <iterator Binds="CommsCalcPkgApprovalRoView1" RangeSize="25" DataControl="WatchListAMDataControl"
+                  id="CommsCalcPkgApprovalRoView1Iterator"/>
+        <searchRegion Criteria="CommsCalcPkgApprovalRoViewCriteria"
+                      Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                      Binds="CommsCalcPkgApprovalRoView1Iterator" id="CommsCalcPkgApprovalRoViewCriteriaQuery"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="AllCommsCalcApprovalsRoViewIterator" id="AllCommsCalcApprovalsRoView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.CommsCalcApprovalsRoView"
+                            Name="AllCommsCalcApprovalsRoView0">
+                <AttrNames>
+                    <Item Value="Username"/>
+                    <Item Value="CommsCalcTypeDesc"/>
+                    <Item Value="CompanyIdNo"/>
+                    <Item Value="CompanyName"/>
+                    <Item Value="GroupCode"/>
+                    <Item Value="CountryCode"/>
+                    <Item Value="CalculationDatetime"/>
+                    <Item Value="PaymentReceiveAmt"/>
+                    <Item Value="CommsCalculatedAmt"/>
+                    <Item Value="CommsCalculatedExchAmt"/>
+                    <Item Value="ExchangeRateCurrencyCode"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="AllCommsCalcApprovalsRoViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AllCommsCalcApprovalsRoViewIterator" id="GroupCode">
+            <AttrNames>
+                <Item Value="GroupCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="AllCommsCalcApprovalsRoViewIterator" id="CountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Commit" DataControl="CommsRunAMDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action id="Rollback" DataControl="CommsRunAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <attributeValues IterBinding="AllCommsCalcApprovalsRoViewIterator" id="ConsultantUsername">
+            <AttrNames>
+                <Item Value="Username"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="approveCommissionRun" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="approveCommissionRun" IsViewObjectMethod="false" DataControl="CommsRunAMDataControl"
+                      InstanceName="data.CommsRunAMDataControl.dataProvider"
+                      ReturnName="data.CommsRunAMDataControl.methodResults.approveCommissionRun_approveCommissionRun_dataControl_dataProvider_approveCommissionRun_result">
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="consultantUsername" NDValue="#{bindings.ConsultantUsername.inputValue}"
+                       NDType="java.lang.String"/>
+            <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="product_code" NDType="java.lang.String"/>
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+        </methodAction>
+        <action IterBinding="AllCommsCalcApprovalsRoViewIterator" id="Execute"
+                InstanceName="WatchListAMDataControl.AllCommsCalcApprovalsRoView" DataControl="WatchListAMDataControl"
+                RequiresUpdateModel="true" Action="iteratorExecute"/>
+        <!--<tree IterBinding="CommsPreApprovalChecks1Iterator" id="CommsPreApprovalChecks1">
+            <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsPreApprovalChecksVO"
+                            Name="CommsPreApprovalChecks10">
+                <AttrNames>
+                    <Item Value="BrokerageCode"/>
+                    <Item Value="CountryCode"/>
+                    <Item Value="GroupCode"/>
+                    <Item Value="FinanceInvoiceNo"/>
+                    <Item Value="CommsCalcTypeCode"/>
+                    <Item Value="CommsCalculated"/>
+                    <Item Value="ExchangeRateCurrencyCode"/>
+                    <Item Value="ExchangeRate"/>
+                    <Item Value="PaymentCurrency"/>
+                    <Item Value="PaymentAmt"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>-->
+        <tree IterBinding="CommsCalcPkgApprovalRoView1Iterator" id="CommsCalcPkgApprovalRoView1">
+            <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.CommsCalcPkgApprovalRoView"
+                            Name="CommsCalcPkgApprovalRoView10">
+                <AttrNames>
+                    <Item Value="CompanyIdNo"/>
+                    <Item Value="CountryCode"/>
+                    <Item Value="GroupCode"/>
+                    <Item Value="Username"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+    </bindings>
+</pageDefinition>

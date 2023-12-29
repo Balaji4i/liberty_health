@@ -1,0 +1,102 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="META-INF/adfc-config.xml" id="" type="" uses-page-fragments="false" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="facelets"/>
+   <task-flow-descriptor path="WEB-INF/btf/broker/maintain-broker-acred-btf.xml" id="maintain-broker-acred-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="createInd"/>
+      <input-parameter name="brokerIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/broker/maintain-broker-btf.xml" id="maintain-broker-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="brokerIdNo"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="brokerTypeDesc"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/broker/maintain-broker-by-company-btf.xml" id="maintain-broker-by-company-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="companyIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/broker/maintain-broker-function-btf.xml" id="maintain-broker-function-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="brokerIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/brokerTable/maintain-broker-table-btf.xml" id="maintain-broker-table-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tableTypeIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/brokerTable/maintain-broker-table-type-btf.xml" id="maintain-broker-table-type-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tableIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/company-fees-btf.xml" id="company-fees-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="createInd"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/create-new-company-btf.xml" id="create-new-company-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-accreditation-btf.xml" id="maintain-company-accreditation-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="createInd"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="countryCode"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-address-btf.xml" id="maintain-company-address-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="createInd"/>
+      <input-parameter name="addressTypeCode"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="countryCode"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-attributes-btf.xml" id="maintain-company-attributes-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="createInd"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="newCompanyInd"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-bank-detail-btf.xml" id="maintain-company-bank-detail-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="createInd"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="countryCode"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-comm-perc-btf.xml" id="maintain-company-com-perc-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="createInd"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-comments-btf.xml" id="maintain-company-comments-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="createInd"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-contact-btf.xml" id="maintain-company-contact-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="createInd"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="CompanyContactTypeIdNo"/>
+      <input-parameter name="countryCode"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-detail-btf.xml" id="maintain-company-detail-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="createInd"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="newCompanyInd"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-function-btf.xml" id="maintain-company-function-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="createInd"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="newCompanyInd"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/company/maintain-company-reg-btf.xml" id="maintain-company-reg-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="createInd"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="countryCode"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/companyTable/maintain-company-table-btf.xml" id="maintain-company-table-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tableTypeIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/companyTable/maintain-company-table-type-btf.xml" id="maintain-company-table-type-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="tableIdNo"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml" id="maintain-ohi-commission-percentages" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="productCode"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="policyCode"/>
+      <input-parameter name="personCode"/>
+      <input-parameter name="levelCodeInd"/>
+      <input-parameter name="groupCode"/>
+   </task-flow-descriptor>
+   <task-flow-descriptor path="WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml" id="maintain-ohi-hold-indicator-btf" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp">
+      <input-parameter name="productCode"/>
+      <input-parameter name="companyIdNo"/>
+      <input-parameter name="policyCode"/>
+      <input-parameter name="personCode"/>
+      <input-parameter name="levelCodeInd"/>
+      <input-parameter name="groupCode"/>
+   </task-flow-descriptor>
+</task-flow-registry>

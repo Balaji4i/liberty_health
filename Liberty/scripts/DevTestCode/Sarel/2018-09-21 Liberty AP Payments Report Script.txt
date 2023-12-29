@@ -1,0 +1,57 @@
+SELECT aps.segment1 supplier_number,
+  TRUNC(aca.check_date) check_date_trunc,
+  hp.party_id,
+  hp.party_name,
+  aipa.invoice_id,
+  aia.vendor_id,
+  aps.vendor_type_lookup_code,
+  apss.vendor_site_code ,
+  apss.vendor_site_id,
+  aia.invoice_num,
+  aia.org_id,
+  aila.amount invoice_line_amount,
+  aila.line_number,
+  aila.line_type_lookup_code,
+  aila.description invoice_line_description,
+  aila.attribute3,
+  aila.attribute4,
+  aila.attribute5,
+  aila.attribute6,  
+  aipa.external_bank_account_id,
+  aipa.reversal_flag,
+  aipa.exchange_rate_type,
+  aipa.exchange_rate,
+  aipa.exchange_date,
+  aipa.invoice_currency_code,
+  aipa.payment_currency_code,
+  ieba.ext_bank_account_id,
+  ieba.bank_account_name,
+  ieba.bank_account_type,
+  ieba.bank_account_num,
+  aca.check_number check_number,
+  aca.check_date check_date,
+  aca.amount check_amount,
+  aca.currency_code currency_code,
+  hou.organization_id,
+  hou.business_group_id,
+  hou.name operating_unit_name
+FROM poz_suppliers aps,
+  poz_supplier_sites_all_m apss,
+  ap_invoices_all aia,
+  ap_invoice_lines_all aila,
+  ap_checks_all aca,
+  ap_invoice_payments_all aipa,
+  hz_parties hp,
+  iby_ext_bank_accounts ieba,
+  hr_operating_units hou
+WHERE aia.vendor_id               = aps.vendor_id
+AND aps.vendor_id                 = apss.vendor_id
+AND aia.vendor_site_id            = apss.vendor_site_id
+AND aca.check_id                  = aipa.check_id
+AND aia.invoice_id                = aipa.invoice_id
+AND aia.invoice_id                = aila.invoice_id
+AND hp.party_id                   = aps.party_id
+AND aipa.EXTERNAL_BANK_ACCOUNT_ID = ieba.EXT_BANK_ACCOUNT_ID(+)
+AND aia.org_id                    = hou.organization_id
+AND hou.name = :p_business_unit
+AND fnd_date.canonical_to_date(aca.check_date) BETWEEN :p_from_date and :p_to_date

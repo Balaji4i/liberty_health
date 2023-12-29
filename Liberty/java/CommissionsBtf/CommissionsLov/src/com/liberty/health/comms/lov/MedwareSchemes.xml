@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="MedwareSchemes"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  OrderBy='"COUNTRY_CODE","S_SCHEME","S_NAME"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.lov.MedwareSchemesRowImpl"
+  ComponentClass="com.liberty.health.comms.lov.MedwareSchemesImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="MedwareSchemes_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pCountry"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[select DISTINCT TRIM(cont.co_street_country) country_code, 
+                TRIM(scheme.s_scheme) s_scheme,   
+                TRIM(scheme.s_name) s_name        
+           FROM contacts@MEDWARE.LIBERTY.CO.ZA cont,        
+                scheme@MEDWARE.LIBERTY.CO.ZA scheme        
+          WHERE 1=1        
+            AND scheme.s_scheme = trim(REPLACE(cont.k_common_key,'SC',''))        
+            AND k_common_key LIKE 'SC%'     
+            AND TRIM(cont.co_street_country) = :pCountry]]></SQLQuery>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SScheme"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="S_SCHEME"
+    Expression="S_SCHEME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="S_NAME"
+    Expression="S_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="SScheme"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.lov.common.MedwareSchemesMsgBundle"/>
+  </ResourceBundle>
+</ViewObject>

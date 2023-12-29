@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiPolicyholdersEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="OHI_POLICYHOLDERS"
+  AliasName="OhiPolicyholdersEO"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache">
+    <Attribute
+      Name="PohoId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="POHO_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICYHOLDERS"
+      PrimaryKey="true"/>
+    <Attribute
+      Name="PoliId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="POLI_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICYHOLDERS"/>
+    <Attribute
+      Name="RelaIdPers"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="RELA_ID_PERS"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICYHOLDERS"/>
+    <Attribute
+      Name="Title"
+      Precision="20"
+      ColumnName="TITLE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_POLICYHOLDERS">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="Initials"
+      Precision="20"
+      ColumnName="INITIALS"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_POLICYHOLDERS">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="FirstName"
+      Precision="30"
+      ColumnName="FIRST_NAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_POLICYHOLDERS">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="Surname"
+      Precision="100"
+      ColumnName="SURNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_POLICYHOLDERS">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="OHI_POLICYHOLDERS"/>
+    <Attribute
+      Name="EffectiveEndDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="OHI_POLICYHOLDERS"/>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="OHI_POLICYHOLDERS"/>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="20"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_POLICYHOLDERS">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+    </Attribute>
+    <AccessorAttribute
+      Name="OhiPolicies"
+      Association="com.liberty.health.comms.model.eo.assoc.OhiPolicyholdersPoliciesFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.OhiPolicyholdersPoliciesFkAssoc.OhiPolicies"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.OhiPolicyholdersPoliciesFkAssoc.OhiPolicyholders"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="OhiPolicyholdersPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="OHI_POLICYHOLDERS_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyholdersEO.PohoId"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="OhiPolicyholdersPoliciesFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="OHI_POLICIES_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="OHI_POLICYHOLDERS_POLICIES_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyholdersEO.PoliId"/>
+        </AttrArray>
+    </Key>
+</Entity>

@@ -1,0 +1,686 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:dvt="http://xmlns.oracle.com/dss/adf/faces">
+    <af:panelBox text="#{coreLabels['G.CommissionRun']}" id="pb1">
+        <f:facet name="toolbar"/>
+        <af:panelHeader text="#{coreLabels['G.Search']}" id="ph1">
+            <f:facet name="context"/>
+            <f:facet name="toolbar">
+                <af:toolbar id="t4">
+                    <af:button text="#{coreLabels['G.Approve']}" id="b3" icon="/adf/images/save_16x16.png"
+                               rendered="#{securityContext.userInRole['team-leads']}" visible="false"
+                               disabled="#{bindings.CurrentCommsRunCompareViewIterator.deferredEstimatedRowCount == 0}"
+                               partialTriggers="md1">
+                        <af:showPopupBehavior popupId="p1" triggerType="action"/>
+                    </af:button>
+                    <af:button text="#{coreLabels['G.Cancel']}" id="b6" action="cancel"
+                               icon="/adf/images/remove_16x16.png"/>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+                        <af:dialog id="d1" dialogListener="#{commsRunBean.approveCommissionRunDialogListener}"
+                                   title="#{coreLabels['G.Confirmation']}">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.CommissionRunApprovalMsg']}" id="ot14"/>
+                        </af:dialog>
+                    </af:popup>
+                </af:toolbar>
+            </f:facet>
+            <f:facet name="menuBar"/>
+            <f:facet name="legend"/>
+            <f:facet name="info"/>
+            <af:panelFormLayout id="pfl1">
+                <af:selectOneChoice value="#{bindings.CountryCode.inputValue}" label="#{bindings.CountryCode.label}"
+                                    required="#{bindings.CountryCode.hints.mandatory}" rendered="false"
+                                    shortDesc="#{bindings.CountryCode.hints.tooltip}" id="soc2">
+                    <f:selectItems value="#{bindings.CountryCode.items}" id="si2"/>
+                    <f:validator binding="#{bindings.CountryCode.validator}"/>
+                </af:selectOneChoice>
+                <af:inputListOfValues id="countryCode1Id"
+                                      popupTitle="Search and Select: #{bindings.CountryCode1.hints.label}"
+                                      value="#{bindings.CountryCode1.inputValue}"
+                                      label="#{bindings.CountryCode1.hints.label}"
+                                      model="#{bindings.CountryCode1.listOfValuesModel}"
+                                      required="#{bindings.CountryCode1.hints.mandatory}"
+                                      columns="#{bindings.CountryCode1.hints.displayWidth}"
+                                      shortDesc="#{bindings.CountryCode1.hints.tooltip}">
+                    <f:validator binding="#{bindings.CountryCode1.validator}"/>
+                </af:inputListOfValues>
+                <af:inputListOfValues id="ilov1" popupTitle="Search and Select: #{bindings.CompanyIdNo.hints.label}"
+                                      value="#{bindings.CompanyIdNo.inputValue}"
+                                      label="#{bindings.CompanyIdNo.hints.label}"
+                                      model="#{bindings.CompanyIdNo.listOfValuesModel}"
+                                      required="#{bindings.CompanyIdNo.hints.mandatory}"
+                                      columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                                      shortDesc="#{bindings.CompanyIdNo.hints.tooltip}">
+                    <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+                    <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+                </af:inputListOfValues>
+                <af:inputListOfValues id="ilov2" popupTitle="Search and Select: #{bindings.GroupCode.hints.label}"
+                                      value="#{bindings.GroupCode.inputValue}" label="Employer Group Code"
+                                      model="#{bindings.GroupCode.listOfValuesModel}" visible="false"
+                                      required="#{bindings.GroupCode.hints.mandatory}"
+                                      columns="#{bindings.GroupCode.hints.displayWidth}"
+                                      shortDesc="#{bindings.GroupCode.hints.tooltip}">
+                    <f:validator binding="#{bindings.GroupCode.validator}"/>
+                </af:inputListOfValues>
+                <af:inputListOfValues id="productCodeId"
+                                      popupTitle="Search and Select: #{bindings.ProductCode.hints.label}"
+                                      value="#{bindings.ProductCode.inputValue}" visible="false"
+                                      label="#{bindings.ProductCode.hints.label}"
+                                      model="#{bindings.ProductCode.listOfValuesModel}"
+                                      required="#{bindings.ProductCode.hints.mandatory}"
+                                      columns="#{bindings.ProductCode.hints.displayWidth}"
+                                      shortDesc="#{bindings.ProductCode.hints.tooltip}">
+                    <f:validator binding="#{bindings.ProductCode.validator}"/>
+                </af:inputListOfValues>
+                <af:inputListOfValues id="parentgroupCodeId"
+                                      popupTitle="Search and Select: #{bindings.ParentgroupCode.hints.label}"
+                                      value="#{bindings.ParentgroupCode.inputValue}"
+                                      label="#{bindings.ParentgroupCode.hints.label}"
+                                      model="#{bindings.ParentgroupCode.listOfValuesModel}"
+                                      required="#{bindings.ParentgroupCode.hints.mandatory}"
+                                      columns="#{bindings.ParentgroupCode.hints.displayWidth}"
+                                      shortDesc="#{bindings.ParentgroupCode.hints.tooltip}">
+                    <f:validator binding="#{bindings.ParentgroupCode.validator}"/>
+                </af:inputListOfValues>
+                <f:facet name="footer">
+                    <af:panelGroupLayout id="pgl2">
+                        <af:button actionListener="#{commsRunBean.searchButtonActionListener}"
+                                   text="#{coreLabels['G.SubmitRun']}" id="b1"/>
+                        <af:button text="Show Last Run for Search Critieria" id="b5"
+                                   actionListener="#{commsRunBean.displayLastRun}"/>
+                    </af:panelGroupLayout>
+                </f:facet>
+            </af:panelFormLayout>
+        </af:panelHeader>
+    </af:panelBox>
+    <af:panelTabbed id="pb3" styleClass="AFStretchWidth">
+        <af:showDetailItem id="sdi1" text="#{coreLabels['G.CommissionRunSummary']}" >
+            <af:panelGroupLayout id="pgl3" layout="scroll">
+                <af:table id="md1" rows="#{bindings.CommsCalcCompareSummaryVO1.rangeSize}"
+                          fetchSize="#{bindings.CommsCalcCompareSummaryVO1.rangeSize}"
+                          emptyText="#{bindings.CommsCalcCompareSummaryVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          var="row" value="#{bindings.CommsCalcCompareSummaryVO1.collectionModel}"
+                          rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.CommsCalcCompareSummaryVO1.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CommsCalcCompareSummaryVO1.collectionModel.makeCurrent}"
+                          rowSelection="single" scrollPolicy="page" immediate="false">
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.CalculationDatetime.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.CalculationDatetime.name}"
+                               sortable="true" id="c1" rendered="true" width="71">
+                        <af:outputText value="#{row.CalculationDatetime}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.CalculationDatetime.tooltip}"
+                                       id="ot20">
+                            <af:convertDateTime pattern="#{bindings.CommsCalcCompareSummaryVO1.hints.CalculationDatetime.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.CommsCalcTypeDesc.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.CommsCalcTypeDesc.name}"
+                               sortable="true" id="c2" rendered="true" width="129">
+                        <af:outputText value="#{row.CommsCalcTypeDesc}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.CommsCalcTypeDesc.tooltip}"
+                                       id="ot21"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.CountryCode.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.CountryCode.name}"
+                               sortable="true" id="c3" rendered="true" width="50">
+                        <af:outputText value="#{row.CountryCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.CountryCode.tooltip}"
+                                       id="ot22"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.BrokerIdNo.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.BrokerIdNo.name}"
+                               sortable="false" id="c4" rendered="false">
+                        <af:outputText value="#{row.BrokerIdNo}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.BrokerIdNo.tooltip}"
+                                       id="ot23">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareSummaryVO1.hints.BrokerIdNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.BrokerName.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.BrokerName.name}"
+                               sortable="false" id="c5" rendered="false">
+                        <af:outputText value="#{row.BrokerName}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.BrokerName.tooltip}"
+                                       id="ot24"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.CompanyIdNo.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.CompanyIdNo.name}"
+                               sortable="true" id="c6" rendered="true" width="100">
+                        <af:outputText value="#{row.CompanyIdNo}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.CompanyIdNo.tooltip}"
+                                       id="ot25">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareSummaryVO1.hints.CompanyIdNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.CompanyName.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.CompanyName.name}"
+                               sortable="false" id="c7" width="100">
+                        <af:outputText value="#{row.CompanyName}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.CompanyName.tooltip}"
+                                       id="ot26"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.ParentgroupCode.label}" id="c60">
+                        <af:outputText value="#{row.ParentgroupCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.ParentgroupCode.tooltip}"
+                                       id="ot3"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.GroupCode.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.GroupCode.name}"
+                               sortable="true" id="c8" width="100">
+                        <af:outputText value="#{row.GroupCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.GroupCode.tooltip}"
+                                       id="ot27"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.GroupName.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.GroupName.name}"
+                               sortable="false" id="c9" width="100">
+                        <af:outputText value="#{row.GroupName}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.GroupName.tooltip}"
+                                       id="ot28"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.ProductCode.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.ProductCode.name}"
+                               sortable="false" id="c10" width="50">
+                        <af:outputText value="#{row.ProductCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.ProductCode.tooltip}"
+                                       id="ot29"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.ProductName.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.ProductName.name}"
+                               sortable="false" id="c11" width="100">
+                        <af:outputText value="#{row.ProductName}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.ProductName.tooltip}"
+                                       id="ot30"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.CommsPerc.label}" id="c59">
+                        <af:outputText value="#{row.CommsPerc}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.CommsPerc.tooltip}"
+                                       id="ot2">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareSummaryVO1.hints.CommsPerc.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalPaymentReceivet.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalPaymentReceivet.name}"
+                               sortable="false" id="c12" width="100" align="right">
+                        <af:outputText value="#{row.TotalPaymentReceivet}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalPaymentReceivet.tooltip}"
+                                       id="ot31">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalPaymentReceivet.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalCommsCalculated.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalCommsCalculated.name}"
+                               sortable="false" id="c13" width="100" align="right">
+                        <af:outputText value="#{row.TotalCommsCalculated}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalCommsCalculated.tooltip}"
+                                       id="ot32">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalCommsCalculated.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalCommsCalculatedExch.label}"
+                               sortProperty="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalCommsCalculatedExch.name}"
+                               sortable="false" id="c14" width="100" align="right">
+                        <af:outputText value="#{row.TotalCommsCalculatedExch}"
+                                       shortDesc="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalCommsCalculatedExch.tooltip}"
+                                       id="ot33">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareSummaryVO1.hints.TotalCommsCalculatedExch.format}"/>
+                        </af:outputText>
+                    </af:column>
+                </af:table>
+            </af:panelGroupLayout>
+        </af:showDetailItem>
+        <af:showDetailItem text="Line Information" id="sdi2">
+            <af:panelGroupLayout id="pgl4" layout="scroll">
+                <af:table rows="#{bindings.CommsCalcCompareDetailVO1.rangeSize}"
+                          fetchSize="#{bindings.CommsCalcCompareDetailVO1.rangeSize}"
+                          emptyText="#{bindings.CommsCalcCompareDetailVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          var="row" value="#{bindings.CommsCalcCompareDetailVO1.collectionModel}" rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.CommsCalcCompareDetailVO1.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CommsCalcCompareDetailVO1.collectionModel.makeCurrent}"
+                          rowSelection="single" id="t2" scrollPolicy="page" partialTriggers="::md1" immediate="false">
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.CalculationDatetime.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.CalculationDatetime.name}"
+                               sortable="true" id="c15" rendered="false">
+                        <af:outputText value="#{row.CalculationDatetime}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.CalculationDatetime.tooltip}"
+                                       id="ot34">
+                            <af:convertDateTime pattern="#{bindings.CommsCalcCompareDetailVO1.hints.CalculationDatetime.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalcTypeDesc.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalcTypeDesc.name}"
+                               sortable="true" id="c16" rendered="false">
+                        <af:outputText value="#{row.CommsCalcTypeDesc}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalcTypeDesc.tooltip}"
+                                       id="ot35"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.CountryCode.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.CountryCode.name}"
+                               sortable="true" id="c17" rendered="true">
+                        <af:outputText value="#{row.CountryCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.CountryCode.tooltip}"
+                                       id="ot36"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.BrokerIdNo.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.BrokerIdNo.name}"
+                               sortable="false" id="c18" rendered="false">
+                        <af:outputText value="#{row.BrokerIdNo}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.BrokerIdNo.tooltip}"
+                                       id="ot37">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareDetailVO1.hints.BrokerIdNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.BrokerName.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.BrokerName.name}"
+                               sortable="false" id="c19" rendered="false">
+                        <af:outputText value="#{row.BrokerName}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.BrokerName.tooltip}"
+                                       id="ot38"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.CompanyIdNo.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.CompanyIdNo.name}"
+                               sortable="true" id="c20" rendered="false">
+                        <af:outputText value="#{row.CompanyIdNo}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.CompanyIdNo.tooltip}"
+                                       id="ot39">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareDetailVO1.hints.CompanyIdNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.CompanyName.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.CompanyName.name}"
+                               sortable="true" id="c21" width="100">
+                        <af:outputText value="#{row.CompanyName}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.CompanyName.tooltip}"
+                                       id="ot40"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.ParentgroupCode.label}" id="c61">
+                        <af:outputText value="#{row.ParentgroupCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.ParentgroupCode.tooltip}"
+                                       id="ot4"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.GroupCode.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.GroupCode.name}" sortable="true"
+                               id="c22" rendered="false">
+                        <af:outputText value="#{row.GroupCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.GroupCode.tooltip}"
+                                       id="ot41"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.GroupName.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.GroupName.name}"
+                               sortable="false" id="c23" width="100">
+                        <af:outputText value="#{row.GroupName}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.GroupName.tooltip}"
+                                       id="ot42"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.ProductCode.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.ProductCode.name}"
+                               sortable="false" id="c24" width="73">
+                        <af:outputText value="#{row.ProductCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.ProductCode.tooltip}"
+                                       id="ot43"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.ProductName.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.ProductName.name}"
+                               sortable="false" id="c25" width="127">
+                        <af:outputText value="#{row.ProductName}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.ProductName.tooltip}"
+                                       id="ot44"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.PersonCode.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.PersonCode.name}"
+                               sortable="false" id="c26" width="100">
+                        <af:outputText value="#{row.PersonCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.PersonCode.tooltip}"
+                                       id="ot45"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.InvoiceNo.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.InvoiceNo.name}"
+                               sortable="false" id="c33" width="100">
+                        <af:outputText value="#{row.InvoiceNo}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.InvoiceNo.tooltip}"
+                                       id="ot52">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareDetailVO1.hints.InvoiceNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.ContributionDate.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.ContributionDate.name}"
+                               sortable="false" id="c27" width="100">
+                        <af:outputText value="#{row.ContributionDate}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.ContributionDate.tooltip}"
+                                       id="ot46">
+                            <af:convertDateTime pattern="#{bindings.CommsCalcCompareDetailVO1.hints.ContributionDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.PaymentReceiveDate.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.PaymentReceiveDate.name}"
+                               sortable="false" id="c28" width="100">
+                        <af:outputText value="#{row.PaymentReceiveDate}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.PaymentReceiveDate.tooltip}"
+                                       id="ot47">
+                            <af:convertDateTime pattern="#{bindings.CommsCalcCompareDetailVO1.hints.PaymentReceiveDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.PaymentReceiveAmt.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.PaymentReceiveAmt.name}"
+                               sortable="false" id="c31" width="100" align="right">
+                        <af:outputText value="#{row.PaymentReceiveAmt}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.PaymentReceiveAmt.tooltip}"
+                                       id="ot50">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareDetailVO1.hints.PaymentReceiveAmt.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalcTypeCode.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalcTypeCode.name}"
+                               sortable="false" id="c29" rendered="false">
+                        <af:outputText value="#{row.CommsCalcTypeCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalcTypeCode.tooltip}"
+                                       id="ot48"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.CommsPerc.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.CommsPerc.name}"
+                               sortable="false" id="c30" width="100">
+                        <af:outputText value="#{row.CommsPerc}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.CommsPerc.tooltip}"
+                                       id="ot49">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareDetailVO1.hints.CommsPerc.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalculatedAmt.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalculatedAmt.name}"
+                               sortable="false" id="c32" width="100" align="right">
+                        <af:outputText value="#{row.CommsCalculatedAmt}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalculatedAmt.tooltip}"
+                                       id="ot51">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalculatedAmt.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalculatedExchAmt.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalculatedExchAmt.name}"
+                               sortable="false" id="c35" align="right">
+                        <af:outputText value="#{row.CommsCalculatedExchAmt}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalculatedExchAmt.tooltip}"
+                                       id="ot54">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareDetailVO1.hints.CommsCalculatedExchAmt.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.ExchangeRate.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.ExchangeRate.name}"
+                               sortable="false" id="c36">
+                        <af:outputText value="#{row.ExchangeRate}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.ExchangeRate.tooltip}"
+                                       id="ot55">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareDetailVO1.hints.ExchangeRate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareDetailVO1.hints.PreferredCurrencyCode.label}"
+                               sortProperty="#{bindings.CommsCalcCompareDetailVO1.hints.PreferredCurrencyCode.name}"
+                               sortable="false" id="c34" width="100">
+                        <af:outputText value="#{row.PreferredCurrencyCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareDetailVO1.hints.PreferredCurrencyCode.tooltip}"
+                                       id="ot53"/>
+                    </af:column>
+                </af:table>
+            </af:panelGroupLayout>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.CommissionRunDetail']}" id="sdi3">
+            <af:panelCollection id="pc3" styleClass="AFStretchWidth">
+                <f:facet name="menus">
+                    <af:menu text="File" id="m2">
+                        <af:commandMenuItem text="Export" id="cmi2">
+                            <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                               filename="Commissions Run All Detail.xls"
+                                                               title="Commissions Run All Detail"/>
+                        </af:commandMenuItem>
+                    </af:menu>
+                </f:facet>
+                <f:facet name="toolbar"/>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.CommsCalcCompareAllDetailVO1.collectionModel}" var="row"
+                          rows="#{bindings.CommsCalcCompareAllDetailVO1.rangeSize}"
+                          emptyText="#{bindings.CommsCalcCompareAllDetailVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="0" scrollPolicy="page"
+                          selectedRowKeys="#{bindings.CommsCalcCompareAllDetailVO1.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CommsCalcCompareAllDetailVO1.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CommsCalcCompareAllDetailVO1.rangeSize}"
+                          filterModel="#{bindings.CommsCalcCompareAllDetailVO1Query.queryDescriptor}"
+                          filterVisible="true"
+                          queryListener="#{bindings.CommsCalcCompareAllDetailVO1Query.processQuery}" varStatus="vs"
+                          id="t3" width="1539">
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.CalculationDatetime.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.CalculationDatetime.label}"
+                               id="c37" width="70">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.CommsCalcCompareAllDetailVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.CalculationDatetime.value}"
+                                          id="id1">
+                                <af:convertDateTime pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.CalculationDatetime.format}"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.CalculationDatetime}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.CalculationDatetime.tooltip}"
+                                       id="ot56">
+                            <af:convertDateTime pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.CalculationDatetime.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalcTypeDesc.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalcTypeDesc.label}"
+                               id="c38">
+                        <af:outputText value="#{row.CommsCalcTypeDesc}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalcTypeDesc.tooltip}"
+                                       id="ot57"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.CountryCode.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.CountryCode.label}" id="c39"
+                               width="50">
+                        <af:outputText value="#{row.CountryCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.CountryCode.tooltip}"
+                                       id="ot58"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.BrokerIdNo.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.BrokerIdNo.label}" id="c40">
+                        <af:outputText value="#{row.BrokerIdNo}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.BrokerIdNo.tooltip}"
+                                       id="ot59">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.BrokerIdNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.BrokerName.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.BrokerName.label}" id="c41">
+                        <af:outputText value="#{row.BrokerName}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.BrokerName.tooltip}"
+                                       id="ot60"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.CompanyIdNo.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.CompanyIdNo.label}" id="c42">
+                        <af:outputText value="#{row.CompanyIdNo}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.CompanyIdNo.tooltip}"
+                                       id="ot61">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.CompanyIdNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.CompanyName.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.CompanyName.label}" id="c43">
+                        <af:outputText value="#{row.CompanyName}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.CompanyName.tooltip}"
+                                       id="ot62"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.ParentgroupCode.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.ParentgroupCode.label}"
+                               id="c62">
+                        <af:outputText value="#{row.ParentgroupCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.ParentgroupCode.tooltip}"
+                                       id="ot5"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.GroupCode.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.GroupCode.label}" id="c44">
+                        <af:outputText value="#{row.GroupCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.GroupCode.tooltip}"
+                                       id="ot63"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.GroupName.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.GroupName.label}" id="c45">
+                        <af:outputText value="#{row.GroupName}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.GroupName.tooltip}"
+                                       id="ot64"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.ProductCode.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.ProductCode.label}" id="c46"
+                               width="50">
+                        <af:outputText value="#{row.ProductCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.ProductCode.tooltip}"
+                                       id="ot65"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.ProductName.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.ProductName.label}" id="c47">
+                        <af:outputText value="#{row.ProductName}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.ProductName.tooltip}"
+                                       id="ot66"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.PersonCode.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.PersonCode.label}" id="c48">
+                        <af:outputText value="#{row.PersonCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.PersonCode.tooltip}"
+                                       id="ot67"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.ContributionDate.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.ContributionDate.label}"
+                               id="c49">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.CommsCalcCompareAllDetailVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ContributionDate.value}"
+                                          id="id2">
+                                <af:convertDateTime pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.ContributionDate.format}"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.ContributionDate}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.ContributionDate.tooltip}"
+                                       id="ot68">
+                            <af:convertDateTime pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.ContributionDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.InvoiceNo.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.InvoiceNo.label}" id="c50">
+                        <af:outputText value="#{row.InvoiceNo}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.InvoiceNo.tooltip}"
+                                       id="ot69">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.InvoiceNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.FinanceReceiptNo.label}"
+                               id="c58">
+                        <af:outputText value="#{row.FinanceReceiptNo}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.FinanceReceiptNo.tooltip}"
+                                       id="ot1"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.PaymentReceiveDate.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.PaymentReceiveDate.label}"
+                               id="c51">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.CommsCalcCompareAllDetailVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.PaymentReceiveDate.value}"
+                                          id="id3">
+                                <af:convertDateTime pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.PaymentReceiveDate.format}"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.PaymentReceiveDate}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.PaymentReceiveDate.tooltip}"
+                                       id="ot70">
+                            <af:convertDateTime pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.PaymentReceiveDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.PaymentReceiveAmt.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.PaymentReceiveAmt.label}"
+                               id="c52" align="right">
+                        <af:outputText value="#{row.PaymentReceiveAmt}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.PaymentReceiveAmt.tooltip}"
+                                       id="ot71">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.PaymentReceiveAmt.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsPerc.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsPerc.label}" id="c53">
+                        <af:outputText value="#{row.CommsPerc}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsPerc.tooltip}"
+                                       id="ot72">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsPerc.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalculatedAmt.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalculatedAmt.label}"
+                               id="c54" align="right">
+                        <af:outputText value="#{row.CommsCalculatedAmt}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalculatedAmt.tooltip}"
+                                       id="ot73">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalculatedAmt.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalculatedExchAmt.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalculatedExchAmt.label}"
+                               id="c55" align="right">
+                        <af:outputText value="#{row.CommsCalculatedExchAmt}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalculatedExchAmt.tooltip}"
+                                       id="ot74">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.CommsCalculatedExchAmt.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.ExchangeRate.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.ExchangeRate.label}" id="c56">
+                        <af:outputText value="#{row.ExchangeRate}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.ExchangeRate.tooltip}"
+                                       id="ot75">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsCalcCompareAllDetailVO1.hints.ExchangeRate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsCalcCompareAllDetailVO1.hints.PreferredCurrencyCode.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsCalcCompareAllDetailVO1.hints.PreferredCurrencyCode.label}"
+                               id="c57">
+                        <af:outputText value="#{row.PreferredCurrencyCode}"
+                                       shortDesc="#{bindings.CommsCalcCompareAllDetailVO1.hints.PreferredCurrencyCode.tooltip}"
+                                       id="ot76"/>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

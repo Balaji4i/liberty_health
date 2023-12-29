@@ -1,0 +1,39 @@
+BEGIN
+
+  FOR c_rec IN (SELECT rowid, cc.*
+                  FROM company_contact cc
+                WHERE company_id_no in (774000000
+                                        ,10000069
+                                        ,758000000
+                                        ,781000000 
+                                        ,786000000
+                                        ,799000000  
+                                        ,819000000
+                                        ,831000000
+                                        ,832000012)
+                    AND company_contact_type_id_no = 3  
+                    AND effective_end_date = TO_DATE('31-JAN-3100')
+                    order by company_id_no, effective_start_date) LOOP
+           BEGIN         
+            UPDATE company_contact
+                SET effective_end_date = TO_DATE('04-OCT-2018')
+             WHERE company_contact_type_id_no = 3 
+               AND company_id_no = c_rec.company_id_no
+               AND effective_start_date = c_rec.effective_start_date
+               AND rowid = c_rec.rowid;
+               
+            dbms_output.put_line('Rows updated are ');
+            dbms_output.put_line('Company Id No        : '||c_rec.company_id_no);
+            dbms_output.put_line('contact Name         : '||c_rec.contact_name);
+            dbms_output.put_line('effective start date : '||c_rec.effective_start_Date);
+          EXCEPTION
+                  WHEN OTHERS THEN
+                     dbms_output.put_line('Unexpected Error '||SQLERRM);
+                END;  
+            
+ END LOOP;
+EXCEPTION
+  WHEN OTHERS THEN
+     dbms_output.put_line('Unexpected Error '||SQLERRM);
+END;
+ 

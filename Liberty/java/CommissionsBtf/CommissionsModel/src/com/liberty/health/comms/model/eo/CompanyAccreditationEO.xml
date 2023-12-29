@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyAccreditationEO"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="COMPANY_ACCREDITATION"
+  AliasName="CompanyAccreditationEO"
+  BindingStyle="OracleName"
+  RowClass="com.liberty.health.comms.model.eo.CompanyAccreditationEOImpl"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+    <DesignTime>
+        <Attr Name="_isCodegen" Value="true"/>
+        <Attr Name="_codeGenFlag2" Value="Access"/>
+    </DesignTime>    <Attribute
+      Name="CompanyIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="COMPANY_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_ACCREDITATION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CountryCode"
+      IsNotNull="true"
+      Precision="4"
+      ColumnName="COUNTRY_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_ACCREDITATION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_ACCREDITATION"
+      PrimaryKey="true">
+        <TransientExpression
+            Name="ExpressionScript"
+            trustMode="untrusted"
+            CodeSourceName="CompanyAccreditationEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_ACCREDITATION">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CompanyAccredStartDate"
+      ColumnName="COMPANY_ACCRED_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_ACCREDITATION">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyAccredStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CompanyAccredEndDate"
+      ColumnName="COMPANY_ACCRED_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_ACCREDITATION">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyAccredEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_ACCREDITATION"
+      HistoryColumn="DateHistory"/>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_ACCREDITATION"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="AccreditationTypeIdNo"
+      Precision="2"
+      Scale="0"
+      ColumnName="ACCREDITATION_TYPE_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_ACCREDITATION"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AccredidationType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+        Name="CompanyAccredNo"
+        Precision="20"
+        ColumnName="COMPANY_ACCRED_NO"
+        SQLType="VARCHAR"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        TableName="COMPANY_ACCREDITATION">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.model.eo.CompanyAccreditationEO.CompanyAccredNo_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+      Name="AccreditationType"
+      Association="com.liberty.health.comms.model.eo.assoc.AccreditationCompanyFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.AccreditationCompanyFkAssoc.AccreditationType"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.AccreditationCompanyFkAssoc.CompanyAccreditation"
+      Type="oracle.jbo.server.EntityImpl"
+      IsUpdateable="true"/>
+    <AccessorAttribute
+      Name="Company"
+      Association="com.liberty.health.comms.model.eo.assoc.FkCompAccredCompanyAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.FkCompAccredCompanyAssoc.Company"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.FkCompAccredCompanyAssoc.CompanyAccreditation"
+      Type="com.liberty.health.comms.model.eo.CompanyEOImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="CompanyAccredPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="COMPANY_ACCRED_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAccreditationEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAccreditationEO.EffectiveStartDate"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAccreditationEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="AccreditationCompanyFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="ACCREDITATION_TYPE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="ACCREDITATION_COMPANY_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAccreditationEO.AccreditationTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyAccredFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_COUNTRY_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_ACCRED_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAccreditationEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAccreditationEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="fk_CompanyAccreditationEO">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="FK_COMPANY_ACCREDITATION_EO"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAccreditationEO.CompanyIdNo"/>
+        </AttrArray>
+    </Key>
+<validation:MethodValidationBean
+      Name="CompanyAccreditationStartDateRule"
+      ResId="ValidAfterDate"
+      ResBundleId="com.core.liberty.resources.messages.CORE_messages"
+      MethodName="validateCompanyStartDate">
+        <validation:OnAttributes>
+            <validation:Item
+              Value="EffectiveStartDate"/>
+        </validation:OnAttributes>
+        <validation:ResExpressions
+          Name="CompanyAccreditationStartDateRule_ResExprList">
+            <validation:Expression
+              Name="ValidObject1"
+              CodeSourceName="CompanyAccreditationEORow"/>
+            <validation:Expression
+              Name="ValidObject2"
+              CodeSourceName="CompanyAccreditationEORow"/>
+        </validation:ResExpressions>
+    </validation:MethodValidationBean>    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

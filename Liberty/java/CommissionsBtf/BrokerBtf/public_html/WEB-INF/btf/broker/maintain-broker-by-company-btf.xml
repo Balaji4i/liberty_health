@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-broker-by-company-btf">
+        <default-activity>setCompanyIdNo</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <view id="maintainBrokerByCompany">
+            <page>/WEB-INF/fragment/broker/maintainBrokerByCompany.jsff</page>
+        </view>
+        <task-flow-call id="create-broker-btf">
+            <task-flow-reference>
+                <document>/WEB-INF/btf/broker/maintain-broker-btf.xml</document>
+                <id>maintain-broker-btf</id>
+            </task-flow-reference>
+            <input-parameter id="__10">
+                <name>brokerIdNo</name>
+                <value></value>
+            </input-parameter>
+            <input-parameter id="__11">
+                <name>companyIdNo</name>
+                <value>#{pageFlowScope.companyIdNo}</value>
+            </input-parameter>
+        </task-flow-call>
+        <task-flow-return id="taskFlowReturn1">
+            <outcome>
+                <name>taskFlowReturn1</name>
+            </outcome>
+        </task-flow-return>
+        <task-flow-call id="edit-broker-btf1">
+            <task-flow-reference>
+                <document>/WEB-INF/btf/broker/maintain-broker-btf.xml</document>
+                <id>maintain-broker-btf</id>
+            </task-flow-reference>
+            <input-parameter id="__8">
+                <name>brokerIdNo</name>
+                <value>#{data.com_liberty_health_comms_broker_maintainBrokerByCompanyPageDef.BrokerIdNo}</value>
+            </input-parameter>
+            <input-parameter id="__9">
+                <name>companyIdNo</name>
+                <value></value>
+            </input-parameter>
+        </task-flow-call>
+        <method-call id="setCompanyIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setCompanyIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <control-flow-rule id="__2">
+            <from-activity-id>maintainBrokerByCompany</from-activity-id>
+            <control-flow-case id="__3">
+                <from-outcome>create</from-outcome>
+                <to-activity-id>create-broker-btf</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__6">
+                <from-outcome>edit</from-outcome>
+                <to-activity-id>edit-broker-btf1</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__7">
+                <from-outcome>back</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__12">
+            <from-activity-id>setCompanyIdNo</from-activity-id>
+            <control-flow-case id="__13">
+                <from-outcome>setCompanyIdNo</from-outcome>
+                <to-activity-id>maintainBrokerByCompany</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__4">
+            <from-activity-id>create-broker-btf</from-activity-id>
+            <control-flow-case id="__5">
+                <from-outcome>taskFlowReturn1</from-outcome>
+                <to-activity-id>setCompanyIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__14">
+            <from-activity-id>edit-broker-btf1</from-activity-id>
+            <control-flow-case id="__15">
+                <from-outcome>taskFlowReturn1</from-outcome>
+                <to-activity-id>setCompanyIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

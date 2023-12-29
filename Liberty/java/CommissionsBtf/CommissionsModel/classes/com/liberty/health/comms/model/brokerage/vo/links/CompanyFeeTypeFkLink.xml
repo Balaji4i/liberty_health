@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyFeeTypeFkLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  EntityAssociation="com.liberty.health.comms.model.eo.CompanyFeeTypeFkAssoc">
+    <ViewLinkDefEnd
+      Name="CompanyFeeType"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.vo.CompanyFeeTypeVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_minCardinality" Value="1"/>
+            <Attr Name="_finderName" Value="CompanyFeeType"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.vo.CompanyFeeTypeVO.CompanyFeeTypeIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ViewLinkDefEnd
+      Name="CompanyFee"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.model.vo.CompanyFeeVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="CompanyFee"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.vo.CompanyFeeVO.CompanyFeeTypeIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+</ViewLink>

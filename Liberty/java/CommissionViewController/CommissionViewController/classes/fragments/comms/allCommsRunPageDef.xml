@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allCommsRunPageDef"
+                Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllCommissionRunCalculationView" DataControl="CommsRunAMDataControl"
+              id="AllCommissionRunCalculationViewIterator"/>
+    <searchRegion Criteria="SearchCommsCalcSnapshotViewCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllCommissionRunCalculationViewIterator" id="SearchCommsCalcSnapshotViewCriteriaQuery"
+                  Refresh="ifNeeded"/>
+    <iterator Binds="CommsCalcSnapShotDetailVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="CommsCalcSnapShotDetailVO1Iterator" Refresh="ifNeeded" />
+    <searchRegion Binds="CommsCalcSnapShotDetailVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="CommsCalcSnapShotDetailVO1Query"/>
+    <iterator Binds="CommsCalcSnapShotSummaryVO1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="CommsCalcSnapShotSummaryVO1Iterator" Refresh="ifNeeded"/>
+    <searchRegion Criteria="CommsCalcSnapShotSummaryVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="CommsCalcSnapShotSummaryVO1Iterator" id="CommsCalcSnapShotSummaryVOCriteriaQuery"/>
+    <searchRegion Criteria="CommsCalcSnapShotDetailVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="CommsCalcSnapShotDetailVO1Iterator" id="CommsCalcSnapShotDetailVOCriteriaQuery"/>
+    <searchRegion Criteria="CommsCalcSnapShotDetailVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="CommsCalcSnapShotDetailVO1Iterator" id="CommsCalcSnapShotDetailVOCriteriaQuery1"/>
+    <iterator Binds="CommsCalcSnapShotLatestRun1" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="CommsCalcSnapShotLatestRun1Iterator"/>
+    <searchRegion Criteria="CommsCalcSnapShotLatestRunVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="CommsCalcSnapShotLatestRun1Iterator" id="CommsCalcSnapShotLatestRunVOCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <pivotTable IterBinding="AllCommissionRunCalculationViewIterator" id="AllCommissionRunCalculationView1"
+                xmlns="http://xmlns.oracle.com/adfm/dvt" ChangeEventPolicy="ppr">
+      <pivotTableDataMap convert="false">
+        <sorts>
+          <categorySort item="CountryCode" direction="DESCENDING"/>
+        </sorts>
+        <hierarchies>
+          <item value="CalculationDatetime" location="BEFORE">
+            <child value="CountryCode"/>
+          </item>
+          <item value="CountryCode" location="BEFORE">
+            <child value="CompanyName"/>
+          </item>
+          <item value="CompanyName" location="BEFORE">
+            <child value="GroupCode"/>
+          </item>
+          <item value="GroupCode" location="BEFORE">
+            <child value="ProductCode"/>
+          </item>
+          <item value="ProductCode" location="BEFORE">
+            <child value="PersonCode"/>
+          </item>
+          <item value="PersonCode" location="BEFORE">
+            <child value="ContributionDate"/>
+          </item>
+        </hierarchies>
+        <drills type="INSERT"/>
+        <columns>
+          <data aggregateDuplicates="true" defaultAggregateType="SUM">
+            <item value="PaymentReceiveAmt"/>
+            <item value="CommsPerc"/>
+            <item value="CommsCalculatedAmt"/>
+            <item value="ExchangeRate"/>
+            <item value="CommsCalculatedExchAmt"/>
+            <item value="InvoiceNo"/>
+          </data>
+        </columns>
+        <rows>
+          <item value="CalculationDatetime"/>
+        </rows>
+        <pages/>
+      </pivotTableDataMap>
+    </pivotTable>
+    <attributeValues IterBinding="AllCommissionRunCalculationViewIterator" id="ProductCode">
+      <AttrNames>
+        <Item Value="ProductCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllCommissionRunCalculationViewIterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllCommissionRunCalculationViewIterator" id="ContributionDate">
+      <AttrNames>
+        <Item Value="ContributionDate"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="CommsCalcSnapShotDetailVO1Iterator" id="CommsCalcSnapShotDetailVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsCalcSnapShotDetailVO"
+                      Name="CommsCalcSnapShotDetailVO10">
+        <AttrNames>
+          <Item Value="CommsCalcTypeCode"/>
+          <Item Value="CalculationDatetime"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="GroupCode"/>
+          <Item Value="BrokerIdNo"/>
+          <Item Value="BrokerFullName"/>
+          <Item Value="ProductCode"/>
+          <Item Value="PolicyCode"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="PersonCode"/>
+          <Item Value="ContributionDate"/>
+          <Item Value="PaymentReceiveDate"/>
+          <Item Value="FinanceReceiptNo"/>
+          <Item Value="PoepId"/>
+          <Item Value="CommsPerc"/>
+          <Item Value="PaymentReceiveAmt"/>
+          <Item Value="CommsCalculatedAmt"/>
+          <Item Value="CommsCalculatedExchAmt"/>
+          <Item Value="ExchangeRate"/>
+          <Item Value="ExchangeRateCurrencyCode"/>
+          <Item Value="ParentgroupCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="setpKeyId" RequiresUpdateModel="true" Action="invokeMethod" MethodName="refreshQuery"
+                  IsViewObjectMethod="true" DataControl="CommsRunAMDataControl"
+                  InstanceName="data.CommsRunAMDataControl.CommsCalcSnapShotDetailVO1">
+      <NamedData NDName="keyId" NDValue="#{requestScope.CommsHistory.pkeyId}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="CommsCalcSnapShotSummaryVO1Iterator" id="CommsCalcSnapShotSummaryVO11">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsCalcSnapShotSummaryVO"
+                      Name="CommsCalcSnapShotSummaryVO110">
+        <AttrNames>
+          <Item Value="CommsCalcTypeCode"/>
+          <Item Value="CalculationDatetime"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CompanyName"/>
+          <Item Value="GroupCode"/>
+          <Item Value="TotalPaymentReceived"/>
+          <Item Value="TotalCommissionAmt"/>
+          <Item Value="TotalExchangeAmt"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="PolicyCode"/>
+          <Item Value="ParentgroupCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="CommsCalcSnapShotLatestRun1Iterator" id="CommsCalcSnapShotLatestRun1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.comms.views.CommsCalcSnapShotLatestRunVO"
+                      Name="CommsCalcSnapShotLatestRun10">
+        <AttrNames>
+          <Item Value="KeyField"/>
+          <Item Value="CommsCalcTypeCode"/>
+          <Item Value="CalculationDatetime"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CompanyName"/>
+          <Item Value="GroupCode"/>
+          <Item Value="ProductCode"/>
+          <Item Value="TotalPaymentReceived"/>
+          <Item Value="TotalCommissionAmt"/>
+          <Item Value="TotalExchangeAmt"/>
+          <Item Value="CommsPerc"/>
+          <Item Value="ParentgroupCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

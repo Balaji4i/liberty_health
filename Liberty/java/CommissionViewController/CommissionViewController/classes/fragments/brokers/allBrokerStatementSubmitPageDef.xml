@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allBrokerStatementSubmitPageDef"
+                Package="fragments.brokers" SkipValidation="true">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BrokerStatementsSubmitRoView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerStatementsSubmitRoViewIterator" Refresh="ifNeeded"/>
+    </executables>
+    <bindings>
+        <listOfValues IterBinding="BrokerStatementsSubmitRoViewIterator" StaticList="false" Uses="LOV_BrokerIdNo"
+                      id="BrokerIdNo"/>
+        <listOfValues IterBinding="BrokerStatementsSubmitRoViewIterator" StaticList="false" Uses="LOV_CompanyIdNo"
+                      id="CompanyIdNo"/>
+        <listOfValues IterBinding="BrokerStatementsSubmitRoViewIterator" StaticList="false" Uses="LOV_LanguageCode"
+                      id="LanguageCode"/>
+        <list IterBinding="BrokerStatementsSubmitRoViewIterator" StaticList="false" Uses="LOV_TemplateCode"
+              id="TemplateCode" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <action id="Rollback" DataControl="BrokerMaintenanceAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <action IterBinding="BrokerStatementsSubmitRoViewIterator" id="Execute"
+                InstanceName="BrokerMaintenanceAMDataControl.BrokerStatementsSubmitRoView"
+                DataControl="BrokerMaintenanceAMDataControl" RequiresUpdateModel="true" Action="iteratorExecute"/>
+        <attributeValues IterBinding="BrokerStatementsSubmitRoViewIterator" id="StatementStartDate">
+            <AttrNames>
+                <Item Value="StatementStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerStatementsSubmitRoViewIterator" id="StatementEndDate">
+            <AttrNames>
+                <Item Value="StatementEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="BrokerStatementsSubmitRoViewIterator" StaticList="false" Uses="LOV_CountryCode"
+              id="CountryCode" DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+        <methodAction id="executeBrokerStatement" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="executeBrokerStatement" IsViewObjectMethod="false"
+                      DataControl="BrokerMaintenanceAMDataControl"
+                      InstanceName="data.BrokerMaintenanceAMDataControl.dataProvider"
+                      ReturnName="data.BrokerMaintenanceAMDataControl.methodResults.executeBrokerStatement_executeBrokerStatement_dataControl_dataProvider_executeBrokerStatement_result">
+            <NamedData NDName="brokerIdNo" NDValue="#{bindings.BrokerIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="templateCode" NDValue="#{bindings.TemplateCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="languageCode" NDValue="#{bindings.LanguageCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="statementStartDate" NDValue="#{bindings.StatementStartDate.inputValue}"
+                       NDType="java.sql.Date"/>
+            <NamedData NDName="statementEndDate" NDValue="#{bindings.StatementEndDate.inputValue}"
+                       NDType="java.sql.Date"/>
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

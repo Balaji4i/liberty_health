@@ -1,0 +1,630 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" topHeight="auto">
+        <f:facet name="start"/>
+        <f:facet name="end"/>
+        <f:facet name="top">
+            <af:panelGroupLayout layout="vertical" id="pgl1">
+                <af:panelHeader text="#{coreLabels['G.Group']}" id="ph1">
+                    <af:panelFormLayout id="pfl1">
+                        <af:panelFormLayout id="pfl2">
+                            <af:inputText value="#{bindings.pCompanyIdNo.inputValue}" label="Brokerage Code"
+                                          required="#{bindings.pCompanyIdNo.hints.mandatory}"
+                                          columns="#{bindings.pCompanyIdNo.hints.displayWidth}"
+                                          shortDesc="#{bindings.pCompanyIdNo.hints.tooltip}" id="it5">
+                                <f:validator binding="#{bindings.pCompanyIdNo.validator}"/>
+                            </af:inputText>
+                            <af:button actionListener="#{bindings.ExecuteWithParams.execute}" text="Search"
+                                       disabled="#{!bindings.ExecuteWithParams.enabled}" id="b6"/>
+                        </af:panelFormLayout>
+                    </af:panelFormLayout>
+                </af:panelHeader>
+            </af:panelGroupLayout>
+        </f:facet>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+            <af:panelTabbed position="above" id="pt2">
+                <af:showDetailItem id="sdi1"
+                                   text="#{coreLabels['G.Company']} - #{bindings.CompanyIdNo !=null ? bindings.CompanyIdNo: ''}">
+                    <af:panelGroupLayout layout="scroll" id="pgl2">
+                        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t7">
+                                    <af:button text="#{coreLabels['G.Export']}" id="b4"
+                                               icon="/adf/images/excel_16x16.png">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="resId1"
+                                                                           filename="#{coreLabels['G.Company']}.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.OhiPolicyBrokerRoView11.collectionModel}" var="row"
+                                      rows="#{bindings.OhiPolicyBrokerRoView11.rangeSize}"
+                                      emptyText="#{bindings.OhiPolicyBrokerRoView11.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.OhiPolicyBrokerRoView11.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.OhiPolicyBrokerRoView11.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.OhiPolicyBrokerRoView11.rangeSize}"
+                                      id="resId1" styleClass="AFStretchWidth" displayRow="selected"
+                                      columnStretching="column:c22" partialTriggers=":::b6" filterVisible="true">
+                                <af:column headerText="#{bindings.OhiPolicyBrokerRoView11.hints.CompanyIdNo.label}"
+                                           id="resId1c1" sortable="true" filterable="true">
+                                    <af:outputText value="#{row.CompanyIdNo}"
+                                                   shortDesc="#{bindings.OhiPolicyBrokerRoView11.hints.CompanyIdNo.tooltip}"
+                                                   id="ot1">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.OhiPolicyBrokerRoView11.hints.CompanyIdNo.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyBrokerRoView11.hints.CompanyName.label}"
+                                           id="resId1c2" width="350" sortable="true">
+                                    <af:outputText value="#{row.CompanyName}"
+                                                   shortDesc="#{bindings.OhiPolicyBrokerRoView11.hints.CompanyName.tooltip}"
+                                                   id="ot2"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyBrokerRoView11.hints.CommPerc.label}"
+                                           id="c12" align="right" sortable="true">
+                                    <af:switcher id="s1" defaultFacet="maintain"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.CommPerc.inputValue}" id="ot5"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.bindings.CommPerc.inputValue}" id="l5"
+                                                     action="goCompany"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyBrokerRoView11.hints.HoldInd.label}" id="c13"
+                                           align="center" sortable="true">
+                                    <af:switcher id="s5" defaultFacet="view"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.HoldInd.inputValue}" id="ot11"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.bindings.HoldInd.inputValue}" id="l6"
+                                                     action="goHoldCompany"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyBrokerRoView11.hints.HoldReason.label}"
+                                           id="c22" sortable="true">
+                                    <af:outputText value="#{row.HoldReason}"
+                                                   shortDesc="#{bindings.OhiPolicyBrokerRoView11.hints.HoldReason.tooltip}"
+                                                   id="ot3"/>
+                                </af:column>
+                                <af:column headerText="Country Code" align="center" id="c42">
+                                    <af:outputText value="#{row.CountryCode}"
+                                                   shortDesc="#{bindings.OhiPolicyBrokerRoView11.hints.CountryCode.tooltip}"
+                                                   id="ot26"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </af:showDetailItem>
+                <af:showDetailItem text="#{coreLabels['G.Group']} - #{bindings.GroupCode !=null ? bindings.GroupCode : ''}"
+                                   id="sdi2">
+                    <af:panelGroupLayout id="pgl3" layout="scroll">
+                        <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t6">
+                                    <af:button text="#{coreLabels['G.Export']}" id="b3"
+                                               icon="/adf/images/excel_16x16.png">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                                           filename="#{coreLabels['G.Group']}.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.OhiGroupsRoView1.collectionModel}" var="row"
+                                      rows="#{bindings.OhiGroupsRoView1.rangeSize}"
+                                      emptyText="#{bindings.OhiGroupsRoView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1" scrollPolicy="page"
+                                      selectedRowKeys="#{bindings.OhiGroupsRoView1.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.OhiGroupsRoView1.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.OhiGroupsRoView1.rangeSize}" id="t2"
+                                      displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c20"
+                                      filterVisible="true">
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.ParentgroupCode.label}"
+                                           id="c9">
+                                    <af:inputText value="#{row.bindings.ParentgroupCode.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.ParentgroupCode.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.ParentgroupCode.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.ParentgroupCode.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.ParentgroupCode.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.ParentgroupCode.tooltip}"
+                                                  id="it6">
+                                        <f:validator binding="#{row.bindings.ParentgroupCode.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.GroupCode.label}" id="c8"
+                                           width="150" filterable="true">
+                                    <af:inputText value="#{row.bindings.GroupCode.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.GroupCode.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.GroupCode.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.GroupCode.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.GroupCode.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.GroupCode.tooltip}"
+                                                  id="it2">
+                                        <f:validator binding="#{row.bindings.GroupCode.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.GroupName.label}" id="c6"
+                                           width="350">
+                                    <af:inputText value="#{row.bindings.GroupName.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.GroupName.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.GroupName.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.GroupName.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.GroupName.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.GroupName.tooltip}"
+                                                  id="it17">
+                                        <f:validator binding="#{row.bindings.GroupName.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.CompanyIdNo.label}" id="c3"
+                                           rendered="false">
+                                    <af:inputText value="#{row.bindings.CompanyIdNo.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.CompanyIdNo.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.CompanyIdNo.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.CompanyIdNo.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.CompanyIdNo.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.CompanyIdNo.tooltip}"
+                                                  id="it15">
+                                        <f:validator binding="#{row.bindings.CompanyIdNo.validator}"/>
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.OhiGroupsRoView1.hints.CompanyIdNo.format}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.CompanyName.label}" id="c4"
+                                           width="350" rendered="false">
+                                    <af:inputText value="#{row.bindings.CompanyName.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.CompanyName.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.CompanyName.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.CompanyName.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.CompanyName.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.CompanyName.tooltip}"
+                                                  id="it1">
+                                        <f:validator binding="#{row.bindings.CompanyName.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.GroupType.label}" id="c1">
+                                    <af:inputText value="#{row.bindings.GroupType.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.GroupType.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.GroupType.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.GroupType.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.GroupType.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.GroupType.tooltip}"
+                                                  id="it13">
+                                        <f:validator binding="#{row.bindings.GroupType.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.GroupClass.label}" id="c18"
+                                           rendered="false">
+                                    <af:inputText value="#{row.bindings.GroupClass.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.GroupClass.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.GroupClass.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.GroupClass.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.GroupClass.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.GroupClass.tooltip}"
+                                                  id="it18">
+                                        <f:validator binding="#{row.bindings.GroupClass.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.PreferredCurrencyCode.label}"
+                                           id="c5" rendered="false">
+                                    <af:inputText value="#{row.bindings.PreferredCurrencyCode.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.PreferredCurrencyCode.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.PreferredCurrencyCode.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.PreferredCurrencyCode.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.PreferredCurrencyCode.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.PreferredCurrencyCode.tooltip}"
+                                                  id="it14">
+                                        <f:validator binding="#{row.bindings.PreferredCurrencyCode.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.CountryCode.label}" id="c7">
+                                    <af:inputText value="#{row.bindings.CountryCode.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.CountryCode.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.CountryCode.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.CountryCode.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.CountryCode.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.CountryCode.tooltip}"
+                                                  id="it3">
+                                        <f:validator binding="#{row.bindings.CountryCode.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.CommPerc.label}" id="c2"
+                                           width="60" align="right">
+                                    <af:switcher id="s3" defaultFacet="maintain"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.CommPerc.inputValue}" id="ot7"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.bindings.CommPerc.inputValue}" id="l8"
+                                                     action="goGroup"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.HoldInd.label}" id="c17"
+                                           width="60" align="center">
+                                    <af:switcher id="s7" defaultFacet="view"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.HoldInd.inputValue}" id="ot14"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.bindings.HoldInd.inputValue}" id="l1"
+                                                     action="goHoldGroup"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.HoldReason.label}" id="c20">
+                                    <af:outputText value="#{row.HoldReason}"
+                                                   shortDesc="#{bindings.OhiGroupsRoView1.hints.HoldReason.tooltip}"
+                                                   id="ot12"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.NoOfPolicies.label}" id="c19"
+                                           align="right" width="80">
+                                    <af:inputText value="#{row.bindings.NoOfPolicies.inputValue}"
+                                                  label="#{bindings.OhiGroupsRoView1.hints.NoOfPolicies.label}"
+                                                  required="#{bindings.OhiGroupsRoView1.hints.NoOfPolicies.mandatory}"
+                                                  columns="#{bindings.OhiGroupsRoView1.hints.NoOfPolicies.displayWidth}"
+                                                  maximumLength="#{bindings.OhiGroupsRoView1.hints.NoOfPolicies.precision}"
+                                                  shortDesc="#{bindings.OhiGroupsRoView1.hints.NoOfPolicies.tooltip}"
+                                                  id="it4">
+                                        <f:validator binding="#{row.bindings.NoOfPolicies.validator}"/>
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.OhiGroupsRoView1.hints.NoOfPolicies.format}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiGroupsRoView1.hints.NoLives.label}" id="c25"
+                                           align="right">
+                                    <af:outputText value="#{row.NoLives}"
+                                                   shortDesc="#{bindings.OhiGroupsRoView1.hints.NoLives.tooltip}"
+                                                   id="ot24">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.OhiGroupsRoView1.hints.NoLives.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column headerText="Country Code" align="center" id="c43">
+                                    <af:outputText value="#{row.CountryCode}" 
+                                                   shortDesc="#{bindings.OhiGroupsRoView1.hints.CountryCode.tooltip}"
+                                                   id="ot27"/>
+                                </af:column>
+                                
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </af:showDetailItem>
+                <af:showDetailItem text="#{coreLabels['G.Product']} - #{bindings.ProductCode !=null ? bindings.ProductCode : '' }"
+                                   id="sdi3">
+                    <af:panelGroupLayout id="pgl4" layout="scroll">
+                        <af:panelCollection id="pc3" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t5">
+                                    <af:button text="#{coreLabels['G.Export']}" id="b2"
+                                               icon="/adf/images/excel_16x16.png">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                                           filename="#{coreLabels['G.Product']}.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.OhiProductsRoView1.collectionModel}" var="row"
+                                      rows="#{bindings.OhiProductsRoView1.rangeSize}"
+                                      emptyText="#{bindings.OhiProductsRoView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1" scrollPolicy="page"
+                                      selectedRowKeys="#{bindings.OhiProductsRoView1.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.OhiProductsRoView1.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.OhiProductsRoView1.rangeSize}" id="t3"
+                                      displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c35"
+                                      filterVisible="true">
+                                <af:column headerText="#{bindings.OhiProductsRoView1.hints.ProductCode.label}" id="c11"
+                                           filterable="true">
+                                    <af:outputText value="#{row.ProductCode} - #{bindings.ProductCode != null ? bindings.ProductCode : ''}"
+                                                   shortDesc="#{bindings.OhiProductsRoView1.hints.ProductCode.tooltip}"
+                                                   id="ot8"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiProductsRoView1.hints.ProductName.label}" id="c10"
+                                           width="250">
+                                    <af:outputText value="#{row.ProductName}"
+                                                   shortDesc="#{bindings.OhiProductsRoView1.hints.ProductName.tooltip}"
+                                                   id="ot4"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiProductsRoView1.hints.CountryCode.label}" id="c21">
+                                    <af:outputText value="#{row.CountryCode}"
+                                                   shortDesc="#{bindings.OhiProductsRoView1.hints.CountryCode.tooltip}"
+                                                   id="ot9"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiProductsRoView1.hints.CommPerc.label}" id="c24"
+                                           width="80" align="right">
+                                    <af:switcher id="s2" defaultFacet="maintain"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.CommPerc.inputValue}" id="ot6"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.bindings.CommPerc.inputValue}" id="l7"
+                                                     action="goProduct"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiProductsRoView1.hints.HoldInd.label}" id="c27"
+                                           align="center" width="80">
+                                    <af:switcher id="s9" defaultFacet="view"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.HoldInd.inputValue}" id="ot17"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.bindings.HoldInd.inputValue}" id="l3"
+                                                     action="goHoldProduct"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiProductsRoView1.hints.HoldReason.label}" id="c35">
+                                    <af:outputText value="#{row.HoldReason}"
+                                                   shortDesc="#{bindings.OhiProductsRoView1.hints.HoldReason.tooltip}"
+                                                   id="ot15"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </af:showDetailItem>
+                <!--<af:showDetailItem text="#{coreLabels['G.Policy']} - #{bindings.PolicyCode != null ? bindings.PolicyCode : '' }"
+                                   id="sdi4">
+                    <af:panelGroupLayout id="pgl5" layout="scroll">
+                        <af:panelCollection id="pc4" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t4">
+                                    <af:button text="#{coreLabels['G.Export']}" id="b5"
+                                               icon="/adf/images/excel_16x16.png">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t8"
+                                                                           filename="#{coreLabels['G.Person']}.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.OhiPolicyEnrollmentRoView1.collectionModel}" var="row"
+                                      rows="#{bindings.OhiPolicyEnrollmentRoView1.rangeSize}"
+                                      emptyText="#{bindings.OhiPolicyEnrollmentRoView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1" scrollPolicy="page"
+                                      selectedRowKeys="#{bindings.OhiPolicyEnrollmentRoView1.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.OhiPolicyEnrollmentRoView1.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.OhiPolicyEnrollmentRoView1.rangeSize}"
+                                      id="t8" displayRow="selected" styleClass="AFStretchWidth"
+                                      columnStretching="column:c38" filterVisible="true">
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentRoView1.hints.PolicyCode.label}"
+                                           id="c16" filterable="true">
+                                    <af:inputText value="#{row.bindings.PolicyCode.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentRoView1.hints.PolicyCode.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentRoView1.hints.PolicyCode.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentRoView1.hints.PolicyCode.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentRoView1.hints.PolicyCode.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentRoView1.hints.PolicyCode.tooltip}"
+                                                  id="it7">
+                                        <f:validator binding="#{row.bindings.PolicyCode.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductCode.label}"
+                                           id="c14">
+                                    <af:inputText value="#{row.bindings.ProductCode.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductCode.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductCode.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductCode.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductCode.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductCode.tooltip}"
+                                                  id="it19">
+                                        <f:validator binding="#{row.bindings.ProductCode.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentRoView1.hints.CountryCode.label}"
+                                           id="c26">
+                                    <af:inputText value="#{row.bindings.CountryCode.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentRoView1.hints.CountryCode.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentRoView1.hints.CountryCode.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentRoView1.hints.CountryCode.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentRoView1.hints.CountryCode.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentRoView1.hints.CountryCode.tooltip}"
+                                                  id="it10">
+                                        <f:validator binding="#{row.bindings.CountryCode.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductName.label}"
+                                           id="c15" width="250" rendered="false">
+                                    <af:inputText value="#{row.bindings.ProductName.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductName.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductName.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductName.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductName.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductName.tooltip}"
+                                                  id="it11">
+                                        <f:validator binding="#{row.bindings.ProductName.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductDescr.label}"
+                                           id="c23" width="200">
+                                    <af:inputText value="#{row.bindings.ProductDescr.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductDescr.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductDescr.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductDescr.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductDescr.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentRoView1.hints.ProductDescr.tooltip}"
+                                                  id="it9">
+                                        <f:validator binding="#{row.bindings.ProductDescr.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentRoView1.hints.CommPerc.label}"
+                                           id="c36" width="60" align="right">
+                                    <af:switcher id="s6" defaultFacet="maintain"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.CommPerc.inputValue}" id="ot13"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.bindings.CommPerc.inputValue}" id="l11"
+                                                     action="goPolicy"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentRoView1.hints.HoldInd.label}"
+                                           id="c37" width="60" align="center">
+                                    <af:switcher id="s10" defaultFacet="view"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.HoldInd.inputValue}" id="ot19"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:outputText value="#{row.bindings.HoldInd.inputValue}" id="ot23"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentRoView1.hints.HoldReason.label}"
+                                           id="c38">
+                                    <af:outputText value="#{row.HoldReason}"
+                                                   shortDesc="#{bindings.OhiPolicyEnrollmentRoView1.hints.HoldReason.tooltip}"
+                                                   id="ot18"/>
+                                </af:column>
+                                <af:column visible="false" headerText="Country Code" id="c29">
+                                    <af:outputText value="#{row.CountryCode}"
+                                                   shortDesc="#{bindings.OhiPolicyEnrollmentRoView1.hints.CountryCode.tooltip}"
+                                                   id="ot25"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </af:showDetailItem>
+                <af:showDetailItem id="sdi5"
+                                   text="#{coreLabels['G.Person']} - #{bindings.InseCode != null ? bindings.InseCode : '' }">
+                    <af:panelGroupLayout id="pgl6" layout="scroll">
+                        <af:panelCollection id="pc5" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t9">
+                                    <af:button text="#{coreLabels['G.Export']}" id="b1"
+                                               icon="/adf/images/excel_16x16.png">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                                           filename="#{coreLabels['G.Person']}.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.OhiPolicyEnrollmentPersonsRoView1.collectionModel}" var="row"
+                                      rows="#{bindings.OhiPolicyEnrollmentPersonsRoView1.rangeSize}"
+                                      emptyText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1" scrollPolicy="page"
+                                      fetchSize="#{bindings.OhiPolicyEnrollmentPersonsRoView1.rangeSize}" id="t1"
+                                      styleClass="AFStretchWidth" displayRow="selected" rowSelection="single"
+                                      columnStretching="column:c41" filterVisible="true">
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.InseCode.label}"
+                                           id="c28" filterable="true">
+                                    <af:outputText value="#{row.InseCode}"
+                                                   shortDesc="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.InseCode.tooltip}"
+                                                   id="ot22"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Title.label}"
+                                           id="c30" width="60">
+                                    <af:inputText value="#{row.bindings.Title.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Title.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Title.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Title.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Title.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Title.tooltip}"
+                                                  id="it23">
+                                        <f:validator binding="#{row.bindings.Title.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Initials.label}"
+                                           id="c31" width="60">
+                                    <af:inputText value="#{row.bindings.Initials.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Initials.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Initials.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Initials.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Initials.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Initials.tooltip}"
+                                                  id="it24">
+                                        <f:validator binding="#{row.bindings.Initials.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.FirstName.label}"
+                                           id="c32" width="250">
+                                    <af:inputText value="#{row.bindings.FirstName.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.FirstName.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.FirstName.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.FirstName.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.FirstName.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.FirstName.tooltip}"
+                                                  id="it25">
+                                        <f:validator binding="#{row.bindings.FirstName.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Surname.label}"
+                                           id="c33" width="250">
+                                    <af:inputText value="#{row.bindings.Surname.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Surname.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Surname.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Surname.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Surname.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Surname.tooltip}"
+                                                  id="it26">
+                                        <f:validator binding="#{row.bindings.Surname.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Gender.label}"
+                                           id="c34" align="center" width="60">
+                                    <af:inputText value="#{row.bindings.Gender.inputValue}"
+                                                  label="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Gender.label}"
+                                                  required="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Gender.mandatory}"
+                                                  columns="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Gender.displayWidth}"
+                                                  maximumLength="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Gender.precision}"
+                                                  shortDesc="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.Gender.tooltip}"
+                                                  id="it27">
+                                        <f:validator binding="#{row.bindings.Gender.validator}"/>
+                                    </af:inputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.CommPerc.label}"
+                                           id="c39" align="right" width="60">
+                                    <af:switcher id="s4" defaultFacet="maintain"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.CommPerc.inputValue}" id="ot10"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.bindings.CommPerc.inputValue}" id="l9"
+                                                     action="goPerson"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.HoldInd.label}"
+                                           id="c40" align="center" width="60">
+                                    <af:switcher id="s8" defaultFacet="view"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.bindings.HoldInd.inputValue}" id="ot16"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:outputText value="#{row.bindings.HoldInd.inputValue}" id="ot20"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.HoldReason.label}"
+                                           id="c41">
+                                    <af:outputText value="#{row.HoldReason}"
+                                                   shortDesc="#{bindings.OhiPolicyEnrollmentPersonsRoView1.hints.HoldReason.tooltip}"
+                                                   id="ot21"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </af:showDetailItem>-->
+            </af:panelTabbed>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14"
+                id="allCommissionFusionPayablesInterfacePageDef" Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Name="IntFromDate" Type="java.lang.String"/>
+      <variable Name="IntToDate" Type="java.lang.String"/>
+    </variableIterator>
+    <iterator Binds="FusionPayablesInterfaceVO1" RangeSize="25" DataControl="PaymentAMDataControl"
+              id="FusionPayablesInterfaceVO1Iterator"/>
+    <searchRegion Binds="FusionPayablesInterfaceVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="FusionPayablesInterfaceVO1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="FusionPayablesInterfaceVO1Iterator" id="FusionPayablesInterfaceVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO"
+                      Name="FusionPayablesInterfaceVO10">
+        <AttrNames>
+          <Item Value="InterfacedYn"/>
+          <Item Value="Status"/>
+          <Item Value="Bu"/>
+          <Item Value="CountryCode"/>
+          <Item Value="VendorNumber"/>
+          <Item Value="VendorName"/>
+          <Item Value="VendorSite"/>
+          <Item Value="InvoiceNumber"/>
+          <Item Value="InvoiceType"/>
+          <Item Value="Description"/>
+          <Item Value="InvoiceDate"/>
+          <Item Value="InvoiceCurrency"/>
+          <Item Value="InvoiceAmt"/>
+          <Item Value="Terms"/>
+          <Item Value="CreationDate"/>
+          <Item Value="CreatedBy"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="FusionPayablesInterfaceVO1Iterator" id="Execute" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <attributeValues IterBinding="variables" id="IntFromDate1">
+      <AttrNames>
+        <Item Value="IntFromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="IntToDate1">
+      <AttrNames>
+        <Item Value="IntToDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="submitFusionPayablesRecon" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="submitFusionPayablesRecon" IsViewObjectMethod="false" DataControl="PaymentAMDataControl"
+                  InstanceName="bindings.submitFusionPayablesRecon.dataControl.dataProvider">
+      <NamedData NDName="fromDate" NDValue="#{bindings.IntFromDate1}" NDType="java.lang.String"/>
+      <NamedData NDName="toDate" NDValue="#{bindings.IntToDate1}" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

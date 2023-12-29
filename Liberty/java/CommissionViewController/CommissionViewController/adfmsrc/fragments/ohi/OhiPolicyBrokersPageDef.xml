@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="OhiPolicyBrokersPageDef"
+                Package="fragments.ohi">
+  <parameters/>
+  <executables>
+    <iterator Binds="OhiPolicyBrokerRoView1" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="OhiPolicyBrokerRoView1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="OhiGroupsRoView1" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="OhiGroupsRoView1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="OhiProductsRoView1" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="OhiProductsRoView1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="OhiPolicyEnrollmentRoView1" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="OhiPolicyEnrollmentRoView1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="OhiPolicyEnrollmentPersonsRoView1" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="OhiPolicyEnrollmentPersonsRoView1Iterator" Refresh="ifNeeded"/>
+    <variableIterator id="variables">
+      <variableUsage DataControl="OhiStructureAMDataControl" Binds="OhiPolicyBrokerRoView1.variablesMap.pCompanyIdNo"
+                     Name="ExecuteWithParams_pCompanyIdNo" IsQueriable="false"/>
+    </variableIterator>
+  </executables>
+  <bindings>
+    <tree IterBinding="OhiPolicyBrokerRoView1Iterator" id="OhiPolicyBrokerRoView11">
+      <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.OhiPolicyBrokerRoView"
+                      Name="OhiPolicyBrokerRoView110">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="CommPerc"/>
+          <Item Value="HoldInd"/>
+          <Item Value="HoldReason"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="OhiGroupsRoView1Iterator" id="OhiGroupsRoView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.OhiGroupsRoView" Name="OhiGroupsRoView10">
+        <AttrNames>
+          <Item Value="GracId"/>
+          <Item Value="GroupCode"/>
+          <Item Value="GroupName"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="ParentgroupCode"/>
+          <Item Value="GroupType"/>
+          <Item Value="GroupClass"/>
+          <Item Value="PreferredCurrencyCode"/>
+          <Item Value="CountryCode"/>
+          <Item Value="NoOfPolicies"/>
+          <Item Value="CommPerc"/>
+          <Item Value="HoldInd"/>
+          <Item Value="HoldReason"/>
+          <Item Value="CommDesc"/>
+          <Item Value="NoLives"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="OhiProductsRoView1Iterator" id="OhiProductsRoView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.OhiProductsRoView" Name="OhiProductsRoView10">
+        <AttrNames>
+          <Item Value="GracId"/>
+          <Item Value="GroupCode"/>
+          <Item Value="GroupName"/>
+          <Item Value="ProductCode"/>
+          <Item Value="ProductName"/>
+          <Item Value="CountryCode"/>
+          <Item Value="ProductDescr"/>
+          <Item Value="CommPerc"/>
+          <Item Value="HoldInd"/>
+          <Item Value="HoldReason"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="OhiPolicyEnrollmentRoView1Iterator" id="OhiPolicyEnrollmentRoView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentRoView"
+                      Name="OhiPolicyEnrollmentRoView10">
+        <AttrNames>
+          <Item Value="PoliId"/>
+          <Item Value="PolicyCode"/>
+          <Item Value="ProductCode"/>
+          <Item Value="CountryCode"/>
+          <Item Value="ProductName"/>
+          <Item Value="ProductDescr"/>
+          <Item Value="NoOfDependants"/>
+          <Item Value="CommPerc"/>
+          <Item Value="HoldInd"/>
+          <Item Value="HoldReason"/>
+          <Item Value="CommDesc"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="OhiPolicyEnrollmentPersonsRoView1Iterator" id="OhiPolicyEnrollmentPersonsRoView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentPersonsRoView"
+                      Name="OhiPolicyEnrollmentPersonsRoView10">
+        <AttrNames>
+          <Item Value="PoliId"/>
+          <Item Value="DependantId"/>
+          <Item Value="PersonId"/>
+          <Item Value="Title"/>
+          <Item Value="Initials"/>
+          <Item Value="FirstName"/>
+          <Item Value="Surname"/>
+          <Item Value="Gender"/>
+          <Item Value="CommPerc"/>
+          <Item Value="HoldInd"/>
+          <Item Value="HoldReason"/>
+          <Item Value="InseCode"/>
+          <Item Value="CommDesc"/>
+          <Item Value="PolicyCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="OhiPolicyBrokerRoView1Iterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OhiGroupsRoView1Iterator" id="GroupCode">
+      <AttrNames>
+        <Item Value="GroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OhiPolicyEnrollmentPersonsRoView1Iterator" id="InseCode">
+      <AttrNames>
+        <Item Value="InseCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OhiPolicyEnrollmentRoView1Iterator" id="PolicyCode">
+      <AttrNames>
+        <Item Value="PolicyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OhiProductsRoView1Iterator" id="ProductGroupCode">
+      <AttrNames>
+        <Item Value="GroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OhiProductsRoView1Iterator" id="ProductCode">
+      <AttrNames>
+        <Item Value="ProductCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="OhiPolicyEnrollmentRoView1Iterator" id="PoliId">
+      <AttrNames>
+        <Item Value="PoliId"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="OhiPolicyBrokerRoView1Iterator" id="ExecuteWithParams" RequiresUpdateModel="true"
+            Action="executeWithParams">
+      <NamedData NDName="pCompanyIdNo" NDType="java.lang.String" NDValue="${bindings.ExecuteWithParams_pCompanyIdNo}"/>
+    </action>
+    <attributeValues IterBinding="variables" id="pCompanyIdNo">
+      <AttrNames>
+        <Item Value="ExecuteWithParams_pCompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkCompAddressAuditCompAddressLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.brokerage.vo.links.FkCompAddressAuditCompAddressLink_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewLinkDefEnd
+      Name="CompanyAddress"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.broker.vo.CompanyAddressVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="CompanyAddress"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.broker.vo.CompanyAddressVO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.broker.vo.CompanyAddressVO.CountryCode"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ViewLinkDefEnd
+      Name="CompanyAddressAuditRoView"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.model.brokerage.vo.CompanyAddressAuditRoView">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="CompanyAddressAuditRoView"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.brokerage.vo.CompanyAddressAuditRoView.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.brokerage.vo.CompanyAddressAuditRoView.CountryCode"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewLink>

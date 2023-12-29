@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="maintain-country-taxes-btf">
+    <default-activity>CreateorEdit</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__2">
+      <name>CountryCode</name>
+      <value>#{pageFlowScope.CountryCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__3">
+      <name>TaxesAction</name>
+      <value>#{pageFlowScope.TaxesAction}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>CountryTaxes</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comms.lookup.beans.CountryTaxes</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="maintainCountryTaxes">
+      <page>/WEB-INF/fragment/maintainCountryTaxes.jsff</page>
+    </view>
+    <router id="CreateorEdit">
+      <case id="__4">
+        <expression>#{pageFlowScope.TaxesAction == "Create"}</expression>
+        <outcome>Create</outcome>
+      </case>
+      <case id="__16">
+        <expression>#{pageFlowScope.TaxesAction == "Edit"}</expression>
+        <outcome>Edit</outcome>
+      </case>
+      <default-outcome>Create</default-outcome>
+    </router>
+    <method-call id="Save">
+      <method>#{bindings.Commit.execute}</method>
+      <outcome>
+        <fixed-outcome>Commit</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="Rollback">
+      <method>#{bindings.Rollback.execute}</method>
+      <outcome>
+        <fixed-outcome>Rollback</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-return id="taskFlowReturn1">
+      <outcome>
+        <name>taskFlowReturn1</name>
+      </outcome>
+    </task-flow-return>
+    <method-call id="setCountryCode">
+      <method>#{bindings.setpCountryCode.execute}</method>
+      <outcome>
+        <fixed-outcome>setpCountryCode</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="setTaxAccredLov">
+      <method>#{bindings.setpCountryFilter.execute}</method>
+      <outcome>
+        <fixed-outcome>setTaxAccred</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="setTaxAccrLov">
+      <method>#{bindings.setpCountryFilter.execute}</method>
+      <outcome>
+        <fixed-outcome>setTaxAccrLov</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="methodCall1">
+      <method>#{bindings.CreateInsert.execute}</method>
+      <outcome>
+        <fixed-outcome>CreateInsert</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__5">
+      <from-activity-id>CreateorEdit</from-activity-id>
+      <control-flow-case id="__17">
+        <from-outcome>Edit</from-outcome>
+        <to-activity-id>setCountryCode</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__24">
+        <from-outcome>Create</from-outcome>
+        <to-activity-id>methodCall1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__9">
+      <from-activity-id>maintainCountryTaxes</from-activity-id>
+      <control-flow-case id="__10">
+        <from-outcome>Save</from-outcome>
+        <to-activity-id>Save</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__11">
+        <from-outcome>Rollback</from-outcome>
+        <to-activity-id>Rollback</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__12">
+      <from-activity-id>Save</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome>Commit</from-outcome>
+        <to-activity-id>taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__14">
+      <from-activity-id>Rollback</from-activity-id>
+      <control-flow-case id="__15">
+        <from-outcome>Rollback</from-outcome>
+        <to-activity-id>taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__20">
+      <from-activity-id>setTaxAccredLov</from-activity-id>
+      <control-flow-case id="__21">
+        <from-outcome>setTaxAccred</from-outcome>
+        <to-activity-id>maintainCountryTaxes</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__18">
+      <from-activity-id>setCountryCode</from-activity-id>
+      <control-flow-case id="__19">
+        <from-outcome>setpCountryCode</from-outcome>
+        <to-activity-id>setTaxAccrLov</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__22">
+      <from-activity-id>setTaxAccrLov</from-activity-id>
+      <control-flow-case id="__23">
+        <from-outcome>setTaxAccrLov</from-outcome>
+        <to-activity-id>setTaxAccredLov</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__25">
+      <from-activity-id>methodCall1</from-activity-id>
+      <control-flow-case id="__26">
+        <from-outcome>CreateInsert</from-outcome>
+        <to-activity-id>maintainCountryTaxes</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

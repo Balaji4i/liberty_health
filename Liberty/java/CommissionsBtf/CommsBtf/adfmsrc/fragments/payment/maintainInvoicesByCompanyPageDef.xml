@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintainInvoicesByCompanyPageDef" Package="fragments.payment">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables">
+            <variable Name="pCountryCode" Type="java.lang.String"/>
+        </variableIterator>
+        <iterator Binds="AllInvoivesByCompanyView" RangeSize="25" DataControl="PaymentAMDataControl"
+                  id="AllInvoivesByCompanyViewIterator"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="AllInvoivesByCompanyViewIterator" id="InvoiceNo">
+            <AttrNames>
+                <Item Value="InvoiceNo"/>
+            </AttrNames>
+        </attributeValues>
+        <tree IterBinding="AllInvoivesByCompanyViewIterator" id="AllInvoivesByCompanyView1">
+            <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.InvoicesByCompanyRoView"
+                            Name="AllInvoivesByCompanyView10">
+                <AttrNames>
+                    <Item Value="InvoiceNo"/>
+                    <Item Value="InvoiceDate"/>
+                    <Item Value="ContributionDate"/>
+                    <Item Value="CountryCode"/>
+                    <Item Value="ReleaseDate"/>
+                    <Item Value="ReleaseHoldReason"/>
+                    <Item Value="InvoieAmt"/>
+                    <Item Value="ExchInvoieAmt"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <action IterBinding="AllInvoivesByCompanyViewIterator" id="Execute"
+                InstanceName="PaymentAMDataControl.AllInvoivesByCompanyView" DataControl="PaymentAMDataControl"
+                RequiresUpdateModel="true" Action="iteratorExecute"/>
+        <action id="Commit" DataControl="PaymentAMDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+        <action id="Rollback" DataControl="PaymentAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <methodAction id="executePaymentRun" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="executePaymentRun" IsViewObjectMethod="false" DataControl="PaymentAMDataControl"
+                      InstanceName="data.PaymentAMDataControl.dataProvider"
+                      ReturnName="data.PaymentAMDataControl.methodResults.executePaymentRun_executePaymentRun_dataControl_dataProvider_executePaymentRun_result">
+            <NamedData NDName="invoiceNo" NDType="java.lang.Integer"/>
+            <NamedData NDName="companyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+            <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+        </methodAction>
+        <attributeValues IterBinding="variables" id="pCountryCode1">
+            <AttrNames>
+                <Item Value="pCountryCode"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

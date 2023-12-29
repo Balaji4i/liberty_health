@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="welcomePageDef"
+                Package="fragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <taskFlow id="alldashboardflow2" taskFlowId="/WEB-INF/flows/dashboard/all-dashboard-flow.xml#all-dashboard-flow" xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded">
+      <parameters>
+        <parameter id="localCode" value="#{launcherBean.localCode}"/>
+        <parameter id="checkRun" value="N"/>
+      </parameters>
+    </taskFlow>
+  </executables>
+  <bindings/>
+</pageDefinition>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.16.48" id="DataBindings"
+             SeparateXMLFiles="false" Package="com.liberty.health.comms.btf" ClientType="Generic">
+    <definitionFactories>
+        <factory nameSpace="http://xmlns.oracle.com/adfm/dvt"
+                 className="oracle.adfinternal.view.faces.dvt.model.binding.FacesBindingFactory"/>
+        <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+                 className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+        <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+    </definitionFactories>
+    <pageMap>
+        <page path="/WEB-INF/btf/payment/maintain-invoice-btf.xml#maintain-invoice-btf@setpInvoiceNo"
+              usageId="com_liberty_health_comms_btf_maintain_invoice_btf_maintain_invoice_btf_setpInvoiceNoPageDef"/>
+        <page path="/WEB-INF/fragments/payment/maintainInvoice.jsff"
+              usageId="com_liberty_health_comms_btf_maintainInvoicePageDef"/>
+        <page path="/WEB-INF/btf/payment/maintain-invoice-btf.xml#maintain-invoice-btf@Commit"
+              usageId="com_liberty_health_comms_btf_maintain_invoice_btf_maintain_invoice_btf_CommitPageDef"/>
+        <page path="/WEB-INF/btf/payment/maintain-invoice-btf.xml#maintain-invoice-btf@Rollback"
+              usageId="com_liberty_health_comms_btf_maintain_invoice_btf_maintain_invoice_btf_RollbackPageDef"/>
+        <page path="/WEB-INF/fragments/comms/maintainCurrentCommsRun.jsff"
+              usageId="com_liberty_health_comms_btf_maintainCurrentCommsRunPageDef"/>
+        <page path="/commsTestPage.jspx" usageId="com_liberty_health_comms_btf_commsTestPagePageDef"/>
+        <page path="/WEB-INF/btf/comms/maintain-current-comms-run-btf.xml#maintain-current-comms-run-btf@Commit"
+              usageId="com_liberty_health_comms_btf_maintain_current_comms_run_btf_maintain_current_comms_run_btf_CommitPageDef"/>
+        <page path="/WEB-INF/btf/comms/maintain-current-comms-run-btf.xml#maintain-current-comms-run-btf@Rollback"
+              usageId="com_liberty_health_comms_btf_maintain_current_comms_run_btf_maintain_current_comms_run_btf_RollbackPageDef"/>
+        <page path="/WEB-INF/btf/comms/maintain-current-comms-run-btf.xml#maintain-current-comms-run-btf@setpCountryCode"
+              usageId="com_liberty_health_comms_btf_maintain_current_comms_run_btf_maintain_current_comms_run_btf_setpCountryCodePageDef"/>
+        <page path="/WEB-INF/btf/comms/maintain-current-comms-run-btf.xml#maintain-current-comms-run-btf@searchCommsRun"
+              usageId="com_liberty_health_comms_btf_maintain_current_comms_run_btf_maintain_current_comms_run_btf_searchCommsRunPageDef"/>
+        <page path="/WEB-INF/btf/payment/maintain-invoice-btf.xml#maintain-invoice-btf@CreateInsert"
+              usageId="com_liberty_health_comms_btf_maintain_invoice_btf_maintain_invoice_btf_CreateInsertPageDef"/>
+        <page path="/WEB-INF/btf/payment/maintain-invoices-by-company-btf.xml#maintain-invoices-by-company-btf@setpCompanyIdNo"
+              usageId="com_liberty_health_comms_btf_maintain_invoices_by_company_btf_maintain_invoices_by_company_btf_setpCompanyIdNoPageDef"/>
+        <page path="/WEB-INF/fragments/payment/maintainInvoicesByCompany.jsff"
+              usageId="com_liberty_health_comms_btf_maintainInvoicesByCompanyPageDef"/>
+    </pageMap>
+    <pageDefinitionUsages>
+        <page id="com_liberty_health_comms_btf_maintain_invoice_btf_maintain_invoice_btf_setpInvoiceNoPageDef"
+              path="btf.payment.maintain_invoice_btf_maintain_invoice_btf_setpInvoiceNoPageDef"/>
+        <page id="com_liberty_health_comms_btf_maintainInvoicePageDef" path="fragments.payment.maintainInvoicePageDef"/>
+        <page id="com_liberty_health_comms_btf_maintain_invoice_btf_maintain_invoice_btf_CommitPageDef"
+              path="btf.payment.maintain_invoice_btf_maintain_invoice_btf_CommitPageDef"/>
+        <page id="com_liberty_health_comms_btf_maintain_invoice_btf_maintain_invoice_btf_RollbackPageDef"
+              path="btf.payment.maintain_invoice_btf_maintain_invoice_btf_RollbackPageDef"/>
+        <page id="com_liberty_health_comms_btf_maintainCurrentCommsRunPageDef"
+              path="fragments.comms.maintainCurrentCommsRunPageDef"/>
+        <page id="com_liberty_health_comms_btf_commsTestPagePageDef"
+              path="com.liberty.health.comms.btf.pageDefs.commsTestPagePageDef"/>
+        <page id="com_liberty_health_comms_btf_maintain_current_comms_run_btf_maintain_current_comms_run_btf_CommitPageDef"
+              path="btf.comms.maintain_current_comms_run_btf_maintain_current_comms_run_btf_CommitPageDef"/>
+        <page id="com_liberty_health_comms_btf_maintain_current_comms_run_btf_maintain_current_comms_run_btf_RollbackPageDef"
+              path="btf.comms.maintain_current_comms_run_btf_maintain_current_comms_run_btf_RollbackPageDef"/>
+        <page id="com_liberty_health_comms_btf_maintain_current_comms_run_btf_maintain_current_comms_run_btf_setpCountryCodePageDef"
+              path="btf.comms.maintain_current_comms_run_btf_maintain_current_comms_run_btf_setpCountryCodePageDef"/>
+        <page id="com_liberty_health_comms_btf_maintain_current_comms_run_btf_maintain_current_comms_run_btf_searchCommsRunPageDef"
+              path="btf.comms.maintain_current_comms_run_btf_maintain_current_comms_run_btf_searchCommsRunPageDef"/>
+        <page id="com_liberty_health_comms_btf_maintain_invoice_btf_maintain_invoice_btf_CreateInsertPageDef"
+              path="btf.payment.maintain_invoice_btf_maintain_invoice_btf_CreateInsertPageDef"/>
+        <page id="com_liberty_health_comms_btf_maintain_invoices_by_company_btf_maintain_invoices_by_company_btf_setpCompanyIdNoPageDef"
+              path="btf.payment.maintain_invoices_by_company_btf_maintain_invoices_by_company_btf_setpCompanyIdNoPageDef"/>
+        <page id="com_liberty_health_comms_btf_maintainInvoicesByCompanyPageDef"
+              path="fragments.payment.maintainInvoicesByCompanyPageDef"/>
+    </pageDefinitionUsages>
+    <dataControlUsages>
+        <BC4JDataControl id="PaymentAMDataControl" Package="com.liberty.health.comms.model.payment.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="PaymentAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CommsRunAMDataControl" Package="com.liberty.health.comms.model.comms.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="CommsRunAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="AppModuleDataControl" Package="com.liberty.health.comms.model.vo"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="AppModuleLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="OhiStructureAMDataControl" Package="com.liberty.health.comms.model.ohi.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="OhiStructureAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    </dataControlUsages>
+</Application>

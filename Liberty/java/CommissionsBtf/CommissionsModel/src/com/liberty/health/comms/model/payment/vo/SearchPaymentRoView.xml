@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="SearchPaymentRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.payment.vo.SearchPaymentRoViewRowImpl"
+  ComponentClass="com.liberty.health.comms.model.payment.vo.SearchPaymentRoViewImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+    <?audit suppress oracle.jbo.class-exists-rule?>
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+        <Attr Name="_codeGenFlag2" Value="Coll"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.ohi.vo.SearchPaymentRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewAccessor
+      Name="OhiGroupLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.OhiGroupLovView"
+      RowLevelBinds="true">
+        <ViewCriteriaUsage
+          Name="OhiGroupLovViewCriteria"
+          FullName="com.liberty.health.comms.lov.OhiGroupLovView.OhiGroupLovViewCriteria"/>
+        <ParameterMap>
+            <PIMap Variable="pCompanyIdNo">
+                <TransientExpression
+                  trustMode="untrusted"
+                  Name="ExpressionScript"><![CDATA[CompanyIdNo]]></TransientExpression>
+            </PIMap>
+            <PIMap Variable="pCountryCode">
+                <TransientExpression
+                  trustMode="untrusted"
+                  Name="ExpressionScript"><![CDATA[CountryCode]]></TransientExpression>
+            </PIMap>
+        </ParameterMap>
+    </ViewAccessor>
+    <ViewAccessor
+      Name="CountryLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CountryLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="BrokerLovView1"
+        ViewObjectName="com.liberty.health.comms.lov.BrokerLovView"
+        RowLevelBinds="true">
+        <ViewCriteriaUsage
+            Name="BrokerCompanyLovViewCriteria"
+            FullName="com.liberty.health.comms.lov.BrokerLovView.BrokerCompanyLovViewCriteria"/>
+        <ParameterMap>
+            <PIMap Variable="pCompanyIdNo">
+                <TransientExpression
+                    trustMode="untrusted"
+                    Name="ExpressionScript"><![CDATA[CompanyIdNo]]></TransientExpression>
+            </PIMap>
+            <PIMap Variable="pCountryCode">
+                <TransientExpression
+                    trustMode="untrusted"
+                    Name="ExpressionScript"><![CDATA[CountryCode]]></TransientExpression>
+            </PIMap>
+        </ParameterMap>
+    </ViewAccessor>
+    <ViewAccessor
+      Name="OhiProductLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.OhiProductLovView"
+      RowLevelBinds="true">
+        <ViewCriteriaUsage
+          Name="OhiProductByCountryLovView"
+          FullName="com.liberty.health.comms.lov.OhiProductLovView.OhiProductByCountryLovView"/>
+        <ParameterMap>
+            <PIMap Variable="pCountryCode">
+                <TransientExpression
+                  trustMode="untrusted"
+                  Name="ExpressionScript"><![CDATA[CountryCode]]></TransientExpression>
+            </PIMap>
+        </ParameterMap>
+    </ViewAccessor>
+    <ViewAccessor
+        Name="CountryLovView_N1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.CountryLovView_N"
+        RowLevelBinds="true"/>
+    <ListBinding
+      Name="LOV_CountryCode"
+        ListVOName="CountryLovView_N1"
+        NullValueFlag="none"
+      MRUCount="0"
+        ComboRowCountHint="10">
+        <AttrArray Name="AttrNames">
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+            <Item Value="Name"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+      Name="LOV_CompanyIdNo"
+      ListVOName="BrokerLovView1"
+      ComboRowCountHint="10"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CompanyIdNo"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="CompanyIdNo"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="BrokerName"/>
+            <Item Value="BrokerLastName"/>
+            <Item Value="CompanyName"/>
+        </AttrArray>
+        <DisplayCriteria
+          Name="BrokerLovViewCriteria"/>
+    </ListBinding>
+    <SQLQuery><![CDATA[select sysdate day 
+from dual]]></SQLQuery>
+    <ViewAttribute
+      Name="Day"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="DAY"
+      Expression="DAY"
+      SQLType="DATE"/>
+    <ViewAttribute
+      Name="CompanyIdNo"
+      IsSelected="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="NUMERIC"
+      LOVName="LOV_CompanyIdNo">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+                <CONTROLTYPE
+                  Value="input_text_lov"/>
+                <DISPLAYWIDTH
+                  Value="20"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CountryCode"
+      IsSelected="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="255"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR"
+      LOVName="LOV_CountryCode">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+                <DISPLAYWIDTH
+                    Value="20"/>
+                <CONTROLTYPE
+                    Value="input_text_lov"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="InvoiceNo"
+      IsSelected="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYWIDTH
+                  Value="20"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="Day"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

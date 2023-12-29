@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" topHeight="auto">
+        <f:facet name="top">
+            <af:panelHeader text="#{coreLabels['G.MaintainInvoice']}" id="ph1">
+                <f:facet name="context"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t2">
+                        <af:button text="#{coreLabels['G.Save']}" id="b1" action="save"
+                                   icon="/adf/images/save_16x16.png"/>
+                        <af:button text="#{coreLabels['G.Cancel']}" id="b2" action="cancel" immediate="true"
+                                   icon="/adf/images/remove_16x16.png"/>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+                <af:panelFormLayout id="pfl2" rows="3">
+                    <af:inputText value="#{bindings.InvoiceNo.inputValue}" label="#{bindings.InvoiceNo.hints.label}"
+                                  required="#{bindings.InvoiceNo.hints.mandatory}"
+                                  columns="#{bindings.InvoiceNo.hints.displayWidth}"
+                                  maximumLength="#{bindings.InvoiceNo.hints.precision}"
+                                  shortDesc="#{bindings.InvoiceNo.hints.tooltip}" id="it1">
+                        <f:validator binding="#{bindings.InvoiceNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.InvoiceNo.format}"/>
+                    </af:inputText>
+                    <af:inputDate value="#{bindings.InvoiceDate.inputValue}" label="#{bindings.InvoiceDate.hints.label}"
+                                  required="#{bindings.InvoiceDate.hints.mandatory}"
+                                  columns="#{bindings.InvoiceDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.InvoiceDate.hints.tooltip}" id="id1">
+                        <f:validator binding="#{bindings.InvoiceDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.InvoiceDate.format}"/>
+                    </af:inputDate>
+                    <af:inputDate value="#{bindings.ContributionDate.inputValue}"
+                                  label="#{bindings.ContributionDate.hints.label}"
+                                  required="#{bindings.ContributionDate.hints.mandatory}"
+                                  columns="#{bindings.ContributionDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.ContributionDate.hints.tooltip}" id="id2">
+                        <f:validator binding="#{bindings.ContributionDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.ContributionDate.format}"/>
+                    </af:inputDate>
+                    <af:inputText value="#{bindings.CountryCode.inputValue}" label="#{bindings.CountryCode.hints.label}"
+                                  required="#{bindings.CountryCode.hints.mandatory}"
+                                  columns="#{bindings.CountryCode.hints.displayWidth}"
+                                  maximumLength="#{bindings.CountryCode.hints.precision}"
+                                  shortDesc="#{bindings.CountryCode.hints.tooltip}" id="it2">
+                        <f:validator binding="#{bindings.CountryCode.validator}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.CompanyIdNo.inputValue}" label="#{bindings.CompanyIdNo.hints.label}"
+                                  required="#{bindings.CompanyIdNo.hints.mandatory}"
+                                  columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyIdNo.hints.precision}"
+                                  shortDesc="#{bindings.CompanyIdNo.hints.tooltip}" id="it3">
+                        <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.CompanyName.inputValue}" label="#{bindings.CompanyName.hints.label}"
+                                  required="#{bindings.CompanyName.hints.mandatory}"
+                                  columns="#{bindings.CompanyName.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyName.hints.precision}"
+                                  shortDesc="#{bindings.CompanyName.hints.tooltip}" id="it4">
+                        <f:validator binding="#{bindings.CompanyName.validator}"/>
+                    </af:inputText>
+                    <af:panelLabelAndMessage label="#{bindings.InvoiceTypeDesc.hints.label}" id="plam1">
+                        <af:outputFormatted value="#{bindings.InvoiceTypeDesc.inputValue}" id="of1"/>
+                    </af:panelLabelAndMessage>
+                    <af:inputDate value="#{bindings.PaymentDate.inputValue}" label="#{bindings.PaymentDate.hints.label}"
+                                  required="false" columns="#{bindings.PaymentDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.PaymentDate.hints.tooltip}" id="id3" showRequired="false">
+                        <f:validator binding="#{bindings.PaymentDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.PaymentDate.format}"/>
+                    </af:inputDate>
+                    <af:inputText value="#{bindings.PaymentAmt.inputValue}" label="#{bindings.PaymentAmt.hints.label}"
+                                  required="false" columns="#{bindings.PaymentAmt.hints.displayWidth}"
+                                  maximumLength="#{bindings.PaymentAmt.hints.precision}"
+                                  shortDesc="#{bindings.PaymentAmt.hints.tooltip}" id="it5" showRequired="false">
+                        <f:validator binding="#{bindings.PaymentAmt.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.PaymentAmt.format}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.PaymentExchRate.inputValue}"
+                                  label="#{bindings.PaymentExchRate.hints.label}" required="false"
+                                  columns="#{bindings.PaymentExchRate.hints.displayWidth}"
+                                  maximumLength="#{bindings.PaymentExchRate.hints.precision}"
+                                  shortDesc="#{bindings.PaymentExchRate.hints.tooltip}" id="it6" showRequired="false">
+                        <f:validator binding="#{bindings.PaymentExchRate.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.PaymentExchRate.format}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.CurrencyCode.inputValue}"
+                                  label="#{bindings.CurrencyCode.hints.label}" required="false"
+                                  columns="#{bindings.CurrencyCode.hints.displayWidth}"
+                                  maximumLength="#{bindings.CurrencyCode.hints.precision}"
+                                  shortDesc="#{bindings.CurrencyCode.hints.tooltip}" id="it7" showRequired="false"
+                                  readOnly="true">
+                        <f:validator binding="#{bindings.CurrencyCode.validator}"/>
+                    </af:inputText>
+                    <af:panelLabelAndMessage label="#{bindings.InvoiceTaxCodes.hints.label}" id="plam3">
+                        <af:outputText value="#{bindings.InvoiceTaxCodes.inputValue}"
+                                       shortDesc="#{bindings.InvoiceTaxCodes.hints.tooltip}" id="ot3"/>
+                    </af:panelLabelAndMessage>
+                    <af:inputDate value="#{bindings.ReleaseDate.inputValue}" label="#{bindings.ReleaseDate.hints.label}"
+                                  required="#{bindings.ReleaseDate.hints.mandatory}"
+                                  columns="#{bindings.ReleaseDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.ReleaseDate.hints.tooltip}" id="id4" readOnly="true"
+                                  rendered="#{bindings.ReleaseDate.inputValue != null}" partialTriggers="b3">
+                        <f:validator binding="#{bindings.ReleaseDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.ReleaseDate.format}"/>
+                    </af:inputDate>
+                    <af:button text="#{coreLabels['G.Submit']}" id="b3"
+                               actionListener="#{paymentRunBean.executePaymentRunActionListener}"
+                               disabled="#{!bindings.executePaymentRun.enabled}"
+                               rendered="#{bindings.ReleaseDate.inputValue == null}" partialTriggers="id4"/>
+                    <af:inputText value="#{bindings.ReleaseHoldReason.inputValue}"
+                                  label="#{bindings.ReleaseHoldReason.hints.label}"
+                                  required="#{bindings.ReleaseHoldReason.hints.mandatory}"
+                                  columns="#{bindings.ReleaseHoldReason.hints.displayWidth}"
+                                  maximumLength="#{bindings.ReleaseHoldReason.hints.precision}"
+                                  shortDesc="#{bindings.ReleaseHoldReason.hints.tooltip}" id="it10" rows="5"
+                                  readOnly="true"
+                                  contentStyle="width:150px;color:red;font-weight:bold;font-size:small;padding:5px;"
+                                  rendered="#{bindings.ReleaseDate.inputValue == null}">
+                        <f:validator binding="#{bindings.ReleaseHoldReason.validator}"/>
+                    </af:inputText>
+                    <af:panelLabelAndMessage label="#{bindings.PaymentRejectDate.hints.label}" id="plam2"
+                                             rendered="#{bindings.ReleaseDate.inputValue != null}">
+                        <af:outputText value="#{bindings.PaymentRejectDate.inputValue}"
+                                       shortDesc="#{bindings.PaymentRejectDate.hints.tooltip}" id="ot2">
+                            <af:convertDateTime pattern="#{bindings.PaymentRejectDate.format}"/>
+                        </af:outputText>
+                    </af:panelLabelAndMessage>
+<af:inputText value="#{bindings.PaymentRejectDesc.inputValue}"
+                                  label="#{bindings.PaymentRejectDesc.hints.label}"
+                                  required="#{bindings.PaymentRejectDesc.hints.mandatory}"
+                                  columns="#{bindings.PaymentRejectDesc.hints.displayWidth}"
+                                  maximumLength="#{bindings.PaymentRejectDesc.hints.precision}"
+                                  shortDesc="#{bindings.PaymentRejectDesc.hints.tooltip}" id="it11" rows="5"
+                                  readOnly="true"
+                                  contentStyle="width:150px;color:red;font-weight:bold;font-size:small;padding:5px;"
+              rendered="#{bindings.ReleaseDate.inputValue != null}">
+                        <f:validator binding="#{bindings.PaymentRejectDesc.validator}"/>
+                    </af:inputText>
+                </af:panelFormLayout>
+            </af:panelHeader>
+        </f:facet>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+            <af:panelGroupLayout id="pgl1" layout="scroll">
+                <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                    <f:facet name="menus"/>
+                    <f:facet name="toolbar"/>
+                    <f:facet name="statusbar"/>
+                    <af:table value="#{bindings.InvoiceDetailByInvoiceView.collectionModel}" var="row"
+                              rows="#{bindings.InvoiceDetailByInvoiceView.rangeSize}"
+                              emptyText="#{bindings.InvoiceDetailByInvoiceView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="1"
+                              selectedRowKeys="#{bindings.InvoiceDetailByInvoiceView.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.InvoiceDetailByInvoiceView.collectionModel.makeCurrent}"
+                              rowSelection="single" fetchSize="#{bindings.InvoiceDetailByInvoiceView.rangeSize}" id="t1"
+                              displayRow="selected" styleClass="AFStretchWidth">
+                        <af:column headerText="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeIdNo.label}" id="c1">
+                            <af:selectOneChoice value="#{row.bindings.FeeTypeIdNo.inputValue}"
+                                                label="#{row.bindings.FeeTypeIdNo.label}"
+                                                required="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeIdNo.mandatory}"
+                                                shortDesc="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeIdNo.tooltip}"
+                                                id="soc1">
+                                <f:selectItems value="#{row.bindings.FeeTypeIdNo.items}" id="si1"/>
+                                <f:validator binding="#{row.bindings.FeeTypeIdNo.validator}"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column headerText="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeAmt.label}" id="c2"
+                                   align="right">
+                            <af:inputText value="#{row.bindings.FeeTypeAmt.inputValue}"
+                                          label="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeAmt.label}"
+                                          required="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeAmt.mandatory}"
+                                          columns="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeAmt.displayWidth}"
+                                          maximumLength="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeAmt.precision}"
+                                          shortDesc="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeAmt.tooltip}"
+                                          id="it8" readOnly="true">
+                                <f:validator binding="#{row.bindings.FeeTypeAmt.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeAmt.format}"/>
+                            </af:inputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeExchAmt.label}"
+                                   id="c4" align="right">
+                            <af:outputText value="#{row.FeeTypeExchAmt}"
+                                           shortDesc="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeExchAmt.tooltip}"
+                                           id="ot1">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeExchAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeDesc.label}" id="c3">
+                            <af:inputText value="#{row.bindings.FeeTypeDesc.inputValue}"
+                                          label="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeDesc.label}"
+                                          required="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeDesc.mandatory}"
+                                          columns="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeDesc.displayWidth}"
+                                          maximumLength="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeDesc.precision}"
+                                          shortDesc="#{bindings.InvoiceDetailByInvoiceView.hints.FeeTypeDesc.tooltip}"
+                                          id="it9" readOnly="true">
+                                <f:validator binding="#{row.bindings.FeeTypeDesc.validator}"/>
+                            </af:inputText>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:panelGroupLayout>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

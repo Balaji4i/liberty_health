@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommsHomeAM"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  ComponentClass="com.liberty.health.comms.home.model.CommsHomeAMImpl"
+  DefClass="com.liberty.health.comms.home.model.CommsHomeAMDefImpl"
+  ClearCacheOnRollback="true"
+  ComponentInterface="com.liberty.health.comms.home.model.common.CommsHomeAM">
+  <DesignTime>
+    <Attr Name="_isDefCodegen" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.home.model.CommsHomeAM_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewUsage
+    Name="Menu"
+    ViewObjectName="com.core.model.vo.WebApplObjectView">
+    <ViewCriteriaUsage
+      Name="MenuNodeCriteria"
+      FullName="com.core.model.vo.WebApplObjectView.MenuNodeCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="pSystemName">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA['LB_HEALTH_COMMS']]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="localeCode">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA['en_ZA']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewUsage>
+  <ViewUsage
+    Name="SubMenu"
+    ViewObjectName="com.core.model.vo.WebApplObjectView"/>
+  <ViewUsage
+    Name="UpdateMenuItemNameView"
+    ViewObjectName="com.core.model.vo.WebApplObjectLangMenuView">
+    <ViewCriteriaUsage
+      Name="UpdateMenuItemViewCriteria"
+      FullName="com.core.model.vo.WebApplObjectLangMenuView.UpdateMenuItemViewCriteria"/>
+  </ViewUsage>
+  <ViewUsage
+    Name="UpdateMenuSortSeqView"
+    ViewObjectName="com.core.model.vo.WebApplObjectView">
+    <ViewCriteriaUsage
+      Name="ByParentNoViewCriteria"
+      FullName="com.core.model.vo.WebApplObjectView.ByParentNoViewCriteria"/>
+  </ViewUsage>
+  <ViewUsage
+    Name="AllCommissionsWatchListView"
+    ViewObjectName="com.liberty.health.comms.model.watchlist.vo.CommissionsWatchListRoView">
+    <ViewCriteriaUsage
+      Name="CommissionsWatchListLocalViewCriteria"
+      FullName="com.liberty.health.comms.model.watchlist.vo.CommissionsWatchListRoView.CommissionsWatchListLocalViewCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="pLocalCode">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA['en_ZA']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewUsage>
+  <ViewUsage
+    Name="WebApplObjectLangMenuView1"
+    ViewObjectName="com.core.model.vo.WebApplObjectLangMenuView"/>
+  <ViewLinkUsage
+    Name="FkWebApplObjectWebApplObjectParentLink1"
+    ViewLinkObjectName="com.core.model.vo.link.FkWebApplObjectWebApplObjectParentLink"
+    SrcViewUsageName="com.liberty.health.comms.home.model.CommsHomeAM.Menu"
+    DstViewUsageName="com.liberty.health.comms.home.model.CommsHomeAM.SubMenu"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="FkWebApplObjectLangMenuWebApplObjectMenuLink1"
+    ViewLinkObjectName="com.core.model.vo.link.FkWebApplObjectLangMenuWebApplObjectMenuLink"
+    SrcViewUsageName="com.liberty.health.comms.home.model.CommsHomeAM.SubMenu"
+    DstViewUsageName="com.liberty.health.comms.home.model.CommsHomeAM.WebApplObjectLangMenuView1"
+    Reversed="false"/>
+  <ClientInterface
+    Name="__clientInterface">
+    <Method
+      Name="setMenuLocalCode"
+      MethodName="setMenuLocalCode">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="localCode"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.home.model.HomeModelBundle"/>
+  </ResourceBundle>
+</AppModule>

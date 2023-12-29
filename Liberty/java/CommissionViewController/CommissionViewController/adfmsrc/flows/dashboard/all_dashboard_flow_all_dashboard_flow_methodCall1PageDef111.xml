@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24"
+                id="all_dashboard_flow_all_dashboard_flow_methodCall1PageDef111" Package="flows.dashboard"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="submitJob" RequiresUpdateModel="true" Action="invokeMethod" MethodName="submitJob"
+                  IsViewObjectMethod="false" DataControl="DashboardAMDataControl"
+                  InstanceName="data.DashboardAMDataControl.dataProvider">
+      <NamedData NDName="pBu" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

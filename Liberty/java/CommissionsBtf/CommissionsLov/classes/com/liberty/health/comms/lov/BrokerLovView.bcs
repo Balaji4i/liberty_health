@@ -1,0 +1,12 @@
+//Groovy Scripts for com.liberty.health.comms.lov.BrokerLovView
+
+package com.liberty.health.comms.lov
+
+import oracle.jbo.script.annotation.VariableExpression;
+
+@VariableExpression(path="pCountryList")
+def pCountryList_VariableScript_Variable()
+{
+adf.context.sessionScope.countryList
+}
+

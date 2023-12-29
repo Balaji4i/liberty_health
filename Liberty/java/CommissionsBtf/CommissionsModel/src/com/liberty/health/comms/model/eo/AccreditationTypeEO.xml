@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+    xmlns="http://xmlns.oracle.com/bc4j"
+    Name="AccreditationTypeEO"
+    Version="12.2.1.12.24"
+    InheritPersonalization="merge"
+    DBObjectType="table"
+    DBObjectName="ACCREDITATION_TYPE"
+    AliasName="AccreditationTypeEO"
+    BindingStyle="OracleName"
+    RowClass="com.core.model.eo.classes.CoreEntityImpl"
+    DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+    CollClass="com.core.model.eo.classes.CoreEntityCache">
+    <Attribute
+        Name="AccreditationTypeIdNo"
+        IsNotNull="true"
+        Precision="2"
+        Scale="0"
+        ColumnName="ACCREDITATION_TYPE_ID_NO"
+        SQLType="NUMERIC"
+        Type="java.lang.Integer"
+        ColumnType="NUMBER"
+        TableName="ACCREDITATION_TYPE"
+        PrimaryKey="true"
+        IsUpdateable="while_insert">
+        <Properties>
+            <CustomProperties>
+                <Property
+                    Name="SequenceName"
+                    ResId="com.liberty.health.comms.model.eo.CompanyTableTypeEO.CompanyTableIdNo.SequenceName_VALUE"/>
+            </CustomProperties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AccredidationIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+        Name="AccreditationTypeDesc"
+        IsNotNull="true"
+        Precision="50"
+        ColumnName="ACCREDITATION_TYPE_DESC"
+        SQLType="VARCHAR"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        TableName="ACCREDITATION_TYPE">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AccredidationType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+        Name="EffectiveStartDate"
+        ColumnName="EFFECTIVE_START_DATE"
+        SQLType="DATE"
+        Type="oracle.jbo.domain.Date"
+        ColumnType="DATE"
+        TableName="ACCREDITATION_TYPE"
+        IsUpdateable="while_insert"
+        IsNotNull="true">
+        <TransientExpression
+            Name="ExpressionScript"
+            trustMode="untrusted"
+            CodeSourceName="AccreditationTypeEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+        Name="EffectiveEndDate"
+        ColumnName="EFFECTIVE_END_DATE"
+        SQLType="DATE"
+        Type="oracle.jbo.domain.Date"
+        ColumnType="DATE"
+        TableName="ACCREDITATION_TYPE"
+        DefaultValue="3100-01-31"
+        IsNotNull="true">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+        Name="LastUpdateDatetime"
+        IsNotNull="true"
+        ColumnName="LAST_UPDATE_DATETIME"
+        SQLType="DATE"
+        Type="oracle.jbo.domain.Date"
+        ColumnType="DATE"
+        TableName="ACCREDITATION_TYPE"
+        HistoryColumn="DateHistory"/>
+    <Attribute
+        Name="Username"
+        IsNotNull="true"
+        Precision="50"
+        ColumnName="USERNAME"
+        SQLType="VARCHAR"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        TableName="ACCREDITATION_TYPE"
+        HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+    </Attribute>
+    <AccessorAttribute
+        Name="BrokerAccreditation"
+        Association="com.liberty.health.comms.model.eo.assoc.AccreditationBrokerFkAssoc"
+        AssociationEnd="com.liberty.health.comms.model.eo.assoc.AccreditationBrokerFkAssoc.BrokerAccreditation"
+        AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.AccreditationBrokerFkAssoc.AccreditationType"
+        Type="oracle.jbo.RowIterator"
+        IsUpdateable="false"/>
+    <AccessorAttribute
+        Name="CompanyAccreditation"
+        Association="com.liberty.health.comms.model.eo.assoc.AccreditationCompanyFkAssoc"
+        AssociationEnd="com.liberty.health.comms.model.eo.assoc.AccreditationCompanyFkAssoc.CompanyAccreditation"
+        AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.AccreditationCompanyFkAssoc.AccreditationType"
+        Type="oracle.jbo.RowIterator"
+        IsUpdateable="false"/>
+    <AccessorAttribute
+        Name="CountryTaxes"
+        Association="com.liberty.health.comms.model.eo.CountryTaxAccreditationFkAssoc"
+        AssociationEnd="com.liberty.health.comms.model.eo.CountryTaxAccreditationFkAssoc.CountryTaxes"
+        AssociationOtherEnd="com.liberty.health.comms.model.eo.CountryTaxAccreditationFkAssoc.AccreditationType"
+        Type="oracle.jbo.RowIterator"
+        IsUpdateable="false"/>
+    <Key
+        Name="AccreditationTypeEffectiveEndDateCheck">
+        <DesignTime>
+            <Attr Name="_isNotNull" Value="true"/>
+            <Attr Name="_checkCondition" Value='"EFFECTIVE_END_DATE" IS NOT NULL'/>
+            <Attr Name="_isCheck" Value="true"/>
+            <Attr Name="_DBObjectName" Value="ACCREDITATION_TYPE_EFFECTIVE_E"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.AccreditationTypeEO.EffectiveEndDate"/>
+        </AttrArray>
+    </Key>
+    <Key
+        Name="AccreditationTypeEffectiveStartDateCheck">
+        <DesignTime>
+            <Attr Name="_isNotNull" Value="true"/>
+            <Attr Name="_checkCondition" Value='"EFFECTIVE_START_DATE" IS NOT NULL'/>
+            <Attr Name="_isCheck" Value="true"/>
+            <Attr Name="_DBObjectName" Value="ACCREDITATION_TYPE_EFFECTIVE_S"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.AccreditationTypeEO.EffectiveStartDate"/>
+        </AttrArray>
+    </Key>
+    <Key
+        Name="AccreditationTypePk"
+        PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="ACCREDITATION_TYPE_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.AccreditationTypeEO.AccreditationTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <ResourceBundle>
+        <PropertiesBundle
+            PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

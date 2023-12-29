@@ -1,0 +1,19 @@
+//Groovy Scripts for com.liberty.health.comms.model.broker.vo.BrokerFunctionVO
+
+package com.liberty.health.comms.model.broker.vo
+
+import oracle.jbo.script.annotation.VariableExpression;
+
+@VariableExpression(path="pCurrentDate")
+def pCurrentDate_VariableScript_Variable()
+{
+adf.currentDate
+}
+
+
+@VariableExpression(path="pBackDatedDate")
+def pBackDatedDate_VariableScript_Variable()
+{
+adf.currentDate
+}
+

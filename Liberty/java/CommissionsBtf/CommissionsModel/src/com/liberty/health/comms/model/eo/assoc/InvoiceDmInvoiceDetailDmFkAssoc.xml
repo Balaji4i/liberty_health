@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InvoiceDmInvoiceDetailDmFkAssoc"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="InvoiceDm"
+    Cardinality="1"
+    Source="true"
+    Owner="com.liberty.health.comms.model.eo.InvoiceDmEO"
+    LockLevel="NONE">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="InvoiceDm"/>
+      <Attr Name="_foreignKey" Value="com.liberty.health.comms.model.eo.InvoiceDmEO.InvoicedmeoPrimaryKey"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.InvoiceDmEO.InvoiceNo"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="InvoiceDetailDm"
+    Cardinality="-1"
+    Owner="com.liberty.health.comms.model.eo.InvoiceDetailDmEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="InvoiceDetailDm"/>
+      <Attr Name="_foreignKey" Value="com.liberty.health.comms.model.eo.InvoiceDetailDmEO.fk_InvoiceDetailDmEO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.InvoiceDetailDmEO.InvoiceNo"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

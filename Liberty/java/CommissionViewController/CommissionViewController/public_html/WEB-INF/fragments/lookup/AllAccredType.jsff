@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelStretchLayout id="psl1" topHeight="auto">
+    <f:facet name="top">
+      <af:panelHeader text="#{coreLabels['G.AccredidationType']}" id="ph1">
+        <af:query id="qryId2" headerText="Search" disclosed="true"
+                  value="#{bindings.SearchAccreditationTypeVOCriteriaQuery.queryDescriptor}"
+                  model="#{bindings.SearchAccreditationTypeVOCriteriaQuery.queryModel}"
+                  queryListener="#{bindings.SearchAccreditationTypeVOCriteriaQuery.processQuery}"
+                  queryOperationListener="#{bindings.SearchAccreditationTypeVOCriteriaQuery.processQueryOperation}"
+                  resultComponentId="::pc1:resId2"/>
+      </af:panelHeader>
+    </f:facet>
+    <f:facet name="center">
+      <af:panelGroupLayout layout="scroll" id="pgl2">
+        <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+          <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t1">
+                  <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png" rendered="#{securityContext.userInRole['comms-consultant']}" action="create"/>
+                  <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="resId2"
+                                                       filename="#{coreLabels['G.AccredidationType']}.xls"/>
+                  </af:button>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.AllAccreditationTypeView.collectionModel}" var="row"
+                        rows="#{bindings.AllAccreditationTypeView.rangeSize}"
+                        emptyText="#{bindings.AllAccreditationTypeView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.AllAccreditationTypeView.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.AllAccreditationTypeView.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.AllAccreditationTypeView.rangeSize}" id="resId2"
+                        displayRow="selected" styleClass="AFStretchWidth">
+                <af:column headerText="#{bindings.AllAccreditationTypeView.hints.AccreditationTypeIdNo.label}"
+                           id="resId2c1">
+                  <af:link disabled="#{!securityContext.userInRole['comms-consultant']}"   text="#{row.AccreditationTypeIdNo}" id="l1" action="edit"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllAccreditationTypeView.hints.AccreditationTypeDesc.label}"
+                           id="resId2c2" width="250">
+                  <af:outputText value="#{row.AccreditationTypeDesc}"
+                                 shortDesc="#{bindings.AllAccreditationTypeView.hints.AccreditationTypeDesc.tooltip}"
+                                 id="ot5"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllAccreditationTypeView.hints.EffectiveStartDate.label}"
+                           id="resId2c3" align="center">
+                  <af:outputText value="#{row.EffectiveStartDate}"
+                                 shortDesc="#{bindings.AllAccreditationTypeView.hints.EffectiveStartDate.tooltip}"
+                                 id="ot6">
+                    <af:convertDateTime pattern="#{bindings.AllAccreditationTypeView.hints.EffectiveStartDate.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllAccreditationTypeView.hints.EffectiveEndDate.label}" id="resId2c4"
+                           align="center">
+                  <af:outputText value="#{row.EffectiveEndDate}"
+                                 shortDesc="#{bindings.AllAccreditationTypeView.hints.EffectiveEndDate.tooltip}"
+                                 id="ot7">
+                    <af:convertDateTime pattern="#{bindings.AllAccreditationTypeView.hints.EffectiveEndDate.format}"/>
+                  </af:outputText>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:showDetailItem>
+          <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t3">
+                  <af:button text="#{coreLabels['G.Export']}" id="b3" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="t4"
+                                                       filename="#{coreLabels['G.History']}.xls"/>
+                  </af:button>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.AccreditationTypeAuditRoView.collectionModel}" var="row"
+                        rows="#{bindings.AccreditationTypeAuditRoView.rangeSize}"
+                        emptyText="#{bindings.AccreditationTypeAuditRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        selectedRowKeys="#{bindings.AccreditationTypeAuditRoView.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.AccreditationTypeAuditRoView.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.AccreditationTypeAuditRoView.rangeSize}" id="t4"
+                        rowBandingInterval="1" displayRow="selected" styleClass="AFStretchWidth"
+                        columnStretching="column:c5">
+                <af:column headerText="#{bindings.AccreditationTypeAuditRoView.hints.TransactionDatetime.label}"
+                           id="c1" align="center">
+                  <af:outputText value="#{row.TransactionDatetime}"
+                                 shortDesc="#{bindings.AccreditationTypeAuditRoView.hints.TransactionDatetime.tooltip}"
+                                 id="ot4">
+                    <af:convertDateTime pattern="#{bindings.AccreditationTypeAuditRoView.hints.TransactionDatetime.format}" type="both"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AccreditationTypeAuditRoView.hints.TransactionUsername.label}"
+                           id="c4">
+                  <af:outputText value="#{row.TransactionUsername}"
+                                 shortDesc="#{bindings.AccreditationTypeAuditRoView.hints.TransactionUsername.tooltip}"
+                                 id="ot1"/>
+                </af:column>
+                <af:column headerText="#{bindings.AccreditationTypeAuditRoView.hints.TransactionDesc.label}" id="c5">
+                  <af:outputText value="#{row.TransactionDesc}"
+                                 shortDesc="#{bindings.AccreditationTypeAuditRoView.hints.TransactionDesc.tooltip}"
+                                 id="ot2"/>
+                </af:column>
+                <af:column headerText="#{bindings.AccreditationTypeAuditRoView.hints.AccreditationTypeDesc.label}"
+                           id="c2">
+                  <af:outputText value="#{row.AccreditationTypeDesc}"
+                                 shortDesc="#{bindings.AccreditationTypeAuditRoView.hints.AccreditationTypeDesc.tooltip}"
+                                 id="ot3"/>
+                </af:column>
+                <af:column headerText="#{bindings.AccreditationTypeAuditRoView.hints.EffectiveStartDate.label}" id="c3"
+                           align="center">
+                  <af:outputText value="#{row.EffectiveStartDate}"
+                                 shortDesc="#{bindings.AccreditationTypeAuditRoView.hints.EffectiveStartDate.tooltip}"
+                                 id="ot8">
+                    <af:convertDateTime pattern="#{bindings.AccreditationTypeAuditRoView.hints.EffectiveStartDate.format}"/>
+                  </af:outputText>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:showDetailItem>
+        </af:panelTabbed>
+      </af:panelGroupLayout>
+    </f:facet>
+    <f:facet name="bottom"/>
+  </af:panelStretchLayout>
+</jsp:root>

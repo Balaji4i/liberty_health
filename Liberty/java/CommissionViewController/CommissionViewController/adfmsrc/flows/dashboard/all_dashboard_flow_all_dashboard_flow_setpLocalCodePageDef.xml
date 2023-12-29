@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="all_dashboard_flow_all_dashboard_flow_setpLocalCodePageDef" Package="flows.dashboard"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="setpLocalCode" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setpLocalCode"
+                  IsViewObjectMethod="true" DataControl="DashboardAMDataControl"
+                  InstanceName="data.DashboardAMDataControl.DbLocalCodeRoView1">
+      <NamedData NDName="value" NDValue="#{pageFlowScope.localCode}" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

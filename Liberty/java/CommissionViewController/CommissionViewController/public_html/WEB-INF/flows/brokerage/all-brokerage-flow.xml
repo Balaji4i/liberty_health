@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-brokerage-flow">
+    <default-activity>AllCompany</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <view id="AllCompany">
+      <page>/WEB-INF/fragments/brokerage/AllCompany.jsff</page>
+    </view>
+    <task-flow-call id="create-new-company-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/company/create-new-company-btf.xml</document>
+        <id>create-new-company-btf</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <task-flow-call id="maintain-broker-by-company-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/broker/maintain-broker-by-company-btf.xml</document>
+        <id>maintain-broker-by-company-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__6">
+        <name>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_AllCompanyPageDef.CompanyIdNo}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-company-detail-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/company/maintain-company-detail-btf.xml</document>
+        <id>maintain-company-detail-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__4">
+        <name>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_AllCompanyPageDef.CompanyIdNo}</value>
+      </input-parameter>
+      <input-parameter id="__5">
+        <name>createInd</name>
+        <value>Y</value>
+      </input-parameter>
+      <input-parameter id="__8">
+        <name>newCompanyInd</name>
+        <value>N</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-ohi-hold-indicator-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml</document>
+        <id>maintain-ohi-hold-indicator-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__10">
+        <name>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_AllCompanyPageDef.CompanyIdNo.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__11">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__12">
+        <name>personCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__13">
+        <name>policyCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__14">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__15">
+        <name>levelCodeInd</name>
+        <value>C</value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>AllCompany</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>create</from-outcome>
+        <to-activity-id>create-new-company-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome>edit</from-outcome>
+        <to-activity-id>maintain-company-detail-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__7">
+        <from-outcome>viewBrokers</from-outcome>
+        <to-activity-id>maintain-broker-by-company-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__9">
+        <from-outcome>goHold</from-outcome>
+        <to-activity-id>maintain-ohi-hold-indicator-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

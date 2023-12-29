@@ -1,0 +1,287 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" startWidth="auto" endWidth="auto" topHeight="auto" bottomHeight="auto"
+                           dimensionsFrom="auto">
+        <f:facet name="end"/>
+        <f:facet name="top">
+            <af:panelHeader text="#{coreLabels['G.MaintainBrokers']}" id="ph1">
+                <f:facet name="context"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t1">
+                        <af:button text="#{coreLabels['G.Save']}" id="b1" action="save"
+                                   icon="/adf/images/save_16x16.png"/>
+                        <af:button text="#{coreLabels['G.Cancel']}" id="b2" action="cancel" immediate="true"
+                                   icon="/adf/images/remove_16x16.png"/>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+                <af:panelFormLayout id="pfl1" rows="6">
+                    <af:inputText value="#{bindings.BrokerIdNo.inputValue}" label="#{bindings.BrokerIdNo.hints.label}"
+                                  required="#{bindings.BrokerIdNo.hints.mandatory}"
+                                  columns="#{bindings.BrokerIdNo.hints.displayWidth}"
+                                  maximumLength="#{bindings.BrokerIdNo.hints.precision}"
+                                  shortDesc="#{bindings.BrokerIdNo.hints.tooltip}" id="it1">
+                        <f:validator binding="#{bindings.BrokerIdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.BrokerIdNo.format}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.Initials.inputValue}" label="#{bindings.Initials.hints.label}"
+                                  required="#{bindings.Initials.hints.mandatory}"
+                                  columns="#{bindings.Initials.hints.displayWidth}"
+                                  maximumLength="#{bindings.Initials.hints.precision}"
+                                  shortDesc="#{bindings.Initials.hints.tooltip}" id="it2">
+                        <f:validator binding="#{bindings.Initials.validator}"/>
+                    </af:inputText>
+                    <af:selectOneChoice value="#{bindings.PersonTitleCode.inputValue}"
+                                        label="#{bindings.PersonTitleCode.label}"
+                                        required="#{bindings.PersonTitleCode.hints.mandatory}"
+                                        shortDesc="#{bindings.PersonTitleCode.hints.tooltip}" id="soc1">
+                        <f:selectItems value="#{bindings.PersonTitleCode.items}" id="si1"/>
+                        <f:validator binding="#{bindings.PersonTitleCode.validator}"/>
+                    </af:selectOneChoice>
+                    <af:inputText value="#{bindings.BrokerName.inputValue}" label="#{bindings.BrokerName.hints.label}"
+                                  required="#{bindings.BrokerName.hints.mandatory}"
+                                  columns="#{bindings.BrokerName.hints.displayWidth}"
+                                  maximumLength="#{bindings.BrokerName.hints.precision}"
+                                  shortDesc="#{bindings.BrokerName.hints.tooltip}" id="it3">
+                        <f:validator binding="#{bindings.BrokerName.validator}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.BrokerLastName.inputValue}"
+                                  label="#{bindings.BrokerLastName.hints.label}"
+                                  required="#{bindings.BrokerLastName.hints.mandatory}"
+                                  columns="#{bindings.BrokerLastName.hints.displayWidth}"
+                                  maximumLength="#{bindings.BrokerLastName.hints.precision}"
+                                  shortDesc="#{bindings.BrokerLastName.hints.tooltip}" id="it4">
+                        <f:validator binding="#{bindings.BrokerLastName.validator}"/>
+                    </af:inputText>
+                    <af:selectOneChoice value="#{bindings.LanguageCode.inputValue}"
+                                        label="#{bindings.LanguageCode.label}"
+                                        required="#{bindings.LanguageCode.hints.mandatory}"
+                                        shortDesc="#{bindings.LanguageCode.hints.tooltip}" id="soc2">
+                        <f:selectItems value="#{bindings.LanguageCode.items}" id="si2"/>
+                        <f:validator binding="#{bindings.LanguageCode.validator}"/>
+                    </af:selectOneChoice>
+                    <af:inputText value="#{bindings.BusinessDevMgrName.inputValue}"
+                                  label="#{bindings.BusinessDevMgrName.hints.label}"
+                                  required="#{bindings.BusinessDevMgrName.hints.mandatory}"
+                                  columns="#{bindings.BusinessDevMgrName.hints.displayWidth}"
+                                  maximumLength="#{bindings.BusinessDevMgrName.hints.precision}"
+                                  shortDesc="#{bindings.BusinessDevMgrName.hints.tooltip}" id="it5">
+                        <f:validator binding="#{bindings.BusinessDevMgrName.validator}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.IdNo.inputValue}" label="#{bindings.IdNo.hints.label}"
+                                  required="#{bindings.IdNo.hints.mandatory}"
+                                  columns="#{bindings.IdNo.hints.displayWidth}"
+                                  maximumLength="#{bindings.IdNo.hints.precision}"
+                                  shortDesc="#{bindings.IdNo.hints.tooltip}" id="it6">
+                        <f:validator binding="#{bindings.IdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.IdNo.format}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.PassportCode.inputValue}"
+                                  label="#{bindings.PassportCode.hints.label}"
+                                  required="#{bindings.PassportCode.hints.mandatory}"
+                                  columns="#{bindings.PassportCode.hints.displayWidth}"
+                                  maximumLength="#{bindings.PassportCode.hints.precision}"
+                                  shortDesc="#{bindings.PassportCode.hints.tooltip}" id="it7">
+                        <f:validator binding="#{bindings.PassportCode.validator}"/>
+                    </af:inputText>
+                    <af:inputListOfValues id="kamBrokerIdNoId"
+                                          popupTitle="Search and Select: #{bindings.KamBrokerIdNo.hints.label}"
+                                          value="#{bindings.KamBrokerIdNo.inputValue}"
+                                          label="#{bindings.KamBrokerIdNo.hints.label}"
+                                          model="#{bindings.KamBrokerIdNo.listOfValuesModel}"
+                                          required="#{bindings.KamBrokerIdNo.hints.mandatory}" columns="20"
+                                          shortDesc="#{bindings.KamBrokerIdNo.hints.tooltip}">
+                        <f:validator binding="#{bindings.KamBrokerIdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.KamBrokerIdNo.format}"/>
+                    </af:inputListOfValues>
+                    <af:panelLabelAndMessage label="#{bindings.BrokerName1.hints.label}" id="plam1"
+                                             visible="#{bindings.KamBrokerIdNo.inputValue != null}"
+                                             partialTriggers="kamBrokerIdNoId">
+                        <af:outputText value="#{bindings.BrokerName1.inputValue}"
+                                       shortDesc="#{bindings.BrokerName1.hints.tooltip}" id="ot6"/>
+                    </af:panelLabelAndMessage>
+                    <af:inputListOfValues id="parentBrokerIdNoId"
+                                          popupTitle="Search and Select: #{bindings.ParentBrokerIdNo.hints.label}"
+                                          value="#{bindings.ParentBrokerIdNo.inputValue}"
+                                          label="#{bindings.ParentBrokerIdNo.hints.label}"
+                                          model="#{bindings.ParentBrokerIdNo.listOfValuesModel}"
+                                          required="#{bindings.ParentBrokerIdNo.hints.mandatory}" columns="20"
+                                          shortDesc="#{bindings.ParentBrokerIdNo.hints.tooltip}">
+                        <f:validator binding="#{bindings.ParentBrokerIdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.ParentBrokerIdNo.format}"/>
+                    </af:inputListOfValues>
+                    <af:spacer width="10" height="10" id="s1"/>
+                    <af:inputListOfValues id="companyIdNoId"
+                                          popupTitle="Search and Select: #{bindings.CompanyIdNo.hints.label}"
+                                          value="#{bindings.CompanyIdNo.inputValue}"
+                                          label="#{bindings.CompanyIdNo.hints.label}"
+                                          model="#{bindings.CompanyIdNo.listOfValuesModel}"
+                                          required="#{bindings.CompanyIdNo.hints.mandatory}"
+                                          columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                                          shortDesc="#{bindings.CompanyIdNo.hints.tooltip}">
+                        <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+                    </af:inputListOfValues>
+                    <af:inputText value="#{bindings.CompanyName.inputValue}" label="#{bindings.CompanyName.hints.label}"
+                                  required="#{bindings.CompanyName.hints.mandatory}"
+                                  columns="#{bindings.CompanyName.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyName.hints.precision}"
+                                  shortDesc="#{bindings.CompanyName.hints.tooltip}" id="it8">
+                        <f:validator binding="#{bindings.CompanyName.validator}"/>
+                    </af:inputText>
+                    <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                                  label="#{bindings.EffectiveStartDate.hints.label}"
+                                  required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id1">
+                        <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                    </af:inputDate>
+                    <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                                  label="#{bindings.EffectiveEndDate.hints.label}"
+                                  required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id2">
+                        <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                    </af:inputDate>
+                    <af:goLink text="#{coreLabels['G.ViewDocuments']}" id="gl1" targetFrame="_blank"
+                               destination="#{brokerAttributesBean.linkWithParams}" inlineStyle="font-size:large;"/>
+                </af:panelFormLayout>
+            </af:panelHeader>
+        </f:facet>
+        <f:facet name="center">
+            <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+            <af:showDetailItem text="#{coreLabels['G.CurrentDetails']}" id="sdi2">
+            <af:region value="#{bindings.maintainbrokerfunctionbtf1.regionModel}" id="r2"/>
+            </af:showDetailItem>
+    <!--<af:showDetailItem text="#{coreLabels['G.Accredidation']}" id="sdi3">
+    <af:region value="#{bindings.maintainbrokeracredbtf1.regionModel}" id="r1"/>
+    </af:showDetailItem>-->
+                <af:showDetailItem text="#{coreLabels['G.ContactDetails']}" id="sdi4">
+                    <af:panelFormLayout id="pfl2">
+                        <f:facet name="footer"/>
+                        <af:inputText value="#{bindings.HomeTelephoneNo.inputValue}"
+                                      label="#{bindings.HomeTelephoneNo.hints.label}"
+                                      required="#{bindings.HomeTelephoneNo.hints.mandatory}"
+                                      columns="#{bindings.HomeTelephoneNo.hints.displayWidth}"
+                                      maximumLength="#{bindings.HomeTelephoneNo.hints.precision}"
+                                      shortDesc="#{bindings.HomeTelephoneNo.hints.tooltip}" id="it11">
+                            <f:validator binding="#{bindings.HomeTelephoneNo.validator}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.WorkTelephoneNo.inputValue}"
+                                      label="#{bindings.WorkTelephoneNo.hints.label}"
+                                      required="#{bindings.WorkTelephoneNo.hints.mandatory}"
+                                      columns="#{bindings.WorkTelephoneNo.hints.displayWidth}"
+                                      maximumLength="#{bindings.WorkTelephoneNo.hints.precision}"
+                                      shortDesc="#{bindings.WorkTelephoneNo.hints.tooltip}" id="it12">
+                            <f:validator binding="#{bindings.WorkTelephoneNo.validator}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.CellphoneNo.inputValue}"
+                                      label="#{bindings.CellphoneNo.hints.label}"
+                                      required="#{bindings.CellphoneNo.hints.mandatory}"
+                                      columns="#{bindings.CellphoneNo.hints.displayWidth}"
+                                      maximumLength="#{bindings.CellphoneNo.hints.precision}"
+                                      shortDesc="#{bindings.CellphoneNo.hints.tooltip}" id="it9">
+                            <f:validator binding="#{bindings.CellphoneNo.validator}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.EmailAddress.inputValue}"
+                                      label="#{bindings.EmailAddress.hints.label}"
+                                      required="#{bindings.EmailAddress.hints.mandatory}" columns="50"
+                                      maximumLength="#{bindings.EmailAddress.hints.precision}"
+                                      shortDesc="#{bindings.EmailAddress.hints.tooltip}" id="it10">
+                            <f:validator binding="#{bindings.EmailAddress.validator}"/>
+                        </af:inputText>
+                        <af:selectBooleanCheckbox value="#{bindings.SmsNotificationInd.inputValue}"
+                                                  label="#{bindings.SmsNotificationInd.label}"
+                                                  shortDesc="#{bindings.SmsNotificationInd.hints.tooltip}" id="sbc2"/>
+                        <af:selectBooleanCheckbox value="#{bindings.EmailNotificationInd.inputValue}"
+                                                  label="#{bindings.EmailNotificationInd.label}"
+                                                  shortDesc="#{bindings.EmailNotificationInd.hints.tooltip}" id="sbc1"/>
+                    </af:panelFormLayout>
+                </af:showDetailItem>
+                <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+                    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                        <f:facet name="menus"/>
+                        <f:facet name="toolbar">
+                            <af:toolbar id="t4">
+                                <af:button text="#{coreLabels['G.Export']}" id="b3" icon="/adf/images/excel_16x16.png"
+                                           rendered="#{securityContext.userInRole['comms-consultant']}">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                                       filename="#{coreLabels['G.History']}.xls"/>
+                                </af:button>
+                            </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.BrokerAuditView.collectionModel}" var="row"
+                                  rows="#{bindings.BrokerAuditView.rangeSize}"
+                                  emptyText="#{bindings.BrokerAuditView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="1"
+                                  selectedRowKeys="#{bindings.BrokerAuditView.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.BrokerAuditView.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.BrokerAuditView.rangeSize}" id="t2"
+                                  columnStretching="column:c3" displayRow="selected" styleClass="AFStretchWidth">
+                            <af:column headerText="#{bindings.BrokerAuditView.hints.TransactionDatetime.label}" id="c1">
+                                <af:outputText value="#{row.TransactionDatetime}"
+                                               shortDesc="#{bindings.BrokerAuditView.hints.TransactionDatetime.tooltip}"
+                                               id="ot1">
+                                    <af:convertDateTime pattern="#{bindings.BrokerAuditView.hints.TransactionDatetime.format}"
+                                                        type="both"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.BrokerAuditView.hints.TransactionUsername.label}" id="c2">
+                                <af:outputText value="#{row.TransactionUsername}"
+                                               shortDesc="#{bindings.BrokerAuditView.hints.TransactionUsername.tooltip}"
+                                               id="ot2"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.BrokerAuditView.hints.TransactionDesc.label}" id="c3">
+                                <af:outputText value="#{row.TransactionDesc}"
+                                               shortDesc="#{bindings.BrokerAuditView.hints.TransactionDesc.tooltip}"
+                                               id="ot3"/>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+                <af:showDetailItem id="tab1" text="#{coreLabels['G.Comments']}">
+                    <af:panelCollection id="pc2">
+                        <f:facet name="menus"/>
+                        <f:facet name="toolbar">
+                            <af:toolbar id="t5">
+                                <af:button text="#{coreLabels['G.Export']}" id="b4" icon="/adf/images/excel_16x16.png"
+                                           rendered="#{securityContext.userInRole['comms-consultant']}">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                                       filename="#{coreLabels['G.History']}.xls"/>
+                                </af:button>
+                            </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.BrokerCommentsView.collectionModel}" var="row"
+                                  rows="#{bindings.BrokerCommentsView.rangeSize}"
+                                  emptyText="#{bindings.BrokerCommentsView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="1"
+                                  selectedRowKeys="#{bindings.BrokerCommentsView.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.BrokerCommentsView.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.BrokerCommentsView.rangeSize}" id="t3"
+                                  columnStretching="column:c5" displayRow="selected">
+                            <af:column headerText="#{bindings.BrokerCommentsView.hints.CommentDatetime.label}" id="c4">
+                                <af:outputText value="#{row.CommentDatetime}"
+                                               shortDesc="#{bindings.BrokerCommentsView.hints.CommentDatetime.tooltip}"
+                                               id="ot4">
+                                    <af:convertDateTime pattern="#{bindings.BrokerCommentsView.hints.CommentDatetime.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.BrokerCommentsView.hints.CommentDesc.label}" id="c5">
+                                <af:outputText value="#{row.CommentDesc}"
+                                               shortDesc="#{bindings.BrokerCommentsView.hints.CommentDesc.tooltip}"
+                                               id="ot5"/>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+            </af:panelTabbed>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

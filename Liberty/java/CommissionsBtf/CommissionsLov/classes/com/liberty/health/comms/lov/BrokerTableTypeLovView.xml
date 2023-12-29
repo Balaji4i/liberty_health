@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerTableTypeLovView"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  OrderBy='"BROKER_TABLE_TYPE_ID_NO"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.lov.BrokerTableTypeLovView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+      Name="pBrokerTableIdNo"
+      Kind="viewcriteria"
+      Type="java.lang.Integer"/>
+    <SQLQuery><![CDATA[select broker_table_type_id_no, broker_table_type_desc, broker_table_id_no 
+from broker_table_Type 
+where trunc(sysdate) between effective_start_date and effective_end_date]]></SQLQuery>
+    <ViewAttribute
+      Name="BrokerTableTypeIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="java.lang.Integer"
+      ColumnType="INTEGER"
+      AliasName="BROKER_TABLE_TYPE_ID_NO"
+      Expression="BROKER_TABLE_TYPE_ID_NO"
+      SQLType="INTEGER"/>
+    <ViewAttribute
+      Name="BrokerTableTypeDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_TABLE_TYPE_DESC"
+      Expression="BROKER_TABLE_TYPE_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerTableIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="2"
+      Scale="0"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      AliasName="BROKER_TABLE_ID_NO"
+      Expression="BROKER_TABLE_ID_NO"
+      SQLType="INTEGER">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerTableDesc']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewCriteria
+      Name="ByBrokerTableLovViewCriteria"
+      ViewObjectName="com.liberty.health.comms.lov.BrokerTableTypeLovView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="BrokerTableTypeLovViewCriteria_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="BrokerTableIdNo"
+              ViewAttribute="BrokerTableIdNo"
+              Operator="="
+              Conjunction="AND"
+              Value=":pBrokerTableIdNo"
+              IsBindVarValue="true"
+              Required="Required"
+              ValidateBindVars="true"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="BrokerTableTypeIdNo"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.lov.CommissionsLovBundle"/>
+    </ResourceBundle>
+</ViewObject>

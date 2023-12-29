@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CountryLovView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+    FetchMode="FETCH_AS_NEEDED"
+    MaxFetchSize="10"
+    RangeSize="10"
+    OrderBy="COUNTRY_CODE">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.lov.CountryLovView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+        Name="pCountryList"
+        Kind="where"
+        Type="java.lang.String">
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="CountryLovView"/>
+    </Variable>
+    <SQLQuery><![CDATA[select id, code country_code, name country_name           
+from FCOD_COUNTRY@POLICIES.LIBERTY.CO.ZA  where code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')     
+ , '[^,]+', 1, LEVEL)             
+            FROM DUAL             
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')   
+, '[^,]+', 1, LEVEL) IS NOT NULL)]]></SQLQuery>
+    <ViewAttribute
+      Name="Id"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="14"
+      Scale="0"
+      Type="java.lang.Long"
+      ColumnType="NUMBER"
+      AliasName="ID"
+      Expression="ID"
+        SQLType="FLOAT">
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYWIDTH
+                  Value="10"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CountryCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="255"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COUNTRY_CODE"
+      Expression="COUNTRY_CODE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+                <DISPLAYWIDTH
+                  Value="10"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CountryName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="250"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COUNTRY_NAME"
+      Expression="COUNTRY_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYWIDTH
+                    Value="50"/>
+                <LABEL
+                    ResId="com.liberty.health.comms.lov.CountryLovView.CountryName_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewCriteria
+      Name="CountryLovViewCriteria"
+      ViewObjectName="com.liberty.health.comms.lov.CountryLovView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="CountryLovViewCriteria_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="CountryName"
+              ViewAttribute="CountryName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="Id"/>
+        <Item Value="CountryCode"/>
+        <Item Value="CountryName"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.lov.CommissionsLovBundle"/>
+    </ResourceBundle>
+</ViewObject>

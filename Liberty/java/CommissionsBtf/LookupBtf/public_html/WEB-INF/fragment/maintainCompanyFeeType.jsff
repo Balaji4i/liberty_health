@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1">
+        <f:facet name="start"/>
+        <f:facet name="end"/>
+        <f:facet name="top"/>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+            <af:panelHeader text="#{coreLabels['G.MaintainCompanyFeeType']}" id="ph1">
+                <f:facet name="context"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t2">
+                        <af:button text="#{coreLabels['G.Save']}" id="b1" action="save"
+                                   icon="/adf/images/save_16x16.png"/>
+                        <af:button text="#{coreLabels['G.Cancel']}" id="b2" action="cancel" immediate="true"
+                                   icon="/adf/images/remove_16x16.png"/>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+                <af:panelFormLayout id="pfl1">
+                    <f:facet name="footer"/>
+                    <af:inputText value="#{bindings.CompanyFeeTypeIdNo.inputValue}"
+                                  label="#{bindings.CompanyFeeTypeIdNo.hints.label}"
+                                  required="#{bindings.CompanyFeeTypeIdNo.hints.mandatory}"
+                                  columns="#{bindings.CompanyFeeTypeIdNo.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyFeeTypeIdNo.hints.precision}"
+                                  shortDesc="#{bindings.CompanyFeeTypeIdNo.hints.tooltip}" id="it5" readOnly="true">
+                        <f:validator binding="#{bindings.CompanyFeeTypeIdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyFeeTypeIdNo.format}"/>
+                    </af:inputText>
+                    <af:inputText value="#{bindings.CompanyFeeTypeDesc.inputValue}"
+                                  label="#{bindings.CompanyFeeTypeDesc.hints.label}"
+                                  required="#{bindings.CompanyFeeTypeDesc.hints.mandatory}"
+                                  columns="#{bindings.CompanyFeeTypeDesc.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyFeeTypeDesc.hints.precision}"
+                                  shortDesc="#{bindings.CompanyFeeTypeDesc.hints.tooltip}" id="it3">
+                        <f:validator binding="#{bindings.CompanyFeeTypeDesc.validator}"/>
+                    </af:inputText>
+                    <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                                  label="#{bindings.EffectiveStartDate.hints.label}"
+                                  required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id3">
+                        <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                    </af:inputDate>
+                    <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                                  label="#{bindings.EffectiveEndDate.hints.label}"
+                                  required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id4">
+                        <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                    </af:inputDate>
+                </af:panelFormLayout>
+            </af:panelHeader>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

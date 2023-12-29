@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelStretchLayout id="psl1" topHeight="auto">
+    <f:facet name="top">
+      <af:panelHeader text="SystemParameter" id="ph1">
+        <af:query id="qryId1" headerText="Search" disclosed="true"
+                  value="#{bindings.UserUpdatableSystemParameterQuery.queryDescriptor}"
+                  model="#{bindings.UserUpdatableSystemParameterQuery.queryModel}"
+                  queryListener="#{bindings.UserUpdatableSystemParameterQuery.processQuery}"
+                  queryOperationListener="#{bindings.UserUpdatableSystemParameterQuery.processQueryOperation}"
+                  resultComponentId="::pc1:resId1"/>
+      </af:panelHeader>
+    </f:facet>
+    <f:facet name="bottom"/>
+    <f:facet name="center">
+      <af:panelGroupLayout layout="scroll" id="pgl1">
+        <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+          <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t1">
+                  <af:button actionListener="#{bindings.Commit.execute}" text="#{coreLabels['G.Save']}"
+                             disabled="#{!bindings.Commit.enabled}" id="b1" icon="/adf/images/save_16x16.png"/>
+                  <af:button actionListener="#{bindings.Rollback.execute}" text="#{coreLabels['G.Cancel']}"
+                             disabled="#{!bindings.Rollback.enabled}" immediate="true" id="b2"
+                             icon="/adf/images/remove_16x16.png">
+                    <af:resetActionListener/>
+                  </af:button>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.AllSystemParameterView.collectionModel}" var="row"
+                        rows="#{bindings.AllSystemParameterView.rangeSize}"
+                        emptyText="#{bindings.AllSystemParameterView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.AllSystemParameterView.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.AllSystemParameterView.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.AllSystemParameterView.rangeSize}" id="resId1"
+                        width="AFStretchWidth" displayRow="selected" editingMode="clickToEdit"
+                        partialTriggers="::b1 ::b2" columnStretching="column:resId1c4">
+                <af:column headerText="#{bindings.AllSystemParameterView.hints.SystemName.label}" id="resId1c1"
+                           width="200">
+                  <af:outputText value="#{row.SystemName}"
+                                 shortDesc="#{bindings.AllSystemParameterView.hints.SystemName.tooltip}" id="ot1"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllSystemParameterView.hints.ParameterSection.label}" id="resId1c2"
+                           width="200">
+                  <af:outputText value="#{row.ParameterSection}"
+                                 shortDesc="#{bindings.AllSystemParameterView.hints.ParameterSection.tooltip}"
+                                 id="ot2"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllSystemParameterView.hints.ParameterKey.label}" id="resId1c3"
+                           width="200">
+                  <af:outputText value="#{row.ParameterKey}"
+                                 shortDesc="#{bindings.AllSystemParameterView.hints.ParameterKey.tooltip}" id="ot3"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllSystemParameterView.hints.ParameterValue.label}" id="resId1c4"
+                           width="150">
+                  <af:inputText value="#{row.bindings.ParameterValue.inputValue}"
+                                label="#{bindings.AllSystemParameterView.hints.ParameterValue.label}"
+                                required="#{bindings.AllSystemParameterView.hints.ParameterValue.mandatory}"
+                                columns="#{bindings.AllSystemParameterView.hints.ParameterValue.displayWidth}"
+                                maximumLength="#{bindings.AllSystemParameterView.hints.ParameterValue.precision}"
+                                shortDesc="#{bindings.AllSystemParameterView.hints.ParameterValue.tooltip}" id="it1"
+                                autoSubmit="true" autoTab="true">
+                    <f:validator binding="#{row.bindings.ParameterValue.validator}"/>
+                  </af:inputText>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:showDetailItem>
+          <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t3">
+                  <af:button text="#{coreLabels['G.History']}" id="b3" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                       filename="#{coreLabels['G.History']}.xls"/>
+                  </af:button>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.SystemParameterAuditView.collectionModel}" var="row"
+                        rows="#{bindings.SystemParameterAuditView.rangeSize}"
+                        emptyText="#{bindings.SystemParameterAuditView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.SystemParameterAuditView.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.SystemParameterAuditView.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.SystemParameterAuditView.rangeSize}" id="t2"
+                        displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c2">
+                <af:column headerText="#{bindings.SystemParameterAuditView.hints.TransactionDatetime.label}" id="c1"
+                           width="110" align="center">
+                  <af:outputText value="#{row.TransactionDatetime}"
+                                 shortDesc="#{bindings.SystemParameterAuditView.hints.TransactionDatetime.tooltip}"
+                                 id="ot4">
+                    <af:convertDateTime pattern="#{bindings.SystemParameterAuditView.hints.TransactionDatetime.format}" type="both"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.SystemParameterAuditView.hints.TransactionUsername.label}" id="c3">
+                  <af:outputText value="#{row.TransactionUsername}"
+                                 shortDesc="#{bindings.SystemParameterAuditView.hints.TransactionUsername.tooltip}"
+                                 id="ot6"/>
+                </af:column>
+                <af:column headerText="#{bindings.SystemParameterAuditView.hints.TransactionDesc.label}" id="c2"
+                           width="300">
+                  <af:outputText value="#{row.TransactionDesc}"
+                                 shortDesc="#{bindings.SystemParameterAuditView.hints.TransactionDesc.tooltip}"
+                                 id="ot5"/>
+                </af:column>
+                <af:column headerText="#{bindings.SystemParameterAuditView.hints.SystemName.label}" id="c4" width="120">
+                  <af:outputText value="#{row.SystemName}"
+                                 shortDesc="#{bindings.SystemParameterAuditView.hints.SystemName.tooltip}" id="ot7"/>
+                </af:column>
+                <af:column headerText="#{bindings.SystemParameterAuditView.hints.ParameterSection.label}" id="c5"
+                           width="120">
+                  <af:outputText value="#{row.ParameterSection}"
+                                 shortDesc="#{bindings.SystemParameterAuditView.hints.ParameterSection.tooltip}"
+                                 id="ot8"/>
+                </af:column>
+                <af:column headerText="#{bindings.SystemParameterAuditView.hints.ParameterKey.label}" id="c6"
+                           width="120">
+                  <af:outputText value="#{row.ParameterKey}"
+                                 shortDesc="#{bindings.SystemParameterAuditView.hints.ParameterKey.tooltip}" id="ot9"/>
+                </af:column>
+                <af:column headerText="#{bindings.SystemParameterAuditView.hints.ParameterValue.label}" id="c7"
+                           align="right">
+                  <af:outputText value="#{row.ParameterValue}"
+                                 shortDesc="#{bindings.SystemParameterAuditView.hints.ParameterValue.tooltip}"
+                                 id="ot10"/>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:showDetailItem>
+        </af:panelTabbed>
+      </af:panelGroupLayout>
+    </f:facet>
+  </af:panelStretchLayout>
+</jsp:root>

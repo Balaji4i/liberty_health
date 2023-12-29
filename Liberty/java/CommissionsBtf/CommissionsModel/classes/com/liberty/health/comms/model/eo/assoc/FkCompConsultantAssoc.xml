@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkCompConsultantAssoc"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="CompanyConsultant"
+    Cardinality="1"
+    Source="true"
+    Owner="com.liberty.health.comms.model.eo.CompanyEO"
+    LockLevel="NONE">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="CompanyConsultant"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.CompanyEO.ConsultantIdNo"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="BrokerConsultant"
+    Cardinality="-1"
+    Owner="com.liberty.health.comms.model.eo.BrokerEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="BrokerConsultant"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.BrokerEO.BrokerIdNo"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

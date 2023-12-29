@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DbCommPercRoView"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  OrderBy='"MENU_SORT_SEQ_NO"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.dashboard.vo.DbCommPercRoView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[select wao.web_appl_object_no, local_code,substr(menu_item_name,0,instr(menu_item_name,'%')-2) menu_item_name, menu_item_name||': '||count(*) alert_desc, count(*) cnt, url_path_name, menu_sort_seq_no       
+from ohi_comm_perc o , company c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w         
+where o.company_id_no = c.company_id_no       
+  and auth_username is null and reject_username is null       
+  and o.company_id_no is not null       
+    and wao.web_appl_object_no = 30           
+  and wao.web_appl_object_no = w.web_appl_object_no          
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no           
+having count(*) >0       
+union all       
+ select wao.web_appl_object_no, local_code, substr(menu_item_name,0,instr(menu_item_name,'%')-2) menu_item_name,menu_item_name||': '||count(*) alert_desc, count(*) cnt, url_path_name, menu_sort_seq_no       
+from ohi_comm_perc o , ohi_groups c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w         
+where o.group_code = c.group_code       
+  and auth_username is null and reject_username is null       
+  and o.group_code is not null       
+  and wao.web_appl_object_no = 32           
+  and wao.web_appl_object_no = w.web_appl_object_no          
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no           
+having count(*) > 0       
+union all       
+ select wao.web_appl_object_no, local_code,substr(menu_item_name,0,instr(menu_item_name,'%')-2)  menu_item_name,menu_item_name||': '||count(*) alert_desc, count(*) cnt, url_path_name, menu_sort_seq_no    
+from ohi_comm_perc o , ohi_products c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w         
+where o.product_code = c.product_code       
+  and auth_username is null and reject_username is null       
+  and o.product_code is not null       
+  and wao.web_appl_object_no = 33           
+  and wao.web_appl_object_no = w.web_appl_object_no          
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no           
+having count(*) > 0       
+union all         
+ select wao.web_appl_object_no, local_code, menu_item_name,menu_item_name||': '||count(*) alert_desc, count(*) cnt, url_path_name, menu_sort_seq_no      
+from ohi_comm_perc o , ohi_insured_entities c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w         
+where o.inse_code = c.inse_code       
+  and auth_username is null and reject_username is null       
+  and o.inse_code is not null       
+  and wao.web_appl_object_no = 35           
+  and wao.web_appl_object_no = w.web_appl_object_no          
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no           
+having count(*) > 0       
+union all       
+ select wao.web_appl_object_no, local_code, menu_item_name,menu_item_name||': '||count(*) alert_desc, count(*) cnt,url_path_name, menu_sort_seq_no    
+from ohi_comm_perc o , ohi_policies c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w         
+where o.policy_code = c.policy_code       
+  and auth_username is null and reject_username is null       
+  and o.policy_code is not null       
+  and wao.web_appl_object_no = 34           
+  and wao.web_appl_object_no = w.web_appl_object_no          
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no           
+having count(*) > 0       
+union all         
+ select wao.web_appl_object_no, local_code,substr(menu_item_name,0,instr(menu_item_name,'%')-2)  menu_item_name,menu_item_name||': '||count(*) alert_desc, count(*) cnt, url_path_name, menu_sort_seq_no     
+from ohi_comm_perc o , broker c, web_appl_object wao, WEB_APPL_OBJECT_LANG_MENU w         
+where o.broker_id_no = c.broker_id_no       
+  and auth_username is null and reject_username is null       
+  and o.broker_id_no is not null       
+  and wao.web_appl_object_no = 31           
+  and wao.web_appl_object_no = w.web_appl_object_no          
+  group by wao.web_appl_object_no,local_code,menu_item_name,url_path_name, menu_sort_seq_no           
+having count(*) > 0]]></SQLQuery>
+  <ViewAttribute
+    Name="WebApplObjectNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="WEB_APPL_OBJECT_NO"
+    Expression="WEB_APPL_OBJECT_NO"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="LocalCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LOCAL_CODE"
+    Expression="LOCAL_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MenuItemName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="200"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MENU_ITEM_NAME"
+    Expression="MENU_ITEM_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AlertDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="242"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ALERT_DESC"
+    Expression="ALERT_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="242"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Cnt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CNT"
+    Expression="CNT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="UrlPathName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="200"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="URL_PATH_NAME"
+    Expression="URL_PATH_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MenuSortSeqNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="MENU_SORT_SEQ_NO"
+    Expression="MENU_SORT_SEQ_NO"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="WebApplObjectNo"/>
+    <Item Value="LocalCode"/>
+    <Item Value="MenuItemName"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

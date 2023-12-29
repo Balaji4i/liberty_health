@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.0.31"
+                id="maintain_menu_item_name_btf_maintain_menu_item_name_btf_RollbackPageDef" Package="flows"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction" DataControl="HomeMenuAMDataControl"/>
+  </bindings>
+</pageDefinition>

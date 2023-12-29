@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_current_comms_run_btf_maintain_current_comms_run_btf_setpCountryCodePageDef"
+                Package="btf.comms" SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpCountryCode" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setpCountryCode"
+                      IsViewObjectMethod="true" DataControl="CommsRunAMDataControl"
+                      InstanceName="data.CommsRunAMDataControl.CurrentCommsRunCompareView">
+            <NamedData NDName="value" NDValue="A" NDType="java.lang.String"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

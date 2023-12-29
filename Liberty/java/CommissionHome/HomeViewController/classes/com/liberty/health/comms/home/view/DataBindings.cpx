@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.0.31" id="DataBindings"
+             SeparateXMLFiles="false" Package="com.liberty.health.comms.home.view" ClientType="Generic"
+             ErrorHandlerClass="com.liberty.health.comms.home.view.CustomErrorHandler">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/home.jspx" usageId="com_liberty_health_comms_home_view_homePageDef"/>
+    <page path="/WEB-INF/fragments/welcome.jsff" usageId="com_liberty_health_comms_home_view_welcomePageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="com_liberty_health_comms_home_view_homePageDef"
+          path="com.liberty.health.comms.home.view.pageDefs.homePageDef"/>
+    <page id="com_liberty_health_comms_home_view_welcomePageDef" path="fragments.welcomePageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="CommsHomeAMDataControl" Package="com.liberty.health.comms.home.model"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                     SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true" Configuration="CommsHomeAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

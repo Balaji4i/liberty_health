@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelHeader text="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}" id="ph1">
+        <f:facet name="context"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+            <f:facet name="menus"/>
+            <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                    <af:button text="#{coreLabels['G.Approve']}" id="b1"
+                               disabled="#{bindings.AllBrokerCommPercOutstandingApprovalViewIterator.deferredEstimatedRowCount == 0}"
+                               partialTriggers="t1 d1" rendered="#{securityContext.userInRole['team-leads']}">
+                        <af:showPopupBehavior popupId="p1" triggerType="action"/>
+                    </af:button>
+                    <af:button text="#{coreLabels['G.Reject']}" id="b4"
+                               disabled="#{bindings.AllBrokerCommPercOutstandingApprovalViewIterator.deferredEstimatedRowCount == 0}"
+                               partialTriggers="t1 d1" rendered="false">
+                        <af:showPopupBehavior popupId="p3" triggerType="action"/>
+                    </af:button>
+                    <af:button text="#{coreLabels['G.Delete']}" id="b3" rendered="#{securityContext.userInRole['team-leads']}"
+                               disabled="#{bindings.AllBrokerCommPercOutstandingApprovalViewIterator.deferredEstimatedRowCount == 0}"
+                               partialTriggers="t1 d1">
+                        <af:showPopupBehavior popupId="p4" triggerType="action"/>
+                    </af:button>
+                    <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"
+                               rendered="#{securityContext.userInRole['comms-consultant']}">
+                        <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                           filename="#{pageFlowScope.menuItemName}.xls"/>
+                    </af:button>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+                        <af:dialog id="d1" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                                   dialogListener="#{watchListBean.commPercApprovalDialogListener}">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.BankApprovalMessage']}" id="ot2"/>
+                        </af:dialog>
+                    </af:popup>
+                                        <af:popup childCreation="deferred" autoCancel="disabled" id="p4">
+                        <af:dialog id="d4" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                                   dialogListener="#{watchListBean.commPercDeleteDialogListener}">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.DeleteMessage']}" id="ot15"/>
+                        </af:dialog>
+                    </af:popup>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p3" contentDelivery="lazyUncached">
+                        <af:dialog id="d3" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                                   dialogListener="#{watchListBean.commPercRejectDialogListener}">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.RejectionConfirmationInputMessage']}" id="ot13"/>
+                            <af:inputText id="it1" rows="3" binding="#{watchListBean.rejectInputTextBox}"
+                                          autoSubmit="true"
+                                          valueChangeListener="#{pageFlowScope.percRejectBean.inputTextBoxValueChangeListener}"/>
+                        </af:dialog>
+                    </af:popup>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                              binding="#{watchListBean.errorMsgPopUp}">
+                        <af:dialog id="d2" title="#{coreLabels['G.Error']}" type="ok">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.ErrorMsg']} #{watchListBean.returnMsg}" id="ot14"/>
+                        </af:dialog>
+                    </af:popup>
+                </af:toolbar>
+            </f:facet>
+            <f:facet name="statusbar"/>
+            <af:table value="#{bindings.AllBrokerCommPercOutstandingApprovalView.collectionModel}" var="row"
+                      rows="#{bindings.AllBrokerCommPercOutstandingApprovalView.rangeSize}"
+                      emptyText="#{bindings.AllBrokerCommPercOutstandingApprovalView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="1"
+                      selectedRowKeys="#{bindings.AllBrokerCommPercOutstandingApprovalView.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.AllBrokerCommPercOutstandingApprovalView.collectionModel.makeCurrent}"
+                      rowSelection="single" fetchSize="#{bindings.AllBrokerCommPercOutstandingApprovalView.rangeSize}"
+                      id="t1" displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c9"
+                      partialTriggers="::d2 ::d1">
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.BrokerIdNo.label}"
+                           id="c4">
+                    <af:outputText value="#{row.BrokerIdNo}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.BrokerIdNo.tooltip}"
+                                   id="ot7">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.BrokerIdNo.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.PersonTitleCode.label}"
+                           id="c7" width="60">
+                    <af:outputText value="#{row.PersonTitleCode}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.PersonTitleCode.tooltip}"
+                                   id="ot3"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.Initials.label}"
+                           id="c8" width="60">
+                    <af:outputText value="#{row.Initials}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.Initials.tooltip}"
+                                   id="ot6"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.BrokerName.label}"
+                           id="c6" width="200">
+                    <af:outputText value="#{row.BrokerName}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.BrokerName.tooltip}"
+                                   id="ot10"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.BrokerLastName.label}"
+                           id="c2" width="200">
+                    <af:outputText value="#{row.BrokerLastName}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.BrokerLastName.tooltip}"
+                                   id="ot8"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.CommPerc.label}"
+                           id="c10" align="right" width="80">
+                    <af:outputText value="#{row.CommPerc}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.CommPerc.tooltip}"
+                                   id="ot5">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.CommPerc.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.CommDesc.label}"
+                           id="c9">
+                    <af:outputText value="#{row.CommDesc}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.CommDesc.tooltip}"
+                                   id="ot4"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.EffectiveStartDate.label}"
+                           id="c3" align="center">
+                    <af:outputText value="#{row.EffectiveStartDate}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.EffectiveStartDate.tooltip}"
+                                   id="ot11">
+                        <af:convertDateTime pattern="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.EffectiveStartDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.EffectiveEndDate.label}"
+                           id="c5" align="center">
+                    <af:outputText value="#{row.EffectiveEndDate}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.EffectiveEndDate.tooltip}"
+                                   id="ot9">
+                        <af:convertDateTime pattern="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.EffectiveEndDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.CreatedUsername.label}"
+                           id="c1">
+                    <af:outputText value="#{row.CreatedUsername}"
+                                   shortDesc="#{bindings.AllBrokerCommPercOutstandingApprovalView.hints.CreatedUsername.tooltip}"
+                                   id="ot1"/>
+                </af:column>
+            </af:table>
+        </af:panelCollection>
+        <af:panelFormLayout id="pfl1" visible="false">
+            <af:inputText value="#{bindings.AuthUsername.inputValue}" label="#{bindings.AuthUsername.hints.label}"
+                          required="#{bindings.AuthUsername.hints.mandatory}"
+                          columns="#{bindings.AuthUsername.hints.displayWidth}"
+                          maximumLength="#{bindings.AuthUsername.hints.precision}"
+                          shortDesc="#{bindings.AuthUsername.hints.tooltip}" id="it12">
+                <f:validator binding="#{bindings.AuthUsername.validator}"/>
+            </af:inputText>
+        </af:panelFormLayout>
+    </af:panelHeader>
+</jsp:root>

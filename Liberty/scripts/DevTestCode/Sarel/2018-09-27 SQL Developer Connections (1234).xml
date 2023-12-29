@@ -1,0 +1,2224 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<References xmlns="http://xmlns.oracle.com/adf/jndi">
+   <Reference name="OHI - UAT - sarele" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>ohiuatpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>OHI</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@10.122.160.21:1521/ohiuatpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>9/2Wc2AIbwuKrBL9Ikp/Gw==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>10.122.160.21</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>OHI - UAT - sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Selfbuild fusion uat" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Fusion Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprelz1.liberty.fin-za.net:1521/slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprelz1.liberty.fin-za.net</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>fusion</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Selfbuild fusion uat</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - PreProd - UTIL" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbprepdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprelz1:1521/slbprepdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>jO/HJfqaO3o=</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprelz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - PreProd - UTIL</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>util</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Uncat - Documaker Production" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>dmkr.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Uncategorized</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@zajbod11.dot.co.za:1521/dmkr.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>zajbod11.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>cognos</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Uncat - Documaker Production</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - Train - UTIL" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbtrnpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprelz1:1521/slbtrnpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>jO/HJfqaO3o=</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprelz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - Train - UTIL</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>util</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="LH Africa - Test - LHAFTEST" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="sid">
+            <Contents>orcl</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Medware Servers</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@zaptmd01.dot.co.za:1521:orcl</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>1NZSkQtu7DH2EYNgahaxXg==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>zaptmd01.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>LH Africa - Test - LHAFTEST</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhaftest</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="OHI - Master - sarele" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>ohicfgpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>OHI</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohidevlz1:1521/ohicfgpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>9/2Wc2AIbwuKrBL9Ikp/Gw==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohidevlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>OHI - Master - sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - Prod - UTIL" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-65536</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprdlz1:1521/slbprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>jO/HJfqaO3o=</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprdlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - Prod - UTIL</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>util</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Zagami - Dev - MEDREAD" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="sid">
+            <Contents>orcl</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Medware Servers</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@zagami.liberty.fin-za.net:1521:orcl</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>ei4hO9R9buGY5+jeXxNsHg==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>zagami.liberty.fin-za.net</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Zagami - Dev - MEDREAD</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>medread</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Selfbuild fusion preprod" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbprepdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Fusion Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprelz1.liberty.fin-za.net:1521/slbprepdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprelz1.liberty.fin-za.net</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>fusion</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Selfbuild fusion preprod</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="OHI - PreProd - sarele" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>ohiprepdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>OHI</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprelz1:1521/ohiprepdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>9/2Wc2AIbwuKrBL9Ikp/Gw==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprelz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>OHI - PreProd - sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - Train - LHHCOM" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbtrnpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprelz1:1521/slbtrnpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>SRqljE8k/21+C7WYP9dQww==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprelz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - Train - LHHCOM</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcom</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - Dev - UTIL" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohidevlz1:1521/lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>jO/HJfqaO3o=</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohidevlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - Dev - UTIL</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>util</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - Prod - LHHCOM" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-65536</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprdlz1:1521/slbprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>am0qhONIFdk=</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprdlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - Prod - LHHCOM</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcom</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="LH Africa - ODS Prod - MEDREAD" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="sid">
+            <Contents>orcl</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Medware Servers</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@zaptod01.dot.co.za:1521:orcl</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>ei4hO9R9buGY5+jeXxNsHg==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>zaptod01.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>LH Africa - ODS Prod - MEDREAD</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>medread</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Uncat - lhhcorr@lhhsbdev" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Uncategorized</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohidevlz1.liberty.fin-za.net:1521/lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohidevlz1.liberty.fin-za.net</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcorr</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Uncat - lhhcorr@lhhsbdev</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="OHI - Dev - sarele" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>ohidevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>OHI</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohidevlz1:1521/ohidevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>9/2Wc2AIbwuKrBL9Ikp/Gw==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohidevlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>OHI - Dev - sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Uncat - lhhcorr" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Uncategorized</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@10.122.160.21:1521/slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>10.122.160.21</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcorr</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Uncat - lhhcorr</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - Test - UTIL" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbtstpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprelz1:1521/slbtstpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>jO/HJfqaO3o=</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprelz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - Test - UTIL</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>util</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - UAT - UTIL" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@10.122.160.21:1521/slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>jO/HJfqaO3o=</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>10.122.160.21</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - UAT - UTIL</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>util</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Uncat - Correspondence dev" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Uncategorized</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohidevlz1:1521/lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohidevlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcor</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Uncat - Correspondence dev</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="OHI - Test - sarele" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>ohitstpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>OHI</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohidevlz1:1521/ohitstpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>9/2Wc2AIbwuKrBL9Ikp/Gw==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohidevlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>OHI - Test - sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Uncat - Documaker" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>dmkrdev.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Uncategorized</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@zactod11.dot.co.za:1523/dmkrdev.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>zactod11.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1523</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>cognos</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Uncat - Documaker</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - Test - LHHCOM" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbtstpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprelz1:1521/slbtstpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>SRqljE8k/21+C7WYP9dQww==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprelz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - Test - LHHCOM</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcom</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Selfbuild fusion production" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Fusion Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprdlz1.liberty.fin-za.net:1521/slbprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprdlz1.liberty.fin-za.net</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>fusion</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Selfbuild fusion production</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - PreProd - LHHCOM" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbprepdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprelz1:1521/slbprepdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>SRqljE8k/21+C7WYP9dQww==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprelz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - PreProd - LHHCOM</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcom</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - Dev - LHHCOM" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohidevlz1:1521/lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>SRqljE8k/21+C7WYP9dQww==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohidevlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - Dev - LHHCOM</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcom</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - Prod - LHHCOMREAD" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-25551</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprdlz1:1521/slbprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>VhQ0ZSGKhpI/VhdJtlFACg==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprdlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - Prod - LHHCOMREAD</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcomread</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="LH Africa - Dev - LHAFDEV" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="sid">
+            <Contents>orcl</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Medware Servers</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@zaptmd01.dot.co.za:1521:orcl</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>1NZSkQtu7DH2EYNgahaxXg==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>zaptmd01.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>LH Africa - Dev - LHAFDEV</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhafdev</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Uncat - Documaker Test" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>dmkrtest.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Uncategorized</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@zactod11.dot.co.za:1524/dmkrtest.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>zactod11.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1524</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>cognos</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Uncat - Documaker Test</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Uncat - lhhcorr@lLHHSBUAT" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Uncategorized</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@10.122.160.21:1521/slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>10.122.160.21</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcorr</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Uncat - lhhcorr@lLHHSBUAT</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Slb - UAT - LHHCOM" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Commissions Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@10.122.160.21:1521/slbuatdbpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>SRqljE8k/21+C7WYP9dQww==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>10.122.160.21</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Slb - UAT - LHHCOM</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>lhhcom</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="LH Africa - ODS UAT - MEDREAD" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="sid">
+            <Contents>lhafuat</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Medware Servers</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@zajbod12.dot.co.za:1521:lhafuat</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>ei4hO9R9buGY5+jeXxNsHg==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>zajbod12.dot.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>LH Africa - ODS UAT - MEDREAD</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>medread</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="Selfbuild fusion dev" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>Fusion Self Build</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohidevlz1.liberty.fin-za.net:1521/lhhsbdevpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohidevlz1.liberty.fin-za.net</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>Selfbuild fusion dev</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>fusion</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="OHI - Prod - sarele" className="oracle.jdeveloper.db.adapter.DatabaseProvider" xmlns="">
+      <Factory className="oracle.jdevimpl.db.adapter.DatabaseProviderFactory1212"/>
+      <RefAddresses>
+         <StringRefAddr addrType="role">
+            <Contents/>
+         </StringRefAddr>
+         <StringRefAddr addrType="SavePassword">
+            <Contents>true</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OracleConnectionType">
+            <Contents>BASIC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="serviceName">
+            <Contents>ohiprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="RaptorConnectionType">
+            <Contents>Oracle</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="Connection-Color-For-Editors">
+            <Contents>-16777216</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NAV_FOLDER">
+            <Contents>OHI</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportPasswordMode">
+            <Contents>Key</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="customUrl">
+            <Contents>jdbc:oracle:thin:@ohiprdlz1:1521/ohiprdpdb1.liberty.co.za</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="oraDriverType">
+            <Contents>thin</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="NoPasswordConnection">
+            <Contents>TRUE</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="password">
+            <Contents>9/2Wc2AIbwuKrBL9Ikp/Gw==</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="hostname">
+            <Contents>ohiprdlz1</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="driver">
+            <Contents>oracle.jdbc.OracleDriver</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="port">
+            <Contents>1521</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="subtype">
+            <Contents>oraJDBC</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="OS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ConnName">
+            <Contents>OHI - Prod - sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="KERBEROS_AUTHENTICATION">
+            <Contents>false</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="user">
+            <Contents>sarele</Contents>
+         </StringRefAddr>
+         <StringRefAddr addrType="ExportKeyChecksum">
+            <Contents>usHTaWjqiNvdSVGwjPmVoA==</Contents>
+         </StringRefAddr>
+      </RefAddresses>
+   </Reference>
+</References>

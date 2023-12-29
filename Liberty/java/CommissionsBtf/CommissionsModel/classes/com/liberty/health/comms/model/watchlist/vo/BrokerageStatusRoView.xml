@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerageStatusRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  OrderBy='"NO_OF_DAYS","COMPANY_ID_NO"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.watchlist.vo.BrokerageStatusRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+        Name="pCountryList"
+        Kind="where"
+        Type="java.lang.String">
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="BrokerageStatusRoView"/>
+    </Variable>
+    <SQLQuery><![CDATA[select c.company_id_no,              
+c.company_name,              
+c.effective_Start_date,     
+status.company_table_type_desc broker_status_desc,    
+c.effective_Start_date-trunc(sysdate) no_of_days,  
+cc.country_code  
+from company c, company_country cc,      
+(select distinct bf.company_id_no, btt.company_Table_type_id_no, btt.company_table_type_desc, bf.effective_start_date,     
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no     
+         from company_function bf, company_table bt, company_table_type btt            
+        where bf.company_table_id_no = bt.company_table_id_no            
+          and bt.company_table_id_no  = 2         
+          and bf.company_table_type_id_no = btt.company_table_type_id_no   
+          and bf.company_table_id_no = btt.company_table_id_no 
+          and sysdate between bf.effective_start_date and bf.effective_end_date) status     
+where c.company_id_no = status.company_id_no(+)     
+and c.company_id_no = cc.company_id_no  and  cc.country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')      
+ , '[^,]+', 1, LEVEL)              
+            FROM DUAL              
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')    
+, '[^,]+', 1, LEVEL) IS NOT NULL)   
+  and nvl(status.rank_no,1) = 1     
+  and company_Table_type_id_no = 24     
+  and c.effective_Start_date-trunc(sysdate) <= to_number(get_system_parameter('LB_HEALTH_COMMS','WATCHLIST','MAX_PREG_REG_DAYS'))]]></SQLQuery>
+    <ViewAttribute
+      Name="CompanyIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="9"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="COMPANY_ID_NO"
+      Expression="COMPANY_ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COMPANY_NAME"
+      Expression="COMPANY_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Company']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="EffectiveStartDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="EFFECTIVE_START_DATE"
+      Expression="EFFECTIVE_START_DATE"
+      SQLType="DATE">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerStatusDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_STATUS_DESC"
+      Expression="BROKER_STATUS_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerStatus']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="NoOfDays"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="NO_OF_DAYS"
+      Expression="NO_OF_DAYS"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.NoOfDays']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CountryCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="4"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="COUNTRY_CODE"
+        Expression="COUNTRY_CODE"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+    </ViewAttribute>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="CompanyIdNo"/>
+        <Item Value="BrokerStatusDesc"/>
+        <Item Value="CountryCode"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

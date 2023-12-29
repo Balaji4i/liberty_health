@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="brokerStatusDaysPageDef"
+                Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllBrokerageStatusRoView" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="AllBrokerageStatusRoViewIterator" />
+  </executables>
+  <bindings>
+    <tree IterBinding="AllBrokerageStatusRoViewIterator" id="AllBrokerageStatusRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.BrokerageStatusRoView"
+                      Name="AllBrokerageStatusRoView0">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="BrokerStatusDesc"/>
+          <Item Value="NoOfDays"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllBrokerageStatusRoViewIterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

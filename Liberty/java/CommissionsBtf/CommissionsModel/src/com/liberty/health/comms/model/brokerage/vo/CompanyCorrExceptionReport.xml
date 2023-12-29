@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyCorrExceptionReport"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+  OrderBy='"REASON"'>
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrExceptionReport_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pCountryList"
+    Kind="where"
+    Type="java.lang.String">
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="CompanyCorrExceptionReport"/>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <SQLQuery><![CDATA[WITH cmp AS (   
+    SELECT DISTINCT   
+        co.company_id_no,   
+        initcap(co.company_name)      company_name,   
+        co.effective_start_date       company_start_date,   
+        co.effective_end_date         company_end_date,   
+        LISTAGG(cc.country_code, ',') WITHIN GROUP(   
+        ORDER BY   
+            co.company_id_no   
+        )                             countries,   
+        multi.company_table_type_desc multinational,   
+        cc.country_code   
+    FROM   
+        company         co,   
+        company_country cc,   
+        (   
+            SELECT DISTINCT   
+                cf.company_id_no,   
+                cf.effective_start_date,   
+                cf.effective_end_date,   
+                ct.company_table_desc,   
+                ctt.company_table_type_desc   
+            FROM   
+                company_function   cf,   
+                company_table_type ctt,   
+                company_table      ct   
+            WHERE   
+                    1 = 1   
+                AND ct.company_table_desc = 'Multinational'   
+                AND cf.company_table_type_id_no = ctt.company_table_type_id_no   
+                AND ctt.company_table_id_no = ct.company_table_id_no   
+                AND ctt.company_table_id_no = cf.company_table_id_no    
+--  and cc.company_id_no  = cf.company_id_no             
+                AND trunc(sysdate) BETWEEN trunc(cf.effective_start_date) AND trunc(cf.effective_end_date)             
+ -- and trunc(sysdate) between trunc(cc.effective_start_date) and trunc(cc.effective_end_date)             
+                AND trunc(sysdate) BETWEEN trunc(ct.effective_start_date) AND trunc(ct.effective_end_date)   
+                AND trunc(sysdate) BETWEEN trunc(ctt.effective_start_date) AND trunc(ctt.effective_end_date)   
+            ORDER BY   
+                1,   
+                2,   
+                3 ASC   
+        )               multi   
+    WHERE   
+            cc.company_id_no = co.company_id_no   
+        AND multi.company_id_no (+) = cc.company_id_no   
+    GROUP BY   
+        co.company_id_no,   
+        initcap(co.company_name),   
+        co.effective_start_date,   
+        co.effective_end_date,   
+        multi.company_table_type_desc,   
+        cc.country_code   
+), issues AS (   
+    SELECT DISTINCT                       
+   --sys.dbms_random.string('X', 20) reportkey,                       
+        'Brokerage'                 contact_type,   
+        cp.company_id_no,   
+        cp.company_name,   
+        'No Correspondence Contact' reason,   
+        ''                          link_record   
+    FROM   
+        company cp   
+    WHERE   
+        NOT EXISTS (   
+            SELECT   
+                ccon.company_id_no,   
+                ccon.contact_name,   
+                ccon.contact_cellphone_no,   
+                ccon.contact_email,   
+                ccon.contact_fax_no,   
+                ccon.contact_telephone_no,   
+                ccon.contact_desc,   
+                cctp.company_contact_type_desc,   
+                ccon.effective_start_date,   
+                ccon.effective_end_date   
+            FROM   
+                company_contact_type cctp,   
+                company_contact      ccon   
+            WHERE   
+                    cctp.company_contact_type_desc = 'Correspondence Contact'   
+                AND trunc(sysdate) BETWEEN trunc(nvl(cctp.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(cctp.effective_end_date,   
+                to_date('31-DEC-4712')))   
+                AND ccon.company_contact_type_id_no = cctp.company_contact_type_id_no   
+                AND cp.company_id_no = ccon.company_id_no   
+                AND trunc(sysdate) BETWEEN trunc(nvl(ccon.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(ccon.effective_end_date,   
+                to_date('31-DEC-4712')))   
+        )   
+    UNION ALL   
+    SELECT DISTINCT                       
+   --sys.dbms_random.string('X', 20) reportkey,                       
+        'Brokerage'                          contact_type,   
+        cp.company_id_no,   
+        cp.company_name,   
+        'No Correspondence Country Template' reason,   
+        ''                                   link_record   
+    FROM   
+        company cp   
+    WHERE   
+        NOT EXISTS (   
+            SELECT DISTINCT   
+                'X'   
+            FROM   
+                company_country    cc,   
+                company_function   cf,   
+                company_table_type ctt,   
+                company_table      ct   
+            WHERE   
+                    1 = 1   
+                AND ct.company_table_desc = 'Corr Template'   
+                AND cf.company_table_type_id_no = ctt.company_table_type_id_no   
+                AND ctt.company_table_id_no = ct.company_table_id_no   
+                AND ctt.company_table_id_no = cf.company_table_id_no   
+                AND cc.company_id_no = cf.company_id_no   
+                AND cc.company_id_no = cp.company_id_no   
+                AND trunc(sysdate) BETWEEN trunc(nvl(cf.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(cf.effective_end_date,   
+                to_date('31-DEC-4712')))   
+                AND trunc(sysdate) BETWEEN trunc(nvl(cc.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(cc.effective_end_date,   
+                to_date('31-DEC-4712')))   
+                AND trunc(sysdate) BETWEEN trunc(nvl(ct.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(ct.effective_end_date,   
+                to_date('31-DEC-4712')))   
+                AND trunc(sysdate) BETWEEN trunc(nvl(ctt.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(ctt.effective_end_date,   
+                to_date('31-DEC-4712')))   
+        )   
+    UNION ALL   
+    SELECT                        
+--sys.dbms_random.string('X', 20) reportkey,                       
+        'Brokerage'                 contact_type,   
+        cp.company_id_no,   
+        cp.company_name,   
+        'No Correspondence Address' reason,   
+        ''                          link_record   
+    FROM   
+        company cp   
+    WHERE   
+        NOT EXISTS (   
+            SELECT   
+                cadr.company_id_no,   
+                cadr.address_country_code,   
+                cadr.effective_start_date,   
+                cadr.effective_end_date,   
+                cadr.address_type_code,   
+                nvl(cadr.address_line1, '    * *') address_line1,   
+                nvl(cadr.address_line2, '    * *') address_line2,   
+                nvl(cadr.address_line3, '    * *') address_line3,   
+                nvl(cadr.country_code, '    * *')  country_code,   
+                nvl(cadr.postal_code, '    * *')   postal_code   
+            FROM   
+                company_address cadr   
+            WHERE   
+                    1 = 1   
+                AND cadr.address_type_code = 'C'   
+                AND cadr.company_id_no = cp.company_id_no   
+                AND sysdate BETWEEN trunc(nvl(cadr.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(cadr.effective_end_date,   
+                to_date('31-DEC-4712')))   
+        )   
+    UNION   
+    SELECT                        
+--sys.dbms_random.string('X', 20) reportkey,                       
+        'Brokerage'                 contact_type,   
+        cp.company_id_no,   
+        cp.company_name,   
+        'Not a valid Email Address' reason,   
+        ccon.contact_name           link_record   
+    FROM   
+        company              cp,   
+        company_contact_type cctp,   
+        company_contact      ccon   
+    WHERE   
+            cctp.company_contact_type_desc = 'Correspondence Contact'   
+        AND trunc(sysdate) BETWEEN trunc(nvl(cctp.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(cctp.effective_end_date,   
+        to_date('31-DEC-4712')))   
+        AND ccon.company_contact_type_id_no = cctp.company_contact_type_id_no   
+        AND cp.company_id_no = ccon.company_id_no   
+        AND trunc(sysdate) BETWEEN trunc(nvl(ccon.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(ccon.effective_end_date,   
+        to_date('31-DEC-4712')))   
+        AND ( NOT REGEXP_LIKE ( ccon.contact_email,   
+                                '^[A-Za-z]+[A-Za-z0-9.]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$' )   
+                  OR ccon.contact_email IS NULL )   
+    UNION ALL   
+    SELECT DISTINCT   
+        'Brokerage'                                                     contact_type,   
+        cp.company_id_no,   
+        cp.company_name,   
+        'More than one active correspondence contact for Multinational' reason,   
+        ''                                                              link_record   
+    FROM   
+        company cp,   
+        (   
+            SELECT DISTINCT   
+                cf.company_id_no,   
+                cf.effective_start_date,   
+                cf.effective_end_date,   
+                ct.company_table_desc,   
+                ctt.company_table_type_desc   
+            FROM   
+                company_function   cf,   
+                company_table_type ctt,   
+                company_table      ct   
+            WHERE   
+                    1 = 1   
+                AND ct.company_table_desc = 'Multinational'   
+                AND cf.company_table_type_id_no = ctt.company_table_type_id_no   
+                AND ctt.company_table_id_no = ct.company_table_id_no   
+                AND ctt.company_table_id_no = cf.company_table_id_no        
+--  and cc.company_id_no  = cf.company_id_no             
+                AND trunc(sysdate) BETWEEN trunc(cf.effective_start_date) AND trunc(cf.effective_end_date)             
+ -- and trunc(sysdate) between trunc(cc.effective_start_date) and trunc(cc.effective_end_date)             
+                AND trunc(sysdate) BETWEEN trunc(ct.effective_start_date) AND trunc(ct.effective_end_date)   
+                AND trunc(sysdate) BETWEEN trunc(ctt.effective_start_date) AND trunc(ctt.effective_end_date)   
+            ORDER BY   
+                1,   
+                2,   
+                3 ASC   
+        )       multi   
+    WHERE   
+            1 = 1   
+        AND multi.company_table_type_desc = 'Y'   
+        AND multi.company_id_no = cp.company_id_no   
+        AND EXISTS (   
+            SELECT   
+                COUNT(1)   
+            FROM   
+                company_contact_type cctp,   
+                company_contact      ccon   
+            WHERE   
+                    cctp.company_contact_type_desc = 'Correspondence Contact'   
+                AND trunc(sysdate) BETWEEN trunc(nvl(cctp.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(cctp.effective_end_date,   
+                to_date('31-DEC-4712')))   
+                AND ccon.company_contact_type_id_no = cctp.company_contact_type_id_no   
+                AND cp.company_id_no = ccon.company_id_no   
+                AND trunc(sysdate) BETWEEN trunc(nvl(ccon.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(ccon.effective_end_date,   
+                to_date('31-DEC-4712')))   
+            HAVING   
+                COUNT(1) > 1   
+        )   
+    UNION ALL   
+    SELECT DISTINCT   
+        'Brokerage'                                                     contact_type,   
+        cp.company_id_no,   
+        cp.company_name,   
+        'More than one active correspondence address for Multinational' reason,   
+        ''                                                              link_record   
+    FROM   
+        company cp,   
+        (   
+            SELECT DISTINCT   
+                cf.company_id_no,   
+                cf.effective_start_date,   
+                cf.effective_end_date,   
+                ct.company_table_desc,   
+                ctt.company_table_type_desc   
+            FROM   
+                company_function   cf,   
+                company_table_type ctt,   
+                company_table      ct   
+            WHERE   
+                    1 = 1   
+                AND ct.company_table_desc = 'Multinational'   
+                AND cf.company_table_type_id_no = ctt.company_table_type_id_no   
+                AND ctt.company_table_id_no = ct.company_table_id_no   
+                AND ctt.company_table_id_no = cf.company_table_id_no      
+--  and cc.company_id_no  = cf.company_id_no             
+                AND trunc(sysdate) BETWEEN trunc(cf.effective_start_date) AND trunc(cf.effective_end_date)             
+ -- and trunc(sysdate) between trunc(cc.effective_start_date) and trunc(cc.effective_end_date)             
+                AND trunc(sysdate) BETWEEN trunc(ct.effective_start_date) AND trunc(ct.effective_end_date)   
+                AND trunc(sysdate) BETWEEN trunc(ctt.effective_start_date) AND trunc(ctt.effective_end_date)   
+            ORDER BY   
+                1,   
+                2,   
+                3 ASC   
+        )       multi   
+    WHERE   
+            1 = 1   
+        AND multi.company_id_no = cp.company_id_no   
+        AND multi.company_table_type_desc = 'Y'   
+        AND EXISTS (   
+            SELECT   
+                COUNT(1)   
+            FROM   
+                company_address cadr   
+            WHERE   
+                    1 = 1   
+                AND cadr.address_type_code = 'C'   
+                AND cadr.company_id_no = cp.company_id_no   
+                AND sysdate BETWEEN trunc(nvl(cadr.effective_start_date, to_date('01-JAN-1900'))) AND trunc(nvl(cadr.effective_end_date,   
+                to_date('31-DEC-4712')))   
+            HAVING   
+                COUNT(1) > 1   
+        )   
+), status as (   
+select DISTINCT cf.company_table_type_id_no, cf.company_id_no              
+from company_function cf  
+       where cf.company_table_id_no = 2 and effective_end_date > sysdate)  
+SELECT DISTINCT   
+    issues.contact_type,   
+    issues.company_id_no,   
+    issues.company_name,   
+    cmp.countries,   
+    issues.reason,   
+    issues.link_record,   
+    cmp.country_code   
+       
+FROM   
+    cmp,   
+    issues, 
+    status 
+WHERE   
+        cmp.company_id_no = issues.company_id_no  and 
+        cmp.company_id_no = status.company_id_no   and status.company_table_type_id_no <> 27 
+ --   AND cmp.company_id_no > 100    
+    and cmp.country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')         
+ , '[^,]+', 1, LEVEL)                 
+            FROM DUAL                 
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')       
+, '[^,]+', 1, LEVEL) IS NOT NULL) and cmp.country_code is not null]]></SQLQuery>
+  <ViewAttribute
+    Name="ContactType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CONTACT_TYPE"
+    Expression="CONTACT_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="9"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMPANY_ID_NO"
+    Expression="COMPANY_ID_NO"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrExceptionReport.CompanyIdNo_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COMPANY_NAME"
+    Expression="COMPANY_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrExceptionReport.CompanyName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Countries"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRIES"
+    Expression="COUNTRIES"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4000"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrExceptionReport.Countries_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Reason"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="34"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="REASON"
+    Expression="REASON"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="34"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrExceptionReport.Reason_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LinkRecord"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LINK_RECORD"
+    Expression="LINK_RECORD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1000"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCorrExceptionReport.LinkRecord_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CompanyIdNo"/>
+    <Item Value="Countries"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

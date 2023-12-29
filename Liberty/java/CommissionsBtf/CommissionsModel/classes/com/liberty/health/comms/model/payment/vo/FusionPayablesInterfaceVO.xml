@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FusionPayablesInterfaceVO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pcountrylist"
+    Kind="where"
+    Type="java.lang.String">
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="FusionPayablesInterfaceVO"/>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <SQLQuery><![CDATA[WITH released AS (  
+    SELECT  
+        invoice_no,  
+        country_code  
+    FROM  
+        invoice  
+    WHERE  
+        release_date IS NOT NULL  
+        AND payment_date IS NULL  
+        AND country_code IN (  
+            SELECT  
+                regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level)  
+            FROM  
+                dual  
+            CONNECT BY  
+                regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level) IS NOT NULL  
+        ) and country_code is not null 
+), inter AS (  
+    SELECT  
+        int_status                  status,  
+        operating_unit              bu,  
+        invoice_num                 invoice_number,  
+        invoice_type_lookup_code    invoice_type,  
+        substr(invoice_date, 1, 10) invoice_date,  
+        vendor_num                  vendor_number,  
+        vendor_name                 vendor_name,  
+        vendor_site_code            vendor_site,  
+        invoice_amount              invoice_amt,  
+        invoice_currency_code       invoice_currency,  
+        terms_name                  terms,  
+        description                 description,  
+        substr(creation_dte, 1, 10) creation_date,  
+        created_by                  created_by  
+    FROM  
+        ws_soap_inbound t,  
+        XMLTABLE ( '//DATA_DS/G_1'  
+                PASSING xmltype(t.payload)  
+            COLUMNS  
+                invoice_num VARCHAR2(150) PATH 'INVOICE_NUM/text()',  
+                invoice_type_lookup_code VARCHAR2(150) PATH 'INVOICE_TYPE_LOOKUP_CODE/text()',  
+                invoice_date VARCHAR2(150) PATH 'INVOICE_DATE/text()',  
+                vendor_num VARCHAR2(150) PATH 'VENDOR_NUM/text()',  
+                vendor_name VARCHAR2(150) PATH 'VENDOR_NAME/text()',  
+                vendor_site_code VARCHAR2(150) PATH 'VENDOR_SITE_CODE/text()',  
+                invoice_amount VARCHAR2(150) PATH 'INVOICE_AMOUNT/text()',  
+                invoice_currency_code VARCHAR2(150) PATH 'INVOICE_CURRENCY_CODE/text()',  
+                terms_name VARCHAR2(150) PATH 'TERMS_NAME/text()',  
+                description VARCHAR2(150) PATH 'DESCRIPTION/text()',  
+                creation_dte VARCHAR2(150) PATH 'CREATION_DATE/text()',  
+                created_by VARCHAR2(150) PATH 'CREATED_BY/text()',  
+                operating_unit VARCHAR2(150) PATH 'OPERATING_UNIT/text()',  
+                int_status VARCHAR2(150) PATH 'STATUS/text()'  
+        )  
+    WHERE  
+        process_name = 'FUSION_PAYABLES_INTERFACE'  
+)  
+SELECT  
+    decode(released.invoice_no, NULL, 'NOT INTERFACED TO FUSION', 'INTERFACED') interfaced_yn,  
+    inter.status,  
+    inter.bu,  
+    inter.invoice_number,  
+    inter.invoice_type,  
+    inter.invoice_date,  
+    inter.vendor_number,  
+    inter.vendor_name,  
+    inter.vendor_site,  
+    inter.invoice_amt,  
+    inter.invoice_currency,  
+    inter.terms,  
+    inter.description,  
+    inter.creation_date,  
+    inter.created_by,  
+    released.country_code  
+FROM  
+    inter,  
+    released  
+WHERE  
+    inter.invoice_number = released.invoice_no (+) 
+    and released.country_code is not null]]></SQLQuery>
+  <ViewAttribute
+    Name="InterfacedYn"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="24"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INTERFACED_YN"
+    Expression="INTERFACED_YN"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="24"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.InterfacedYn_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Status"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STATUS"
+    Expression="STATUS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.Status_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Bu"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BU"
+    Expression="BU"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.Bu_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_NUMBER"
+    Expression="INVOICE_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.InvoiceNumber_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_TYPE"
+    Expression="INVOICE_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.InvoiceType_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_DATE"
+    Expression="INVOICE_DATE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.InvoiceDate_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VENDOR_NUMBER"
+    Expression="VENDOR_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.VendorNumber_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VENDOR_NAME"
+    Expression="VENDOR_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.VendorName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorSite"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VENDOR_SITE"
+    Expression="VENDOR_SITE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.VendorSite_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_AMT"
+    Expression="INVOICE_AMT"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.InvoiceAmt_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceCurrency"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_CURRENCY"
+    Expression="INVOICE_CURRENCY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.InvoiceCurrency_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Terms"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TERMS"
+    Expression="TERMS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Description"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DESCRIPTION"
+    Expression="DESCRIPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CREATION_DATE"
+    Expression="CREATION_DATE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.CreationDate_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CREATED_BY"
+    Expression="CREATED_BY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.CreatedBy_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.payment.vo.FusionPayablesInterfaceVO.CountryCode_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="Bu"/>
+    <Item Value="InvoiceNumber"/>
+    <Item Value="CountryCode"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

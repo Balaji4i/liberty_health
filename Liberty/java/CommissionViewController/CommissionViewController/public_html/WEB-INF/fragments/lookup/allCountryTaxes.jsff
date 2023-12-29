@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelGroupLayout layout="vertical" id="pgl1">
+        <af:panelGroupLayout layout="vertical" id="pgl2">
+            <af:panelHeader text="#{coreLabels['G.CountryTaxes']}" id="ph1">
+                <af:query id="qryId1" headerText="Search" disclosed="true"
+                          value="#{bindings.CountryTaxesVOCriteriaQuery.queryDescriptor}"
+                          model="#{bindings.CountryTaxesVOCriteriaQuery.queryModel}"
+                          queryListener="#{bindings.CountryTaxesVOCriteriaQuery.processQuery}"
+                          queryOperationListener="#{bindings.CountryTaxesVOCriteriaQuery.processQueryOperation}"/>
+            </af:panelHeader>
+        </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    <af:panelGroupLayout id="pgl3">
+        <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png" action="Add"/>
+    </af:panelGroupLayout>
+    <af:panelTabbed position="above" id="pt1" inlineStyle="width:1275px;">
+        <af:showDetailItem id="tab1" text="Current Details">
+            <af:table value="#{bindings.allCountryTaxesView.collectionModel}" var="row"
+                      rows="#{bindings.allCountryTaxesView.rangeSize}"
+                      emptyText="#{bindings.allCountryTaxesView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="0" scrollPolicy="page"
+                      selectedRowKeys="#{bindings.allCountryTaxesView.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.allCountryTaxesView.collectionModel.makeCurrent}"
+                      rowSelection="single" fetchSize="#{bindings.allCountryTaxesView.rangeSize}" id="t1">
+                <af:column headerText="#{bindings.allCountryTaxesView.hints.CountryCode.label}" id="c1"
+                           rendered="false">
+                    <af:selectOneChoice value="#{row.bindings.CountryCode.inputValue}"
+                                        label="#{row.bindings.CountryCode.label}"
+                                        required="#{bindings.allCountryTaxesView.hints.CountryCode.mandatory}"
+                                        shortDesc="#{bindings.allCountryTaxesView.hints.CountryCode.tooltip}"
+                                        readOnly="true" id="soc1">
+                        <f:selectItems value="#{row.bindings.CountryCode.items}" id="si1"/>
+                        <f:validator binding="#{row.bindings.CountryCode.validator}"/>
+                    </af:selectOneChoice>
+                </af:column>
+                <af:column headerText="#{bindings.allCountryTaxesView.hints.CountryCode.label}" id="c14"
+                           rendered="true">
+                    <af:link text="#{row.CountryCode}" id="l1" action="Edit"
+                             disabled="#{!securityContext.userInRole['comms-consultant']}"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.allCountryTaxesView.hints.AccreditationTypeIdNo.name}"
+                           sortable="true"
+                           headerText="#{bindings.allCountryTaxesView.hints.AccreditationTypeIdNo.label}" id="c2"
+                           rendered="false">
+                    <af:outputText value="#{row.AccreditationTypeIdNo}"
+                                   shortDesc="#{bindings.allCountryTaxesView.hints.AccreditationTypeIdNo.tooltip}"
+                                   id="ot1">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.allCountryTaxesView.hints.AccreditationTypeIdNo.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.allCountryTaxesView.hints.EffectiveStartDate.name}" sortable="true"
+                           headerText="#{bindings.allCountryTaxesView.hints.EffectiveStartDate.label}" id="c3">
+                    <af:outputText value="#{row.EffectiveStartDate}"
+                                   shortDesc="#{bindings.allCountryTaxesView.hints.EffectiveStartDate.tooltip}"
+                                   id="ot2">
+                        <af:convertDateTime pattern="#{bindings.allCountryTaxesView.hints.EffectiveStartDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.allCountryTaxesView.hints.EffectiveEndDate.name}" sortable="true"
+                           headerText="#{bindings.allCountryTaxesView.hints.EffectiveEndDate.label}" id="c4">
+                    <af:outputText value="#{row.EffectiveEndDate}"
+                                   shortDesc="#{bindings.allCountryTaxesView.hints.EffectiveEndDate.tooltip}" id="ot3">
+                        <af:convertDateTime pattern="#{bindings.allCountryTaxesView.hints.EffectiveEndDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.allCountryTaxesView.hints.AccredLocal.name}" sortable="true"
+                           headerText="#{bindings.allCountryTaxesView.hints.AccredLocal.label}" id="c5">
+                    <af:outputText value="#{row.AccredLocal}"
+                                   shortDesc="#{bindings.allCountryTaxesView.hints.AccredLocal.tooltip}" id="ot4"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.allCountryTaxesView.hints.AccredMulti.name}" sortable="true"
+                           headerText="#{bindings.allCountryTaxesView.hints.AccredMulti.label}" id="c6">
+                    <af:outputText value="#{row.AccredMulti}"
+                                   shortDesc="#{bindings.allCountryTaxesView.hints.AccredMulti.tooltip}" id="ot5"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.allCountryTaxesView.hints.NoAccrLocal.name}" sortable="true"
+                           headerText="#{bindings.allCountryTaxesView.hints.NoAccrLocal.label}" id="c7">
+                    <af:outputText value="#{row.NoAccrLocal}"
+                                   shortDesc="#{bindings.allCountryTaxesView.hints.NoAccrLocal.tooltip}" id="ot6"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.allCountryTaxesView.hints.NoAccrMulti.name}" sortable="true"
+                           headerText="#{bindings.allCountryTaxesView.hints.NoAccrMulti.label}" id="c8">
+                    <af:outputText value="#{row.NoAccrMulti}"
+                                   shortDesc="#{bindings.allCountryTaxesView.hints.NoAccrMulti.tooltip}" id="ot7"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.allCountryTaxesView.hints.LastUpdateDatetime.name}" sortable="true"
+                           headerText="#{bindings.allCountryTaxesView.hints.LastUpdateDatetime.label}" id="c9"
+                           rendered="false">
+                    <af:outputText value="#{row.LastUpdateDatetime}"
+                                   shortDesc="#{bindings.allCountryTaxesView.hints.LastUpdateDatetime.tooltip}"
+                                   id="ot8">
+                        <af:convertDateTime pattern="#{bindings.allCountryTaxesView.hints.LastUpdateDatetime.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column sortProperty="#{bindings.allCountryTaxesView.hints.Username.name}" sortable="true"
+                           headerText="#{bindings.allCountryTaxesView.hints.Username.label}" id="c10" rendered="false">
+                    <af:outputText value="#{row.Username}"
+                                   shortDesc="#{bindings.allCountryTaxesView.hints.Username.tooltip}" id="ot9"/>
+                </af:column>
+            </af:table>
+        </af:showDetailItem>
+        <af:showDetailItem id="tab2" text="History">
+            <af:table value="#{bindings.CountryTaxesAuditView.collectionModel}" var="row"
+                      rows="#{bindings.CountryTaxesAuditView.rangeSize}"
+                      emptyText="#{bindings.CountryTaxesAuditView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="0" scrollPolicy="page"
+                      selectedRowKeys="#{bindings.CountryTaxesAuditView.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.CountryTaxesAuditView.collectionModel.makeCurrent}"
+                      rowSelection="single" fetchSize="#{bindings.CountryTaxesAuditView.rangeSize}"
+                      filterModel="#{bindings.CountryTaxesAuditViewQuery.queryDescriptor}" filterVisible="true"
+                      queryListener="#{bindings.CountryTaxesAuditViewQuery.processQuery}" varStatus="vs" id="t2"
+                      columnStretching="last">
+                <af:column sortProperty="Transaction Date Time"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.CountryTaxesAuditView.hints.TransactionDatetime.label}" id="c11"
+                           width="163">
+                    <f:facet name="filter">
+                        <af:inputDate value="#{bindings.CountryTaxesAuditViewQuery.queryDescriptor.filterConjunctionCriterion.criterionMap.TransactionDatetime.value}"
+                                      id="id1">
+                            <af:convertDateTime pattern="#{bindings.CountryTaxesAuditView.hints.TransactionDatetime.format}"/>
+                        </af:inputDate>
+                    </f:facet>
+                    <af:outputText value="#{row.TransactionDatetime}"
+                                   shortDesc="#{bindings.CountryTaxesAuditView.hints.TransactionDatetime.tooltip}"
+                                   id="ot10">
+                        <af:convertDateTime pattern="#{bindings.CountryTaxesAuditView.hints.TransactionDatetime.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="Country Code" align="center" id="c15">
+                    <af:outputText value="#{row.CountryCode}"
+                                   shortDesc="#{bindings.CountryTaxesAuditView.hints.CountryCode.tooltip}" id="ot13"/>
+                </af:column>
+                <af:column sortProperty="Transaction Description" filterable="true"
+                           sortable="true" headerText="#{bindings.CountryTaxesAuditView.hints.TransactionDesc.label}"
+                           id="c12" width="685">
+                    <af:outputText value="#{row.TransactionDesc}"
+                                   shortDesc="#{bindings.CountryTaxesAuditView.hints.TransactionDesc.tooltip}"
+                                   id="ot11"/>
+                </af:column>
+                <af:column sortProperty="Transaction Username"
+                           filterable="true" sortable="true"
+                           headerText="#{bindings.CountryTaxesAuditView.hints.TransactionUsername.label}" id="c13"
+                           width="-548">
+                    <af:outputText value="#{row.TransactionUsername}"
+                                   shortDesc="#{bindings.CountryTaxesAuditView.hints.TransactionUsername.tooltip}"
+                                   id="ot12"/>
+                </af:column>
+            </af:table>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

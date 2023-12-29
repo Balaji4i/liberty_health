@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainBrokerTablePageDef"
+                Package="fragment.brokerTable">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BrokerTableByPkView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerTableByPkViewIterator"/>
+        <taskFlow id="maintainbrokertabletypebtf1"
+                  taskFlowId="/WEB-INF/btf/brokerTable/maintain-broker-table-type-btf.xml#maintain-broker-table-type-btf"
+                  xmlns="http://xmlns.oracle.com/adf/controller/binding" activation="deferred">
+            <parameters>
+                <parameter id="tableIdNo" value="#{bindings.BrokerTableIdNo.inputValue}"/>
+            </parameters>
+        </taskFlow>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="BrokerTableByPkViewIterator" id="BrokerTableDesc">
+            <AttrNames>
+                <Item Value="BrokerTableDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerTableByPkViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerTableByPkViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerTableByPkViewIterator" id="BrokerTableIdNo">
+            <AttrNames>
+                <Item Value="BrokerTableIdNo"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

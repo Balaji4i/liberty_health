@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="commission-accurals-flow">
+    <?audit suppress oracle.adfdt.controller.adfc.source.audit.TaskFlowReturnOrViewActivityNotDefined?>
+    <default-activity>commsAccruals</default-activity>
+    <?audit suppress oracle.adfdt.controller.adfc.source.audit.DefaultActivityNotDefined?>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <view id="commsAccruals">
+      <page>/WEB-INF/fragments/comms/commsAccruals.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

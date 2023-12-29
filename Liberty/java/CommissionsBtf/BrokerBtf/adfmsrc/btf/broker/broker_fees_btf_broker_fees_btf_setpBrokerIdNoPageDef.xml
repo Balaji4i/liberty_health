@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="broker_fees_btf_broker_fees_btf_setpBrokerIdNoPageDef" Package="btf.broker" SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpCompanyIdNo" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setpCompanyIdNo"
+                      IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyFeeByBrokerageView">
+            <NamedData NDName="value" NDValue="#{pageFlowScope.companyIdNo}" NDType="oracle.jbo.domain.Number"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCompanyCommentsPageDef"
+                Package="fragment.company">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyCommentsView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyCommentsViewIterator"/>
+    </executables>
+    <bindings>
+        <tree IterBinding="CompanyCommentsViewIterator" id="CompanyCommentsView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyCommentsVO"
+                            Name="CompanyCommentsView0">
+                <AttrNames>
+                    <Item Value="CommentDatetime"/>
+                    <Item Value="CommentDesc"/>
+                    <Item Value="Username"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <action id="Commit" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true"
+                Action="commitTransaction"/>
+        <action id="Rollback" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <action IterBinding="CompanyCommentsViewIterator" id="CreateInsert"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyCommentsView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="createWithParams">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+        </action>
+        <attributeValues IterBinding="CompanyCommentsViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCommentsViewIterator" id="CommentDatetime">
+            <AttrNames>
+                <Item Value="CommentDatetime"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCommentsViewIterator" id="CommentDesc">
+            <AttrNames>
+                <Item Value="CommentDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCommentsViewIterator" id="LastUpdateDatetime">
+            <AttrNames>
+                <Item Value="LastUpdateDatetime"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCommentsViewIterator" id="Username">
+            <AttrNames>
+                <Item Value="Username"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

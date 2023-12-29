@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AddressTypeEO"
+    Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="ADDRESS_TYPE"
+  AliasName="AddressTypeEO"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache"
+    xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+    <Attribute
+      Name="AddressTypeCode"
+      IsNotNull="true"
+      Precision="1"
+      ColumnName="ADDRESS_TYPE_CODE"
+      SQLType="CHAR"
+      Type="java.lang.String"
+      ColumnType="CHAR"
+      TableName="ADDRESS_TYPE"
+      PrimaryKey="true"
+      RetrievedOnUpdate="true"
+      RetrievedOnInsert="true"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AddressType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="AddressTypeDesc"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="ADDRESS_TYPE_DESC"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="ADDRESS_TYPE"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AddressType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="NUMBER"
+      TableName="ADDRESS_TYPE"
+      IsEffectiveStartDate="true"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="AddressTypeEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="ADDRESS_TYPE"
+      IsEffectiveEndDate="true"
+      DefaultValue="3100-01-31"
+      IsNotNull="true">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="java.sql.Timestamp"
+      ColumnType="DATE"
+      TableName="ADDRESS_TYPE"
+      HistoryColumn="DateHistory">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LastUpdate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="ADDRESS_TYPE"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Username']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+      Name="CompanyAddress"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyAddressTypeFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyAddressTypeFkAssoc.CompanyAddress"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyAddressTypeFkAssoc.AddressType"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <Key
+      Name="AddressTypeEffectiveEndDateCheck">
+        <DesignTime>
+            <Attr Name="_isNotNull" Value="true"/>
+            <Attr Name="_checkCondition" Value='"EFFECTIVE_END_DATE" IS NOT NULL'/>
+            <Attr Name="_isCheck" Value="true"/>
+            <Attr Name="_DBObjectName" Value="ADDRESS_TYPE_EFFECTIVE_END_DAT"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.AddressTypeEO.EffectiveEndDate"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="AddressTypePk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="ADDRESS_TYPE_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.AddressTypeEO.AddressTypeCode"/>
+            <Item Value="com.liberty.health.comms.model.eo.AddressTypeEO.EffectiveStartDate"/>
+        </AttrArray>
+    </Key>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

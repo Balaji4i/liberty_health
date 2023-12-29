@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allBrokersPageDef"
+                Package="fragments.brokers">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllBrokersView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+              id="AllBrokersViewIterator" Refresh="ifNeeded"/>
+    <searchRegion Criteria="BrokerSearchViewCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllBrokersViewIterator" id="BrokerSearchViewCriteriaQuery"/>
+    <iterator Binds="BrokerAuditRoView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+              id="BrokerAuditRoViewIterator" Refresh="ifNeeded"/>
+    <iterator Binds="BrokerCommentsRoView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+              id="BrokerCommentsRoViewIterator" Refresh="ifNeeded"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllBrokersViewIterator" id="AllBrokersView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerRoView" Name="AllBrokersView0">
+        <AttrNames>
+          <Item Value="PersonTitleCode"/>
+          <Item Value="Initials"/>
+          <Item Value="BrokerName"/>
+          <Item Value="BrokerLastName"/>
+          <Item Value="BrokerStatusDesc"/>
+          <Item Value="BrokerTypeDesc"/>
+          <Item Value="CompanyName"/>
+          <Item Value="PassportCode"/>
+          <Item Value="IdNo"/>
+          <Item Value="SmsNotificationInd"/>
+          <Item Value="EmailNotificationInd"/>
+          <Item Value="BrokerIdNo"/>
+          <Item Value="BusinessDevMgrName"/>
+          <Item Value="KamBrokerIdNo"/>
+          <Item Value="KamBrokerLastName"/>
+          <Item Value="KamBrokerName"/>
+          <Item Value="ParentBrokerIdNo"/>
+          <Item Value="ParentBrokerLastName"/>
+          <Item Value="ParentBrokerName"/>
+          <Item Value="CellphoneNo"/>
+          <Item Value="HomeTelephoneNo"/>
+          <Item Value="EmailAddress"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllBrokersViewIterator" id="BrokerIdNo">
+      <AttrNames>
+        <Item Value="BrokerIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <button IterBinding="AllBrokersViewIterator" StaticList="false" Uses="LOV_SmsNotificationInd"
+            id="SmsNotificationInd" DTSupportsMRU="false">
+      <AttrNames>
+        <Item Value="SmsNotificationInd"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="true"/>
+        <Item Value="false"/>
+      </ValueList>
+    </button>
+    <button IterBinding="AllBrokersViewIterator" StaticList="false" Uses="LOV_EmailNotificationInd"
+            id="EmailNotificationInd" DTSupportsMRU="false">
+      <AttrNames>
+        <Item Value="EmailNotificationInd"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="true"/>
+        <Item Value="false"/>
+      </ValueList>
+    </button>
+    <attributeValues IterBinding="AllBrokersViewIterator" id="BrokerTypeDesc">
+      <AttrNames>
+        <Item Value="BrokerTypeDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="BrokerAuditRoViewIterator" id="BrokerAuditRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerAuditRoView" Name="BrokerAuditRoView0">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionDesc"/>
+          <Item Value="TransactionUsername"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="BrokerCommentsRoViewIterator" id="BrokerCommentsRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerCommentsVO" Name="BrokerCommentsRoView0">
+        <AttrNames>
+          <Item Value="CommentDatetime"/>
+          <Item Value="CommentDesc"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

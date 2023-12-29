@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelTabbed position="above" id="pt1">
+        <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+            <f:facet name="toolbar"/>
+            <af:panelGroupLayout id="pgl1" rendered="#{pageFlowScope.createInd == 'Y'}">
+                <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png"
+                           rendered="#{securityContext.userInRole['comms-consultant'] || pageFlowScope.createInd == 'Y'}"
+                           disabled="#{!bindings.CreateWithParams.enabled}"
+                           actionListener="#{bindings.CreateWithParams.execute}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b2" icon="/adf/images/save_16x16.png"
+                           disabled="#{!bindings.Commit.enabled}" partialTriggers="t3 t3:id3"
+                           actionListener="#{companyAttributesBean.saveAndEffectiveDateForAccred}"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b3" icon="/adf/images/remove_16x16.png"
+                           disabled="#{!bindings.Rollback.enabled}" actionListener="#{bindings.Rollback.execute}"
+                           immediate="true">
+                    <af:resetActionListener/>
+                </af:button>
+                <af:table value="#{bindings.CompanyAccreditationByPkView.collectionModel}" var="row"
+                          rows="#{bindings.CompanyAccreditationByPkView.rangeSize}"
+                          emptyText="#{bindings.CompanyAccreditationByPkView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.CompanyAccreditationByPkView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CompanyAccreditationByPkView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CompanyAccreditationByPkView.rangeSize}" id="t3"
+                          partialTriggers="::b1 ::b2 ::b3" binding="#{companyAttributesBean.bv_table}">
+                    <af:column headerText="#{bindings.CompanyAccreditationByPkView.hints.AccreditationTypeIdNo.label}"
+                               id="c8">
+                        <af:selectOneChoice value="#{row.bindings.AccreditationTypeIdNo.inputValue}"
+                                            label="#{row.bindings.AccreditationTypeIdNo.label}"
+                                            required="#{bindings.CompanyAccreditationByPkView.hints.AccreditationTypeIdNo.mandatory}"
+                                            shortDesc="#{bindings.CompanyAccreditationByPkView.hints.AccreditationTypeIdNo.tooltip}"
+                                            id="soc1" autoSubmit="true">
+                            <f:selectItems value="#{row.bindings.AccreditationTypeIdNo.items}" id="si1"/>
+                            <f:validator binding="#{row.bindings.AccreditationTypeIdNo.validator}"/>
+                        </af:selectOneChoice>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredNo.label}"
+                               id="c9">
+                        <af:inputText value="#{row.bindings.CompanyAccredNo.inputValue}"
+                                      label="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredNo.label}"
+                                      required="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredNo.mandatory}"
+                                      columns="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredNo.displayWidth}"
+                                      maximumLength="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredNo.precision}"
+                                      shortDesc="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredNo.tooltip}"
+                                      id="it1" autoSubmit="true">
+                           <!--<f:validator binding="#{row.bindings.CompanyAccredNo.validator}"/>-->
+                        </af:inputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredStartDate.label}"
+                               id="c10" width="150">
+                        <af:inputDate value="#{row.bindings.CompanyAccredStartDate.inputValue}"
+                                      label="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredStartDate.label}"
+                                      required="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredStartDate.mandatory}"
+                                      columns="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredStartDate.displayWidth}"
+                                      shortDesc="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredStartDate.tooltip}"
+                                      id="id1" partialTriggers="id3" autoSubmit="true"
+                                      valueChangeListener="#{companyAttributesBean.onChangeAccStartDate}">
+                            <f:validator binding="#{row.bindings.CompanyAccredStartDate.validator}"/>
+                            <af:convertDateTime pattern="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredStartDate.format}"/>
+                        </af:inputDate>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredEndDate.label}"
+                               id="c11" width="150">
+                        <af:inputDate value="#{row.bindings.CompanyAccredEndDate.inputValue}"
+                                      label="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredEndDate.label}"
+                                      required="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredEndDate.mandatory}"
+                                      columns="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredEndDate.displayWidth}"
+                                      shortDesc="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredEndDate.tooltip}"
+                                      id="id2" partialTriggers="id4" autoSubmit="true"
+                                      valueChangeListener="#{companyAttributesBean.onChangeAccEndDate}"
+                                      minValue="#{row.bindings.CompanyAccredStartDate.inputValue}">
+                            <f:validator binding="#{row.bindings.CompanyAccredEndDate.validator}"/>
+                            <af:convertDateTime pattern="#{bindings.CompanyAccreditationByPkView.hints.CompanyAccredEndDate.format}"/>
+                        </af:inputDate>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationByPkView.hints.EffectiveStartDate.label}"
+                               id="c12" width="150">
+                        <af:inputDate value="#{row.bindings.EffectiveStartDate.inputValue}"
+                                      label="#{bindings.CompanyAccreditationByPkView.hints.EffectiveStartDate.label}"
+                                      required="#{bindings.CompanyAccreditationByPkView.hints.EffectiveStartDate.mandatory}"
+                                      columns="#{bindings.CompanyAccreditationByPkView.hints.EffectiveStartDate.displayWidth}"
+                                      shortDesc="#{bindings.CompanyAccreditationByPkView.hints.EffectiveStartDate.tooltip}"
+                                      id="id3" autoSubmit="true" disabled="true" partialTriggers="id1 ::b2"
+                                      binding="#{companyAttributesBean.bvc_effStartDate}">
+                            <f:validator binding="#{row.bindings.EffectiveStartDate.validator}"/>
+                            <af:convertDateTime pattern="#{bindings.CompanyAccreditationByPkView.hints.EffectiveStartDate.format}"/>
+                        </af:inputDate>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationByPkView.hints.EffectiveEndDate.label}"
+                               id="c13" width="150">
+                        <af:inputDate value="#{row.bindings.EffectiveEndDate.inputValue}"
+                                      label="#{bindings.CompanyAccreditationByPkView.hints.EffectiveEndDate.label}"
+                                      required="#{bindings.CompanyAccreditationByPkView.hints.EffectiveEndDate.mandatory}"
+                                      columns="#{bindings.CompanyAccreditationByPkView.hints.EffectiveEndDate.displayWidth}"
+                                      shortDesc="#{bindings.CompanyAccreditationByPkView.hints.EffectiveEndDate.tooltip}"
+                                      id="id4" autoSubmit="true" disabled="true" partialTriggers="id2">
+                            <f:validator binding="#{row.bindings.EffectiveEndDate.validator}"/>
+                            <af:convertDateTime pattern="#{bindings.CompanyAccreditationByPkView.hints.EffectiveEndDate.format}"/>
+                        </af:inputDate>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationByPkView.hints.CountryCode.label}" id="c14">
+                        <af:outputText value="#{row.CountryCode}"
+                                       shortDesc="#{bindings.CompanyAccreditationByPkView.hints.CountryCode.tooltip}"
+                                       id="ot8"/>
+                    </af:column>
+                </af:table>
+            </af:panelGroupLayout>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t2">
+                        <af:button text="#{coreLabels['G.Export']}" id="b8" icon="/adf/images/excel_16x16.png"
+                                   rendered="#{securityContext.userInRole['comms-consultant']}">
+                            <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                               filename="#{coreLabels['G.History']}.xls"/>
+                        </af:button>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.CompanyAccreditationAuditRoView.collectionModel}" var="row"
+                          rows="#{bindings.CompanyAccreditationAuditRoView.rangeSize}"
+                          emptyText="#{bindings.CompanyAccreditationAuditRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.CompanyAccreditationAuditRoView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CompanyAccreditationAuditRoView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CompanyAccreditationAuditRoView.rangeSize}"
+                          id="t1" displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c7">
+                    <af:column headerText="#{bindings.CompanyAccreditationAuditRoView.hints.TransactionDatetime.label}"
+                               id="c2" align="center">
+                        <af:outputText value="#{row.TransactionDatetime}"
+                                       shortDesc="#{bindings.CompanyAccreditationAuditRoView.hints.TransactionDatetime.tooltip}"
+                                       id="ot6">
+                            <af:convertDateTime pattern="#{bindings.CompanyAccreditationAuditRoView.hints.TransactionDatetime.format}"
+                                                type="both"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationAuditRoView.hints.TransactionUsername.label}"
+                               id="c6">
+                        <af:outputText value="#{row.TransactionUsername}"
+                                       shortDesc="#{bindings.CompanyAccreditationAuditRoView.hints.TransactionUsername.tooltip}"
+                                       id="ot3"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationAuditRoView.hints.TransactionDesc.label}"
+                               id="c7">
+                        <af:outputText value="#{row.TransactionDesc}"
+                                       shortDesc="#{bindings.CompanyAccreditationAuditRoView.hints.TransactionDesc.tooltip}"
+                                       id="ot4"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationAuditRoView.hints.CompanyAccredNo.label}"
+                               id="c4">
+                        <af:outputText value="#{row.CompanyAccredNo}"
+                                       shortDesc="#{bindings.CompanyAccreditationAuditRoView.hints.CompanyAccredNo.tooltip}"
+                                       id="ot1">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CompanyAccreditationAuditRoView.hints.CompanyAccredNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationAuditRoView.hints.CompanyAccredStartDate.label}"
+                               id="c3" align="center">
+                        <af:outputText value="#{row.CompanyAccredStartDate}"
+                                       shortDesc="#{bindings.CompanyAccreditationAuditRoView.hints.CompanyAccredStartDate.tooltip}"
+                                       id="ot7">
+                            <af:convertDateTime pattern="#{bindings.CompanyAccreditationAuditRoView.hints.CompanyAccredStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationAuditRoView.hints.CompanyAccredEndDate.label}"
+                               id="c1" align="center">
+                        <af:outputText value="#{row.CompanyAccredEndDate}"
+                                       shortDesc="#{bindings.CompanyAccreditationAuditRoView.hints.CompanyAccredEndDate.tooltip}"
+                                       id="ot2">
+                            <af:convertDateTime pattern="#{bindings.CompanyAccreditationAuditRoView.hints.CompanyAccredEndDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyAccreditationAuditRoView.hints.EffectiveStartDate.label}"
+                               id="c5" align="center">
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.CompanyAccreditationAuditRoView.hints.EffectiveStartDate.tooltip}"
+                                       id="ot5">
+                            <af:convertDateTime pattern="#{bindings.CompanyAccreditationAuditRoView.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

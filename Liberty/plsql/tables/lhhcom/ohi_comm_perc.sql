@@ -1,0 +1,20 @@
+  CREATE TABLE "LHHCOM"."OHI_COMM_PERC" 
+   (
+    "PRODUCT_CODE"            VARCHAR2(30 BYTE) 
+   ,"POEP_ID"                 NUMBER(20,0)       
+   ,"INSE_CODE"               VARCHAR2(30 BYTE)  
+   ,"POLICY_CODE"             VARCHAR2(30 BYTE)  
+   ,"GROUP_CODE"              VARCHAR2(30 BYTE)  
+   ,"BROKER_ID_NO"            NUMBER(9,0)       
+   ,"COMPANY_ID_NO"           NUMBER(9,0)       
+   ,"COMM_PERC"               NUMBER(4,2)        NOT NULL ENABLE
+   ,"COMM_DESC"               VARCHAR2(200 BYTE)
+   ,"EFFECTIVE_START_DATE"    DATE               DEFAULT '01-JAN-1900' NOT NULL ENABLE
+   ,"EFFECTIVE_END_DATE"      DATE               DEFAULT '31-JAN-3100' NOT NULL ENABLE
+   ,"CREATED_USERNAME"        VARCHAR2(50 BYTE)  NOT NULL ENABLE
+   ,"AUTH_USERNAME"           VARCHAR2(50 BYTE)  
+   ,"REJECT_USERNAME"         VARCHAR2(50 BYTE)  
+   ,"LAST_UPDATE_DATETIME"    DATE               DEFAULT SYSDATE NOT NULL ENABLE
+   ,"USERNAME"                VARCHAR2(50 BYTE)  DEFAULT USER NOT NULL ENABLE
+
+   );

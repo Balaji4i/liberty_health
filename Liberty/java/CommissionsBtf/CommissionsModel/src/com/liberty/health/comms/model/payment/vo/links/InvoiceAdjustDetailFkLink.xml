@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="InvoiceAdjustDetailFkLink"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  EntityAssociation="com.liberty.health.comms.model.eo.assoc.InvoiceAdjustDetailFkAssoc">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.payment.vo.links.InvoiceAdjustDetailFkLink_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="InvoiceAdjust"
+    Cardinality="1"
+    Source="true"
+    Owner="com.liberty.health.comms.model.payment.vo.InvoiceAdjustVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_accessor" Value="true"/>
+      <Attr Name="_finderName" Value="InvoiceAdjust"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.payment.vo.InvoiceAdjustVO.InvoiceNo"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="InvoiceDetail"
+    Cardinality="-1"
+    Owner="com.liberty.health.comms.model.payment.vo.InvoiceDetailVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="InvoiceDetail"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.payment.vo.InvoiceDetailVO.InvoiceNo"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

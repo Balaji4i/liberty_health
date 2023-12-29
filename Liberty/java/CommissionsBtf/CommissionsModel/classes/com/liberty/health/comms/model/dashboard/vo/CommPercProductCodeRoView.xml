@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommPercProductCodeRoView"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.dashboard.vo.CommPercProductCodeRoViewRowImpl"
+  ComponentClass="com.liberty.health.comms.model.dashboard.vo.CommPercProductCodeRoViewImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.dashboard.vo.CommPercProductCodeRoView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[-- PRODUCT_CODE COMM_PERC - in CommPercProductCodeRoView 
+-- Helen 07/11/2017 
+SELECT COUNT(*)num_products_with_comm_perc FROM OHI_COMM_PERC          cpct 
+  WHERE TRUNC(cpct.last_update_datetime) - TRUNC(SYSDATE) >= (get_system_parameter('LB_HEALTH_COMMS','DASHBOARD','DASHBOARD_NO_OF_DAYS')*-1) 
+    AND cpct.auth_username IS NULL  
+	AND cpct.product_code IS NOT NULL AND cpct.group_code IS NOT NULL]]></SQLQuery>
+  <ViewAttribute
+    Name="NumProductsWithCommPerc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="NUM_PRODUCTS_WITH_COMM_PERC"
+    Expression="NUM_PRODUCTS_WITH_COMM_PERC"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="NumProductsWithCommPerc"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

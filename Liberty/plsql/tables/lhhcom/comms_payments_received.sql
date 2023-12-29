@@ -1,0 +1,36 @@
+CREATE TABLE "LHHCOM"."COMMS_PAYMENTS_RECEIVED" 
+   ("APPLICATION_ID"  NUMBER(20,0) NOT NULL ENABLE, 
+    "GROUP_CODE" varchar2(100 byte) not null enable, 
+	  "COUNTRY_CODE" VARCHAR2(4 BYTE) NOT NULL ENABLE, 
+	  "PRODUCT_CODE" varchar2(100 byte) not null enable, 
+	  "POLICY_CODE" varchar2(100 byte) not null enable, 
+	  "PERSON_CODE" varchar2(100 byte) not null enable, 
+    "PAYMENT_TYPE" VARCHAR2(10 BYTE) NOT NULL ENABLE,
+    "CONTRIBUTION_DATE" date not null enable, 
+	  "FINANCE_RECEIPT_NO" varchar2(100 byte) not null enable, 
+	  "FINANCE_RECEIPT_DATE" DATE NOT NULL ENABLE, 
+	  "FINANCE_INVOICE_NO" varchar2(100 byte) not null enable, 
+	  "FINANCE_INVOICE_DATE" date not null enable, 
+	  "FINANCE_RECEIPT_AMT" number(15,2) not null enable,
+    "CURRENCY_CODE" VARCHAR2(4 BYTE),  
+    "EXCHANGE_RATE" number,
+    "COMMS_CALC_SNAPSHOT_NO",
+	  "PROCESSED_IND" varchar2(2 byte),
+	  "PROCESSED_DESC" varchar2(500 char), 
+	  "LAST_UPDATE_DATETIME" date not null enable, 
+	  "USERNAME" VARCHAR2(50 CHAR) NOT NULL ENABLE,
+
+    CONSTRAINT "COMMS_PAYMENTS_RECEIVED_PK" PRIMARY KEY
+              ("APPLICATION_ID",
+               "GROUP_CODE", 
+               "PRODUCT_CODE", 
+               "COUNTRY_CODE", 
+               "POLICY_CODE", 
+               "PERSON_CODE", 
+               "CONTRIBUTION_DATE", 
+               "FINANCE_RECEIPT_NO", 
+               "FINANCE_RECEIPT_DATE",
+               "PAYMENT_TYPE"),
+    CONSTRAINT "COMMS_PAYMENTS_RECEIVED_FK" FOREIGN KEY ("COMMS_CALC_SNAPSHOT_NO")
+                                            REFERENCES "LHHCOM"."COMMS_CALC_SNAPSHOT" ("COMMS_CALC_SNAPSHOT_NO")    
+   ); 

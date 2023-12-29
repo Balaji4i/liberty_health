@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_company_comm_perc_btf_maintain_company_com_perc_btf_setCompanyVcPageDef1"
+                Package="btf.company" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="setCompanyVc" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setCompanyVc"
+                  IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                  InstanceName="data.MaintainBrokerageAMDataControl.CompanyPercView">
+      <NamedData NDName="companyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="oracle.jbo.domain.Number"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

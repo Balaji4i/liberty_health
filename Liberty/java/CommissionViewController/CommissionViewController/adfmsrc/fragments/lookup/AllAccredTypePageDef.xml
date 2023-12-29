@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="AllAccredTypePageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllAccreditationTypeView" RangeSize="25" DataControl="AccrediationAMDataControl"
+              id="AllAccreditationTypeViewIterator"/>
+    <searchRegion Criteria="SearchAccreditationTypeVOCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllAccreditationTypeViewIterator" id="SearchAccreditationTypeVOCriteriaQuery"/>
+    <iterator Binds="AccreditationTypeAuditRoView" RangeSize="25" DataControl="AccrediationAMDataControl"
+              id="AccreditationTypeAuditRoViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllAccreditationTypeViewIterator" id="AllAccreditationTypeView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.AccreditationTypeVO"
+                      Name="AllAccreditationTypeView0">
+        <AttrNames>
+          <Item Value="AccreditationTypeIdNo"/>
+          <Item Value="AccreditationTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllAccreditationTypeViewIterator" id="AccreditationTypeIdNo">
+      <AttrNames>
+        <Item Value="AccreditationTypeIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AccreditationTypeAuditRoViewIterator" id="AccreditationTypeAuditRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.AccreditationTypeAuditRoView"
+                      Name="AccreditationTypeAuditRoView0">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionUsername"/>
+          <Item Value="TransactionDesc"/>
+          <Item Value="AccreditationTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

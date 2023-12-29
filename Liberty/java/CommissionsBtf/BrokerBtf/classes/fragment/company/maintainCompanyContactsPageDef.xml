@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCompanyContactsPageDef"
+                Package="fragment.company">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyContactByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyContactByPkViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="CompanyContactAuditRoView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyContactAuditRoViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="CompanyContactCorr1" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="CompanyContactCorr1Iterator" Refresh="ifNeeded"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="ContactName">
+            <AttrNames>
+                <Item Value="ContactName"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="ContactCellphoneNo">
+            <AttrNames>
+                <Item Value="ContactCellphoneNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="ContactEmail">
+            <AttrNames>
+                <Item Value="ContactEmail"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="ContactFaxNo">
+            <AttrNames>
+                <Item Value="ContactFaxNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="ContactTelephoneNo">
+            <AttrNames>
+                <Item Value="ContactTelephoneNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="ContactDesc">
+            <AttrNames>
+                <Item Value="ContactDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Rollback" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <list IterBinding="CompanyContactByPkViewIterator" StaticList="false" Uses="LOV_CompanyContactTypeIdNo"
+              id="CompanyContactTypeIdNo" DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="CountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Commit" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true"
+                Action="commitTransaction"/>
+        <attributeValues IterBinding="CompanyContactByPkViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                      IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyContactByPkView">
+            <NamedData NDName="compIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributesBean.currentDate}"
+                       NDType="oracle.jbo.domain.Date"/>
+        </methodAction>
+        <action IterBinding="CompanyContactByPkViewIterator" id="First"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyContactByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="first"/>
+        <action IterBinding="CompanyContactByPkViewIterator" id="Last"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyContactByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="last"/>
+        <action IterBinding="CompanyContactByPkViewIterator" id="Previous"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyContactByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="previous"/>
+        <action IterBinding="CompanyContactByPkViewIterator" id="Next"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyContactByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="next"/>
+        <tree IterBinding="CompanyContactAuditRoViewIterator" id="CompanyContactAuditRoView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.CompanyContactAuditRoView"
+                            Name="CompanyContactAuditRoView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="ContactName"/>
+                    <Item Value="ContactCellphoneNo"/>
+                    <Item Value="ContactEmail"/>
+                    <Item Value="ContactFaxNo"/>
+                    <Item Value="ContactTelephoneNo"/>
+                    <Item Value="ContactDesc"/>
+                    <Item Value="EffectiveStartDate"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <methodAction id="updateCorrEffDates" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="updateCorrEffDates" IsViewObjectMethod="true"
+                      DataControl="BrokerMaintenanceAMDataControl"
+                      InstanceName="data.BrokerMaintenanceAMDataControl.CompanyContactCorr1">
+            <NamedData NDName="compIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributesBean.currentDate}"
+                       NDType="oracle.jbo.domain.Date"/>
+        </methodAction>
+        <action id="Rollback1" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="BrokerMaintenanceAMDataControl"/>
+        <action IterBinding="CompanyContactCorr1Iterator" id="First1" RequiresUpdateModel="true" Action="first"/>
+        <action IterBinding="CompanyContactCorr1Iterator" id="Previous1" RequiresUpdateModel="true" Action="previous"/>
+        <action IterBinding="CompanyContactCorr1Iterator" id="Next1" RequiresUpdateModel="true" Action="next"/>
+        <action IterBinding="CompanyContactCorr1Iterator" id="Last1" RequiresUpdateModel="true" Action="last"/>
+        <attributeValues IterBinding="CompanyContactCorr1Iterator" id="ContactName1">
+            <AttrNames>
+                <Item Value="ContactName"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactCorr1Iterator" id="ContactDesc1">
+            <AttrNames>
+                <Item Value="ContactDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactCorr1Iterator" id="ContactEmail1">
+            <AttrNames>
+                <Item Value="ContactEmail"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactCorr1Iterator" id="ContactTelephoneNo1">
+            <AttrNames>
+                <Item Value="ContactTelephoneNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactCorr1Iterator" id="ContactCellphoneNo1">
+            <AttrNames>
+                <Item Value="ContactCellphoneNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactCorr1Iterator" id="ContactFaxNo1">
+            <AttrNames>
+                <Item Value="ContactFaxNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactCorr1Iterator" id="EffectiveStartDate1">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyContactCorr1Iterator" id="EffectiveEndDate1">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <action IterBinding="CompanyContactCorr1Iterator" id="CreateWithParams1" RequiresUpdateModel="true"
+                Action="createWithParams" DataControl="BrokerMaintenanceAMDataControl"
+                InstanceName="BrokerMaintenanceAMDataControl.CompanyContactCorr1">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyContactTypeIdNo" NDValue="3" NDType="java.lang.String"/>
+            <NamedData NDName="CountryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+        </action>
+        <action id="Commit1" DataControl="BrokerMaintenanceAMDataControl" RequiresUpdateModel="true"
+                Action="commitTransaction"/>
+        <action IterBinding="CompanyContactByPkViewIterator" id="CreateWithParams2" RequiresUpdateModel="true"
+                Action="createWithParams" DataControl="MaintainBrokerageAMDataControl"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyContactByPkView">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="CountryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyContactTypeIdNo" NDValue="0" NDType="java.lang.String"/>
+        </action>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyBankDetailsEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="COMPANY_BANK_DETAILS"
+  AliasName="CompanyBankDetailsEO"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+    <Attribute
+      Name="CompanyIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="COMPANY_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_BANK_DETAILS"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CountryCode"
+      IsNotNull="true"
+      Precision="4"
+      ColumnName="COUNTRY_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_BANK_DETAILS"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="CompanyBankDetailsEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_BANK_DETAILS"
+      DefaultValue="3100-01-31">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BankAccTypeIdNo"
+      IsNotNull="true"
+      Precision="2"
+      Scale="0"
+      ColumnName="BANK_ACC_TYPE_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BankAccType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="AccHolderName"
+      Precision="250"
+      ColumnName="ACC_HOLDER_NAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AccHolderName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BankAccName"
+      Precision="50"
+      ColumnName="BANK_ACC_NAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BankAccName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BankAccNo"
+      Precision="50"
+      ColumnName="BANK_ACC_NO"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BankAccNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+        <validation:PreDefinedValidationBean
+          Name="BankAccNoRule0"
+          Description="Precision : (11)"
+          ValName="Precision : (50)"
+          Subtype="PRECISION_SCALE"/>
+    </Attribute>
+    <Attribute
+      Name="BankName"
+      Precision="50"
+      ColumnName="BANK_NAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BankName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BankBranchCode"
+      Precision="50"
+      ColumnName="BANK_BRANCH_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BankBranchCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BankBranchName"
+      Precision="50"
+      ColumnName="BANK_BRANCH_NAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BankBranchName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BankSwiftCode"
+      Precision="50"
+      ColumnName="BANK_SWIFT_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BankSwiftCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="IbanNibNo"
+      Precision="50"
+      ColumnName="IBAN_NIB_NO"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.IbanNibNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CreatedUsername"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="CREATED_USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      IsUpdateable="while_insert"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CreatedUsername']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="AuthUsername"
+      Precision="50"
+      ColumnName="AUTH_USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AuthUsername']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="java.sql.Timestamp"
+      ColumnType="DATE"
+      TableName="COMPANY_BANK_DETAILS"
+      HistoryColumn="DateHistory">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LastUpdate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_BANK_DETAILS"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Username']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+      Name="CompanyCountry"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyBankDetailsFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyBankDetailsFkAssoc.CompanyCountry"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyBankDetailsFkAssoc.CompanyBankDetails"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <AccessorAttribute
+      Name="BankAccountType"
+      Association="com.liberty.health.comms.model.eo.assoc.FkComBankDetailsBankAccTypeAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.FkComBankDetailsBankAccTypeAssoc.BankAccountType"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.FkComBankDetailsBankAccTypeAssoc.CompanyBankDetails"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="CompanyBankDetailsPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="COMPANY_BANK_DETAILS_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyBankDetailsEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyBankDetailsEO.EffectiveStartDate"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyBankDetailsEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="BankAccountTypeFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="BANK_ACCOUNT_TYPE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="BANK_ACCOUNT_TYPE_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyBankDetailsEO.BankAccTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyBankDetailsFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_COUNTRY_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_BANK_DETAILS_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyBankDetailsEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyBankDetailsEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="fk_CompanyBankDetailsEO">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="BANK_ACCOUNT_TYPE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="FK_COMPANY_BANK_DETAILS_EO"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyBankDetailsEO.BankAccTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

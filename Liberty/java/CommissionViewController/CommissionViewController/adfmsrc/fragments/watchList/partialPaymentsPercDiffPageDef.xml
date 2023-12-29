@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="partialPaymentsPercDiffPageDef"
+                Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PartialPaymentPercDiffsRoView1" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="PartialPaymentPercDiffsRoView1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PartialPaymentPercDiffsRoView1Iterator" id="PartialPaymentPercDiffsRoView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.PartialPaymentPercDiffsRoView"
+                      Name="PartialPaymentPercDiffsRoView10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="GroupCode"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CommsPercentage"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="CompanyIdNo1"/>
+          <Item Value="CommPerc"/>
+          <Item Value="EffectiveStartDate1"/>
+          <Item Value="EffectiveEndDate1"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

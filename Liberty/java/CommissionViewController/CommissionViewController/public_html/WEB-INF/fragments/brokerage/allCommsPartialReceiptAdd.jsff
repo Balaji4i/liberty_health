@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelGroupLayout id="pgl2" layout="vertical">
+        <af:panelHeader text="Add Brokerage Allow Commissions on Partial Receipt" id="ph1" inlineStyle="height:67px;">
+            <f:facet name="context"/>
+            <f:facet name="toolbar"/>
+            <f:facet name="menuBar"/>
+            <f:facet name="legend"/>
+            <f:facet name="info"/>
+        </af:panelHeader>
+    </af:panelGroupLayout>
+</jsp:root>

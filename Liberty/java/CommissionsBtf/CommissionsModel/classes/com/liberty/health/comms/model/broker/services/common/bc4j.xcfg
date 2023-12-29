@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding='windows-1252'?>
+<!---->
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.broker.services.BrokerMaintenanceAM">
+        <AppModuleConfig name="BrokerMaintenanceAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.broker.services.BrokerMaintenanceAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.broker.services.BrokerMaintenanceAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.vo.AppModule">
+        <AppModuleConfig name="AppModuleLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.vo.AppModule" DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.vo.AppModule"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.broker.services.CaptureBrokerAM">
+        <AppModuleConfig name="CaptureBrokerAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.broker.services.CaptureBrokerAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.broker.services.CaptureBrokerAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.watchlist.services.WatchListAM">
+        <AppModuleConfig name="WatchListAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.watchlist.services.WatchListAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.watchlist.services.WatchListAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.lookup.services.CompanyTableAM">
+        <AppModuleConfig name="CompanyTableAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.lookup.services.CompanyTableAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.lookup.services.CompanyTableAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.lookup.services.BankAccountTypeAM">
+        <AppModuleConfig name="MaintainBankAccountTypeAMLocal"
+                         jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.lookup.services.BankAccountTypeAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.lookup.services.BankAccountTypeAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.lookup.services.AddressTypeAM">
+        <AppModuleConfig name="AddressTypeAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.lookup.services.AddressTypeAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.lookup.services.AddressTypeAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.comms.services.CommsRunAM">
+        <AppModuleConfig name="CommsRunAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.comms.services.CommsRunAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.comms.services.CommsRunAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.payment.services.PaymentAM">
+        <AppModuleConfig name="PaymentAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.payment.services.PaymentAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.payment.services.PaymentAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.lookup.services.SystemParameterAM">
+        <AppModuleConfig name="SystemParameterAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.lookup.services.SystemParameterAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.lookup.services.SystemParameterAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.lookup.services.LookupAM">
+        <AppModuleConfig name="LookupAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.lookup.services.LookupAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.lookup.services.LookupAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.lookup.services.CompanyFeeTypeAM">
+        <AppModuleConfig name="CompanyFeeTypeAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.lookup.services.CompanyFeeTypeAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.lookup.services.CompanyFeeTypeAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.lookup.services.CompanyContactTypeAM">
+        <AppModuleConfig name="CompanyContactTypeAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.lookup.services.CompanyContactTypeAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.lookup.services.CompanyContactTypeAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+</BC4JConfig>

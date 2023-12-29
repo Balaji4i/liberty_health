@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.0.31" id="maintainMenuItemNamePageDef"
+                Package="fragments">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="UpdateMenuItemNameView" RangeSize="25" DataControl="HomeMenuAMDataControl"
+              id="UpdateMenuItemNameViewIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="UpdateMenuItemNameViewIterator" id="MenuItemName">
+      <AttrNames>
+        <Item Value="MenuItemName"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

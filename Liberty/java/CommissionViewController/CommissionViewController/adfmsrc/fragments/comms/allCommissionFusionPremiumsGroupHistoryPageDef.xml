@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14"
+                id="allCommissionFusionPremiumsGroupHistoryPageDef" Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+    <variable Name="SelectedGroupCode" Type="java.lang.String"/>
+    <variable Name="SelectedParentgroupCode" Type="java.lang.String"/>
+    </variableIterator>
+    <iterator Binds="FusionGroupPremiumsReconVO1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="FusionGroupPremiumsReconVO1Iterator"/>
+    <iterator Binds="SearchCommsRunRoView" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="SearchCommsRunRoViewIterator"/>
+  </executables>
+  <bindings>
+    <methodAction id="submitFusionGroupReconJob" RequiresUpdateModel="true" Action="invokeMethod" MethodName="submitFusionGroupReconJob" IsViewObjectMethod="false" DataControl="DashboardAMDataControl" InstanceName="data.DashboardAMDataControl.dataProvider">
+      <NamedData NDName="groupCode" NDValue="#{bindings.SelectedGroupCode1}" NDType="java.lang.String"/>
+      <NamedData NDName="parentgroupCode" NDValue="#{bindings.SelectedParentgroupCode1}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="variables" id="SelectedGroupCode1">
+      <AttrNames>
+        <Item Value="SelectedGroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="SelectedParentgroupCode1">
+      <AttrNames>
+        <Item Value="SelectedParentgroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="SearchCommsRunRoViewIterator" StaticList="false" Uses="LOV_GroupCode" id="GroupCode1"/>
+    <listOfValues IterBinding="SearchCommsRunRoViewIterator" StaticList="false" Uses="LOV_ParentgroupCode"
+                  id="ParentgroupCode"/>
+    <tree IterBinding="FusionGroupPremiumsReconVO1Iterator" id="FusionGroupPremiumsReconVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionGroupPremiumsReconVO"
+                      Name="FusionGroupPremiumsReconVO10">
+        <AttrNames>
+          <Item Value="KeyValue"/>
+          <Item Value="Bu"/>
+          <Item Value="CountryCode"/>
+          <Item Value="GroupCode"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="GlDateClosed"/>
+          <Item Value="InvoiceAmt"/>
+          <Item Value="PaymentAmt"/>
+          <Item Value="SelfbuildTotal"/>
+          <Item Value="Adjustments"/>
+          <Item Value="CreditMemo"/>
+          <Item Value="TaxAmt"/>
+          <Item Value="BalanceAmt"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="FusionGroupPremiumsReconVO1Iterator" id="Execute" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+  </bindings>
+</pageDefinition>

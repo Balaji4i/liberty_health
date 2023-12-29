@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="commsTestPagePageDef"
+                Package="com.liberty.health.comms.btf.pageDefs">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="TestVo1" RangeSize="-1" DataControl="AppModuleDataControl" id="TestVo1Iterator"/>
+    </executables>
+    <bindings>
+        <pivotTable IterBinding="TestVo1Iterator" id="TestVo" xmlns="http://xmlns.oracle.com/adfm/dvt"/>
+        <pivotTable IterBinding="TestVo1Iterator" id="TestVo1" xmlns="http://xmlns.oracle.com/adfm/dvt">
+            <pivotTableDataMap convert="false">
+                <columns>
+                    <data aggregateDuplicates="true" defaultAggregateType="SUM">
+                        <item value="PaymentReceiveAmt"/>
+                    </data>
+                </columns>
+                <rows>
+                    <item value="GroupCode"/>
+                    <item value="PolicyCode"/>
+                </rows>
+                <pages/>
+            </pivotTableDataMap>
+        </pivotTable>
+        <pivotTable IterBinding="TestVo1Iterator" id="TestVo2" xmlns="http://xmlns.oracle.com/adfm/dvt"/>
+        <pivotTable IterBinding="TestVo1Iterator" id="TestVo3" xmlns="http://xmlns.oracle.com/adfm/dvt"/>
+        <pivotTable IterBinding="TestVo1Iterator" id="TestVo4" xmlns="http://xmlns.oracle.com/adfm/dvt"/>
+    </bindings>
+</pageDefinition>

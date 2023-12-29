@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainExchangeRatesPageDef"
+                Package="fragment">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="ExchangeRatesByCodeView" RangeSize="25" DataControl="LookupAMDataControl"
+              id="ExchangeRatesByCodeViewIterator" CacheResults="false"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="ExchangeRatesByCodeViewIterator" id="ExchangeRatesByCodeView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.ExchangeRatesRoView"
+                      Name="ExchangeRatesByCodeView0">
+        <AttrNames>
+          <Item Value="FromDisplayCode"/>
+          <Item Value="ToDisplayCode"/>
+          <Item Value="Rate"/>
+          <Item Value="StartDate"/>
+          <Item Value="EndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

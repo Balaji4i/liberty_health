@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_broker_table_btf_maintain_broker_table_btf_setpBrokerTableIdNoPageDef" Package="btf.broker"
+                SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpBrokerTableIdNo" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="setpBrokerTableIdNo" IsViewObjectMethod="true"
+                      DataControl="BrokerMaintenanceAMDataControl"
+                      InstanceName="data.BrokerMaintenanceAMDataControl.BrokerTableByPkView">
+            <NamedData NDName="value" NDValue="#{pageFlowScope.tableTypeIdNo}" NDType="java.lang.Integer"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,27 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1">
+      <property
+         name="linkStyle">Orthogonal</property>
+   </OverallProperties>
+   <View
+      id="View2">
+      <property
+         name="activityId">exceptionHandler</property>
+      <property
+         name="page">/fragments/exceptionHandler.jsff</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>exceptionHandler&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">true</property>
+      <property
+         name="y">81.11392</property>
+      <property
+         name="x">72.99999</property>
+      <property
+         name="pageFragment">true</property>
+   </View>
+</SDM>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiGroupCodesVO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.dashboard.vo.OhiGroupCodesVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.dashboard.vo.OhiGroupCodesVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.dashboard.vo.OhiGroupCodesVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pCountryList"
+    Kind="where"
+    Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="OhiGroupCodesVO"/>
+  </Variable>
+  <ViewAccessor
+    Name="OhiGroupLovView_P1"
+    ViewObjectName="com.liberty.health.comms.model.ohi.vo.OhiGroupLovView_P"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_GroupCode"
+    ListVOName="OhiGroupLovView_P1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="GroupCode"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="GroupCode"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="GroupCode"/>
+      <Item Value="GroupName"/>
+      <Item Value="CountryCode"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="OhiGroupLovView_PCriteria"/>
+  </ListBinding>
+  <SQLQuery><![CDATA[SELECT distinct          
+            grps.group_code,grps.group_name,   grps.country_code       
+   FROM ohi_policy_brokers               pobr           
+   JOIN ohi_policies                     poli         
+    ON pobr.poli_id = poli.poli_id          
+   JOIN ohi_policy_groups                pogr         
+     ON poli.poli_id = pogr.poli_id            
+   JOIN ohi_groups                       grps          
+    ON pogr.grac_id = grps.grac_id          
+   LEFT OUTER JOIN company               comp         
+                  ON pobr.company_id_no = comp.company_id_no           
+  LEFT OUTER JOIN broker                 brok         
+                  ON pobr.broker_id_no = brok.broker_id_no          
+  LEFT OUTER JOIN company                brco         
+                 ON brok.company_id_no = brco.company_id_no         
+                  AND trunc(SYSDATE) BETWEEN pobr.effective_start_date          
+                 AND pobr.effective_end_date     
+where grps.country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')          
+ , '[^,]+', 1, LEVEL)                  
+            FROM DUAL                  
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')        
+, '[^,]+', 1, LEVEL) IS NOT NULL) 
+order by grps.group_code]]></SQLQuery>
+  <ViewAttribute
+    Name="GroupCode"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_CODE"
+    Expression="GROUP_CODE"
+    SQLType="VARCHAR"
+    LOVName="LOV_GroupCode">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.dashboard.vo.OhiGroupCodesVO.GroupCode_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GroupName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_NAME"
+    Expression="GROUP_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.dashboard.vo.OhiGroupCodesVO.GroupName_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="GroupCode"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

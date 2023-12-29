@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyLovView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+    OrderBy='"COMPANY_NAME"'>
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.lov.CompanyLovView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+      Name="pCountryCode"
+      Kind="viewcriteria"
+      Type="java.lang.String"/>
+    <Variable
+        Name="pCountryList"
+        Kind="where"
+        Type="java.lang.String"
+        IsUpdateable="false">
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="CompanyLovView"/>
+    </Variable>
+    <SQLQuery><![CDATA[select *          
+from (select C.COMPANY_ID_NO, decode(b.company_name,null,C.COMPANY_NAME,b.company_name) company_name , c.preferred_currency_code,     
+cc.country_code   
+  from  COMPANY C, company_country cc,                  
+        (select b.company_id_no, broker_name ||' '|| broker_last_name company_name                
+           from broker b, company c                
+          where b.company_id_no = c.company_id_no    
+            and c.company_name = 'INDEPENDANT') B where c.company_id_no = b.company_id_no(+)    
+            AND c.company_id_no = cc.company_id_no    
+          and  cc.country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')         
+ , '[^,]+', 1, LEVEL)                 
+            FROM DUAL                 
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')       
+, '[^,]+', 1, LEVEL) IS NOT NULL))]]></SQLQuery>
+    <ViewAttribute
+      Name="CompanyIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="9"
+      Scale="0"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      AliasName="COMPANY_ID_NO"
+      Expression="COMPANY_ID_NO"
+        SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COMPANY_NAME"
+      Expression="COMPANY_NAME"
+      SQLType="VARCHAR"
+      IsNotNull="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="PreferredCurrencyCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PREFERRED_CURRENCY_CODE"
+      Expression="PREFERRED_CURRENCY_CODE"
+      SQLType="VARCHAR"
+      IsNotNull="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.PreferredCurrencyCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CountryCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="4"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="COUNTRY_CODE"
+        Expression="COUNTRY_CODE"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewCriteria
+      Name="CompanyLovViewCriteria"
+      ViewObjectName="com.liberty.health.comms.lov.CompanyLovView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="CompanyLovViewCriteria_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+                Name="CompanyIdNo"
+                ViewAttribute="CompanyIdNo"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+              Name="CompanyName"
+              ViewAttribute="CompanyName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <ViewCriteria
+      Name="CompanyByCountryLovViewCriteria"
+      ViewObjectName="com.liberty.health.comms.lov.CompanyLovView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="CompanyLovViewCriteria1_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="CompanyLovViewCriteria1_CompanyLovViewCriteria1_row_0_CompanyCountryLovView"
+              ViewAttribute="CompanyCountryLovView"
+              Operator="EXISTS"
+              Conjunction="AND"
+              IsNestedCriteria="true"
+              Required="Optional">
+                <ViewCriteria
+                  Name="CompanyCountryLovViewNestedCriteria"
+                  ViewObjectName="com.liberty.health.comms.lov.CompanyCountryLovView"
+                  Conjunction="AND">
+                    <ViewCriteriaRow
+                      Name="CompanyCountryLovViewNestedCriteria_row_0"
+                      UpperColumns="1">
+                        <ViewCriteriaItem
+                          Name="CountryCode"
+                          ViewAttribute="CountryCode"
+                          Operator="="
+                          Conjunction="AND"
+                          Value=":pCountryCode"
+                          IsBindVarValue="true"
+                          Required="Optional"/>
+                    </ViewCriteriaRow>
+                </ViewCriteria>
+            </ViewCriteriaItem>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="CompanyIdNo"/>
+        <Item Value="CountryCode"/>
+    </AttrArray>
+    <ViewLinkAccessor
+      Name="CompanyCountryLovView"
+      ViewLink="com.liberty.health.comms.lov.links.FkCompCountryCompLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <LOVUIHints
+      ListType="105"
+      MRUCount="0"
+      NullValueFlag="none">
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="CompanyName"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </LOVUIHints>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.lov.CommissionsLovBundle"/>
+    </ResourceBundle>
+</ViewObject>

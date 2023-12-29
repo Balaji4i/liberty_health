@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCompanyAddressPageDef"
+                Package="fragment.company">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyAddressByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyAddressByTypeIterator" Refresh="ifNeeded"/>
+        <iterator Binds="CompanyAddressAuditRoView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyAddressAuditRoViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="CompanyCorrAddress1" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="CompanyCorrAddress1Iterator" Refresh="ifNeeded"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="CompanyAddressByTypeIterator" id="AddressLine1">
+            <AttrNames>
+                <Item Value="AddressLine1"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAddressByTypeIterator" id="AddressLine2">
+            <AttrNames>
+                <Item Value="AddressLine2"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAddressByTypeIterator" id="AddressLine3">
+            <AttrNames>
+                <Item Value="AddressLine3"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAddressByTypeIterator" id="PostalCode">
+            <AttrNames>
+                <Item Value="PostalCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAddressByTypeIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAddressByTypeIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <action IterBinding="CompanyAddressByTypeIterator" id="CreateWithParams" RequiresUpdateModel="true"
+                Action="createWithParams" InstanceName="BrokerMaintenanceAMDataControl.CompanyAddressByType"
+                DataControl="BrokerMaintenanceAMDataControl">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="CountryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+            <NamedData NDName="AddressTypeCode" NDValue="#{pageFlowScope.addressTypeCode}" NDType="java.lang.String"/>
+        </action>
+        <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+        <attributeValues IterBinding="CompanyAddressByTypeIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyAddressByTypeIterator" id="CountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                      IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyAddressByPkView">
+            <NamedData NDName="compIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributesBean.currentDate}"
+                       NDType="oracle.jbo.domain.Date"/>
+        </methodAction>
+        <list IterBinding="CompanyAddressByTypeIterator" StaticList="false" Uses="LOV_AddressTypeCode"
+              id="AddressTypeCode" DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+        <action IterBinding="CompanyAddressByTypeIterator" id="First"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyAddressByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="first"/>
+        <action IterBinding="CompanyAddressByTypeIterator" id="Last"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyAddressByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="last"/>
+        <action IterBinding="CompanyAddressByTypeIterator" id="Next"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyAddressByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="next"/>
+        <action IterBinding="CompanyAddressByTypeIterator" id="Previous"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyAddressByPkView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="previous"/>
+        <tree IterBinding="CompanyAddressAuditRoViewIterator" id="CompanyAddressAuditRoView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyAddressAuditRoView"
+                            Name="CompanyAddressAuditRoView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="AddressTypeCode"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                    <Item Value="AddressLine1"/>
+                    <Item Value="AddressLine2"/>
+                    <Item Value="AddressLine3"/>
+                    <Item Value="AddressCountryCode"/>
+                    <Item Value="PostalCode"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="CompanyAddressByTypeIterator" id="AddressCountryCode">
+            <AttrNames>
+                <Item Value="AddressCountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Rollback1" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="BrokerMaintenanceAMDataControl"/>
+        <list IterBinding="CompanyCorrAddress1Iterator" StaticList="false" Uses="LOV_AddressCountryCode"
+              id="AddressCountryCode1" DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="CompanyCorrAddress1Iterator" id="AddressLine11">
+            <AttrNames>
+                <Item Value="AddressLine1"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCorrAddress1Iterator" id="AddressLine21">
+            <AttrNames>
+                <Item Value="AddressLine2"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCorrAddress1Iterator" id="AddressLine31">
+            <AttrNames>
+                <Item Value="AddressLine3"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCorrAddress1Iterator" id="EffectiveStartDate1">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCorrAddress1Iterator" id="EffectiveEndDate1">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <action IterBinding="CompanyCorrAddress1Iterator" id="First1" RequiresUpdateModel="true" Action="first"/>
+        <action IterBinding="CompanyCorrAddress1Iterator" id="Previous1" RequiresUpdateModel="true" Action="previous"/>
+        <action IterBinding="CompanyCorrAddress1Iterator" id="Next1" RequiresUpdateModel="true" Action="next"/>
+        <action IterBinding="CompanyCorrAddress1Iterator" id="Last1" RequiresUpdateModel="true" Action="last"/>
+        <action IterBinding="CompanyCorrAddress1Iterator" id="CreateWithParams2" RequiresUpdateModel="true"
+                Action="createWithParams">
+            <NamedData NDName="CountryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="AddressTypeCode" NDValue="C" NDType="java.lang.String"/>
+        </action>
+        <attributeValues IterBinding="CompanyCorrAddress1Iterator" id="CompanyIdNo1">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCorrAddress1Iterator" id="AddressTypeCode1">
+            <AttrNames>
+                <Item Value="AddressTypeCode"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyCorrAddress1Iterator" id="CountryCode1">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="updateCorrEffDates" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="updateCorrEffDates" IsViewObjectMethod="true"
+                      DataControl="BrokerMaintenanceAMDataControl"
+                      InstanceName="data.BrokerMaintenanceAMDataControl.CompanyCorrAddress1">
+            <NamedData NDName="compIdNo" NDValue="#{bindings.CompanyIdNo1.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributesBean.currentDate}"
+                       NDType="oracle.jbo.domain.Date"/>
+        </methodAction>
+        <attributeValues IterBinding="CompanyCorrAddress1Iterator" id="PostalCode1">
+            <AttrNames>
+                <Item Value="PostalCode"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Commit1" DataControl="BrokerMaintenanceAMDataControl" RequiresUpdateModel="true"
+                Action="commitTransaction"/>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14"
+                id="brokeragePaymentsAdjustmentsPageDef" Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="InvoiceByPkView" RangeSize="25" DataControl="PaymentAMDataControl" id="InvoiceByPkViewIterator"/>
+    <iterator Binds="InvoiceDetailByInvoiceView" RangeSize="25" DataControl="PaymentAMDataControl"
+              id="InvoiceDetailByInvoiceViewIterator"/>
+    <searchRegion Binds="InvoiceDetailByInvoiceViewIterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="InvoiceDetailByInvoiceViewQuery"/>
+    <iterator Binds="CompanyByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="CompanyByPkViewIterator"/>
+    <iterator Binds="InvoiceAdjust2" RangeSize="25" DataControl="PaymentAMDataControl" id="InvoiceAdjust2Iterator"/>
+    <iterator Binds="InvoiceDetail1" RangeSize="25" DataControl="PaymentAMDataControl" id="InvoiceDetail1Iterator"/>
+    <iterator Binds="BrokPaymentsAdjust1" RangeSize="25" DataControl="PaymentAMDataControl"
+              id="BrokPaymentsAdjust1Iterator"/>
+    <searchRegion Binds="BrokPaymentsAdjust1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="BrokPaymentsAdjust1Query"/>
+    <iterator Binds="CompanyCountryByCompanyView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="CompanyCountryByCompanyViewIterator"/>
+    <iterator Binds="CommsCalcSnapShotN1" RangeSize="25" DataControl="PaymentAMDataControl"
+              id="CommsCalcSnapShotN1Iterator"/>
+  </executables>
+  <bindings>
+    <action IterBinding="InvoiceByPkViewIterator" id="CreateInsert" RequiresUpdateModel="true"
+            Action="createWithParams" InstanceName="PaymentAMDataControl.InvoiceByPkView"
+            DataControl="PaymentAMDataControl">
+      <NamedData NDName="InvoiceNo" NDType="java.lang.String"/>
+      <NamedData NDName="InvoiceDate" NDType="java.lang.String"/>
+      <NamedData NDName="CountryCode" NDType="java.lang.String"/>
+      <NamedData NDName="CompanyIdNo" NDType="java.lang.String"/>
+      <NamedData NDName="LastUpdateDatetime" NDType="java.lang.String"/>
+      <NamedData NDName="Username" NDType="java.lang.String"/>
+      <NamedData NDName="CompanyName" NDType="java.lang.String"/>
+      <NamedData NDName="InvoiceTypeIdNo" NDValue="2" NDType="java.lang.String"/>
+      <NamedData NDName="InvoiceTypeDesc" NDType="java.lang.String"/>
+    </action>
+    <action IterBinding="InvoiceByPkViewIterator" id="CreateWithParams" RequiresUpdateModel="true"
+            Action="createWithParams">
+      <NamedData NDName="InvoiceTypeIdNo" NDValue="2" NDType="java.lang.String"/>
+    </action>
+    <action IterBinding="InvoiceByPkViewIterator" id="Create" RequiresUpdateModel="true" Action="createRow"/>
+    <action IterBinding="InvoiceDetailByInvoiceViewIterator" id="CreateWithParams1" RequiresUpdateModel="true"
+            Action="createWithParams">
+      <NamedData NDName="FeeTypeIdNo" NDValue="1" NDType="java.lang.String"/>
+    </action>
+    <tree IterBinding="InvoiceDetailByInvoiceViewIterator" id="InvoiceDetailByInvoiceView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.InvoiceDetailVO"
+                      Name="InvoiceDetailByInvoiceView0">
+        <AttrNames>
+          <Item Value="InvoiceNo"/>
+          <Item Value="FeeTypeIdNo"/>
+          <Item Value="FeeTypeAmt"/>
+          <Item Value="FeeTypeDesc"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="Username"/>
+          <Item Value="FeeTypeExchAmt"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="PaymentAMDataControl"/>
+    <attributeValues IterBinding="InvoiceDetailByInvoiceViewIterator" id="FeeTypeIdNo1">
+      <AttrNames>
+        <Item Value="FeeTypeIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="InvoiceByPkViewIterator" id="Execute" RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <tree IterBinding="CompanyByPkViewIterator" id="CompanyByPkView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.vo.CompanyVO" Name="CompanyByPkView0">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="Username"/>
+          <Item Value="AddressInd"/>
+          <Item Value="BankDetailsInd"/>
+          <Item Value="CompanyAgreementInd"/>
+          <Item Value="CompanyRegDocInd"/>
+          <Item Value="DisAgreementApplicationInd"/>
+          <Item Value="IdDocInd"/>
+          <Item Value="InternalBrokerInd"/>
+          <Item Value="LetterOfIntentInd"/>
+          <Item Value="MultinationalInd"/>
+          <Item Value="ReferralAgreementInd"/>
+          <Item Value="TaxIdNoInd"/>
+          <Item Value="VatRegInd"/>
+          <Item Value="WhtCertInd"/>
+          <Item Value="PreferredCurrencyCode"/>
+          <Item Value="ConsultantIdNo"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="BrokerLastName"/>
+          <Item Value="BrokerName"/>
+          <Item Value="BrokerIdNoFk"/>
+          <Item Value="CrossrefCode"/>
+          <Item Value="MultiNetInd"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="InvoiceAdjust2Iterator" id="InvoiceNo2">
+      <AttrNames>
+        <Item Value="InvoiceNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceAdjust2Iterator" id="CompanyIdNo1">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceAdjust2Iterator" id="CountryCode1">
+      <AttrNames>
+        <Item Value="CountryCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceAdjust2Iterator" id="CurrencyCode1">
+      <AttrNames>
+        <Item Value="CurrencyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceAdjust2Iterator" id="InvoiceTypeIdNo1">
+      <AttrNames>
+        <Item Value="InvoiceTypeIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceAdjust2Iterator" id="PaymentExchRate1">
+      <AttrNames>
+        <Item Value="PaymentExchRate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceDetail1Iterator" id="FeeTypeAmt2">
+      <AttrNames>
+        <Item Value="FeeTypeAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceDetail1Iterator" id="FeeTypeDesc2">
+      <AttrNames>
+        <Item Value="FeeTypeDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceDetail1Iterator" id="FeeTypeExchAmt2">
+      <AttrNames>
+        <Item Value="FeeTypeExchAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="InvoiceDetail1Iterator" id="FeeTypeIdNo2">
+      <AttrNames>
+        <Item Value="FeeTypeIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="InvoiceAdjust2Iterator" id="CreateWithParams3" RequiresUpdateModel="true"
+            Action="createWithParams">
+      <NamedData NDName="InvoiceTypeIdNo" NDValue="2" NDType="java.lang.String"/>
+    </action>
+    <action IterBinding="InvoiceDetail1Iterator" id="CreateWithParams4" RequiresUpdateModel="true"
+            Action="createWithParams">
+      <NamedData NDName="FeeTypeIdNo" NDValue="1" NDType="java.lang.String"/>
+    </action>
+    <listOfValues IterBinding="InvoiceAdjust2Iterator" StaticList="false" Uses="LOV_CompanyIdNo" id="CompanyIdNo"/>
+    <listOfValues IterBinding="InvoiceAdjust2Iterator" StaticList="false" Uses="LOV_CountryCode" id="CountryCode"/>
+    <attributeValues IterBinding="InvoiceAdjust2Iterator" id="ReleaseHoldReason">
+      <AttrNames>
+        <Item Value="ReleaseHoldReason"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="BrokPaymentsAdjust1Iterator" id="BrokPaymentsAdjust1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.BrokPaymentsAdjustVO"
+                      Name="BrokPaymentsAdjust10">
+        <AttrNames>
+          <Item Value="InvoiceNo"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CurrencyCode"/>
+          <Item Value="ReleaseHoldReason"/>
+          <Item Value="FeeTypeAmt"/>
+          <Item Value="PaymentExchRate"/>
+          <Item Value="FeeTypeExchAmt"/>
+          <Item Value="FeeTypeDesc"/>
+          <Item Value="PaymentRejectDate"/>
+          <Item Value="PaymentRejectDesc"/>
+          <Item Value="Bu"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="BrokPaymentsAdjust1Iterator" id="Execute1" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <tree IterBinding="CompanyCountryByCompanyViewIterator" id="CompanyCountryByCompanyView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyCountryVO"
+                      Name="CompanyCountryByCompanyView0">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CountryCode"/>
+          <Item Value="CompanyName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="CommsCalcSnapShotN1Iterator" id="CreateWithParams2" RequiresUpdateModel="true"
+            Action="createWithParams">
+      
+      <NamedData NDName="FinanceReceiptNo" NDValue="Payment Adjustment" NDType="java.lang.String"/>
+      
+    </action>
+    <listOfValues IterBinding="CommsCalcSnapShotN1Iterator" StaticList="false" Uses="LOV_Bu" id="Bu"/>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="CommsCalcSnapshotNo">
+      <AttrNames>
+        <Item Value="CommsCalcSnapshotNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="CommsCalcTypeCode">
+      <AttrNames>
+        <Item Value="CommsCalcTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="CommsCalculatedAmt">
+      <AttrNames>
+        <Item Value="CommsCalculatedAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="CommsCalculatedExchAmt">
+      <AttrNames>
+        <Item Value="CommsCalculatedExchAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="CountryCode2">
+      <AttrNames>
+        <Item Value="CountryCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="CompanyIdNo2">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="CommsPerc">
+      <AttrNames>
+        <Item Value="CommsPerc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="FinanceReceiptNo">
+      <AttrNames>
+        <Item Value="FinanceReceiptNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="CalculationDatetime">
+      <AttrNames>
+        <Item Value="CalculationDatetime"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="PaymentReceiveAmt">
+      <AttrNames>
+        <Item Value="PaymentReceiveAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="PaymentCurrency">
+      <AttrNames>
+        <Item Value="PaymentCurrency"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="ExchangeRate">
+      <AttrNames>
+        <Item Value="ExchangeRate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="ExchangeRateCurrencyCode">
+      <AttrNames>
+        <Item Value="ExchangeRateCurrencyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="InvoiceNo">
+      <AttrNames>
+        <Item Value="InvoiceNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="LastUpdateDatetime">
+      <AttrNames>
+        <Item Value="LastUpdateDatetime"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CommsCalcSnapShotN1Iterator" id="Username">
+      <AttrNames>
+        <Item Value="Username"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

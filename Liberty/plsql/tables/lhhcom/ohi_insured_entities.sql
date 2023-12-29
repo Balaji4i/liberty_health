@@ -1,0 +1,16 @@
+  CREATE TABLE "LHHCOM"."OHI_INSURED_ENTITIES" 
+   (
+    "INSE_ID"                 NUMBER(14,0)       NOT NULL ENABLE
+   ,"INSE_CODE"               VARCHAR2(30 BYTE)  NOT NULL ENABLE
+   ,"RELA_ID_PERS"            NUMBER(14,0)       NOT NULL ENABLE
+   ,"TITLE"                   VARCHAR2(20 BYTE)
+   ,"INITIALS"                VARCHAR2(20 BYTE)
+   ,"FIRST_NAME"              VARCHAR2(30 BYTE)
+   ,"SURNAME"                 VARCHAR2(100 BYTE)
+   ,"GENDER"                  VARCHAR2(1 BYTE)
+   ,"LAST_UPDATE_DATETIME"    DATE               DEFAULT sysdate NOT NULL ENABLE
+   ,"USERNAME"                VARCHAR2(20 BYTE)  DEFAULT 'USERNAME' NOT NULL ENABLE
+   ,CONSTRAINT "OHI_INSURED_ENTITIES_PK"
+      PRIMARY KEY ("INSE_ID")
+      ENABLE
+   );

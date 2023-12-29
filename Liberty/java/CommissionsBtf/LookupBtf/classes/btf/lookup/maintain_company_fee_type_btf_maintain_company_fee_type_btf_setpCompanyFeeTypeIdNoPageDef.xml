@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_company_fee_type_btf_maintain_company_fee_type_btf_setpCompanyFeeTypeIdNoPageDef"
+                Package="btf.lookup" SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpCompanyFeeTypeIdNo" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="setpCompanyFeeTypeIdNo" IsViewObjectMethod="true"
+                      DataControl="CompanyFeeTypeAMDataControl"
+                      InstanceName="data.CompanyFeeTypeAMDataControl.CompanyFeeTypeByPk">
+            <NamedData NDName="value" NDType="java.lang.Integer"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

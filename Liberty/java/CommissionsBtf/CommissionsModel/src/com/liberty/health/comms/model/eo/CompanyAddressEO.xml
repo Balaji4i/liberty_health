@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyAddressEO"
+    Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="COMPANY_ADDRESS"
+  AliasName="CompanyAddressEO"
+  BindingStyle="OracleName"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache"
+    RowClass="com.liberty.health.comms.model.eo.CompanyAddressEOImpl">
+    <DesignTime>
+        <Attr Name="_codeGenFlag2" Value="Access"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Attribute
+      Name="CompanyIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="COMPANY_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_ADDRESS"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CountryCode"
+      IsNotNull="true"
+      Precision="4"
+      ColumnName="COUNTRY_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_ADDRESS"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="AddressTypeCode"
+      IsNotNull="true"
+      Precision="1"
+      ColumnName="ADDRESS_TYPE_CODE"
+      SQLType="CHAR"
+      Type="java.lang.String"
+      ColumnType="CHAR"
+      TableName="COMPANY_ADDRESS"
+      PrimaryKey="true"
+      RetrievedOnUpdate="true"
+      RetrievedOnInsert="true"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AddressType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_ADDRESS"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="CompanyAddressEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_ADDRESS"
+      DefaultValue="3100-01-31">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="AddressLine1"
+      Precision="250"
+      ColumnName="ADDRESS_LINE1"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_ADDRESS"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AddressLine1']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="AddressLine2"
+      Precision="250"
+      ColumnName="ADDRESS_LINE2"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_ADDRESS"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AddressLine2']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="AddressLine3"
+      Precision="250"
+      ColumnName="ADDRESS_LINE3"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_ADDRESS"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AddressLine3']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="PostalCode"
+      Precision="15"
+      ColumnName="POSTAL_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_ADDRESS"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="15"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.PostalCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+        Name="AddressCountryCode"
+        Precision="4"
+        ColumnName="ADDRESS_COUNTRY_CODE"
+        SQLType="VARCHAR"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        TableName="COMPANY_ADDRESS"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="java.sql.Timestamp"
+      ColumnType="DATE"
+      TableName="COMPANY_ADDRESS"
+      HistoryColumn="DateHistory">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LastUpdate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_ADDRESS"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Username']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+      Name="AddressType"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyAddressTypeFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyAddressTypeFkAssoc.AddressType"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyAddressTypeFkAssoc.CompanyAddress"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <AccessorAttribute
+      Name="CompanyCountry"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyAddressFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyAddressFkAssoc.CompanyCountry"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyAddressFkAssoc.CompanyAddress"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="CompanyAddressPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="COMPANY_ADDRESS_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAddressEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAddressEO.AddressTypeCode"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAddressEO.EffectiveStartDate"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAddressEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyAddressFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_COUNTRY_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_ADDRESS_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAddressEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAddressEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyAddressTypeFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="ADDRESS_TYPE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_ADDRESS_TYPE_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyAddressEO.AddressTypeCode"/>
+        </AttrArray>
+    </Key>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

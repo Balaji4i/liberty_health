@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" topHeight="auto">
+        <f:facet name="top">
+            <af:panelHeader text="#{coreLabels['G.Brokers']}" id="ph1">
+                <af:query id="qryId1" headerText="Search" disclosed="true"
+                          value="#{bindings.BrokerSearchViewCriteriaQuery.queryDescriptor}"
+                          model="#{bindings.BrokerSearchViewCriteriaQuery.queryModel}"
+                          queryListener="#{bindings.BrokerSearchViewCriteriaQuery.processQuery}"
+                          queryOperationListener="#{bindings.BrokerSearchViewCriteriaQuery.processQueryOperation}"
+                          resultComponentId="::pc2:t1"/>
+            </af:panelHeader>
+        </f:facet>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+            <af:panelTabbed position="above" id="pt1">
+                <af:showDetailItem id="tab1" text="	#{coreLabels['G.CurrentDetails']}">
+                    <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+                        <f:facet name="menus"/>
+                        <f:facet name="toolbar">
+                            <af:toolbar id="t2">
+                                <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png"
+                                           action="create"
+                                           rendered="#{securityContext.userInRole['comms-consultant']}"/>
+                                <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                                       filename="#{coreLabels['G.Brokers']}.xls"/>
+                                </af:button>
+                            </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.AllBrokersView.collectionModel}" var="row"
+                                  rows="#{bindings.AllBrokersView.rangeSize}"
+                                  emptyText="#{bindings.AllBrokersView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="1"
+                                  selectedRowKeys="#{bindings.AllBrokersView.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.AllBrokersView.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.AllBrokersView.rangeSize}" id="t1"
+                                  displayRow="selected" styleClass="AFStretchWith">
+                            <af:column headerText="#{bindings.AllBrokersView.hints.BrokerIdNo.label}" id="c1"
+                                       width="50">
+                                <af:link text="#{row.BrokerIdNo}" id="l5" action="edit"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.PersonTitleCode.label}" id="c2"
+                                       width="50">
+                                <af:outputText value="#{row.PersonTitleCode}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.PersonTitleCode.tooltip}"
+                                               id="ot27"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.Initials.label}" id="c3" width="50">
+                                <af:outputText value="#{row.Initials}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.Initials.tooltip}" id="ot28"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.BrokerName.label}" id="c4"
+                                       width="150">
+                                <af:outputText value="#{row.BrokerName}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.BrokerName.tooltip}"
+                                               id="ot29"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.BrokerLastName.label}" id="c5"
+                                       width="150">
+                                <af:outputText value="#{row.BrokerLastName}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.BrokerLastName.tooltip}"
+                                               id="ot30"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.BrokerStatusDesc.label}" id="c7">
+                                <af:inputText value="#{row.bindings.BrokerStatusDesc.inputValue}"
+                                              label="#{bindings.AllBrokersView.hints.BrokerStatusDesc.label}"
+                                              required="#{bindings.AllBrokersView.hints.BrokerStatusDesc.mandatory}"
+                                              columns="#{bindings.AllBrokersView.hints.BrokerStatusDesc.displayWidth}"
+                                              maximumLength="#{bindings.AllBrokersView.hints.BrokerStatusDesc.precision}"
+                                              shortDesc="#{bindings.AllBrokersView.hints.BrokerStatusDesc.tooltip}"
+                                              id="it1">
+                                    <f:validator binding="#{row.bindings.BrokerStatusDesc.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.AllBrokersView.hints.BrokerStatusDesc.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.BrokerTypeDesc.label}" id="c6">
+                                <af:inputText value="#{row.bindings.BrokerTypeDesc.inputValue}"
+                                              label="#{bindings.AllBrokersView.hints.BrokerTypeDesc.label}"
+                                              required="#{bindings.AllBrokersView.hints.BrokerTypeDesc.mandatory}"
+                                              columns="#{bindings.AllBrokersView.hints.BrokerTypeDesc.displayWidth}"
+                                              maximumLength="#{bindings.AllBrokersView.hints.BrokerTypeDesc.precision}"
+                                              shortDesc="#{bindings.AllBrokersView.hints.BrokerTypeDesc.tooltip}"
+                                              id="it2">
+                                    <f:validator binding="#{row.bindings.BrokerTypeDesc.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.CompanyName.label}" id="c12"
+                                       width="250">
+                                <af:outputText value="#{row.CompanyName}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.CompanyName.tooltip}"
+                                               id="ot37"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.PassportCode.label}" id="c16">
+                                <af:outputText value="#{row.PassportCode}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.PassportCode.tooltip}"
+                                               id="ot2"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.IdNo.label}" id="c15">
+                                <af:outputText value="#{row.IdNo}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.IdNo.tooltip}" id="ot1">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.AllBrokersView.hints.IdNo.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.SmsNotificationInd.label}" id="c8"
+                                       align="center">
+                                <af:selectBooleanCheckbox value="#{row.bindings.SmsNotificationInd.inputValue}"
+                                                          label="#{row.bindings.SmsNotificationInd.label}"
+                                                          shortDesc="#{bindings.AllBrokersView.hints.SmsNotificationInd.tooltip}"
+                                                          id="sbc2"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.EmailNotificationInd.label}" id="c9"
+                                       align="center">
+                                <af:selectBooleanCheckbox value="#{row.bindings.EmailNotificationInd.inputValue}"
+                                                          label="#{row.bindings.EmailNotificationInd.label}"
+                                                          shortDesc="#{bindings.AllBrokersView.hints.EmailNotificationInd.tooltip}"
+                                                          id="sbc1"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.CellphoneNo.label}" id="c18">
+                                <af:outputText value="#{row.CellphoneNo}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.CellphoneNo.tooltip}"
+                                               id="ot8"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.HomeTelephoneNo.label}" id="c19">
+                                <af:outputText value="#{row.HomeTelephoneNo}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.HomeTelephoneNo.tooltip}"
+                                               id="ot9"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.AllBrokersView.hints.EmailAddress.label}" id="c20">
+                                <af:outputText value="#{row.EmailAddress}"
+                                               shortDesc="#{bindings.AllBrokersView.hints.EmailAddress.tooltip}"
+                                               id="ot10"/>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+                <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+                    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                        <f:facet name="menus"/>
+                        <f:facet name="toolbar">
+                            <af:toolbar id="t3">
+                                <af:button text="#{coreLabels['G.Export']}" id="b3" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="resId1"
+                                                                       filename="#{coreLabels['G.History']}.xls"/>
+                                </af:button>
+                            </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.BrokerAuditRoView.collectionModel}" var="row"
+                                  rows="#{bindings.BrokerAuditRoView.rangeSize}"
+                                  emptyText="#{bindings.BrokerAuditRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="1"
+                                  selectedRowKeys="#{bindings.BrokerAuditRoView.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.BrokerAuditRoView.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.BrokerAuditRoView.rangeSize}" id="resId1"
+                                  displayRow="selected" styleClass="AFStretchWidth" columnStretching="last">
+                            <af:column headerText="#{bindings.BrokerAuditRoView.hints.TransactionDatetime.label}"
+                                       id="c11" align="end">
+                                <af:outputText value="#{row.TransactionDatetime}"
+                                               shortDesc="#{bindings.BrokerAuditRoView.hints.TransactionDatetime.tooltip}"
+                                               id="ot4">
+                                    <af:convertDateTime pattern="#{bindings.BrokerAuditRoView.hints.TransactionDatetime.format}"
+                                                        type="both"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.BrokerAuditRoView.hints.TransactionUsername.label}"
+                                       id="c10">
+                                <af:outputText value="#{row.TransactionUsername}"
+                                               shortDesc="#{bindings.BrokerAuditRoView.hints.TransactionUsername.tooltip}"
+                                               id="ot3"/>
+                            </af:column>
+                            <af:column headerText="#{bindings.BrokerAuditRoView.hints.TransactionDesc.label}" id="c17">
+                                <af:outputText value="#{row.TransactionDesc}"
+                                               shortDesc="#{bindings.BrokerAuditRoView.hints.TransactionDesc.tooltip}"
+                                               id="ot11"/>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+                <af:showDetailItem text="#{coreLabels['G.Comments']}" id="sdi3">
+                    <af:panelCollection id="pc4" styleClass="AFStretchWidth">
+                        <f:facet name="menus"/>
+                        <f:facet name="toolbar">
+                            <af:toolbar id="t5">
+                                <af:button text="#{coreLabels['G.Export']}" id="b4" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="t4"
+                                                                       filename="#{coreLabels['G.Comments']}.xls"/>
+                                </af:button>
+                            </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.BrokerCommentsRoView.collectionModel}" var="row"
+                                  rows="#{bindings.BrokerCommentsRoView.rangeSize}"
+                                  emptyText="#{bindings.BrokerCommentsRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  selectedRowKeys="#{bindings.BrokerCommentsRoView.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.BrokerCommentsRoView.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.BrokerCommentsRoView.rangeSize}" id="t4"
+                                  rowBandingInterval="1" displayRow="selected" columnStretching="last"
+                                  styleClass="AFStretchWidth">
+                            <af:column headerText="#{bindings.BrokerCommentsRoView.hints.CommentDatetime.label}"
+                                       id="c14">
+                                <af:outputText value="#{row.CommentDatetime}"
+                                               shortDesc="#{bindings.BrokerCommentsRoView.hints.CommentDatetime.tooltip}"
+                                               id="ot6">
+                                    <af:convertDateTime pattern="#{bindings.BrokerCommentsRoView.hints.CommentDatetime.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column headerText="#{bindings.BrokerCommentsRoView.hints.CommentDesc.label}" id="c13">
+                                <af:outputText value="#{row.CommentDesc}"
+                                               shortDesc="#{bindings.BrokerCommentsRoView.hints.CommentDesc.tooltip}"
+                                               id="ot7"/>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+            </af:panelTabbed>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

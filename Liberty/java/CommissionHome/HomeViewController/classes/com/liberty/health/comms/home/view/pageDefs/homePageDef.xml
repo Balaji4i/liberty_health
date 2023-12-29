@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.0.31" id="homePageDef"
+                Package="com.liberty.health.comms.home.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+        <page path="oracle.ui.pattern.dynamicShell.model.dynamicTabShellDefinition" id="ptb1" Refresh="ifNeeded"/>
+    <iterator Binds="Menu" RangeSize="-1" DataControl="CommsHomeAMDataControl" id="MenuIterator"/>
+    <iterator Binds="UpdateMenuItemNameView" RangeSize="25" DataControl="CommsHomeAMDataControl"
+              id="UpdateMenuItemNameViewIterator"/>
+    <iterator Binds="UpdateMenuSortSeqView" RangeSize="25" DataControl="CommsHomeAMDataControl"
+              id="UpdateMenuSortSeqViewIterator"/>
+    <iterator Binds="AllCommissionsWatchListView" RangeSize="-1" DataControl="CommsHomeAMDataControl"
+              id="AllCommissionsWatchListViewIterator" Refresh="always" CacheResults="false"/>
+    <taskFlow id="welcomebtf1" taskFlowId="/WEB-INF/flows/welcome-btf.xml#welcome-btf" activation="immediate"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding" Refresh="ifNeeded"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="MenuIterator" id="Menu">
+      <nodeDefinition DefName="com.core.model.vo.WebApplObjectView" Name="Menu0">
+        <AttrNames>
+          <Item Value="WebApplObjectNo"/>
+          <Item Value="ActiveFromDate"/>
+          <Item Value="LocalCode"/>
+          <Item Value="MenuItemName"/>
+          <Item Value="MenuSortSeqNo"/>
+          <Item Value="ObjectTypeNo"/>
+          <Item Value="ParentWebApplObjectNo"/>
+          <Item Value="RemoveFromDate"/>
+          <Item Value="SystemName"/>
+          <Item Value="UrlPathName"/>
+          <Item Value="WebApplObjectNoFk"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="ParentWebApplObjectNoWebApplObjectView"/>
+        </Accessors>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" DataControl="CommsHomeAMDataControl" RequiresUpdateModel="true" Action="commitTransaction"/>
+    <methodAction id="setMenuLocalCode" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setMenuLocalCode"
+                  IsViewObjectMethod="false" DataControl="CommsHomeAMDataControl"
+                  InstanceName="data.CommsHomeAMDataControl.dataProvider">
+      <NamedData NDName="localCode" NDValue="#{launcherBean.localCode}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="UpdateMenuItemNameViewIterator" id="MenuItemName">
+      <AttrNames>
+        <Item Value="MenuItemName"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setUpdateMenuItemViewCriteria" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setUpdateMenuItemViewCriteria" IsViewObjectMethod="true"
+                  DataControl="CommsHomeAMDataControl"
+                  InstanceName="data.CommsHomeAMDataControl.UpdateMenuItemNameView">
+      <NamedData NDName="localCode" NDValue="#{launcherBean.localCode}" NDType="java.lang.String"/>
+      <NamedData NDName="webApplObjNo" NDValue="#{launcherBean.menuWebAppNo}" NDType="java.lang.Integer"/>
+    </methodAction>
+    <tree IterBinding="UpdateMenuSortSeqViewIterator" id="UpdateMenuSortSeqView">
+      <nodeDefinition DefName="com.core.model.vo.WebApplObjectView" Name="UpdateMenuSortSeqView0">
+        <AttrNames>
+          <Item Value="MenuItemName"/>
+          <Item Value="MenuSortSeqNo"/>
+          <Item Value="ActiveFromDate"/>
+          <Item Value="RemoveFromDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="setByParentViewCriteria" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setByParentViewCriteria" IsViewObjectMethod="true" DataControl="CommsHomeAMDataControl"
+                  InstanceName="data.CommsHomeAMDataControl.UpdateMenuSortSeqView">
+      <NamedData NDName="systemName" NDValue="'LB_HEALTH_COMMS'" NDType="java.lang.String"/>
+      <NamedData NDName="localCode" NDValue="#{launcherBean.localCode}" NDType="java.lang.String"/>
+      <NamedData NDName="parentWebAppNo" NDValue="#{launcherBean.parentWebNo}" NDType="java.lang.Integer"/>
+    </methodAction>
+    <methodAction id="setpLocalCode" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setpLocalCode"
+                  IsViewObjectMethod="true" DataControl="CommsHomeAMDataControl"
+                  InstanceName="data.CommsHomeAMDataControl.AllCommissionsWatchListView">
+      <NamedData NDName="value" NDValue="#{launcherBean.localCode}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="AllCommissionsWatchListViewIterator" id="WebApplObjectNo">
+      <AttrNames>
+        <Item Value="WebApplObjectNo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AllCommissionsWatchListViewIterator" id="AllCommissionsWatchListView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.CommissionsWatchListRoView"
+                      Name="AllCommissionsWatchListView10">
+        <AttrNames>
+          <Item Value="AlertDesc"/>
+          <Item Value="LocalCode"/>
+          <Item Value="MenuItemName"/>
+          <Item Value="MenuSortSeqNo"/>
+          <Item Value="UrlPathName"/>
+          <Item Value="WebApplObjectNo"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

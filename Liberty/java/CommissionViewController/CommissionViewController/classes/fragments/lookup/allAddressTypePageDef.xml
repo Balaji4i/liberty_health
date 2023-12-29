@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allAddressTypePageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllAddressTypeVO" RangeSize="25" DataControl="AddressTypeAMDataControl"
+              id="AllAddressTypeVOIterator"/>
+    <searchRegion Criteria="AllAddresTypeViewCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllAddressTypeVOIterator" id="AllAddresTypeViewCriteriaQuery"/>
+    <iterator Binds="AddressTypeAuditRoView" RangeSize="25" DataControl="AddressTypeAMDataControl"
+              id="AddressTypeAuditRoViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllAddressTypeVOIterator" id="AllAddressTypeVO">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.AddressTypeVO" Name="AllAddressTypeVO0">
+        <AttrNames>
+          <Item Value="AddressTypeCode"/>
+          <Item Value="AddressTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllAddressTypeVOIterator" id="AddressTypeCode">
+      <AttrNames>
+        <Item Value="AddressTypeCode"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AddressTypeAuditRoViewIterator" id="AddressTypeAuditRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.AddressTypeAuditRoView"
+                      Name="AddressTypeAuditRoView0">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionUsername"/>
+          <Item Value="TransactionDesc"/>
+          <Item Value="AddressTypeCode"/>
+          <Item Value="AddressTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

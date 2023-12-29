@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="fusionPremiumReconPageDef"
+                Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="FusionPremiumsRecon1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="FusionPremiumsRecon1Iterator"/>
+    <searchRegion Binds="FusionPremiumsRecon1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="FusionPremiumsRecon1Query"/>
+    <iterator Binds="FusionPremInvoiceMedReceipt1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="FusionPremInvoiceMedReceipt1Iterator"/>
+    <searchRegion Binds="FusionPremInvoiceMedReceipt1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="FusionPremInvoiceMedReceipt1Query"/>
+    <iterator Binds="OhiGroupsParent1" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="OhiGroupsParent1Iterator"/>
+    <searchRegion Binds="OhiGroupsParent1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="OhiGroupsParent1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="FusionPremiumsRecon1Iterator" id="FusionPremiumsRecon1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionPremiumsReconVO"
+                      Name="FusionPremiumsRecon10">
+        <AttrNames>
+          <Item Value="TemplColour"/>
+          <Item Value="OrganizationName"/>
+          <Item Value="ReceiptType"/>
+          <Item Value="Status"/>
+          <Item Value="CustomerNumber"/>
+          <Item Value="InvoiceType"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="TrxDate"/>
+          <Item Value="InvoiceAmt"/>
+          <Item Value="InvCsb"/>
+          <Item Value="PaymentAmt"/>
+          <Item Value="Adjustments"/>
+          <Item Value="CreditMemo"/>
+          <Item Value="TaxAmount"/>
+          <Item Value="BalanceAmt"/>
+          <Item Value="CountryCode"/>
+          <Item Value="ParentgroupCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="FusionPremiumsRecon1Iterator" id="Execute" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <tree IterBinding="FusionPremInvoiceMedReceipt1Iterator" id="FusionPremInvoiceMedReceipt1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionPremInvoiceMedReceiptVO"
+                      Name="FusionPremInvoiceMedReceipt10">
+        <AttrNames>
+          <Item Value="ReceiptType"/>
+          <Item Value="ReceiptNumber"/>
+          <Item Value="ReceivableApplicationId"/>
+          <Item Value="CashReceiptId"/>
+          <Item Value="GroupCode"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="BusinessUnit"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="OhiGroupsParent1Iterator" id="OhiGroupsParent1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.OhiGroupsParentVO" Name="OhiGroupsParent10">
+        <AttrNames>
+          <Item Value="ParentgroupCode"/>
+          <Item Value="GroupCode"/>
+          <Item Value="GroupName"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="OhiGroupsParent1Iterator" id="Execute1" RequiresUpdateModel="true" Action="iteratorExecute"/>
+  </bindings>
+</pageDefinition>

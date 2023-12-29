@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiPolicyEnrollmentRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentRoViewRowImpl"
+  ComponentClass="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentRoViewImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_codeGenFlag2" Value="Coll"/>
+        <Attr Name="_isExpertMode" Value="true"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+        Name="pcountrylist"
+        Kind="where"
+        Type="java.lang.String">
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="OhiPolicyEnrollmentRoView"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Variable>
+    <SQLQuery><![CDATA[-- Helen Lane                 
+-- Queries for ADF screen views for OHI tables.                
+-- OHI-POLICY-ENROLLMENT-PRODUCTS                
+ select * from (               
+SELECT grac.grac_id,    
+poen.poli_id     
+                  ,poli.policy_code     
+                  ,prod.product_code     
+                  ,prod.country_code     
+                  ,prod.product_name     
+                  ,prod.product_descr     
+      ,nvl(cpct.comm_perc, nvl(get_comm_percentage(p_policy => poli.policy_code),0)) comm_perc           
+      ,nvl(cpct.comm_desc,'From Parent')  comm_desc              
+      ,nvl(hold.hold_ind, nvl(get_hold_ind(p_policy => poli.policy_code),'N')) hold_ind        
+    ,hold.hold_reason      
+                  ,COUNT (DISTINCT inse.inse_code) no_of_dependants    
+                  ,poep.enpr_id   
+FROM ohi_policy_enrollments                       poen     
+                                 
+                JOIN ohi_policy_groups                    grac    
+                  ON grac.poli_id = poen.poli_id    
+    
+    JOIN ohi_policies                              poli         
+                  ON poen.poli_id = poli.poli_id    
+                   AND poli.poli_id = (select max(poli_id) from ohi_policies where policy_code = poli.policy_code)  
+                JOIN ohi_enrollment_products                   poep      
+                  ON poen.poen_id = poep.poen_id     
+                  AND trunc(SYSDATE) BETWEEN poep.effective_start_date      
+                                                AND poep.effective_end_date     
+                JOIN ohi_products                              prod     
+                  ON poep.enpr_id = prod.enpr_id     
+  LEFT OUTER JOIN ohi_insured_entities       inse     
+    ON poen.inse_id = inse.inse_id     
+  LEFT OUTER JOIN ohi_comm_perc                                            cpct     
+    ON poli.policy_code = cpct.policy_code     
+    AND (cpct.inse_code IS NULL AND cpct.company_id_no IS NULL      
+    AND cpct.poep_id IS NULL AND cpct.group_code IS NULL AND cpct.product_code IS NULL)     
+    AND trunc(SYSDATE) BETWEEN cpct.effective_start_date      
+        AND cpct.effective_end_date     
+   LEFT OUTER JOIN ohi_hold_ind                                              hold     
+     ON poli.policy_code = hold.policy_code     
+     AND (hold.inse_code IS NULL AND hold.company_id_no IS NULL      
+     AND hold.poep_id IS NULL AND hold.group_code IS NULL AND hold.product_code IS NULL)     
+     AND trunc(SYSDATE) BETWEEN hold.effective_start_date      
+         AND hold.effective_end_date   
+         AND prod.country_code IN ( 
+                SELECT 
+                    regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level) 
+                FROM 
+                    dual 
+                CONNECT BY 
+                    regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level) IS NOT NULL 
+            ) 
+GROUP BY poen.poli_id     
+                  ,poli.policy_code     
+              ,grac.grac_id    
+                  ,prod.product_code     
+                  ,prod.country_code     
+                  ,prod.product_name     
+                  ,prod.product_descr     
+      ,nvl(cpct.comm_perc, nvl(get_comm_percentage(p_policy => poli.policy_code),0))            
+      ,nvl(cpct.comm_desc,'From Parent')                
+      ,nvl(hold.hold_ind, nvl(get_hold_ind(p_policy => poli.policy_code),'N'))         
+    ,hold.hold_reason   
+    ,poep.enpr_id)]]></SQLQuery>
+    <ViewAttribute
+        Name="GracId"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="14"
+        Scale="0"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="GRAC_ID"
+        Expression="GRAC_ID"
+        SQLType="NUMERIC"/>
+    <ViewAttribute
+      Name="PoliId"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="14"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="POLI_ID"
+      Expression="POLI_ID"
+      SQLType="NUMERIC"/>
+    <ViewAttribute
+      Name="PolicyCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="POLICY_CODE"
+      Expression="POLICY_CODE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.PolicyCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="ProductCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PRODUCT_CODE"
+      Expression="PRODUCT_CODE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ProductCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CountryCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="4"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COUNTRY_CODE"
+      Expression="COUNTRY_CODE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="ProductName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PRODUCT_NAME"
+      Expression="PRODUCT_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ProductName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="ProductDescr"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="200"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PRODUCT_DESCR"
+      Expression="PRODUCT_DESCR"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="200"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ProductDescription']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CommPerc"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="COMM_PERC"
+        Expression="COMM_PERC"
+        SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.model.ohi.vo.NewOhiCommPercVO.CommPerc_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CommDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COMM_DESC"
+      Expression="COMM_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.model.ohi.vo.NewOhiCommPercVO.CommDesc_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="HoldInd"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="1"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="HOLD_IND"
+      Expression="HOLD_IND"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.HoldInd']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="HoldReason"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="HOLD_REASON"
+      Expression="HOLD_REASON"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentRoView.HoldReason_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="NoOfDependants"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="NO_OF_DEPENDANTS"
+      Expression="NO_OF_DEPENDANTS"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.NoOfDependants']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="EnprId"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="14"
+        Scale="0"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="ENPR_ID"
+        Expression="ENPR_ID"
+        SQLType="NUMERIC"/>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="GracId"/>
+        <Item Value="PoliId"/>
+        <Item Value="CountryCode"/>
+        <Item Value="EnprId"/>
+    </AttrArray>
+    <ViewLinkAccessor
+      Name="OhiPolicyEnrollmentPersonsRoView"
+      ViewLink="com.liberty.health.comms.model.ohi.vo.links.PolicyEnrolPersonsViewLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

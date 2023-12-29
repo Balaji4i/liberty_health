@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AppModule_N_View"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  ClearCacheOnRollback="true">
+  <ViewUsage
+    Name="CommsPaymentsReceivedVO_N1"
+    ViewObjectName="com.liberty.health.comm.vc.view.CommsPaymentsReceivedVO_N"/>
+</AppModule>

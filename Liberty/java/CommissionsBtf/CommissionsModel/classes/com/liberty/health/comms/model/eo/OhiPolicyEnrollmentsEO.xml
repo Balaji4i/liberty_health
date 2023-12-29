@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiPolicyEnrollmentsEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="OHI_POLICY_ENROLLMENTS"
+  AliasName="OhiPolicyEnrollmentsEO"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache">
+    <Attribute
+      Name="PoenId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="POEN_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICY_ENROLLMENTS"
+      PrimaryKey="true"/>
+    <Attribute
+      Name="PoliId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="POLI_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICY_ENROLLMENTS"/>
+    <Attribute
+      Name="InseId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="INSE_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICY_ENROLLMENTS"/>
+    <Attribute
+      Name="DependantId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="DEPENDANT_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICY_ENROLLMENTS"/>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="OHI_POLICY_ENROLLMENTS"/>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="20"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_POLICY_ENROLLMENTS">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+    </Attribute>
+    <AccessorAttribute
+      Name="OhiEnrollmentProducts"
+      Association="com.liberty.health.comms.model.eo.assoc.OhiEnrlProdPoliEnrlFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.OhiEnrlProdPoliEnrlFkAssoc.OhiEnrollmentProducts"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.OhiEnrlProdPoliEnrlFkAssoc.OhiPolicyEnrollments"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <AccessorAttribute
+      Name="OhiInsuredEntities"
+      Association="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsInseFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsInseFkAssoc.OhiInsuredEntities"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsInseFkAssoc.OhiPolicyEnrollments"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <AccessorAttribute
+      Name="OhiPolicies"
+      Association="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsPoliFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsPoliFkAssoc.OhiPolicies"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsPoliFkAssoc.OhiPolicyEnrollments"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="OhiPolicyEnrollmentsPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="OHI_POLICY_ENROLLMENTS_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyEnrollmentsEO.PoenId"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="OhiPoliEnrollmentsInseFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="OHI_INSURED_ENTITIES_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="OHI_POLI_ENROLLMENTS_INSE_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyEnrollmentsEO.InseId"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="OhiPoliEnrollmentsPoliFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="OHI_POLICIES_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="OHI_POLI_ENROLLMENTS_POLI_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPolicyEnrollmentsEO.PoliId"/>
+        </AttrArray>
+    </Key>
+</Entity>

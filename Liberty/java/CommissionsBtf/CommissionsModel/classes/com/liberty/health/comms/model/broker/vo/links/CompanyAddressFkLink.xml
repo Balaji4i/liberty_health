@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyAddressFkLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  EntityAssociation="com.liberty.health.comms.model.eo.assoc.CompanyAddressFkAssoc">
+    <ViewLinkDefEnd
+      Name="CompanyCountry"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.vo.CompanyCountryVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_minCardinality" Value="1"/>
+            <Attr Name="_finderName" Value="CompanyCountry"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.vo.CompanyCountryVO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.vo.CompanyCountryVO.CountryCode"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ViewLinkDefEnd
+      Name="CompanyAddress"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.model.broker.vo.CompanyAddressVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="CompanyAddress"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.broker.vo.CompanyAddressVO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.broker.vo.CompanyAddressVO.CountryCode"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+</ViewLink>

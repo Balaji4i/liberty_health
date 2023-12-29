@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="SystemName"
+  Version="12.2.1.0.31"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="SYSTEM_NAME"
+  AliasName="SystemName"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache">
+  <Attribute
+    Name="SystemName"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="SYSTEM_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SYSTEM_NAME"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SystemName.SystemName"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="SystemNameDesc"
+    IsNotNull="true"
+    Precision="200"
+    ColumnName="SYSTEM_NAME_DESC"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SYSTEM_NAME">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SystemPathName"
+    Precision="200"
+    ColumnName="SYSTEM_PATH_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="SYSTEM_NAME">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SystemName.SystemPathName"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="DisplayInd"
+    IsNotNull="true"
+    Precision="1"
+    ColumnName="DISPLAY_IND"
+    SQLType="CHAR"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    TableName="SYSTEM_NAME"
+    RetrievedOnUpdate="true"
+    RetrievedOnInsert="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="SystemName.DisplayInd"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <AccessorAttribute
+    Name="WebApplObject"
+    Association="com.core.model.eo.assoc.WebApplObjectNoFk1Assoc"
+    AssociationEnd="com.core.model.eo.assoc.WebApplObjectNoFk1Assoc.WebApplObject"
+    AssociationOtherEnd="com.core.model.eo.assoc.WebApplObjectNoFk1Assoc.SystemName1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="SystemParameter"
+    Association="com.core.model.eo.assoc.SystemParameterFk1Assoc"
+    AssociationEnd="com.core.model.eo.assoc.SystemParameterFk1Assoc.SystemParameter"
+    AssociationOtherEnd="com.core.model.eo.assoc.SystemParameterFk1Assoc.SystemName1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <Key
+    Name="SystemNamePk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYSTEM_NAME_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.eo.SystemName.SystemName"/>
+    </AttrArray>
+  </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.core.model.CoreModelBundle"/>
+  </ResourceBundle>
+</Entity>

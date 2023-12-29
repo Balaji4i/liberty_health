@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_broker_btf_maintain_broker_btf_CreateInsertPageDef" Package="btf.broker"
+                SkipValidation="true">
+    <parameters/>
+    <executables>
+        <iterator Binds="BrokerByPkView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerByPkViewIterator"/>
+    </executables>
+    <bindings>
+        <action IterBinding="BrokerByPkViewIterator" id="CreateWithParams" RequiresUpdateModel="true"
+                Action="createWithParams">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+        </action>
+    </bindings>
+</pageDefinition>

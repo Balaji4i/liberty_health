@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerageInvoicesOnHoldRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  OrderBy='"COMPANY_ID_NO"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.watchlist.vo.BrokerageInvoicesOnHoldRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+        Name="pCountryList"
+        Kind="where"
+        Type="java.lang.String">
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="BrokerageInvoicesOnHoldRoView"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Variable>
+    <SQLQuery><![CDATA[select i.company_id_no,   
+c.company_name,   
+i.country_code,   
+count(distinct i.invoice_no) no_of_invoices,   
+sum(id.fee_Type_amt) invoie_amt,  
+sum(id.fee_Type_exch_amt) invoice_exch_amt  
+from invoice i, invoice_detail id, company c    
+where release_date is null    
+  and i.invoice_no = id.invoice_no    
+  and i.company_id_no = c.company_id_no    
+  and i.country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')       
+ , '[^,]+', 1, LEVEL)               
+            FROM DUAL               
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')     
+, '[^,]+', 1, LEVEL) IS NOT NULL) and i.country_code is not null 
+group by i.company_id_no, c.company_name,i.country_code]]></SQLQuery>
+    <ViewAttribute
+      Name="CompanyIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="9"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="COMPANY_ID_NO"
+      Expression="COMPANY_ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COMPANY_NAME"
+      Expression="COMPANY_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Company']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CountryCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="4"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="COUNTRY_CODE"
+        Expression="COUNTRY_CODE"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="NoOfInvoices"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="NO_OF_INVOICES"
+      Expression="NO_OF_INVOICES"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.NoOfInvoices']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="InvoieAmt"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="INVOIE_AMT"
+      Expression="INVOIE_AMT"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.TotalInvoiceAmt']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="InvoiceExchAmt"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="INVOICE_EXCH_AMT"
+        Expression="INVOICE_EXCH_AMT"
+        SQLType="NUMERIC"/>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="CompanyIdNo"/>
+        <Item Value="CountryCode"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

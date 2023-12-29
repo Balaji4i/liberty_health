@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-invoices-by-company-btf">
+        <default-activity>setpCompanyIdNo</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>oracle.jbo.domain.Number</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__10">
+            <name>countryCode</name>
+            <value>#{pageFlowScope.countryCode}</value>
+            <class>java.lang.string</class>
+        </input-parameter-definition>
+        <managed-bean id="__12">
+            <managed-bean-name>paymentRunBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.btf.beans.PaymentRun</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <method-call id="setpCompanyIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpCompanyIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainInvoicesByCompany">
+            <page>/WEB-INF/fragments/payment/maintainInvoicesByCompany.jsff</page>
+        </view>
+        <task-flow-return id="taskFlowReturn1">
+            <outcome>
+                <name>taskFlowReturn1</name>
+            </outcome>
+        </task-flow-return>
+        <task-flow-call id="maintain-invoice-btf">
+            <task-flow-reference>
+                <document>/WEB-INF/btf/payment/maintain-invoice-btf.xml</document>
+                <id>maintain-invoice-btf</id>
+            </task-flow-reference>
+            <input-parameter id="__7">
+                <name>invoiceNo</name>
+                <value>#{data.com_liberty_health_comms_btf_maintainInvoicesByCompanyPageDef.InvoiceNo.inputValue}</value>
+            </input-parameter>
+        </task-flow-call>
+        <control-flow-rule id="__4">
+            <from-activity-id>maintainInvoicesByCompany</from-activity-id>
+            <control-flow-case id="__5">
+                <from-outcome>back</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__6">
+                <from-outcome>goInvoice</from-outcome>
+                <to-activity-id>maintain-invoice-btf</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__8">
+            <from-activity-id>maintain-invoice-btf</from-activity-id>
+            <control-flow-case id="__9">
+                <from-outcome>taskFlowReturn1</from-outcome>
+                <to-activity-id>setpCompanyIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__2">
+            <from-activity-id>setpCompanyIdNo</from-activity-id>
+            <control-flow-case id="__3">
+                <from-outcome>setpCompanyIdNo</from-outcome>
+                <to-activity-id>maintainInvoicesByCompany</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

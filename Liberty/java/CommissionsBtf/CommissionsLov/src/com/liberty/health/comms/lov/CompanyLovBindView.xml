@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyLovBindView"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.lov.CompanyLovBindViewRowImpl"
+  ComponentClass="com.liberty.health.comms.lov.CompanyLovBindViewImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="CompanyLovBindView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pBindCompanyIdNo"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[select *      
+from (select C.COMPANY_ID_NO, decode(b.company_name,null,C.COMPANY_NAME,b.company_name) company_name , c.preferred_currency_code              
+  from  COMPANY C,            
+        (select b.company_id_no, broker_name ||' '|| broker_last_name company_name            
+           from broker b, company c            
+          where b.company_id_no = c.company_id_no            
+            and c.company_name = 'INDEPENDANT') B            
+ where c.company_id_no = b.company_id_no(+) 
+   and c.company_id_no = :pBindCompanyIdNo)]]></SQLQuery>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMPANY_ID_NO"
+    Expression="COMPANY_ID_NO"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CompanyName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="151"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COMPANY_NAME"
+    Expression="COMPANY_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="151"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PreferredCurrencyCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PREFERRED_CURRENCY_CODE"
+    Expression="PREFERRED_CURRENCY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CompanyIdNo"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.lov.common.CompanyLovBindViewMsgBundle"/>
+  </ResourceBundle>
+</ViewObject>

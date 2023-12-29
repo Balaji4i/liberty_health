@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelHeader text="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}" id="ph1">
+        <f:facet name="context"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+            <f:facet name="menus"/>
+            <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                    <af:button text="#{coreLabels['G.ReSubmit']}" id="b1"
+                               disabled="#{bindings.AllProductCommPercRejectedRoViewIterator.deferredEstimatedRowCount == 0}"
+                               partialTriggers="t1 d1" >
+                        <af:showPopupBehavior popupId="p1" triggerType="action"/>
+                    </af:button>
+                    <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"
+                               rendered="#{securityContext.userInRole['comms-consultant']}">
+                        <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                           filename="#{pageFlowScope.menuItemName}.xls"/>
+                    </af:button>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p1" contentDelivery="lazyUncached"
+                              popupFetchListener="#{watchListBean.reSubmitPopUpFetchListener}">
+                        <af:dialog id="d1" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                                   dialogListener="#{watchListBean.commPercRejecedResubmitDialogListener}">
+                            <f:facet name="buttonBar"/>
+                            <af:panelFormLayout id="pfl1">
+                                <af:inputText value="#{bindings.CommPerc.inputValue}"
+                                              label="#{bindings.CommPerc.hints.label}"
+                                              required="#{bindings.CommPerc.hints.mandatory}"
+                                              columns="#{bindings.CommPerc.hints.displayWidth}"
+                                              maximumLength="#{bindings.CommPerc.hints.precision}"
+                                              shortDesc="#{bindings.CommPerc.hints.tooltip}" id="it1">
+                                    <f:validator binding="#{bindings.CommPerc.validator}"/>
+                                    <af:convertNumber groupingUsed="false" pattern="#{bindings.CommPerc.format}"/>
+                                </af:inputText>
+                                <af:inputText value="#{bindings.CommDesc.inputValue}"
+                                              label="#{bindings.CommDesc.hints.label}"
+                                              required="#{bindings.CommDesc.hints.mandatory}"
+                                              columns="#{bindings.CommDesc.hints.displayWidth}"
+                                              maximumLength="#{bindings.CommDesc.hints.precision}"
+                                              shortDesc="#{bindings.CommDesc.hints.tooltip}" id="it8">
+                                    <f:validator binding="#{bindings.CommDesc.validator}"/>
+                                </af:inputText>
+                            </af:panelFormLayout>
+                        </af:dialog>
+                    </af:popup>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                              binding="#{watchListBean.errorMsgPopUp}">
+                        <af:dialog id="d2" title="#{coreLabels['G.Error']}" type="ok">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.ErrorMsg']} #{watchListBean.returnMsg}" id="ot14"/>
+                        </af:dialog>
+                    </af:popup>
+                </af:toolbar>
+            </f:facet>
+            <f:facet name="statusbar"/>
+            <af:table value="#{bindings.AllProductCommPercRejectedRoView.collectionModel}" var="row"
+                      rows="#{bindings.AllProductCommPercRejectedRoView.rangeSize}"
+                      emptyText="#{bindings.AllProductCommPercRejectedRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="1"
+                      selectedRowKeys="#{bindings.AllProductCommPercRejectedRoView.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.AllProductCommPercRejectedRoView.collectionModel.makeCurrent}"
+                      rowSelection="single" fetchSize="#{bindings.AllProductCommPercRejectedRoView.rangeSize}"
+                      id="t1" displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c7"
+                      partialTriggers="::d2 ::d1">
+                <af:column headerText="#{bindings.AllProductCommPercRejectedRoView.hints.GroupCode.label}" id="c9"
+                           width="250">
+                    <af:outputText value="#{row.GroupCode}"
+                                   shortDesc="#{bindings.AllProductCommPercRejectedRoView.hints.GroupCode.tooltip}"
+                                   id="ot4"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllProductCommPercRejectedRoView.hints.ProductCode.label}" id="c6">
+                    <af:outputText value="#{row.ProductCode}"
+                                   shortDesc="#{bindings.AllProductCommPercRejectedRoView.hints.ProductCode.tooltip}"
+                                   id="ot7"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllProductCommPercRejectedRoView.hints.ProductName.label}" id="c1"
+                           width="200">
+                    <af:outputText value="#{row.ProductName}"
+                                   shortDesc="#{bindings.AllProductCommPercRejectedRoView.hints.ProductName.tooltip}"
+                                   id="ot2"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllProductCommPercRejectedRoView.hints.CommPerc.label}" id="c3"
+                           align="right" width="80">
+                    <af:outputText value="#{row.CommPerc}"
+                                   shortDesc="#{bindings.AllProductCommPercRejectedRoView.hints.CommPerc.tooltip}"
+                                   id="ot5">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.AllProductCommPercRejectedRoView.hints.CommPerc.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllProductCommPercRejectedRoView.hints.CommDesc.label}" id="c7">
+                    <af:outputText value="#{row.CommDesc}"
+                                   shortDesc="#{bindings.AllProductCommPercRejectedRoView.hints.CommDesc.tooltip}"
+                                   id="ot6"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllProductCommPercRejectedRoView.hints.EffectiveStartDate.label}"
+                           id="c8" width="80" align="center">
+                    <af:outputText value="#{row.EffectiveStartDate}"
+                                   shortDesc="#{bindings.AllProductCommPercRejectedRoView.hints.EffectiveStartDate.tooltip}"
+                                   id="ot9">
+                        <af:convertDateTime pattern="#{bindings.AllProductCommPercRejectedRoView.hints.EffectiveStartDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllProductCommPercRejectedRoView.hints.EffectiveEndDate.label}"
+                           id="c4" width="80" align="center">
+                    <af:outputText value="#{row.EffectiveEndDate}"
+                                   shortDesc="#{bindings.AllProductCommPercRejectedRoView.hints.EffectiveEndDate.tooltip}"
+                                   id="ot8">
+                        <af:convertDateTime pattern="#{bindings.AllProductCommPercRejectedRoView.hints.EffectiveEndDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllProductCommPercRejectedRoView.hints.RejectDate.label}" id="c5"
+                           width="80" align="center">
+                    <af:outputText value="#{row.RejectDate}"
+                                   shortDesc="#{bindings.AllProductCommPercRejectedRoView.hints.RejectDate.tooltip}"
+                                   id="ot1">
+                        <af:convertDateTime pattern="#{bindings.AllProductCommPercRejectedRoView.hints.RejectDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllProductCommPercRejectedRoView.hints.RejectUsername.label}" id="c2">
+                    <af:outputText value="#{row.RejectUsername}"
+                                   shortDesc="#{bindings.AllProductCommPercRejectedRoView.hints.RejectUsername.tooltip}"
+                                   id="ot3"/>
+                </af:column>
+            </af:table>
+        </af:panelCollection>
+    </af:panelHeader>
+    <af:panelFormLayout id="pfl2" visible="false">
+        <af:inputText value="#{bindings.RejectUsername.inputValue}" label="#{bindings.RejectUsername.hints.label}"
+                      required="#{bindings.RejectUsername.hints.mandatory}" readOnly="true"
+                      columns="#{bindings.RejectUsername.hints.displayWidth}"
+                      maximumLength="#{bindings.RejectUsername.hints.precision}"
+                      shortDesc="#{bindings.RejectUsername.hints.tooltip}" id="it2">
+            <f:validator binding="#{bindings.RejectUsername.validator}"/>
+        </af:inputText>
+    </af:panelFormLayout>
+</jsp:root>

@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelStretchLayout id="psl1" topHeight="auto">
+    <f:facet name="top">
+      <af:panelHeader text="#{coreLabels['G.BankAccType']}" id="ph2">
+        <af:query id="qryId1" headerText="Search" disclosed="true"
+                  value="#{bindings.AllBankAccountTypeViewCriteriaQuery.queryDescriptor}"
+                  model="#{bindings.AllBankAccountTypeViewCriteriaQuery.queryModel}"
+                  queryListener="#{bindings.AllBankAccountTypeViewCriteriaQuery.processQuery}"
+                  queryOperationListener="#{bindings.AllBankAccountTypeViewCriteriaQuery.processQueryOperation}"
+                  resultComponentId="::pc1:resId1" fieldWidth="250"/>
+      </af:panelHeader>
+    </f:facet>
+    <f:facet name="center">
+      <af:panelGroupLayout layout="scroll" id="pgl2">
+        <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+          <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t1">
+                  <af:button text="#{coreLabels['G.Add']}" id="b1" action="create" icon="/adf/images/add_16x16.png" rendered="#{securityContext.userInRole['comms-consultant']}"/>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.AllBankAccountTypeVO.collectionModel}" var="row"
+                        rows="#{bindings.AllBankAccountTypeVO.rangeSize}"
+                        emptyText="#{bindings.AllBankAccountTypeVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.AllBankAccountTypeVO.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.AllBankAccountTypeVO.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.AllBankAccountTypeVO.rangeSize}" id="resId1"
+                        displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:resId1c2">
+                <af:column headerText="#{bindings.AllBankAccountTypeVO.hints.BankAccTypeDesc.label}" id="resId1c2"
+                           width="250">
+                  <af:link disabled="#{!securityContext.userInRole['comms-consultant']}"   text="#{row.BankAccTypeDesc}" id="l1" action="edit"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllBankAccountTypeVO.hints.EffectiveStartDate.label}" id="resId1c6"
+                           align="center">
+                  <af:outputText value="#{row.EffectiveStartDate}"
+                                 shortDesc="#{bindings.AllBankAccountTypeVO.hints.EffectiveStartDate.tooltip}" id="ot6">
+                    <af:convertDateTime pattern="#{bindings.AllBankAccountTypeVO.hints.EffectiveStartDate.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllBankAccountTypeVO.hints.EffectiveEndDate.label}" id="resId1c5"
+                           align="center">
+                  <af:outputText value="#{row.EffectiveEndDate}"
+                                 shortDesc="#{bindings.AllBankAccountTypeVO.hints.EffectiveEndDate.tooltip}" id="ot5">
+                    <af:convertDateTime pattern="#{bindings.AllBankAccountTypeVO.hints.EffectiveEndDate.format}"/>
+                  </af:outputText>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:showDetailItem>
+          <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t3">
+                  <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                       filename="#{coreLabels['G.History']}.xls"/>
+                  </af:button>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.BankAccountTypeAuditRoView.collectionModel}" var="row"
+                        rows="#{bindings.BankAccountTypeAuditRoView.rangeSize}"
+                        emptyText="#{bindings.BankAccountTypeAuditRoView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="1"
+                        selectedRowKeys="#{bindings.BankAccountTypeAuditRoView.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.BankAccountTypeAuditRoView.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.BankAccountTypeAuditRoView.rangeSize}" id="t2"
+                        displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c2">
+                <af:column headerText="#{bindings.BankAccountTypeAuditRoView.hints.TransactionDatetime.label}" id="c1"
+                           align="center">
+                  <af:outputText value="#{row.TransactionDatetime}"
+                                 shortDesc="#{bindings.BankAccountTypeAuditRoView.hints.TransactionDatetime.tooltip}"
+                                 id="ot1">
+                    <af:convertDateTime pattern="#{bindings.BankAccountTypeAuditRoView.hints.TransactionDatetime.format}" type="both"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.BankAccountTypeAuditRoView.hints.TransactionUsername.label}" id="c3">
+                  <af:outputText value="#{row.TransactionUsername}"
+                                 shortDesc="#{bindings.BankAccountTypeAuditRoView.hints.TransactionUsername.tooltip}"
+                                 id="ot3"/>
+                </af:column>
+                <af:column headerText="#{bindings.BankAccountTypeAuditRoView.hints.TransactionDesc.label}" id="c2"
+                           width="350">
+                  <af:outputText value="#{row.TransactionDesc}"
+                                 shortDesc="#{bindings.BankAccountTypeAuditRoView.hints.TransactionDesc.tooltip}"
+                                 id="ot2"/>
+                </af:column>
+                <af:column headerText="#{bindings.BankAccountTypeAuditRoView.hints.BankAccTypeDesc.label}" id="c4">
+                  <af:outputText value="#{row.BankAccTypeDesc}"
+                                 shortDesc="#{bindings.BankAccountTypeAuditRoView.hints.BankAccTypeDesc.tooltip}"
+                                 id="ot4"/>
+                </af:column>
+                <af:column headerText="#{bindings.BankAccountTypeAuditRoView.hints.EffectiveStartDate.label}" id="c5"
+                           align="center">
+                  <af:outputText value="#{row.EffectiveStartDate}"
+                                 shortDesc="#{bindings.BankAccountTypeAuditRoView.hints.EffectiveStartDate.tooltip}"
+                                 id="ot7">
+                    <af:convertDateTime pattern="#{bindings.BankAccountTypeAuditRoView.hints.EffectiveStartDate.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.BankAccountTypeAuditRoView.hints.EffectiveEndDate.label}" id="c6"
+                           align="center">
+                  <af:outputText value="#{row.EffectiveEndDate}"
+                                 shortDesc="#{bindings.BankAccountTypeAuditRoView.hints.EffectiveEndDate.tooltip}"
+                                 id="ot8">
+                    <af:convertDateTime pattern="#{bindings.BankAccountTypeAuditRoView.hints.EffectiveEndDate.format}"/>
+                  </af:outputText>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:showDetailItem>
+        </af:panelTabbed>
+      </af:panelGroupLayout>
+    </f:facet>
+  </af:panelStretchLayout>
+</jsp:root>

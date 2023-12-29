@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-broker-partial-flow">
+    <default-activity>allCommsPartialReceipt</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <managed-bean id="__1">
+      <managed-bean-name>PartialPayments</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.beans.PartialPayments</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="allCommsPartialReceipt">
+      <page>/WEB-INF/fragments/brokerage/allCommsPartialReceipt.jsff</page>
+    </view>
+    <view id="allCommsPartialReceiptAdd">
+      <page>/WEB-INF/fragments/brokerage/allCommsPartialReceiptAdd.jsff</page>
+    </view>
+    <control-flow-rule id="__2">
+      <from-activity-id>allCommsPartialReceipt</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>add</from-outcome>
+        <to-activity-id>allCommsPartialReceiptAdd</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>allCommsPartialReceiptAdd</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>allCommsPartialReceipt</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

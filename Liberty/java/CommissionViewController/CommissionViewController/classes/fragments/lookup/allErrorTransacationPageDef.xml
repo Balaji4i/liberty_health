@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allErrorTransacationPageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllErrorUpldTransactionView" RangeSize="25" DataControl="LookupAMDataControl1"
+              id="AllErrorUpldTransactionViewIterator"/>
+    <searchRegion Criteria="UploadsInErrorViewCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllErrorUpldTransactionViewIterator" id="UploadsInErrorViewCriteriaQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllErrorUpldTransactionViewIterator" id="AllErrorUpldTransactionView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.UpldTransactionRoView"
+                      Name="AllErrorUpldTransactionView0">
+        <AttrNames>
+          <Item Value="UpldTrnNo"/>
+          <Item Value="InterfSystemIdNo"/>
+          <Item Value="TrnTypeNo"/>
+          <Item Value="TrnSubTypeCode"/>
+          <Item Value="TrnDatetime"/>
+          <Item Value="UpldTrnDate"/>
+          <Item Value="Dataline"/>
+          <Item Value="ErrorDesc"/>
+          <Item Value="TrnTypeDesc"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

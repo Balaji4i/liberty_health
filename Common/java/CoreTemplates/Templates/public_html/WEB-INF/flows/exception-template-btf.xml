@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-template id="exception-template-btf">
+    <default-activity id="__x1">exceptionHandler</default-activity>
+    <managed-bean id="__x4">
+      <managed-bean-name id="__x3">customExceptionHandlerBean</managed-bean-name>
+      <managed-bean-class id="__x5">com.core.templates.beans.CustomExceptionHandler</managed-bean-class>
+      <managed-bean-scope id="__x6">none</managed-bean-scope>
+    </managed-bean>
+    <exception-handler id="__x2">exceptionHandler</exception-handler>
+    <view id="exceptionHandler">
+      <page>/fragments/exceptionHandler.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-template>
+</adfc-config>

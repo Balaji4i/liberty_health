@@ -1,0 +1,13 @@
+CREATE TABLE "LHHCOM"."COMMS_CALC_TRACE"
+ (
+    "COMMS_CALC_SNAPSHOT_NO" NUMBER (12) NOT NULL   -- Reference to row from comms_calc_snapshot
+  , "TRACE_BASE_SNAPSHOT_NO" NUMBER (12)            -- Reference to base comms_calc_type_code 'P' or 'A' row from comms_calc_snapshot  
+  , "TRACE_ORIGINAL_SNAPSHOT_NO" NUMBER (12)        -- Reference to original comms_calc_type_code 'P' row from comms_calc_snapshot
+  , CONSTRAINT "COMMS_CALC_TRACE_PK" PRIMARY KEY ("COMMS_CALC_SNAPSHOT_NO")
+  , CONSTRAINT "COMMS_CALC_TRACE_FK1" FOREIGN KEY ("TRACE_BASE_SNAPSHOT_NO") REFERENCES "LHHCOM"."COMMS_CALC_SNAPSHOT"("COMMS_CALC_SNAPSHOT_NO") 
+  , CONSTRAINT "COMMS_CALC_TRACE_FK2" FOREIGN KEY ("TRACE_ORIGINAL_SNAPSHOT_NO") REFERENCES "LHHCOM"."COMMS_CALC_SNAPSHOT"("COMMS_CALC_SNAPSHOT_NO")     
+ );
+ 
+
+    
+    

@@ -1,0 +1,407 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:table value="#{bindings.SystemParameter1.collectionModel}" var="row"
+              rows="#{bindings.SystemParameter1.rangeSize}" visible="false"
+              emptyText="#{bindings.SystemParameter1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.SystemParameter1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.SystemParameter1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.SystemParameter1.rangeSize}" id="t3">
+        <af:column headerText="#{bindings.SystemParameter1.hints.ParameterSection.label}" id="c29">
+            <af:outputText value="#{row.ParameterSection}"
+                           shortDesc="#{bindings.SystemParameter1.hints.ParameterSection.tooltip}" id="ot14"/>
+        </af:column>
+        <af:column headerText="#{bindings.SystemParameter1.hints.ParameterKey.label}" id="c30">
+            <af:outputText value="#{row.ParameterKey}"
+                           shortDesc="#{bindings.SystemParameter1.hints.ParameterKey.tooltip}" id="ot15"/>
+        </af:column>
+        <af:column headerText="#{bindings.SystemParameter1.hints.ParameterValue.label}" id="c31">
+            <af:outputText value="#{row.ParameterValue}"
+                           shortDesc="#{bindings.SystemParameter1.hints.ParameterValue.tooltip}" id="ot16"/>
+        </af:column>
+    </af:table>
+    <af:panelGroupLayout id="pgl3" styleClass="AFStretchWidth">
+        <af:button text="Click here to view the details" id="b6" disabled="false"
+                   actionListener="#{backingBeanScope.PartialPayments.onClickViewPage}" partialTriggers="pgl2"
+                   binding="#{backingBeanScope.PartialPayments.bv_viewButton}"/>
+    </af:panelGroupLayout>
+    <af:panelGroupLayout id="pgl2" layout="vertical" partialTriggers="b6"
+                         binding="#{backingBeanScope.PartialPayments.bv_pg}" visible="false">
+        <af:panelHeader text="Brokerages Commissions on Partial Receipt" id="ph1" inlineStyle="height:45px;"/>
+        <af:panelTabbed position="above" id="pt1" inlineStyle="width:1134px;">
+            <af:showDetailItem id="tab1" text="#{coreLabels['G.CommissionPartialPayActive']}">
+                <af:panelGroupLayout id="pgl1">
+                    <af:button text="Create" id="b5" actionListener="#{bindings.Create.execute}"
+                               disabled="#{!bindings.Create.enabled}" visible="false"/>
+                    <af:button text="New Record" id="b1" actionListener="#{bindings.CreateInsert.execute}"
+                               disabled="#{!bindings.CreateInsert.enabled}"/>
+                    <af:button text="Refresh" id="b2" actionListener="#{bindings.Execute.execute}"
+                               disabled="#{!bindings.Execute.enabled}"/>
+                    <af:button text="Save" id="b3"
+                               actionListener="#{backingBeanScope.PartialPayments.validateNewEntry}"/>
+                    <af:button text="Cancel" id="b4" actionListener="#{bindings.Rollback.execute}"
+                               disabled="#{!bindings.Rollback.enabled}" immediate="true">
+                        <af:resetActionListener/>
+                    </af:button>
+                </af:panelGroupLayout>
+                <af:panelCollection id="pc1" inlineStyle="width:1154px;">
+                    <f:facet name="menus"/>
+                    <f:facet name="toolbar"/>
+                    <f:facet name="statusbar"/>
+                    <af:table value="#{bindings.CommsPartialReceiptVO1.collectionModel}" var="row"
+                              rows="#{bindings.CommsPartialReceiptVO1.rangeSize}"
+                              emptyText="#{bindings.CommsPartialReceiptVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="0"
+                              selectedRowKeys="#{bindings.CommsPartialReceiptVO1.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.CommsPartialReceiptVO1.collectionModel.makeCurrent}"
+                              rowSelection="single" fetchSize="#{bindings.CommsPartialReceiptVO1.rangeSize}"
+                              filterModel="#{bindings.CommsPartialReceiptVO1Query.queryDescriptor}" filterVisible="true"
+                              queryListener="#{bindings.CommsPartialReceiptVO1Query.processQuery}" varStatus="vs"
+                              id="t1" partialTriggers=":::b1 :::b2 :::b5">
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.CommsPartialPk.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CommsPartialReceiptVO1.hints.CommsPartialPk.label}" id="c1"
+                                   visible="false">
+                            <af:inputText value="#{row.bindings.CommsPartialPk.inputValue}"
+                                          label="#{bindings.CommsPartialReceiptVO1.hints.CommsPartialPk.label}"
+                                          required="#{bindings.CommsPartialReceiptVO1.hints.CommsPartialPk.mandatory}"
+                                          columns="#{bindings.CommsPartialReceiptVO1.hints.CommsPartialPk.displayWidth}"
+                                          maximumLength="#{bindings.CommsPartialReceiptVO1.hints.CommsPartialPk.precision}"
+                                          shortDesc="#{bindings.CommsPartialReceiptVO1.hints.CommsPartialPk.tooltip}"
+                                          id="it1">
+                                <f:validator binding="#{row.bindings.CommsPartialPk.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.CommsPartialReceiptVO1.hints.CommsPartialPk.format}"/>
+                            </af:inputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.CompanyIdNo.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Brokerage Code" id="c2">
+                            <af:selectOneChoice value="#{row.bindings.CompanyIdNo.inputValue}"
+                                                label="#{row.bindings.CompanyIdNo.label}"
+                                                required="#{bindings.CommsPartialReceiptVO1.hints.CompanyIdNo.mandatory}"
+                                                shortDesc="#{bindings.CommsPartialReceiptVO1.hints.CompanyIdNo.tooltip}"
+                                                id="soc1" autoSubmit="true">
+                                <f:selectItems value="#{row.bindings.CompanyIdNo.items}" id="si1"/>
+                                <f:validator binding="#{row.bindings.CompanyIdNo.validator}"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.CountryCode.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Country Code" id="c3">
+                            <af:selectOneChoice value="#{row.bindings.CountryCode.inputValue}"
+                                                label="#{row.bindings.CountryCode.label}"
+                                                required="#{bindings.CommsPartialReceiptVO1.hints.CountryCode.mandatory}"
+                                                shortDesc="#{bindings.CommsPartialReceiptVO1.hints.CountryCode.tooltip}"
+                                                id="soc2" autoSubmit="true">
+                                <f:selectItems value="#{row.bindings.CountryCode.items}" id="si2"/>
+                                <f:validator binding="#{row.bindings.CountryCode.validator}"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.Bu.name}" filterable="true"
+                                   sortable="true" headerText="Fusion Business Unit"
+                                   id="c4">
+                            <af:selectOneChoice value="#{row.bindings.Bu.inputValue}" label="#{row.bindings.Bu.label}"
+                                                required="#{bindings.CommsPartialReceiptVO1.hints.Bu.mandatory}"
+                                                shortDesc="#{bindings.CommsPartialReceiptVO1.hints.Bu.tooltip}"
+                                                id="soc3">
+                                <f:selectItems value="#{row.bindings.Bu.items}" id="si3"/>
+                                <f:validator binding="#{row.bindings.Bu.validator}"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.GroupCode.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Group Code" id="c5">
+                            <af:selectOneChoice value="#{row.bindings.GroupCode.inputValue}"
+                                                label="#{row.bindings.GroupCode.label}"
+                                                required="#{bindings.CommsPartialReceiptVO1.hints.GroupCode.mandatory}"
+                                                shortDesc="#{bindings.CommsPartialReceiptVO1.hints.GroupCode.tooltip}"
+                                                id="soc4" partialTriggers="c2 c3">
+                                <f:selectItems value="#{row.bindings.GroupCode.items}" id="si4"/>
+                                <f:validator binding="#{row.bindings.GroupCode.validator}"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.CommsPercentage.name}"
+                                   sortable="true"
+                                   headerText="Comms %"
+                                   filterable="true" id="c6">
+                            <af:inputText value="#{row.bindings.CommsPercentage.inputValue}"
+                                          label="#{bindings.CommsPartialReceiptVO1.hints.CommsPercentage.label}"
+                                          required="#{bindings.CommsPartialReceiptVO1.hints.CommsPercentage.mandatory}"
+                                          columns="#{bindings.CommsPartialReceiptVO1.hints.CommsPercentage.displayWidth}"
+                                          maximumLength="#{bindings.CommsPartialReceiptVO1.hints.CommsPercentage.precision}"
+                                          shortDesc="#{bindings.CommsPartialReceiptVO1.hints.CommsPercentage.tooltip}"
+                                          id="it2">
+                                <f:validator binding="#{row.bindings.CommsPercentage.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.CommsPartialReceiptVO1.hints.CommsPercentage.format}"/>
+                            </af:inputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.InterfaceToComms.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Interface to Commissions" id="c7">
+                            <af:selectOneChoice value="#{row.bindings.InterfaceToComms.inputValue}"
+                                                label="#{row.bindings.InterfaceToComms.label}"
+                                                required="#{bindings.CommsPartialReceiptVO1.hints.InterfaceToComms.mandatory}"
+                                                shortDesc="#{bindings.CommsPartialReceiptVO1.hints.InterfaceToComms.tooltip}"
+                                                id="soc5">
+                                <f:selectItems value="#{row.bindings.InterfaceToComms.items}" id="si5"/>
+                                <f:validator binding="#{row.bindings.InterfaceToComms.validator}"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.EffectiveStartDate.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Effective Start Date"
+                                   id="c8">
+                            <f:facet name="filter">
+                                <af:inputDate value="#{bindings.CommsPartialReceiptVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveStartDate.value}"
+                                              id="id1">
+                                    <af:convertDateTime pattern="#{bindings.CommsPartialReceiptVO1.hints.EffectiveStartDate.format}"/>
+                                </af:inputDate>
+                            </f:facet>
+                            <af:inputDate value="#{row.bindings.EffectiveStartDate.inputValue}"
+                                          label="#{bindings.CommsPartialReceiptVO1.hints.EffectiveStartDate.label}"
+                                          required="#{bindings.CommsPartialReceiptVO1.hints.EffectiveStartDate.mandatory}"
+                                          columns="#{bindings.CommsPartialReceiptVO1.hints.EffectiveStartDate.displayWidth}"
+                                          shortDesc="#{bindings.CommsPartialReceiptVO1.hints.EffectiveStartDate.tooltip}"
+                                          id="id2">
+                                <f:validator binding="#{row.bindings.EffectiveStartDate.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.CommsPartialReceiptVO1.hints.EffectiveStartDate.format}"/>
+                            </af:inputDate>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.EffectiveEndDate.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="Effective End Date" id="c9">
+                            <f:facet name="filter">
+                                <af:inputDate value="#{bindings.CommsPartialReceiptVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveEndDate.value}"
+                                              id="id3">
+                                    <af:convertDateTime pattern="#{bindings.CommsPartialReceiptVO1.hints.EffectiveEndDate.format}"/>
+                                </af:inputDate>
+                            </f:facet>
+                            <af:inputDate value="#{row.bindings.EffectiveEndDate.inputValue}"
+                                          label="#{bindings.CommsPartialReceiptVO1.hints.EffectiveEndDate.label}"
+                                          required="#{bindings.CommsPartialReceiptVO1.hints.EffectiveEndDate.mandatory}"
+                                          columns="#{bindings.CommsPartialReceiptVO1.hints.EffectiveEndDate.displayWidth}"
+                                          shortDesc="#{bindings.CommsPartialReceiptVO1.hints.EffectiveEndDate.tooltip}"
+                                          id="id4">
+                                <f:validator binding="#{row.bindings.EffectiveEndDate.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.CommsPartialReceiptVO1.hints.EffectiveEndDate.format}"/>
+                            </af:inputDate>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.ActiveYn.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CommsPartialReceiptVO1.hints.ActiveYn.label}" id="c23"
+                                   visible="false">
+                            <af:selectOneChoice value="#{row.bindings.ActiveYn.inputValue}"
+                                                label="#{row.bindings.ActiveYn.label}"
+                                                required="#{bindings.CommsPartialReceiptVO1.hints.ActiveYn.mandatory}"
+                                                shortDesc="#{bindings.CommsPartialReceiptVO1.hints.ActiveYn.tooltip}"
+                                                id="soc6">
+                                <f:selectItems value="#{row.bindings.ActiveYn.items}" id="si6"/>
+                                <f:validator binding="#{row.bindings.ActiveYn.validator}"/>
+                            </af:selectOneChoice>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.ApprovedBy.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CommsPartialReceiptVO1.hints.ApprovedBy.label}" id="c24"
+                                   visible="false">
+                            <af:inputText value="#{row.bindings.ApprovedBy.inputValue}"
+                                          label="#{bindings.CommsPartialReceiptVO1.hints.ApprovedBy.label}"
+                                          required="#{bindings.CommsPartialReceiptVO1.hints.ApprovedBy.mandatory}"
+                                          columns="#{bindings.CommsPartialReceiptVO1.hints.ApprovedBy.displayWidth}"
+                                          maximumLength="#{bindings.CommsPartialReceiptVO1.hints.ApprovedBy.precision}"
+                                          shortDesc="#{bindings.CommsPartialReceiptVO1.hints.ApprovedBy.tooltip}"
+                                          id="it3">
+                                <f:validator binding="#{row.bindings.ApprovedBy.validator}"/>
+                            </af:inputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.CreatedBy.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CommsPartialReceiptVO1.hints.CreatedBy.label}" id="c25"
+                                   visible="false">
+                            <af:inputText value="#{row.bindings.CreatedBy.inputValue}"
+                                          label="#{bindings.CommsPartialReceiptVO1.hints.CreatedBy.label}"
+                                          required="#{bindings.CommsPartialReceiptVO1.hints.CreatedBy.mandatory}"
+                                          columns="#{bindings.CommsPartialReceiptVO1.hints.CreatedBy.displayWidth}"
+                                          maximumLength="#{bindings.CommsPartialReceiptVO1.hints.CreatedBy.precision}"
+                                          shortDesc="#{bindings.CommsPartialReceiptVO1.hints.CreatedBy.tooltip}"
+                                          id="it4">
+                                <f:validator binding="#{row.bindings.CreatedBy.validator}"/>
+                            </af:inputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.CreationDate.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CommsPartialReceiptVO1.hints.CreationDate.label}" id="c26"
+                                   visible="false">
+                            <f:facet name="filter">
+                                <af:inputDate value="#{bindings.CommsPartialReceiptVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.CreationDate.value}"
+                                              id="id7">
+                                    <af:convertDateTime pattern="#{bindings.CommsPartialReceiptVO1.hints.CreationDate.format}"/>
+                                </af:inputDate>
+                            </f:facet>
+                            <af:inputDate value="#{row.bindings.CreationDate.inputValue}"
+                                          label="#{bindings.CommsPartialReceiptVO1.hints.CreationDate.label}"
+                                          required="#{bindings.CommsPartialReceiptVO1.hints.CreationDate.mandatory}"
+                                          columns="#{bindings.CommsPartialReceiptVO1.hints.CreationDate.displayWidth}"
+                                          shortDesc="#{bindings.CommsPartialReceiptVO1.hints.CreationDate.tooltip}"
+                                          id="id8">
+                                <f:validator binding="#{row.bindings.CreationDate.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.CommsPartialReceiptVO1.hints.CreationDate.format}"/>
+                            </af:inputDate>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.LastUpdateDate.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CommsPartialReceiptVO1.hints.LastUpdateDate.label}" id="c27"
+                                   visible="false">
+                            <f:facet name="filter">
+                                <af:inputDate value="#{bindings.CommsPartialReceiptVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.LastUpdateDate.value}"
+                                              id="id9">
+                                    <af:convertDateTime pattern="#{bindings.CommsPartialReceiptVO1.hints.LastUpdateDate.format}"/>
+                                </af:inputDate>
+                            </f:facet>
+                            <af:inputDate value="#{row.bindings.LastUpdateDate.inputValue}"
+                                          label="#{bindings.CommsPartialReceiptVO1.hints.LastUpdateDate.label}"
+                                          required="#{bindings.CommsPartialReceiptVO1.hints.LastUpdateDate.mandatory}"
+                                          columns="#{bindings.CommsPartialReceiptVO1.hints.LastUpdateDate.displayWidth}"
+                                          shortDesc="#{bindings.CommsPartialReceiptVO1.hints.LastUpdateDate.tooltip}"
+                                          id="id10">
+                                <f:validator binding="#{row.bindings.LastUpdateDate.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.CommsPartialReceiptVO1.hints.LastUpdateDate.format}"/>
+                            </af:inputDate>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CommsPartialReceiptVO1.hints.LastUpdatedBy.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CommsPartialReceiptVO1.hints.LastUpdatedBy.label}" id="c28"
+                                   visible="false">
+                            <af:inputText value="#{row.bindings.LastUpdatedBy.inputValue}"
+                                          label="#{bindings.CommsPartialReceiptVO1.hints.LastUpdatedBy.label}"
+                                          required="#{bindings.CommsPartialReceiptVO1.hints.LastUpdatedBy.mandatory}"
+                                          columns="#{bindings.CommsPartialReceiptVO1.hints.LastUpdatedBy.displayWidth}"
+                                          maximumLength="#{bindings.CommsPartialReceiptVO1.hints.LastUpdatedBy.precision}"
+                                          shortDesc="#{bindings.CommsPartialReceiptVO1.hints.LastUpdatedBy.tooltip}"
+                                          id="it5">
+                                <f:validator binding="#{row.bindings.LastUpdatedBy.validator}"/>
+                            </af:inputText>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:showDetailItem>
+            <af:showDetailItem id="tab2" text="#{coreLabels['G.CommissionPartialPayInActive']}">
+                <af:table value="#{bindings.CommsPartialReceiptInactiveVO1.collectionModel}" var="row"
+                          rows="#{bindings.CommsPartialReceiptInactiveVO1.rangeSize}"
+                          emptyText="#{bindings.CommsPartialReceiptInactiveVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="0" fetchSize="#{bindings.CommsPartialReceiptInactiveVO1.rangeSize}"
+                          filterModel="#{bindings.CommsPartialReceiptInactiveVO1Query.queryDescriptor}"
+                          filterVisible="true"
+                          queryListener="#{bindings.CommsPartialReceiptInactiveVO1Query.processQuery}" varStatus="vs"
+                          id="t2">
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.CommsPartialPk.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.CommsPartialReceiptInactiveVO1.hints.CommsPartialPk.label}"
+                               id="c10" visible="false">
+                        <af:outputText value="#{row.CommsPartialPk}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.CommsPartialPk.tooltip}"
+                                       id="ot1">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsPartialReceiptInactiveVO1.hints.CommsPartialPk.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.CompanyIdNo.name}"
+                               filterable="true" sortable="true" headerText="Brokerage" id="c11">
+                        <af:outputText value="#{row.CompanyIdNo}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.CompanyIdNo.tooltip}"
+                                       id="ot2">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsPartialReceiptInactiveVO1.hints.CompanyIdNo.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.GroupCode.name}"
+                               filterable="true" sortable="true" headerText="Group Code" id="c12">
+                        <af:outputText value="#{row.GroupCode}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.GroupCode.tooltip}"
+                                       id="ot3"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.Bu.name}" filterable="true"
+                               sortable="true" headerText="Business Unit" id="c13">
+                        <af:outputText value="#{row.Bu}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.Bu.tooltip}"
+                                       id="ot4"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.CountryCode.name}"
+                               filterable="true" sortable="true" headerText="Country Code" id="c14">
+                        <af:outputText value="#{row.CountryCode}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.CountryCode.tooltip}"
+                                       id="ot5"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.CommsPercentage.name}"
+                               filterable="true" sortable="true" headerText="Comms %" id="c15">
+                        <af:outputText value="#{row.CommsPercentage}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.CommsPercentage.tooltip}"
+                                       id="ot6">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.CommsPartialReceiptInactiveVO1.hints.CommsPercentage.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.InterfaceToComms.name}"
+                               filterable="true" sortable="true" headerText="Interface to Commissions" id="c16">
+                        <af:outputText value="#{row.InterfaceToComms}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.InterfaceToComms.tooltip}"
+                                       id="ot7"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.ActiveYn.name}"
+                               filterable="true" sortable="true" headerText="Active YN" id="c17">
+                        <af:outputText value="#{row.ActiveYn}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.ActiveYn.tooltip}"
+                                       id="ot8"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.ApprovedBy.name}"
+                               filterable="true" sortable="true" headerText="Approved By" id="c18">
+                        <af:outputText value="#{row.ApprovedBy}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.ApprovedBy.tooltip}"
+                                       id="ot9"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.EffectiveStartDate.name}"
+                               filterable="true" sortable="true" headerText="Effective Start Date" id="c19">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.CommsPartialReceiptInactiveVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveStartDate.value}"
+                                          id="id5">
+                                <af:convertDateTime pattern="#{bindings.CommsPartialReceiptInactiveVO1.hints.EffectiveStartDate.format}"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.EffectiveStartDate.tooltip}"
+                                       id="ot10">
+                            <af:convertDateTime pattern="#{bindings.CommsPartialReceiptInactiveVO1.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.EffectiveEndDate.name}"
+                               filterable="true" sortable="true" headerText="Effective End Date" id="c20">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.CommsPartialReceiptInactiveVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EffectiveEndDate.value}"
+                                          id="id6">
+                                <af:convertDateTime pattern="#{bindings.CommsPartialReceiptInactiveVO1.hints.EffectiveEndDate.format}"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.EffectiveEndDate}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.EffectiveEndDate.tooltip}"
+                                       id="ot11">
+                            <af:convertDateTime pattern="#{bindings.CommsPartialReceiptInactiveVO1.hints.EffectiveEndDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.CreatedBy.name}"
+                               filterable="true" sortable="true" headerText="Creation Date" id="c21">
+                        <af:outputText value="#{row.CreatedBy}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.CreatedBy.tooltip}"
+                                       id="ot12"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.CommsPartialReceiptInactiveVO1.hints.LastUpdatedBy.name}"
+                               filterable="true" sortable="true" headerText="Last Updated By" id="c22">
+                        <af:outputText value="#{row.LastUpdatedBy}"
+                                       shortDesc="#{bindings.CommsPartialReceiptInactiveVO1.hints.LastUpdatedBy.tooltip}"
+                                       id="ot13"/>
+                    </af:column>
+                </af:table>
+            </af:showDetailItem>
+        </af:panelTabbed>
+    </af:panelGroupLayout>
+</jsp:root>

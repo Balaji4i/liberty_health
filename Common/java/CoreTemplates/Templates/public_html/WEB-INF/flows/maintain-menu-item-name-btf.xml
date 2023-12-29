@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="maintain-menu-item-name-btf">
+    <template-reference>
+      <document>/WEB-INF/flows/exception-template-btf.xml</document>
+      <id>exception-template-btf</id>
+    </template-reference>
+    <default-activity>setUpdateMenuItemViewCriteria</default-activity>
+    <transaction>
+      <requires-transaction/>
+    </transaction>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name>localCode</name>
+      <value>#{pageFlowScope.localCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__2">
+      <name>webApplObjNo</name>
+      <value>#{pageFlowScope.webApplObjNo}</value>
+      <class>java.lang.Integer</class>
+    </input-parameter-definition>
+    <view id="maintainMenuItemName">
+      <page>/fragments/maintainMenuItemName.jsff</page>
+    </view>
+    <method-call id="setUpdateMenuItemViewCriteria">
+      <method>#{bindings.setUpdateMenuItemViewCriteria.execute}</method>
+      <outcome>
+        <fixed-outcome>setUpdateMenuItemViewCriteria</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="Commit">
+      <method>#{bindings.Commit.execute}</method>
+      <outcome>
+        <fixed-outcome>Commit</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="Rollback">
+      <method>#{bindings.Rollback.execute}</method>
+      <outcome>
+        <fixed-outcome>Rollback</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__3">
+      <from-activity-id>setUpdateMenuItemViewCriteria</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>setUpdateMenuItemViewCriteria</from-outcome>
+        <to-activity-id>maintainMenuItemName</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__5">
+      <from-activity-id>maintainMenuItemName</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>save</from-outcome>
+        <to-activity-id>Commit</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__7">
+        <from-outcome>cancel</from-outcome>
+        <to-activity-id>Rollback</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

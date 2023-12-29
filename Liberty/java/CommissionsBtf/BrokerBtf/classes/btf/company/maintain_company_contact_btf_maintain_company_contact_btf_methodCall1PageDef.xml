@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24"
+                id="maintain_company_contact_btf_maintain_company_contact_btf_methodCall1PageDef" Package="btf.company"
+                SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="setCorrPrimaryKeyViewCriteria" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setCorrPrimaryKeyViewCriteria" IsViewObjectMethod="true"
+                  DataControl="BrokerMaintenanceAMDataControl"
+                  InstanceName="data.BrokerMaintenanceAMDataControl.CompanyContactCorr1">
+      <NamedData NDName="companyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.Integer"/>
+      <NamedData NDName="CompanyContactIdNo" NDValue="3" NDType="java.lang.Integer"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

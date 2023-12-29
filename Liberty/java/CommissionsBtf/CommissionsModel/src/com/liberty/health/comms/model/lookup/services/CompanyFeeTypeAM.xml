@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyFeeTypeAM"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  ComponentClass="com.core.model.services.classes.CoreApplicationModuleImpl"
+  DefClass="com.core.model.services.classes.CoreApplicationModuleDefImpl"
+  ClearCacheOnRollback="true">
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.lookup.services.CompanyFeeTypeAM_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewUsage
+      Name="AllCompanyFeeTypeVO"
+      ViewObjectName="com.liberty.health.comms.model.lookup.vo.CompanyFeeTypeVO"/>
+    <ViewUsage
+      Name="CompanyFeeTypeByPk"
+      ViewObjectName="com.liberty.health.comms.model.lookup.vo.CompanyFeeTypeVO">
+        <ViewCriteriaUsage
+          Name="CompanyFeeTypeByPkViewCriteria"
+          FullName="com.liberty.health.comms.model.lookup.vo.CompanyFeeTypeVO.CompanyFeeTypeByPkViewCriteria"/>
+    </ViewUsage>
+    <ViewUsage
+      Name="CompanyFeeTypeAuditView"
+      ViewObjectName="com.liberty.health.comms.model.brokerage.vo.CompanyFeeTypeAuditRoView"/>
+    <ViewLinkUsage
+      Name="FkCompFeeAuditCompFeeLink1"
+      ViewLinkObjectName="com.liberty.health.comms.model.brokerage.vo.links.FkCompFeeAuditCompFeeLink"
+      SrcViewUsageName="com.liberty.health.comms.model.lookup.services.CompanyFeeTypeAM.AllCompanyFeeTypeVO"
+      DstViewUsageName="com.liberty.health.comms.model.lookup.services.CompanyFeeTypeAM.CompanyFeeTypeAuditView"
+      Reversed="false"/>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</AppModule>

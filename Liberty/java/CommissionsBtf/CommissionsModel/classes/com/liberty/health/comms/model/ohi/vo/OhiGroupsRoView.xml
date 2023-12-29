@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiGroupsRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.ohi.vo.OhiGroupsRoViewRowImpl"
+  ComponentClass="com.liberty.health.comms.model.ohi.vo.OhiGroupsRoViewImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_codeGenFlag2" Value="Coll"/>
+        <Attr Name="_isExpertMode" Value="true"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.ohi.vo.OhiGroupsRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+        Name="pcountrylist"
+        Kind="where"
+        Type="java.lang.String">
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="OhiGroupsRoView"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Variable>
+    <ViewAccessor
+      Name="CountryLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CountryLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="CountryLovView_N1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.CountryLovView_N"
+        RowLevelBinds="true"/>
+    <ListBinding
+      Name="LOV_CountryCode"
+        ListVOName="CountryLovView_N1"
+      ComboRowCountHint="10"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+            <Item Value="Name"/>
+        </AttrArray>
+        <DisplayCriteria
+          Hint="showAndExecute"/>
+    </ListBinding>
+    <SQLQuery><![CDATA[SELECT DISTINCT     
+    grac_id,     
+    group_code,     
+    group_name,     
+    company_id_no,     
+    company_name,     
+    parentgroup_code,     
+    group_type,     
+    group_class,     
+    preferred_currency_code,     
+    country_code,     
+    nvl(comm_percentage, nvl(get_comm_percentage(p_group => group_code), 0)) comm_perc,     
+    nvl(comm_desc, 'From Parent')                                            comm_desc,   
+    nvl(hold_indicator, nvl(get_hold_ind(p_group => group_code), 'N'))       hold_ind,    
+    hold_reason,    
+    no_of_policies,    
+    no_lives no_lives   
+    --,costart,    
+    --coend    
+FROM    
+    (    
+        SELECT Distinct   
+            grps.grac_id,    
+            grps.group_code,    
+            grps.group_name,    
+            nvl(pobr.company_id_no, brok.company_id_no) AS company_id_no,    
+            nvl(comp.company_name, brco.company_name)   AS company_name,    
+            grps.parentgroup_code,    
+            grps.group_type,    
+            grps.group_class,    
+            grps.preferred_currency_code,    
+            grps.country_code,    
+            cpct.comm_perc                              comm_percentage,    
+            cpct.comm_desc,    
+           hold.hold_ind                               hold_indicator,    
+            hold.hold_reason,   
+           -- poli.policy_code,    
+           -- poli.poli_id,    
+           count_lives.no_of_policies,   
+            count_lives.no_lives   
+               
+           --, pobr.effective_start_date                   costart,    
+           -- pobr.effective_end_date                     coend    
+        FROM    
+                 ohi_policy_brokers pobr    
+            JOIN ohi_policies      poli ON pobr.poli_id = poli.poli_id    
+                                      AND poli.poli_id = (    
+                SELECT    
+                    MAX(poli_id)    
+                FROM    
+                    ohi_policies    
+                WHERE    
+                    policy_code = poli.policy_code    
+            )    
+            JOIN ohi_policy_groups pogr ON poli.poli_id = pogr.poli_id    
+            JOIN ohi_groups        grps ON pogr.grac_id = grps.grac_id    
+            LEFT OUTER JOIN company           comp ON pobr.company_id_no = comp.company_id_no    
+            LEFT OUTER JOIN broker            brok ON pobr.broker_id_no = brok.broker_id_no    
+            LEFT OUTER JOIN company           brco ON brok.company_id_no = brco.company_id_no    
+                                            AND trunc(sysdate) BETWEEN pobr.effective_start_date AND pobr.effective_end_date    
+            LEFT OUTER JOIN ohi_comm_perc     cpct ON grps.group_code = cpct.group_code    
+                                                  AND ( cpct.inse_code IS NULL    
+                                                        AND cpct.company_id_no IS NULL    
+                                                        AND cpct.poep_id IS NULL    
+                                                        AND cpct.policy_code IS NULL    
+                                                        AND cpct.product_code IS NULL )    
+                                                  AND trunc(sysdate) BETWEEN cpct.effective_start_date AND cpct.effective_end_date    
+            LEFT OUTER JOIN ohi_hold_ind      hold ON grps.group_code = hold.group_code    
+                                                 AND ( hold.inse_code IS NULL    
+                                                       AND hold.company_id_no IS NULL    
+                                                       AND hold.poep_id IS NULL    
+                                                       AND hold.policy_code IS NULL    
+                                                       AND hold.product_code IS NULL )    
+                                                 AND trunc(sysdate) BETWEEN hold.effective_start_date AND hold.effective_end_date    
+            LEFT OUTER JOIN (    
+                SELECT DISTINCT    
+                    grac.grac_id,    
+                    COUNT(DISTINCT poen.poli_id)    
+                    OVER(PARTITION BY grac.grac_id) no_of_policies,    
+                    COUNT(inse.inse_id)    
+                    OVER(PARTITION BY grac.grac_id) no_lives    
+                FROM    
+                         ohi_policy_enrollments poen    
+                    JOIN ohi_policy_groups       grac ON grac.poli_id = poen.poli_id    
+                    JOIN ohi_policies            poli ON poen.poli_id = poli.poli_id    
+                                              AND poli.poli_id = (    
+                        SELECT    
+                            MAX(poli_id)    
+                        FROM    
+                            ohi_policies    
+                        WHERE    
+                            policy_code = poli.policy_code    
+                    )    
+                    JOIN ohi_enrollment_products poep ON poen.poen_id = poep.poen_id    
+                                                         AND trunc(sysdate) BETWEEN poep.effective_start_date AND poep.effective_end_date    
+                    JOIN ohi_products            prod ON poep.enpr_id = prod.enpr_id    
+                    LEFT OUTER JOIN ohi_insured_entities    inse ON poen.inse_id = inse.inse_id    
+                    LEFT OUTER JOIN ohi_comm_perc           cpct ON poli.policy_code = cpct.policy_code    
+                                                          AND ( cpct.inse_code IS NULL    
+                                                                AND cpct.company_id_no IS NULL    
+                                                                AND cpct.poep_id IS NULL    
+                                                                AND cpct.group_code IS NULL    
+                                                                AND cpct.product_code IS NULL )    
+                                                          AND trunc(sysdate) BETWEEN cpct.effective_start_date AND cpct.effective_end_date    
+                    LEFT OUTER JOIN ohi_hold_ind            hold ON poli.policy_code = hold.policy_code    
+                                                         AND ( hold.inse_code IS NULL    
+                                                               AND hold.company_id_no IS NULL    
+                                                               AND hold.poep_id IS NULL    
+                                                               AND hold.group_code IS NULL    
+                                                               AND hold.product_code IS NULL )    
+                                                         AND trunc(sysdate) BETWEEN hold.effective_start_date AND hold.effective_end_date    
+            )                 count_lives ON count_lives.grac_id = grps.grac_id    
+    ) grp    
+WHERE    
+    grp.grac_id IS NOT NULL 
+    and grp.country_code IN (   
+        SELECT   
+            regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level)   
+        FROM   
+            dual   
+        CONNECT BY   
+            regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level) IS NOT NULL  	 
+    ) order by grp.parentgroup_code, grp.group_code]]></SQLQuery>
+    <ViewAttribute
+      Name="GracId"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="14"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="GRAC_ID"
+      Expression="GRAC_ID"
+      SQLType="NUMERIC"/>
+    <ViewAttribute
+      Name="GroupCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="GROUP_CODE"
+      Expression="GROUP_CODE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.GroupCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="GroupName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="GROUP_NAME"
+      Expression="GROUP_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.GroupName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="COMPANY_ID_NO"
+      Expression="COMPANY_ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COMPANY_NAME"
+      Expression="COMPANY_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Company']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="ParentgroupCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PARENTGROUP_CODE"
+      Expression="PARENTGROUP_CODE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ParentgroupCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="GroupType"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="10"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="GROUP_TYPE"
+      Expression="GROUP_TYPE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="10"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.GroupType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="GroupClass"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="4"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="GROUP_CLASS"
+      Expression="GROUP_CLASS"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.GroupClass']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="PreferredCurrencyCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="4"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PREFERRED_CURRENCY_CODE"
+      Expression="PREFERRED_CURRENCY_CODE"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.PreferredCurrencyCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CountryCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="4"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COUNTRY_CODE"
+      Expression="COUNTRY_CODE"
+      SQLType="VARCHAR"
+      LOVName="LOV_CountryCode">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+                <CONTROLTYPE
+                    Value="input_text_lov"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CommPerc"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="COMM_PERC"
+        Expression="COMM_PERC"
+        SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerCommPerc']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CommDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COMM_DESC"
+      Expression="COMM_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.model.ohi.vo.NewOhiCommPercVO.CommDesc_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="HoldInd"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="1"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="HOLD_IND"
+      Expression="HOLD_IND"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.HoldInd']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="HoldReason"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="HOLD_REASON"
+      Expression="HOLD_REASON"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="com.liberty.health.comms.model.ohi.vo.OhiGroupsRoView.HoldReason_LABEL"/>
+                <DISPLAYWIDTH
+                    Value="30"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="NoOfPolicies"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="NO_OF_POLICIES"
+      Expression="NO_OF_POLICIES"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.NoOfPolicies']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="NoLives"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="NO_LIVES"
+        Expression="NO_LIVES"
+        SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.model.ohi.vo.OhiGroupsRoView.NoLives_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="GracId"/>
+        <Item Value="GroupCode"/>
+        <Item Value="CompanyIdNo"/>
+        <Item Value="CountryCode"/>
+    </AttrArray>
+    <ViewLinkAccessor
+      Name="OhiProductsRoView1"
+      ViewLink="com.liberty.health.comms.model.ohi.vo.links.GroupsProductsViewLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

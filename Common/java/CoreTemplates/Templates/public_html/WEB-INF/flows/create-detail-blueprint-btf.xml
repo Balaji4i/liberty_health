@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-template id="create-detail-blueprint-btf">
+    <template-reference>
+      <document id="__c2">/WEB-INF/flows/exception-template-btf.xml</document>
+      <id id="__c1">exception-template-btf</id>
+    </template-reference>
+    <default-activity id="__c3">CreateInsert</default-activity>
+    <method-call id="CreateInsert"></method-call>
+    <view id="viewDetail"></view>
+    <method-call id="setCreatePk"></method-call>
+    <task-flow-return id="returnCreateTaskFlowName">
+      <outcome id="__c4">
+        <name>returnCreateTaskFlowName</name>
+      </outcome>
+    </task-flow-return>
+    <task-flow-return id="commitCreateTaskFlowName">
+      <outcome id="__c5">
+        <name>commitCreateTaskFlowName</name>
+      </outcome>
+    </task-flow-return>
+    <control-flow-rule id="__c6">
+      <from-activity-id id="__c7">viewDetail</from-activity-id>
+      <control-flow-case id="__c8">
+        <from-outcome id="__c10">return</from-outcome>
+        <to-activity-id id="__c9">returnCreateTaskFlowName</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__c11">
+        <from-outcome id="__c13">commit</from-outcome>
+        <to-activity-id id="__c12">commitCreateTaskFlowName</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__c14">
+      <from-activity-id id="__c15">CreateInsert</from-activity-id>
+      <control-flow-case id="__c16">
+        <from-outcome id="__c18">CreateInsert</from-outcome>
+        <to-activity-id id="__c17">setCreatePk</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__c19">
+      <from-activity-id id="__c20">setCreatePk</from-activity-id>
+      <control-flow-case id="__c21">
+        <from-outcome id="__c23">setPk</from-outcome>
+        <to-activity-id id="__c22">viewDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__c25">
+      <from-activity-id id="__c24">*</from-activity-id>
+      <control-flow-case id="__c27">
+        <from-outcome id="__c28">back</from-outcome>
+        <to-activity-id id="__c26">viewDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-template>
+</adfc-config>

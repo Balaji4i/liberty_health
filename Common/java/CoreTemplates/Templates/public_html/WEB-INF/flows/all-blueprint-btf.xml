@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-template id="all-blueprint-btf">
+    <template-reference>
+      <document id="__a2">/WEB-INF/flows/exception-template-btf.xml</document>
+      <id id="__a1">exception-template-btf</id>
+    </template-reference>
+    <default-activity id="__a5">AllView</default-activity>
+    <view id="AllView"></view>
+    <task-flow-call id="editTaskFlow"></task-flow-call>
+    <task-flow-call id="createTaskFlow"></task-flow-call>
+    <method-call id="SetCurrentRowWithKey"></method-call>
+    <method-call id="Execute"></method-call>
+    <task-flow-call id="deleteTaskFlow"></task-flow-call>
+    <method-call id="executeAfterDelete"></method-call>
+    <control-flow-rule id="__a3">
+      <from-activity-id id="__a4">*</from-activity-id>
+      <control-flow-case id="__a7">
+        <from-outcome id="__a8">back</from-outcome>
+        <to-activity-id id="__a6">AllView</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__a9">
+      <from-activity-id id="__a10">AllView</from-activity-id>
+      <control-flow-case id="__a12">
+        <from-outcome id="__a13">edit</from-outcome>
+        <to-activity-id id="__a11">editTaskFlow</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__a15">
+        <from-outcome id="__a16">create</from-outcome>
+        <to-activity-id id="__a14">createTaskFlow</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__a37">
+        <from-outcome id="__a39">delete</from-outcome>
+        <to-activity-id id="__a38">deleteTaskFlow</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__a17">
+      <from-activity-id id="__a18">createTaskFlow</from-activity-id>
+      <control-flow-case id="__a20">
+        <from-outcome id="__a21">commitTaskFlow</from-outcome>
+        <to-activity-id id="__a19">Execute</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__a50">
+        <from-outcome id="__a52">returnCreateTaskFlow</from-outcome>
+        <to-activity-id id="__a51">AllView</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__a22">
+      <from-activity-id id="__a23">Execute</from-activity-id>
+      <control-flow-case id="__a25">
+        <from-outcome id="__a26">Execute</from-outcome>
+        <to-activity-id id="__a24">SetCurrentRowWithKey</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__a27">
+      <from-activity-id id="__a28">SetCurrentRowWithKey</from-activity-id>
+      <control-flow-case id="__a30">
+        <from-outcome id="__a31">setCurrentRowWithKey</from-outcome>
+        <to-activity-id id="__a29">AllView</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__a32">
+      <from-activity-id id="__a33">editTaskFlow</from-activity-id>
+      <control-flow-case id="__a34">
+        <from-outcome id="__a36">returnEditTaskFlow</from-outcome>
+        <to-activity-id id="__a35">AllView</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__a53">
+        <from-outcome id="_a54">commitEditTaskFlow</from-outcome>
+        <to-activity-id id="a55">AllView</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__a40">
+      <from-activity-id id="__a41">deleteTaskFlow</from-activity-id>
+      <control-flow-case id="__a43">
+        <from-outcome id="__a44">deleteTaskFlow</from-outcome>
+        <to-activity-id id="__a42">executeAfterDelete</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__a45">
+      <from-activity-id id="__a46">executeAfterDelete</from-activity-id>
+      <control-flow-case id="__a47">
+        <from-outcome id="__a49">executeAfterDelete</from-outcome>
+        <to-activity-id id="__a48">AllView</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-template>
+</adfc-config>

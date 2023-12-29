@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-comms-run-flow">
+    <default-activity>allCommsRun</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <managed-bean id="__28">
+      <managed-bean-name>CommsHistory</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.beans.CommsHistory</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="allCommsRun">
+      <page>/WEB-INF/fragments/comms/allCommsRun.jsff</page>
+    </view>
+    <task-flow-call id="create-current-comms-run-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/comms/maintain-current-comms-run-btf.xml</document>
+        <id>maintain-current-comms-run-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__3">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__4">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__5">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__6">
+        <name>countryCode</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-country-current-comms-run-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/comms/maintain-current-comms-run-btf.xml</document>
+        <id>maintain-current-comms-run-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__18">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__19">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__20">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__21">
+        <name>countryCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allCommsRunPageDef.CountryCode.inputValue}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-group-current-comms-run-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/comms/maintain-current-comms-run-btf.xml</document>
+        <id>maintain-current-comms-run-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__14">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__15">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__16">
+        <name>countryCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__17">
+        <name>groupCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allCommsRunPageDef.GroupCode.inputValue}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-product-current-comms-run-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/comms/maintain-current-comms-run-btf.xml</document>
+        <id>maintain-current-comms-run-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__10">
+        <name>companyIdNo</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__11">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__12">
+        <name>productCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allCommsRunPageDef.ProductCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__13">
+        <name>countryCode</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="maintain-brokerage-current-comms-run-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/comms/maintain-current-comms-run-btf.xml</document>
+        <id>maintain-current-comms-run-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__23">
+        <name>countryCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__24">
+        <name>productCode</name>
+        <value></value>
+      </input-parameter>
+      <input-parameter id="__25">
+        <name>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allCommsRunPageDef.CompanyIdNo.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__26">
+        <name>groupCode</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__1">
+      <from-activity-id>allCommsRun</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>create</from-outcome>
+        <to-activity-id>create-current-comms-run-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__7">
+        <from-outcome>goCountry</from-outcome>
+        <to-activity-id>maintain-country-current-comms-run-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__8">
+        <from-outcome>goGroup</from-outcome>
+        <to-activity-id>maintain-group-current-comms-run-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__9">
+        <from-outcome>goProduct</from-outcome>
+        <to-activity-id>maintain-product-current-comms-run-btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__22">
+        <from-outcome>goBroker</from-outcome>
+        <to-activity-id>maintain-brokerage-current-comms-run-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_invoice_btf_maintain_invoice_btf_setpInvoiceNoPageDef" Package="btf.payment"
+                SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpInvoiceNo" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setpInvoiceNo"
+                      IsViewObjectMethod="true" DataControl="PaymentAMDataControl"
+                      InstanceName="data.PaymentAMDataControl.InvoiceByPkView">
+            <NamedData NDName="value" NDValue="#{pageFlowScope.invoiceNo}" NDType="oracle.jbo.domain.Number"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyCheckBrokerageNameVO"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  OrderBy='"COMPANY_NAME"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.brokerage.vo.CompanyCheckBrokerageNameVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.brokerage.vo.CompanyCheckBrokerageNameVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+  ComponentInterface="com.liberty.health.comms.model.brokerage.vo.common.CompanyCheckBrokerageNameVO">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.brokerage.vo.CompanyCheckBrokerageNameVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pCompName"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[SELECT DISTINCT cc.company_id_no, cc.company_name    
+  FROM company cc    
+ WHERE 1=1  
+   AND UTL_MATCH.JARO_WINKLER (  
+   UPPER(:pCompName),   
+   UPPER(cc.company_name)) > .7--UPPER(cc.company_name) LIKE '%'||UPPER(UPPER(:pCompName)||'%'    
+   AND effective_Start_date = (SELECT MAX(nvl(effective_start_date,TO_DAte('01-JAN-1900')))     
+                                 FROM company     
+                                WHERE company_id_no = cc.company_id_no)]]></SQLQuery>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMPANY_ID_NO"
+    Expression="COMPANY_ID_NO"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CompanyName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COMPANY_NAME"
+    Expression="COMPANY_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CompanyIdNo"/>
+  </AttrArray>
+  <ClientInterface
+    Name="__clientInterface">
+    <Method
+      Name="setpCompName"
+      MethodName="setpCompName">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="value"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

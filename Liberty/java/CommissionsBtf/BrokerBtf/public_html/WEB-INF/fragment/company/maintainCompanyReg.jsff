@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+        <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+            <af:panelGroupLayout id="pgl1" rendered="#{pageFlowScope.createInd == 'Y'}">
+                <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png"
+                           rendered="#{securityContext.userInRole['comms-consultant'] || pageFlowScope.createInd == 'Y'}"
+                           disabled="#{!bindings.CreateWithParams.enabled}"
+                           actionListener="#{bindings.CreateWithParams.execute}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b2" icon="/adf/images/save_16x16.png"
+                           disabled="#{!bindings.Commit.enabled}"
+                           actionListener="#{companyAttributesBean.saveAndEffectiveDateActionListener}"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b3" icon="/adf/images/remove_16x16.png"
+                           disabled="#{!bindings.Rollback.enabled}" actionListener="#{bindings.Rollback.execute}"
+                           immediate="true">
+                    <af:resetActionListener/>
+                </af:button>
+            </af:panelGroupLayout>
+            <af:panelFormLayout id="pfl1" partialTriggers="b1 b3 b2" maxColumns="3" rows="2">
+                <af:inputText value="#{bindings.VatNo.inputValue}" label="#{bindings.VatNo.hints.label}"
+                              required="#{bindings.VatNo.hints.mandatory}"
+                              columns="#{bindings.VatNo.hints.displayWidth}"
+                              maximumLength="#{bindings.VatNo.hints.precision}"
+                              shortDesc="#{bindings.VatNo.hints.tooltip}" id="it1">
+                    <f:validator binding="#{bindings.VatNo.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.RegNo.inputValue}" label="#{bindings.RegNo.hints.label}"
+                              required="#{bindings.RegNo.hints.mandatory}"
+                              columns="#{bindings.RegNo.hints.displayWidth}"
+                              maximumLength="#{bindings.RegNo.hints.precision}"
+                              shortDesc="#{bindings.RegNo.hints.tooltip}" id="it2">
+                    <f:validator binding="#{bindings.RegNo.validator}"/>
+                </af:inputText>
+                <!--<af:inputText value="#{bindings.FaisNo.inputValue}" label="#{bindings.FaisNo.hints.label}"
+                              required="#{bindings.FaisNo.hints.mandatory}"
+                              columns="#{bindings.FaisNo.hints.displayWidth}"
+                              maximumLength="#{bindings.FaisNo.hints.precision}"
+                              shortDesc="#{bindings.FaisNo.hints.tooltip}" id="it3">
+                    <f:validator binding="#{bindings.FaisNo.validator}"/>
+                </af:inputText>-->
+                <af:inputText value="#{bindings.TaxIdentificationNo.inputValue}"
+                              label="#{bindings.TaxIdentificationNo.hints.label}"
+                              required="#{bindings.TaxIdentificationNo.hints.mandatory}"
+                              columns="#{bindings.TaxIdentificationNo.hints.displayWidth}"
+                              maximumLength="#{bindings.TaxIdentificationNo.hints.precision}"
+                              shortDesc="#{bindings.TaxIdentificationNo.hints.tooltip}" id="it3">
+                    <f:validator binding="#{bindings.TaxIdentificationNo.validator}"/>
+                </af:inputText>
+                <af:inputDate value="#{bindings.ExpiryDate.inputValue}" label="#{bindings.ExpiryDate.hints.label}"
+                              required="#{bindings.ExpiryDate.hints.mandatory}"
+                              columns="#{bindings.ExpiryDate.hints.displayWidth}"
+                              shortDesc="#{bindings.ExpiryDate.hints.tooltip}" id="id1">
+                    <f:validator binding="#{bindings.ExpiryDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.ExpiryDate.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.ApplicationDate.inputValue}"
+                              label="#{bindings.ApplicationDate.hints.label}"
+                              required="#{bindings.ApplicationDate.hints.mandatory}"
+                              columns="#{bindings.ApplicationDate.hints.displayWidth}"
+                              shortDesc="#{bindings.ApplicationDate.hints.tooltip}" id="id2">
+                    <f:validator binding="#{bindings.ApplicationDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.ApplicationDate.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.AuthoriseDate.inputValue}" label="#{bindings.AuthoriseDate.hints.label}"
+                              required="#{bindings.AuthoriseDate.hints.mandatory}"
+                              columns="#{bindings.AuthoriseDate.hints.displayWidth}"
+                              shortDesc="#{bindings.AuthoriseDate.hints.tooltip}" id="id3">
+                    <f:validator binding="#{bindings.AuthoriseDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.AuthoriseDate.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                              label="#{bindings.EffectiveStartDate.hints.label}"
+                              required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                              columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id4">
+                    <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                              label="#{bindings.EffectiveEndDate.hints.label}"
+                              required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                              columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                              shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id5" readOnly="true">
+                    <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                    <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                </af:inputDate>
+            </af:panelFormLayout>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t2">
+                        <af:button text="#{coreLabels['G.Export']}" id="b8" icon="/adf/images/excel_16x16.png"
+                                   rendered="#{securityContext.userInRole['comms-consultant']}">
+                            <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                               filename="#{coreLabels['G.History']}.xls"/>
+                        </af:button>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.CompanyRegAuditView.collectionModel}" var="row"
+                          rows="#{bindings.CompanyRegAuditView.rangeSize}"
+                          emptyText="#{bindings.CompanyRegAuditView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.CompanyRegAuditView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CompanyRegAuditView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CompanyRegAuditView.rangeSize}" id="t1"
+                          displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c2">
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.TransactionDatetime.label}" id="c10"
+                               align="center" width="110">
+                        <af:outputText value="#{row.TransactionDatetime}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.TransactionDatetime.tooltip}"
+                                       id="ot1">
+                            <af:convertDateTime pattern="#{bindings.CompanyRegAuditView.hints.TransactionDatetime.format}"
+                                                type="both"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.TransactionUsername.label}" id="c5">
+                        <af:outputText value="#{row.TransactionUsername}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.TransactionUsername.tooltip}"
+                                       id="ot7"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.TransactionDesc.label}" id="c2"
+                               width="250">
+                        <af:outputText value="#{row.TransactionDesc}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.TransactionDesc.tooltip}"
+                                       id="ot6"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.EffectiveStartDate.label}" id="c3"
+                               align="center" width="80">
+                        <af:outputText value="#{row.EffectiveStartDate}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.EffectiveStartDate.tooltip}"
+                                       id="ot3">
+                            <af:convertDateTime pattern="#{bindings.CompanyRegAuditView.hints.EffectiveStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.VatNo.label}" id="c9">
+                        <af:outputText value="#{row.VatNo}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.VatNo.tooltip}" id="ot9"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.RegNo.label}" id="c1">
+                        <af:outputText value="#{row.RegNo}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.RegNo.tooltip}" id="ot2"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.TaxIdentificationNo.label}" id="c8">
+                        <af:outputText value="#{row.TaxIdentificationNo}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.TaxIdentificationNo.tooltip}"
+                                       id="ot8"/>
+                    </af:column>
+                    <!--<af:column headerText="#{bindings.CompanyRegAuditView.hints.FaisNo.label}" id="c8">
+                        <af:outputText value="#{row.FaisNo}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.FaisNo.tooltip}" id="ot8"/>
+                    </af:column>-->
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.ExpiryDate.label}" id="c4"
+                               align="center" width="80">
+                        <af:outputText value="#{row.ExpiryDate}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.ExpiryDate.tooltip}" id="ot4">
+                            <af:convertDateTime pattern="#{bindings.CompanyRegAuditView.hints.ExpiryDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.ApplicationDate.label}" id="c7"
+                               align="center" width="80">
+                        <af:outputText value="#{row.ApplicationDate}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.ApplicationDate.tooltip}"
+                                       id="ot5">
+                            <af:convertDateTime pattern="#{bindings.CompanyRegAuditView.hints.ApplicationDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyRegAuditView.hints.AuthoriseDate.label}" id="c6"
+                               align="center" width="80">
+                        <af:outputText value="#{row.AuthoriseDate}"
+                                       shortDesc="#{bindings.CompanyRegAuditView.hints.AuthoriseDate.tooltip}"
+                                       id="ot10">
+                            <af:convertDateTime pattern="#{bindings.CompanyRegAuditView.hints.AuthoriseDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

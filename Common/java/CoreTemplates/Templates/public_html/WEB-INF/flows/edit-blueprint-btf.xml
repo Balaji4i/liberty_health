@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-template id="edit-blueprint-btf">
+    <template-reference>
+      <document id="__e1">/WEB-INF/flows/exception-template-btf.xml</document>
+      <id id="__e2">exception-template-btf</id>
+    </template-reference>
+    <default-activity id="__e3">setPk</default-activity>
+    <method-call id="setPk"></method-call>
+    <view id="viewDetail"></view>
+    <task-flow-return id="returnEditTaskFlowName">
+      <outcome id="__e4">
+        <name>returnEditTaskFlowName</name>
+      </outcome>
+    </task-flow-return>
+    <task-flow-return id="commitEditTaskFlowName">
+      <outcome id="__e15">
+        <name>commitEditTaskFlowName</name>
+      </outcome>
+    </task-flow-return>
+    <control-flow-rule id="__e5">
+      <from-activity-id id="__e6">setPk</from-activity-id>
+      <control-flow-case id="__e7">
+        <from-outcome id="__e9">setPk</from-outcome>
+        <to-activity-id id="__e8">viewDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__e10">
+      <from-activity-id id="__e11">viewDetail</from-activity-id>
+      <control-flow-case id="__e12">
+        <from-outcome id="__e14">return</from-outcome>
+        <to-activity-id id="__e13">returnEditTaskFlowName</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__e16">
+        <from-outcome id="__e18">commit</from-outcome>
+        <to-activity-id id="__e17">commitEditTaskFlowName</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-template>
+</adfc-config>

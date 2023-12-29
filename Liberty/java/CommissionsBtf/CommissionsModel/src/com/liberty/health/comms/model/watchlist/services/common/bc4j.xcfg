@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!---->
+<BC4JConfig xmlns="http://xmlns.oracle.com/bc4j/configuration" version="11.1">
+    <AppModuleConfigBag ApplicationName="com.liberty.health.comms.model.watchlist.services.WatchListAM">
+        <AppModuleConfig name="WatchListAMLocal" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.watchlist.services.WatchListAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.watchlist.services.WatchListAM"/>
+        </AppModuleConfig>
+        <AppModuleConfig name="WatchListAMShared" jbo.project="com.liberty.health.comms.model.CommissionsModel"
+                         ApplicationName="com.liberty.health.comms.model.watchlist.services.WatchListAM"
+                         DeployPlatform="LOCAL">
+            <Database JDBCDataSource="java:comp/env/jdbc/OHICOM1DS"/>
+            <Security AppModuleJndiName="com.liberty.health.comms.model.watchlist.services.WatchListAM"/>
+        </AppModuleConfig>
+    </AppModuleConfigBag>
+</BC4JConfig>

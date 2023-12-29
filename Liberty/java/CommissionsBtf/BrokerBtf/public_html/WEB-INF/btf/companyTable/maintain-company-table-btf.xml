@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-table-btf">
+        <default-activity>router1</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>tableTypeIdNo</name>
+            <value>#{pageFlowScope.tableTypeIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <managed-bean id="__2">
+            <managed-bean-name>companyAttributes</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <router id="router1">
+            <case id="__3">
+                <expression>#{pageFlowScope.tableTypeIdNo == null}</expression>
+                <outcome>create</outcome>
+            </case>
+            <case id="__4">
+                <expression>#{pageFlowScope.tableTypeIdNo != null}</expression>
+                <outcome>edit</outcome>
+            </case>
+            <default-outcome>create</default-outcome>
+        </router>
+        <method-call id="CreateInsert">
+            <method>#{bindings.CreateInsert.execute}</method>
+            <outcome>
+                <fixed-outcome>CreateInsert</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="setpCompanyTableIdNo">
+            <method>#{bindings.setpCompanyTableIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpCompanyTableIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainCompanyTable">
+            <page>/WEB-INF/fragment/companyTable/maintainCompanyTable.jsff</page>
+        </view>
+        <method-call id="Commit">
+            <method>#{bindings.Commit.execute}</method>
+            <outcome>
+                <fixed-outcome>Commit</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="Rollback">
+            <method>#{bindings.Rollback.execute}</method>
+            <outcome>
+                <fixed-outcome>Rollback</fixed-outcome>
+            </outcome>
+        </method-call>
+        <task-flow-return id="taskFlowReturn1">
+            <outcome>
+                <name>taskFlowReturn1</name>
+            </outcome>
+        </task-flow-return>
+        <control-flow-rule id="__5">
+            <from-activity-id>router1</from-activity-id>
+            <control-flow-case id="__6">
+                <from-outcome>create</from-outcome>
+                <to-activity-id>CreateInsert</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__7">
+                <from-outcome>edit</from-outcome>
+                <to-activity-id>setpCompanyTableIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__8">
+            <from-activity-id>CreateInsert</from-activity-id>
+            <control-flow-case id="__9">
+                <from-outcome>CreateInsert</from-outcome>
+                <to-activity-id>maintainCompanyTable</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__10">
+            <from-activity-id>setpCompanyTableIdNo</from-activity-id>
+            <control-flow-case id="__11">
+                <from-outcome>setpCompanyTableIdNo</from-outcome>
+                <to-activity-id>maintainCompanyTable</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__12">
+            <from-activity-id>maintainCompanyTable</from-activity-id>
+            <control-flow-case id="__13">
+                <from-outcome>save</from-outcome>
+                <to-activity-id>Commit</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__14">
+                <from-outcome>cancel</from-outcome>
+                <to-activity-id>Rollback</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__15">
+            <from-activity-id>Commit</from-activity-id>
+            <control-flow-case id="__16">
+                <from-outcome>Commit</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__17">
+            <from-activity-id>Rollback</from-activity-id>
+            <control-flow-case id="__18">
+                <from-outcome>Rollback</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

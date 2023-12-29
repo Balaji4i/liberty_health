@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout layout="vertical" id="pgl1">
+    <af:panelCollection id="pc1" styleClass="AFStretchWidth" inlineStyle="height:700px;">
+      <f:facet name="menus"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t1">
+          <af:button actionListener="#{bindings.Execute1.execute}" text="Refresh"
+                     disabled="#{!bindings.Execute1.enabled}" id="b3"/>
+          <af:button text="#{coreLabels['G.Approve']}" id="b1"
+                             rendered="#{securityContext.userInRole['team-leads']}">
+                    <af:showPopupBehavior popupId="p1" triggerType="click"/>
+                  </af:button>
+                  <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"
+                             rendered="#{securityContext.userInRole['comms-consultant']}">
+                    <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                       filename="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}.xls"/>
+                  </af:button>
+                  <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+                    <af:dialog id="d1" dialogListener="#{watchListBean.commsRunApprovalDialogListener}"
+                               title="#{coreLabels['G.Confirmation']}">
+                      <f:facet name="buttonBar"/>
+                      <af:outputText value="#{coreLabels['G.CommissionRunApprovalMsg']}" id="ot14"/>
+                    </af:dialog>
+                  </af:popup>
+                </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.AllCommsCalcApprovalsRoView1.collectionModel}" var="row"
+                rows="#{bindings.AllCommsCalcApprovalsRoView1.rangeSize}"
+                emptyText="#{bindings.AllCommsCalcApprovalsRoView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" scrollPolicy="page"
+                selectedRowKeys="#{bindings.AllCommsCalcApprovalsRoView1.collectionModel.selectedRow}"
+                selectionListener="#{bindings.AllCommsCalcApprovalsRoView1.collectionModel.makeCurrent}"
+                rowSelection="single" fetchSize="#{bindings.AllCommsCalcApprovalsRoView1.rangeSize}"
+                filterModel="#{bindings.AllCommsCalcApprovalsRoView1Query.queryDescriptor}" filterVisible="true"
+                queryListener="#{bindings.AllCommsCalcApprovalsRoView1Query.processQuery}" varStatus="vs" id="t2"
+                partialTriggers="::b3" styleClass="AFStretchWidth">
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.Username.name}" filterable="true"
+                   sortable="true" headerText="User Name" id="c21">
+          <af:outputText value="#{row.Username}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.Username.tooltip}" id="ot22"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalcTypeDesc.name}"
+                   filterable="true" sortable="true"
+                   headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalcTypeDesc.label}" id="c13">
+          <af:outputText value="#{row.CommsCalcTypeDesc}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalcTypeDesc.tooltip}"
+                         id="ot13"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.CalculationDatetime.name}"
+                   filterable="true" sortable="true"
+                   headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.CalculationDatetime.label}" id="c22">
+          <af:outputText value="#{row.CalculationDatetime}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.CalculationDatetime.tooltip}"
+                         id="ot23"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.CompanyIdNo.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.CompanyIdNo.label}"
+                   id="c14">
+          <af:outputText value="#{row.CompanyIdNo}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.CompanyIdNo.tooltip}" id="ot15">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.AllCommsCalcApprovalsRoView1.hints.CompanyIdNo.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.CompanyName.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.CompanyName.label}"
+                   id="c15">
+          <af:outputText value="#{row.CompanyName}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.CompanyName.tooltip}" id="ot16"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.ParentgroupCode.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.ParentgroupCode.label}" id="c1">
+          <af:outputText value="#{row.ParentgroupCode}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.ParentgroupCode.tooltip}" id="ot1"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.GroupCode.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.GroupCode.label}" id="c16">
+          <af:outputText value="#{row.GroupCode}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.GroupCode.tooltip}" id="ot17"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.CountryCode.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.CountryCode.label}"
+                   id="c17">
+          <af:outputText value="#{row.CountryCode}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.CountryCode.tooltip}" id="ot18"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsPerc.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsPerc.label}" id="c18">
+          <af:outputText value="#{row.CommsPerc}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsPerc.tooltip}" id="ot19">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsPerc.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.PaymentReceiveAmt.name}"
+                   filterable="true" sortable="true"
+                   headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.PaymentReceiveAmt.label}" id="c24">
+          <af:outputText value="#{row.PaymentReceiveAmt}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.PaymentReceiveAmt.tooltip}" id="ot25">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.AllCommsCalcApprovalsRoView1.hints.PaymentReceiveAmt.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalculatedAmt.name}"
+                   filterable="true" sortable="true"
+                   headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalculatedAmt.label}" id="c25">
+          <af:outputText value="#{row.CommsCalculatedAmt}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalculatedAmt.tooltip}"
+                         id="ot26">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalculatedAmt.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalculatedExchAmt.name}"
+                   filterable="true" sortable="true"
+                   headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalculatedExchAmt.label}" id="c26">
+          <af:outputText value="#{row.CommsCalculatedExchAmt}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalculatedExchAmt.tooltip}"
+                         id="ot27">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.AllCommsCalcApprovalsRoView1.hints.CommsCalculatedExchAmt.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.AllCommsCalcApprovalsRoView1.hints.ExchangeRateCurrencyCode.name}"
+                   filterable="true" sortable="true"
+                   headerText="#{bindings.AllCommsCalcApprovalsRoView1.hints.ExchangeRateCurrencyCode.label}" id="c23">
+          <af:outputText value="#{row.ExchangeRateCurrencyCode}"
+                         shortDesc="#{bindings.AllCommsCalcApprovalsRoView1.hints.ExchangeRateCurrencyCode.tooltip}"
+                         id="ot24"/>
+        </af:column>
+      </af:table>
+    </af:panelCollection>
+  </af:panelGroupLayout>
+</ui:composition>

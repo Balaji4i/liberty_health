@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerCountryRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.broker.vo.BrokerCountryRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewAccessor
+      Name="CountryLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CountryLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="CountryLovView_N1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.CountryLovView_N"
+        RowLevelBinds="true"/>
+    <ListBinding
+      Name="LOV_CountryCode"
+        ListVOName="CountryLovView_N1"
+      ComboRowCountHint="10"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+            <Item Value="Name"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <SQLQuery><![CDATA[select broker_id_no, country_code, count(*) no_of_rec 
+from broker b, company c, company_country cc 
+where b.company_id_no = c.company_id_no 
+  and c.company_id_no = cc.company_id_no 
+group by broker_id_no, country_code]]></SQLQuery>
+    <ViewAttribute
+      Name="BrokerIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="9"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="BROKER_ID_NO"
+      Expression="BROKER_ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CountryCode"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="4"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COUNTRY_CODE"
+      Expression="COUNTRY_CODE"
+      SQLType="VARCHAR"
+      LOVName="LOV_CountryCode">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+                <CONTROLTYPE
+                  Value="input_text_lov"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="NoOfRec"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="NO_OF_REC"
+      Expression="NO_OF_REC"
+      SQLType="NUMERIC"/>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="BrokerIdNo"/>
+        <Item Value="CountryCode"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-company-contact-type-flow">
+    <default-activity>allCompanyContactTypeView</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <view id="allCompanyContactTypeView">
+      <page>/WEB-INF/fragments/lookup/allCompanyContacType.jsff</page>
+    </view>
+    <task-flow-call id="Edit-Company-Contact-Type-Btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/lookup/Maintain-Company-Contact-Type-Btf.xml</document>
+        <id>Maintain-Company-Contact-Type-Btf</id>
+      </task-flow-reference>
+      <input-parameter id="__2">
+        <name>companyContactTypeIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_allCompanyContacTypePageDef1.CompanyContactTypeIdNo}</value>
+      </input-parameter>
+    </task-flow-call>
+    <task-flow-call id="Create-Company-Contact-Type-Btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/lookup/Maintain-Company-Contact-Type-Btf.xml</document>
+        <id>Maintain-Company-Contact-Type-Btf</id>
+      </task-flow-reference>
+      <input-parameter id="__1">
+        <name>companyContactTypeIdNo</name>
+        <value></value>
+      </input-parameter>
+    </task-flow-call>
+    <control-flow-rule id="__5">
+      <from-activity-id>allCompanyContactTypeView</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome>edit</from-outcome>
+        <to-activity-id>Edit-Company-Contact-Type-Btf</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__7">
+        <from-outcome>create</from-outcome>
+        <to-activity-id>Create-Company-Contact-Type-Btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

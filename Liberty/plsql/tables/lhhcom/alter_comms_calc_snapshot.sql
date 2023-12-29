@@ -1,0 +1,10 @@
+ALTER TABLE COMMS_CALC_SNAPSHOT ADD (BU VARCHAR2(500));
+UPDATE COMMS_CALC_SNAPSHOT
+  SET bu = 'LH Uganda BU'
+where country_CODE = 'UG';
+/
+UPDATE COMMS_CALC_SNAPSHOT
+  SET bu = 'LH Lesotho BU'
+where country_CODE = 'LS';
+/
+commit;

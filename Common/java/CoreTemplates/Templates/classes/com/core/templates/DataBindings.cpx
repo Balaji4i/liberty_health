@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.1.2.66.68" id="DataBindings"
+             SeparateXMLFiles="false" Package="com.core.templates" ClientType="Generic">
+    <definitionFactories>
+        <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+                 className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+        <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+    </definitionFactories>
+    <pageMap>
+        <page path="/com/core/templates/pages/libertyHomeJsfTemplate.jsf"
+              usageId="com_core_templates_libertyHomeJsfTemplatePageDef"/>
+        <page path="/WEB-INF/flows/maintain-menu-item-name-btf.xml#maintain-menu-item-name-btf@setUpdateMenuItemViewCriteria"
+              usageId="com_core_templates_maintain_menu_item_name_btf_maintain_menu_item_name_btf_setUpdateMenuItemViewCriteriaPageDef"/>
+        <page path="/WEB-INF/flows/maintain-menu-item-name-btf.xml#maintain-menu-item-name-btf@Commit"
+              usageId="com_core_templates_maintain_menu_item_name_btf_maintain_menu_item_name_btf_CommitPageDef"/>
+        <page path="/WEB-INF/flows/maintain-menu-item-name-btf.xml#maintain-menu-item-name-btf@Rollback"
+              usageId="com_core_templates_maintain_menu_item_name_btf_maintain_menu_item_name_btf_RollbackPageDef"/>
+        <page path="/templatesTestPage.jspx" usageId="com_core_templates_templatesTestPagePageDef"/>
+        <page path="/fragments/maintainMenuItemName.jsff" usageId="com_core_templates_maintainMenuItemNamePageDef"/>
+    </pageMap>
+    <pageDefinitionUsages>
+        <page id="com_core_templates_libertyHomeJsfTemplatePageDef"
+              path="com.core.templates.pages.libertyHomeJsfTemplatePageDef"/>
+        <page id="com_core_templates_maintain_menu_item_name_btf_maintain_menu_item_name_btf_setUpdateMenuItemViewCriteriaPageDef"
+              path="flows.maintain_menu_item_name_btf_maintain_menu_item_name_btf_setUpdateMenuItemViewCriteriaPageDef"/>
+        <page id="com_core_templates_maintain_menu_item_name_btf_maintain_menu_item_name_btf_CommitPageDef"
+              path="flows.maintain_menu_item_name_btf_maintain_menu_item_name_btf_CommitPageDef"/>
+        <page id="com_core_templates_maintain_menu_item_name_btf_maintain_menu_item_name_btf_RollbackPageDef"
+              path="flows.maintain_menu_item_name_btf_maintain_menu_item_name_btf_RollbackPageDef"/>
+        <page id="com_core_templates_templatesTestPagePageDef"
+              path="com.core.templates.pageDefs.templatesTestPagePageDef"/>
+        <page id="com_core_templates_maintainMenuItemNamePageDef" path="fragments.maintainMenuItemNamePageDef"/>
+    </pageDefinitionUsages>
+    <dataControlUsages>
+        <BC4JDataControl id="HomeMenuAMDataControl" Package="com.core.model.menu.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="HomeMenuAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    </dataControlUsages>
+</Application>

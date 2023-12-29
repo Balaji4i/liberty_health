@@ -1,0 +1,13 @@
+//Groovy Scripts for com.liberty.health.comms.model.payment.vo.CommissionPaymentsPerGroup
+
+package com.liberty.health.comms.model.payment.vo
+
+import oracle.jbo.script.annotation.VariableExpression;
+
+@VariableExpression(path="pcountrylist")
+def pcountrylist_VariableScript_Variable()
+{
+
+adf.context.sessionScope.countryList
+}
+

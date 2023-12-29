@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allGroupRejectionsPageDef"
+                Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllGroupCommPercRejectedView" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="AllGroupCommPercRejectedViewIterator"/>
+    <iterator Binds="MaintainOhiCommPercentageView" DataControl="OhiStructureAMDataControl"
+              id="MaintainOhiCommPercentageViewIterator" RangeSize="1"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="RejectUsername">
+      <AttrNames>
+        <Item Value="RejectUsername"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AllGroupCommPercRejectedViewIterator" id="AllGroupCommPercRejectedView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.GroupCommPercRejectedRoView"
+                      Name="AllGroupCommPercRejectedView0">
+        <AttrNames>
+          <Item Value="GroupCode"/>
+          <Item Value="GroupName"/>
+          <Item Value="CommPerc"/>
+          <Item Value="CommDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="RejectDate"/>
+          <Item Value="RejectUsername"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CommPerc">
+      <AttrNames>
+        <Item Value="CommPerc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CommDesc">
+      <AttrNames>
+        <Item Value="CommDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="resubmitForApproval" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resubmitForApproval" IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                  InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView"
+                  ReturnName="data.OhiStructureAMDataControl.methodResults.resubmitForApproval_resubmitForApproval_dataControl_MaintainOhiCommPercentageView_resubmitForApproval_result"/>
+    <attributeValues IterBinding="AllGroupCommPercRejectedViewIterator" id="GroupCode">
+      <AttrNames>
+        <Item Value="GroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllGroupCommPercRejectedViewIterator" id="EffectiveStartDate">
+      <AttrNames>
+        <Item Value="EffectiveStartDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="setVc" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setUpdateRejectGroupVc"
+                  IsViewObjectMethod="true" DataControl="OhiStructureAMDataControl"
+                  InstanceName="data.OhiStructureAMDataControl.MaintainOhiCommPercentageView">
+      <NamedData NDName="groupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+      <NamedData NDName="startDate" NDValue="#{bindings.EffectiveStartDate.inputValue}"
+                 NDType="oracle.jbo.domain.Date"/>
+    </methodAction>
+    <action IterBinding="AllGroupCommPercRejectedViewIterator" id="Execute"
+            InstanceName="WatchListAMDataControl.AllGroupCommPercRejectedView" DataControl="WatchListAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+  </bindings>
+</pageDefinition>

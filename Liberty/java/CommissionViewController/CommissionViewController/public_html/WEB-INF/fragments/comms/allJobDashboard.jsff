@@ -1,0 +1,763 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:dvt="http://xmlns.oracle.com/dss/adf/faces">
+    <af:panelTabbed position="above" id="pt1" inlineStyle="width:1500px;">
+        <af:showDetailItem id="tab1" text="#{coreLabels['G.JobSubmission']}">
+            <af:panelFormLayout id="pfl1" inlineStyle="width:665px; height:238px;">
+                <f:facet name="footer">
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+                        <af:dialog id="d1" title="#{coreLabels['G.Status']}" type="ok">
+                            <f:facet name="buttonBar"/>
+                            <af:switcher id="s2"
+                                         facetName="#{pageFlowScope.CommsHistory.returnMsg == null ? 'info' : 'error'}">
+                                <f:facet name="info">
+                                    <af:outputText value="#{coreLabels['G.Success']}" id="ot1"/>
+                                </f:facet>
+                                <f:facet name="error">
+                                    <af:outputText value="#{pageFlowScope.CommsHistory.returnMsg}" id="ot2"/>
+                                </f:facet>
+                            </af:switcher>
+                        </af:dialog>
+                    </af:popup>
+                </f:facet>
+                <af:selectOneChoice value="#{bindings.JobName.inputValue}" label="Job Name" required="false"
+                                    shortDesc="#{bindings.JobName.hints.tooltip}" id="soc1" autoSubmit="true">
+                    <f:selectItems value="#{bindings.JobName.items}" id="si1"/>
+                    <f:validator binding="#{bindings.JobName.validator}"/>
+                </af:selectOneChoice>
+                <af:switcher id="s1" defaultFacet="NONE"
+                             facetName='#{bindings.JobName.inputValue}'>
+                    <f:facet name="NONE"/>
+                    <f:facet name="PROCESS_FUSION_PREMIUMS">
+                        <af:panelFormLayout id="pfl5" inlineStyle="width:451px;">
+                            <f:facet name="footer">
+                                <af:panelGroupLayout id="pgl9">
+                                    <af:button text="Submit Job" id="b13"
+                                               actionListener="#{pageFlowScope.CommsHistory.submitFusionPremiums}"/>
+                                </af:panelGroupLayout>
+                            </f:facet>
+                            <af:selectOneChoice value="#{bindings.FusionActiveBu1.inputValue}"
+                                                label="#{bindings.FusionActiveBu1.label}"
+                                                required="#{bindings.FusionActiveBu1.hints.mandatory}"
+                                                shortDesc="#{bindings.FusionActiveBu1.hints.tooltip}" id="soc3">
+                                <f:selectItems value="#{bindings.FusionActiveBu1.items}" id="si3"/>
+                                <f:validator binding="#{bindings.FusionActiveBu1.validator}"/>
+                            </af:selectOneChoice>
+                        </af:panelFormLayout>
+                    </f:facet>
+                    <f:facet name="COMMISSIONS_HALFHOURLY_JOB">
+                        <af:panelFormLayout id="pfl4" inlineStyle="height:70px; width:332px;">
+                            <f:facet name="footer">
+                                <af:panelGroupLayout id="pgl4">
+                                    <af:button text="Submit Job" id="b6"
+                                               actionListener="#{pageFlowScope.CommsHistory.submitDmJob}"
+                                               rendered="true" iconPosition="leading"/>
+                                </af:panelGroupLayout>
+                            </f:facet>
+                            <af:outputText value="No Parameters Required please click Submit Job" id="ot10"/>
+                        </af:panelFormLayout>
+                    </f:facet>
+                    <f:facet name="COMMISSIONS_HOURLY_JOB">
+                        <af:panelFormLayout id="pfl3" inlineStyle="height:70px; width:332px;">
+                            <f:facet name="footer">
+                                <af:panelGroupLayout id="pgl3">
+                                    <af:button text="Submit Job" id="b4"
+                                               actionListener="#{pageFlowScope.CommsHistory.submitDmJob}"
+                                               rendered="true" iconPosition="leading"/>
+                                </af:panelGroupLayout>
+                            </f:facet>
+                            <af:outputText value="No Parameters Required please click Submit Job" id="ot9"/>
+                        </af:panelFormLayout>
+                    </f:facet>
+                    <f:facet name="DATA_MIGRATION">
+                        <af:panelFormLayout id="pfl2" inlineStyle="width:532px; height:168px;" labelAlignment="start">
+                            <af:inputDate value="#{bindings.FromDate.inputValue}" readOnly="false"
+                                          label="#{bindings.FromDate.hints.label}" required="true"
+                                          columns="#{bindings.FromDate.hints.displayWidth}"
+                                          shortDesc="#{bindings.FromDate.hints.tooltip}" id="id1" rendered="true"
+                                          valueChangeListener="#{pageFlowScope.CommsHistory.dateValueChange}"
+                                          autoSubmit="true">
+                                <f:validator binding="#{bindings.FromDate.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.FromDate.format}"/>
+                            </af:inputDate>
+                            <af:selectOneChoice value="#{bindings.Country.inputValue}" label="#{bindings.Country.label}"
+                                                required="true" shortDesc="#{bindings.Country.hints.tooltip}"
+                                                readOnly="false" id="soc2" autoSubmit="true"
+                                                valueChangeListener="#{pageFlowScope.CommsHistory.CountryValueChange}"
+                                                rendered="true">
+                                <f:selectItems value="#{bindings.Country.items}" id="si2"/>
+                                <f:validator binding="#{bindings.Country.validator}"/>
+                            </af:selectOneChoice>
+                            <af:selectManyChoice label="GroupCode" id="groupCodeList1" autoSubmit="true"
+                                                 valueChangeListener="#{pageFlowScope.CommsHistory.GroupCodeValueChange}"
+                                                 rendered="true" partialTriggers="soc2" required="true">
+                                <f:selectItems value="#{pageFlowScope.CommsHistory.countrylist}" id="groupCodeList2"/>
+                            </af:selectManyChoice>
+                            
+                            <af:selectManyChoice label="Scheme" id="schlist1" autoSubmit="true"
+                                                 valueChangeListener="#{pageFlowScope.CommsHistory.SchemeTypeValueChange}"
+                                                 rendered="true" partialTriggers="soc2" required="true">
+                                <f:selectItems value="#{pageFlowScope.CommsHistory.list}" id="shclist2"/>
+                            </af:selectManyChoice>
+                            
+                            <af:selectOneChoice value="#{bindings.Stage.inputValue}" label="#{bindings.Stage.label}"
+                                                required="true" shortDesc="#{bindings.Stage.hints.tooltip}"
+                                                readOnly="false" id="soc4" rendered="true">
+                                <f:selectItems value="#{bindings.Stage.items}" id="si4"/>
+                                <f:validator binding="#{bindings.Stage.validator}"/>
+                            </af:selectOneChoice>
+                            <f:facet name="footer">
+                                <af:panelGroupLayout id="pgl1" layout="horizontal"
+                                                     inlineStyle="height:30px; width:409px;">
+                                    <af:button text="Submit Job" id="b2"
+                                               actionListener="#{pageFlowScope.CommsHistory.submitDmJob}"
+                                               rendered="true"/>
+                                </af:panelGroupLayout>
+                            </f:facet>
+                        </af:panelFormLayout>
+                    </f:facet>
+                    <f:facet name="PROCESS_FUSION_PAYABLES">
+                        <af:panelFormLayout id="pfl6" inlineStyle="width:392px;">
+                            <f:facet name="footer"/>
+                            <af:outputText value="No Parameters Required please click Submit Job" id="ot55"/>
+                            <af:button text="Submit" id="b14"
+                                       actionListener="#{pageFlowScope.CommsHistory.submitPayablesJob}"/>
+                        </af:panelFormLayout>
+                    </f:facet>
+                </af:switcher>
+            </af:panelFormLayout>
+        </af:showDetailItem>
+        <af:showDetailItem id="tab2" text="#{coreLabels['G.ViewJobs']}" stretchChildren="first">
+            <af:panelGroupLayout id="pgl2">
+                <af:button text="Refresh Jobs" id="b3" actionListener="#{pageFlowScope.CommsHistory.refreshJobData}"/>
+            </af:panelGroupLayout>
+            <af:panelCollection id="pc1" inlineStyle="width:883px;">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar"/>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.AllJobsSubmittedRunDetailsVO1.collectionModel}" var="row"
+                          rows="#{bindings.AllJobsSubmittedRunDetailsVO1.rangeSize}"
+                          emptyText="#{bindings.AllJobsSubmittedRunDetailsVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.AllJobsSubmittedRunDetailsVO1.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.AllJobsSubmittedRunDetailsVO1.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.AllJobsSubmittedRunDetailsVO1.rangeSize}"
+                          filterModel="#{bindings.AllJobsSubmittedRunDetailsVO1Query.queryDescriptor}"
+                          filterVisible="true"
+                          queryListener="#{bindings.AllJobsSubmittedRunDetailsVO1Query.processQuery}" varStatus="vs"
+                          id="t1" width="884" partialTriggers=":::b3" scrollPolicy="page">
+                    <af:column sortProperty="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.JobId.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.JobId.label}" id="c1"
+                               rendered="true" width="50">
+                        <af:outputText value="#{row.JobId}"
+                                       shortDesc="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.JobId.tooltip}"
+                                       id="ot3">
+                            <af:convertNumber groupingUsed="false"
+                                              pattern="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.JobId.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.RequestedStartDate.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.RequestedStartDate.label}"
+                               id="c2" rendered="false">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.AllJobsSubmittedRunDetailsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.RequestedStartDate.value}"
+                                          id="id2">
+                                <af:convertDateTime pattern="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.RequestedStartDate.format}"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.RequestedStartDate}"
+                                       shortDesc="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.RequestedStartDate.tooltip}"
+                                       id="ot4">
+                            <af:convertDateTime pattern="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.RequestedStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.ActualStartDate.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.ActualStartDate.label}"
+                               id="c3" width="98">
+                        <f:facet name="filter">
+                            <af:inputDate value="#{bindings.AllJobsSubmittedRunDetailsVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ActualStartDate.value}"
+                                          id="id3">
+                                <af:convertDateTime pattern="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.ActualStartDate.format}"/>
+                            </af:inputDate>
+                        </f:facet>
+                        <af:outputText value="#{row.ActualStartDate}"
+                                       shortDesc="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.ActualStartDate.tooltip}"
+                                       id="ot5">
+                            <af:convertDateTime pattern="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.ActualStartDate.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.JobName.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.JobName.label}" id="c4"
+                               width="197">
+                        <af:outputText value="#{row.JobName}"
+                                       shortDesc="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.JobName.tooltip}"
+                                       id="ot6"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.Status.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.Status.label}" id="c5"
+                               width="95">
+                        <af:outputText value="#{row.Status}"
+                                       shortDesc="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.Status.tooltip}"
+                                       id="ot7"/>
+                    </af:column>
+                    <af:column sortProperty="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.RunTime.name}"
+                               filterable="true" sortable="true"
+                               headerText="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.RunTime.label}" id="c6"
+                               width="81" align="right">
+                        <af:outputText value="#{row.RunTime}"
+                                       shortDesc="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.RunTime.tooltip}"
+                                       id="ot8"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.Log.label}" id="c9"
+                               width="125">
+                        <af:button text="View Log File" id="b1" icon="/adf/images/export_16x16.png">
+                            <af:fileDownloadActionListener contentType="text/html"
+                                                           method="#{pageFlowScope.CommsHistory.downloadLogFile}"
+                                                           filename="#{pageFlowScope.CommsHistory.logFileName}"/>
+                        </af:button>
+                    </af:column>
+                    <af:column headerText="#{bindings.AllJobsSubmittedRunDetailsVO1.hints.OutputFile.label}" id="c8"
+                               width="141">
+                        <af:button text="View Output" id="b5" icon="/adf/images/export_16x16.png">
+                            <af:fileDownloadActionListener method="#{pageFlowScope.CommsHistory.downloadOutputFile}"
+                                                           contentType="text/csv"
+                                                           filename="#{pageFlowScope.CommsHistory.outputFileName}"/>
+                        </af:button>
+                    </af:column>
+                </af:table>
+            </af:panelCollection>
+        </af:showDetailItem>
+        <af:showDetailItem text="#{coreLabels['G.ApproveDM']}" id="sdi1" rendered="#{securityContext.userInRole['team-leads']}">
+            <af:panelTabbed position="above" id="pt2" inlineStyle="width:1367px;">
+                <af:showDetailItem id="tab3" text="Commissions History" stretchChildren="first"
+                                   styleClass="AFStretchWidth">
+                    <af:panelGroupLayout id="pgl6">
+                        <af:button text="Refresh" id="b10" actionListener="#{bindings.ExecuteDMSnapshot.execute}"/>
+                        <af:button text="Approve" id="b7" action="#{pageFlowScope.CommsHistory.approveCommsHistDM}"/>
+                    </af:panelGroupLayout>
+                    <af:panelCollection id="pc3" inlineStyle="width:1348px;">
+                        <f:facet name="menus">
+                            <af:menu text="File" id="m2">
+                                <af:commandMenuItem text="Export" id="cmi2">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                                       filename="Medware Commission History.xls"
+                                                                       title="Medware Commission History"/>
+                                </af:commandMenuItem>
+                            </af:menu>
+                        </f:facet>
+                        <f:facet name="toolbar"/>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.CommsDMSnapshotHistoryVO1.collectionModel}" var="row"
+                                  rows="#{bindings.CommsDMSnapshotHistoryVO1.rangeSize}"
+                                  emptyText="#{bindings.CommsDMSnapshotHistoryVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="0"
+                                  selectedRowKeys="#{bindings.CommsDMSnapshotHistoryVO1.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.CommsDMSnapshotHistoryVO1.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.CommsDMSnapshotHistoryVO1.rangeSize}"
+                                  filterModel="#{bindings.CommsDMSnapshotHistoryVO1Query.queryDescriptor}"
+                                  filterVisible="true"
+                                  queryListener="#{bindings.CommsDMSnapshotHistoryVO1Query.processQuery}" varStatus="vs"
+                                  id="t3" partialTriggers=":::b10" scrollPolicy="page">
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.CalculationDatetime.name}"
+                                       filterable="true" sortable="true" headerText="Medware Calculation Date" id="c24">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.CommsDMSnapshotHistoryVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.CalculationDatetime.value}"
+                                                  id="id7">
+                                        <af:convertDateTime pattern="#{bindings.CommsDMSnapshotHistoryVO1.hints.CalculationDatetime.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:outputText value="#{row.CalculationDatetime}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.CalculationDatetime.tooltip}"
+                                               id="ot11">
+                                    <af:convertDateTime pattern="#{bindings.CommsDMSnapshotHistoryVO1.hints.CalculationDatetime.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.CountryCode.name}"
+                                       filterable="true" sortable="true" headerText="Country Code" id="c25">
+                                <af:outputText value="#{row.CountryCode}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.CountryCode.tooltip}"
+                                               id="ot12"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.CompanyIdNo.name}"
+                                       filterable="true" sortable="true" headerText="Brokerage Code" id="c26">
+                                <af:outputText value="#{row.CompanyIdNo}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.CompanyIdNo.tooltip}"
+                                               id="ot13">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMSnapshotHistoryVO1.hints.CompanyIdNo.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.GroupCode.name}"
+                                       filterable="true" sortable="true" headerText="Group Code" id="c27">
+                                <af:outputText value="#{row.GroupCode}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.GroupCode.tooltip}"
+                                               id="ot14"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.ProductCode.name}"
+                                       filterable="true" sortable="true" headerText="Product Code" id="c28">
+                                <af:outputText value="#{row.ProductCode}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.ProductCode.tooltip}"
+                                               id="ot15"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.CommsCalcTypeCode.name}"
+                                       filterable="true" sortable="true" headerText="Comms Calc Type Code" id="c29">
+                                <af:outputText value="#{row.CommsCalcTypeCode}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.CommsCalcTypeCode.tooltip}"
+                                               id="ot16"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.PaymentCurrency.name}"
+                                       filterable="true" sortable="true" headerText="Payment Currency" id="c30">
+                                <af:outputText value="#{row.PaymentCurrency}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.PaymentCurrency.tooltip}"
+                                               id="ot17"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.PaymentReceiveAmt.name}"
+                                       filterable="true" sortable="true" headerText="Payment Received Amt" id="c31">
+                                <af:outputText value="#{row.PaymentReceiveAmt}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.PaymentReceiveAmt.tooltip}"
+                                               id="ot18">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMSnapshotHistoryVO1.hints.PaymentReceiveAmt.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.CommsCalculatedAmt.name}"
+                                       filterable="true" sortable="true" headerText="Comms Calculated Amt" id="c32">
+                                <af:outputText value="#{row.CommsCalculatedAmt}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.CommsCalculatedAmt.tooltip}"
+                                               id="ot19">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMSnapshotHistoryVO1.hints.CommsCalculatedAmt.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.ExchangeRateCurrencyCode.name}"
+                                       filterable="true" sortable="true" headerText="Exchange Currency" id="c33">
+                                <af:outputText value="#{row.ExchangeRateCurrencyCode}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.ExchangeRateCurrencyCode.tooltip}"
+                                               id="ot20"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.ExchangeRate.name}"
+                                       filterable="true" sortable="true" headerText="Exchange Rate" id="c34">
+                                <af:outputText value="#{row.ExchangeRate}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.ExchangeRate.tooltip}"
+                                               id="ot21">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMSnapshotHistoryVO1.hints.ExchangeRate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.CommsCalculatedExchAmt.name}"
+                                       filterable="true" sortable="true" headerText="Comms Calculated Exch Amt"
+                                       id="c35">
+                                <af:outputText value="#{row.CommsCalculatedExchAmt}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.CommsCalculatedExchAmt.tooltip}"
+                                               id="ot22">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMSnapshotHistoryVO1.hints.CommsCalculatedExchAmt.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMSnapshotHistoryVO1.hints.Bu.name}"
+                                       filterable="true" sortable="true" headerText="Fusion Business Unit" id="c36">
+                                <af:outputText value="#{row.Bu}"
+                                               shortDesc="#{bindings.CommsDMSnapshotHistoryVO1.hints.Bu.tooltip}"
+                                               id="ot23"/>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+                <af:showDetailItem id="tab4" text="Invoices" stretchChildren="first">
+                    <af:panelGroupLayout id="pgl7" layout="horizontal">
+                        <af:button text="Refresh" id="b9" actionListener="#{bindings.ExecuteDmInvoice.execute}"
+                                   disabled="false"/>
+                        <af:button text="Approve" id="b8" action="#{pageFlowScope.CommsHistory.approveInvoicesDM}"/>
+                        <af:outputText value="Please ensure Journals, Payments and To be paid invoices are ready" id="ot39"/>
+                    </af:panelGroupLayout>
+                    <af:panelGroupLayout id="pgl5">
+                        <af:panelCollection id="pc4" inlineStyle="width:1326px;">
+                            <f:facet name="menus">
+                                <af:menu text="File" id="m3">
+                                    <af:commandMenuItem text="Export" id="cmi3">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t4"
+                                                                           filename="Medware Invoices Imported.xls"
+                                                                           title="Medware Invoices Imported"/>
+                                    </af:commandMenuItem>
+                                </af:menu>
+                            </f:facet>
+                            <f:facet name="toolbar"/>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.CommsDMInvoiceHistoryVO1.collectionModel}" var="row"
+                                      rows="#{bindings.CommsDMInvoiceHistoryVO1.rangeSize}"
+                                      emptyText="#{bindings.CommsDMInvoiceHistoryVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="0"
+                                      selectedRowKeys="#{bindings.CommsDMInvoiceHistoryVO1.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.CommsDMInvoiceHistoryVO1.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.CommsDMInvoiceHistoryVO1.rangeSize}"
+                                      filterModel="#{bindings.CommsDMInvoiceHistoryVO1Query.queryDescriptor}"
+                                      filterVisible="true"
+                                      queryListener="#{bindings.CommsDMInvoiceHistoryVO1Query.processQuery}"
+                                      varStatus="vs" id="t4" partialTriggers=":::b9" scrollPolicy="page">
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.CountryCode.name}"
+                                           filterable="true" sortable="true" headerText="Country Code" id="c37">
+                                    <af:outputText value="#{row.CountryCode}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.CountryCode.tooltip}"
+                                                   id="ot24"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.CompanyIdNo.name}"
+                                           filterable="true" sortable="true" headerText="Brokerage Code" id="c38">
+                                    <af:outputText value="#{row.CompanyIdNo}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.CompanyIdNo.tooltip}"
+                                                   id="ot25">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.CompanyIdNo.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceTypeDesc.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Type" id="c39">
+                                    <af:outputText value="#{row.InvoiceTypeDesc}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceTypeDesc.tooltip}"
+                                                   id="ot26"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceNumber.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Number" id="c40">
+                                    <af:outputText value="#{row.InvoiceNumber}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceNumber.tooltip}"
+                                                   id="ot27">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceNumber.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceDate.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Date" id="c41">
+                                    <f:facet name="filter">
+                                        <af:inputDate value="#{bindings.CommsDMInvoiceHistoryVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.InvoiceDate.value}"
+                                                      id="id8">
+                                            <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceDate.format}"/>
+                                        </af:inputDate>
+                                    </f:facet>
+                                    <af:outputText value="#{row.InvoiceDate}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceDate.tooltip}"
+                                                   id="ot28">
+                                        <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentReceiveDate.name}"
+                                           filterable="true" sortable="true" headerText="Payment Receive Date" id="c42">
+                                    <f:facet name="filter">
+                                        <af:inputDate value="#{bindings.CommsDMInvoiceHistoryVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.PaymentReceiveDate.value}"
+                                                      id="id9">
+                                            <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentReceiveDate.format}"/>
+                                        </af:inputDate>
+                                    </f:facet>
+                                    <af:outputText value="#{row.PaymentReceiveDate}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentReceiveDate.tooltip}"
+                                                   id="ot29">
+                                        <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentReceiveDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.ReleaseDate.name}"
+                                           filterable="true" sortable="true" headerText="Release Date" id="c43">
+                                    <f:facet name="filter">
+                                        <af:inputDate value="#{bindings.CommsDMInvoiceHistoryVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ReleaseDate.value}"
+                                                      id="id10">
+                                            <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.ReleaseDate.format}"/>
+                                        </af:inputDate>
+                                    </f:facet>
+                                    <af:outputText value="#{row.ReleaseDate}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.ReleaseDate.tooltip}"
+                                                   id="ot30">
+                                        <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.ReleaseDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.ReleaseHoldReason.name}"
+                                           filterable="true" sortable="true" headerText="Release Hold Reason" id="c44">
+                                    <af:outputText value="#{row.ReleaseHoldReason}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.ReleaseHoldReason.tooltip}"
+                                                   id="ot31"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentDate.name}"
+                                           filterable="true" sortable="true" headerText="Payment Date" id="c45">
+                                    <f:facet name="filter">
+                                        <af:inputDate value="#{bindings.CommsDMInvoiceHistoryVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.PaymentDate.value}"
+                                                      id="id11">
+                                            <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentDate.format}"/>
+                                        </af:inputDate>
+                                    </f:facet>
+                                    <af:outputText value="#{row.PaymentDate}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentDate.tooltip}"
+                                                   id="ot32">
+                                        <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentRejectDate.name}"
+                                           filterable="true" sortable="true" headerText="Payment Reject Date" id="c46">
+                                    <f:facet name="filter">
+                                        <af:inputDate value="#{bindings.CommsDMInvoiceHistoryVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.PaymentRejectDate.value}"
+                                                      id="id12">
+                                            <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentRejectDate.format}"/>
+                                        </af:inputDate>
+                                    </f:facet>
+                                    <af:outputText value="#{row.PaymentRejectDate}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentRejectDate.tooltip}"
+                                                   id="ot33">
+                                        <af:convertDateTime pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentRejectDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentRejectDesc.name}"
+                                           filterable="true" sortable="true" headerText="Payment Reject Desc" id="c47">
+                                    <af:outputText value="#{row.PaymentRejectDesc}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentRejectDesc.tooltip}"
+                                                   id="ot34"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoicePaymentAmt.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Payment Amount"
+                                           id="c48">
+                                    <af:outputText value="#{row.InvoicePaymentAmt}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoicePaymentAmt.tooltip}"
+                                                   id="ot35">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoicePaymentAmt.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentExchRate.name}"
+                                           filterable="true" sortable="true" headerText="Payment Exchange Rate"
+                                           id="c49">
+                                    <af:outputText value="#{row.PaymentExchRate}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentExchRate.tooltip}"
+                                                   id="ot36">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.PaymentExchRate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.CurrencyCode.name}"
+                                           filterable="true" sortable="true" headerText="Currency Code" id="c50">
+                                    <af:outputText value="#{row.CurrencyCode}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.CurrencyCode.tooltip}"
+                                                   id="ot37"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceTaxCodes.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Tax Code" id="c51">
+                                    <af:outputText value="#{row.InvoiceTaxCodes}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvoiceTaxCodes.tooltip}"
+                                                   id="ot38"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvDetailAmt.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Detail Amount"
+                                           id="c52">
+                                    <af:outputText value="#{row.InvDetailAmt}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvDetailAmt.tooltip}"
+                                                   id="ot56">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvDetailAmt.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvDetailExchAmt.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Detail Exchange Amount"
+                                           id="c53">
+                                    <af:outputText value="#{row.InvDetailExchAmt}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvDetailExchAmt.tooltip}"
+                                                   id="ot57">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvDetailExchAmt.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvDetailDescription.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Detail Description"
+                                           id="c54">
+                                    <af:outputText value="#{row.InvDetailDescription}"
+                                                   shortDesc="#{bindings.CommsDMInvoiceHistoryVO1.hints.InvDetailDescription.tooltip}"
+                                                   id="ot58"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:panelGroupLayout>
+                </af:showDetailItem>
+                <af:showDetailItem id="tab5" text="Sync Comms calc and Invoice Numbers">
+                    <af:panelGroupLayout id="pgl8">
+                        <af:button text="Refresh" id="b11" actionListener="#{bindings.ExecuteDmUpdateInv.execute}"/>
+                        <af:button text="Approve" id="b12" action="#{pageFlowScope.CommsHistory.approveCommsUpdateDM}"/>
+                    </af:panelGroupLayout>
+                    <af:panelCollection id="pc2" inlineStyle="width:1349px;">
+                        <f:facet name="menus">
+                            <af:menu text="File" id="m1">
+                                <af:commandMenuItem text="Export" id="cmi1">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                                       filename="Comms Calc Synchronize with Invoice Number.xls"
+                                                                       title="Comms Calc Synchronize with Invoice Number"/>
+                                </af:commandMenuItem>
+                            </af:menu>
+                        </f:facet>
+                        <f:facet name="toolbar"/>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.CommsDMInvoiceNoUpdateVO1.collectionModel}" var="row"
+                                  rows="#{bindings.CommsDMInvoiceNoUpdateVO1.rangeSize}"
+                                  emptyText="#{bindings.CommsDMInvoiceNoUpdateVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="0"
+                                  selectedRowKeys="#{bindings.CommsDMInvoiceNoUpdateVO1.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.CommsDMInvoiceNoUpdateVO1.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.CommsDMInvoiceNoUpdateVO1.rangeSize}"
+                                  filterModel="#{bindings.CommsDMInvoiceNoUpdateVO1Query.queryDescriptor}"
+                                  filterVisible="true"
+                                  queryListener="#{bindings.CommsDMInvoiceNoUpdateVO1Query.processQuery}" varStatus="vs"
+                                  id="t2" scrollPolicy="page" partialTriggers=":::b11">
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.CompanyIdNo.name}"
+                                       filterable="true" sortable="true" headerText="Brokerage Code" id="c7"
+                                       width="100">
+                                <af:outputText value="#{row.CompanyIdNo}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.CompanyIdNo.tooltip}"
+                                               id="ot40">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.CompanyIdNo.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.CountryCode.name}" sortable="true"
+                                       headerText="Country Code" id="c10"
+                                       width="56">
+                                <af:outputText value="#{row.CountryCode}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.CountryCode.tooltip}"
+                                               id="ot41"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.PaymentReceiveDate.name}"
+                                       filterable="true" sortable="true" headerText="Payment Received Date" id="c11"
+                                       width="80">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.CommsDMInvoiceNoUpdateVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.PaymentReceiveDate.value}"
+                                                  id="id4">
+                                        <af:convertDateTime pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.PaymentReceiveDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:outputText value="#{row.PaymentReceiveDate}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.PaymentReceiveDate.tooltip}"
+                                               id="ot42">
+                                    <af:convertDateTime pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.PaymentReceiveDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.ExchCurrencyCode.name}"
+                                       filterable="true" sortable="true" headerText="Exchange Currency Code" id="c12"
+                                       width="50">
+                                <af:outputText value="#{row.ExchCurrencyCode}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.ExchCurrencyCode.tooltip}"
+                                               id="ot43"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.InvoiceCurrencyCode.name}"
+                                       filterable="true" sortable="true" headerText="Invoice Currency Code" id="c13"
+                                       width="50">
+                                <af:outputText value="#{row.InvoiceCurrencyCode}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.InvoiceCurrencyCode.tooltip}"
+                                               id="ot44"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalCommsCalc.name}"
+                                       filterable="true" sortable="true" headerText="Total Comms" id="c14" width="80">
+                                <af:outputText value="#{row.TotalCommsCalc}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalCommsCalc.tooltip}"
+                                               id="ot45">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalCommsCalc.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalInvoice.name}"
+                                       filterable="true" sortable="true" headerText="Total Invoice" id="c15"
+                                       width="80">
+                                <af:outputText value="#{row.TotalInvoice}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalInvoice.tooltip}"
+                                               id="ot46">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalInvoice.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.DiffTotal.name}"
+                                       filterable="true" sortable="true" headerText="Difference" id="c16" width="80">
+                                <af:outputText value="#{row.DiffTotal}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.DiffTotal.tooltip}"
+                                               id="ot47">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.DiffTotal.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalCommsExch.name}"
+                                       filterable="true" sortable="true" headerText="Total Comms Exch" id="c17"
+                                       width="80">
+                                <af:outputText value="#{row.TotalCommsExch}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalCommsExch.tooltip}"
+                                               id="ot48">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalCommsExch.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalInvExch.name}"
+                                       filterable="true" sortable="true" headerText="Total Invoice Exch" id="c18"
+                                       width="80">
+                                <af:outputText value="#{row.TotalInvExch}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalInvExch.tooltip}"
+                                               id="ot49">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalInvExch.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.DiffExchTotal.name}"
+                                       filterable="true" sortable="true" headerText="Difference Exch" id="c19"
+                                       width="80">
+                                <af:outputText value="#{row.DiffExchTotal}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.DiffExchTotal.tooltip}"
+                                               id="ot50">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.DiffExchTotal.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalInvPayment.name}"
+                                       filterable="true" sortable="true" headerText="Total Payment" id="c20"
+                                       width="80">
+                                <af:outputText value="#{row.TotalInvPayment}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalInvPayment.tooltip}"
+                                               id="ot51">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.TotalInvPayment.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.MinCalcDate.name}"
+                                       filterable="true" sortable="true" headerText="Min Calc Date" id="c21"
+                                       width="80">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.CommsDMInvoiceNoUpdateVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.MinCalcDate.value}"
+                                                  id="id5">
+                                        <af:convertDateTime pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.MinCalcDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:outputText value="#{row.MinCalcDate}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.MinCalcDate.tooltip}"
+                                               id="ot52">
+                                    <af:convertDateTime pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.MinCalcDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.MaxCalcDate.name}"
+                                       filterable="true" sortable="true" headerText="Max Calc Date" id="c22" width="80">
+                                <f:facet name="filter">
+                                    <af:inputDate value="#{bindings.CommsDMInvoiceNoUpdateVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.MaxCalcDate.value}"
+                                                  id="id6">
+                                        <af:convertDateTime pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.MaxCalcDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:outputText value="#{row.MaxCalcDate}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.MaxCalcDate.tooltip}"
+                                               id="ot53">
+                                    <af:convertDateTime pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.MaxCalcDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.CommsCalcSnapshotNo.name}"
+                                       filterable="true" sortable="true" headerText="Comms Snapshot No" id="c23">
+                                <af:outputText value="#{row.CommsCalcSnapshotNo}"
+                                               shortDesc="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.CommsCalcSnapshotNo.tooltip}"
+                                               id="ot54">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommsDMInvoiceNoUpdateVO1.hints.CommsCalcSnapshotNo.format}"/>
+                                </af:outputText>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:showDetailItem>
+            </af:panelTabbed>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

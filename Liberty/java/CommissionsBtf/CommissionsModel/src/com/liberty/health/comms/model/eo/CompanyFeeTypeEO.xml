@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyFeeTypeEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="COMPANY_FEE_TYPE"
+  AliasName="CompanyFeeTypeEO"
+  BindingStyle="OracleName">
+    <Attribute
+      Name="CompanyFeeTypeIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="COMPANY_FEE_TYPE_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_FEE_TYPE"
+      PrimaryKey="true">
+        <Properties>
+            <CustomProperties>
+                <Property
+                  Name="SequenceName"
+                  ResId="COMPANY_FEE_TYPE_ID_NO_SEQ"/>
+            </CustomProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CompanyFeeTypeDesc"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="COMPANY_FEE_TYPE_DESC"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_FEE_TYPE">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYWIDTH
+                  Value="50"/>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyFeeType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_FEE_TYPE"
+      IsNotNull="true">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="CompanyFeeTypeEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_FEE_TYPE"
+      DefaultValue="3100-01-31"
+      IsNotNull="true">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_FEE_TYPE"
+      HistoryColumn="DateHistory">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LastUpdate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_FEE_TYPE"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Username']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+      Name="CompanyFee"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyFeeTypeFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyFeeTypeFkAssoc.CompanyFee"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyFeeTypeFkAssoc.CompanyFeeType"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <Key
+      Name="CompanyFeeTypeEffectiveEndDateCheck">
+        <DesignTime>
+            <Attr Name="_isNotNull" Value="true"/>
+            <Attr Name="_checkCondition" Value='"EFFECTIVE_END_DATE" IS NOT NULL'/>
+            <Attr Name="_isCheck" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_FEE_TYPE_EFFECTIVE_END"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFeeTypeEO.EffectiveEndDate"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyFeeTypeEffectiveStartDateCheck">
+        <DesignTime>
+            <Attr Name="_isNotNull" Value="true"/>
+            <Attr Name="_checkCondition" Value='"EFFECTIVE_START_DATE" IS NOT NULL'/>
+            <Attr Name="_isCheck" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_FEE_TYPE_EFFECTIVE_STA"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFeeTypeEO.EffectiveStartDate"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyFeeTypePk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="COMPANY_FEE_TYPE_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyFeeTypeEO.CompanyFeeTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

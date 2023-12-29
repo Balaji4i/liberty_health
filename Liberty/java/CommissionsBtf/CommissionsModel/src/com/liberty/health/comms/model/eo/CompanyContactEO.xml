@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyContactEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="COMPANY_CONTACT"
+  AliasName="CompanyContactEO"
+  BindingStyle="OracleName"
+  RowClass="com.liberty.health.comms.model.eo.CompanyContactEOImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+    <DesignTime>
+        <Attr Name="_codeGenFlag2" Value="Access"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Attribute
+      Name="CompanyIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="COMPANY_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_CONTACT"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CountryCode"
+      IsNotNull="true"
+      Precision="4"
+      ColumnName="COUNTRY_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_CONTACT"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CompanyContactTypeIdNo"
+      IsNotNull="true"
+      Precision="2"
+      Scale="0"
+      ColumnName="COMPANY_CONTACT_TYPE_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_CONTACT"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyContactTypeDesc']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_CONTACT"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="CompanyContactEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_CONTACT"
+      DefaultValue="3100-01-31">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="ContactName"
+      Precision="250"
+      ColumnName="CONTACT_NAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_CONTACT"
+      IsNotNull="true"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Name']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="ContactCellphoneNo"
+      Precision="30"
+      ColumnName="CONTACT_CELLPHONE_NO"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_CONTACT"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CellphoneNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="ContactEmail"
+      Precision="250"
+      ColumnName="CONTACT_EMAIL"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_CONTACT"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Email']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+        <validation:RegExpValidationBean
+          Name="ContactEmailRule0"
+          OnAttribute="ContactEmail"
+          Pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+          Inverse="false"
+          ResId="ValidEmailAddress"
+          ResBundleId="com.core.liberty.resources.messages.CORE_messages"
+          Severity="Warning"/>
+    </Attribute>
+    <Attribute
+      Name="ContactFaxNo"
+      Precision="30"
+      ColumnName="CONTACT_FAX_NO"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_CONTACT"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Fax']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="ContactTelephoneNo"
+      Precision="30"
+      ColumnName="CONTACT_TELEPHONE_NO"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_CONTACT"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.TelephoneNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="ContactDesc"
+      Precision="250"
+      ColumnName="CONTACT_DESC"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_CONTACT"
+        RetrievedOnUpdate="true"
+        RetrievedOnInsert="true">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="250"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Comment']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="java.sql.Timestamp"
+      ColumnType="DATE"
+      TableName="COMPANY_CONTACT"
+      HistoryColumn="DateHistory">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LastUpdate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_CONTACT"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Username']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+      Name="CompanyContactType"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyContactTypeFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyContactTypeFkAssoc.CompanyContactType"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyContactTypeFkAssoc.CompanyContact"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <AccessorAttribute
+      Name="CompanyCountry"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyContactFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyContactFkAssoc.CompanyCountry"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyContactFkAssoc.CompanyContact"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="CompanyContactContactNameCheck">
+        <DesignTime>
+            <Attr Name="_isNotNull" Value="true"/>
+            <Attr Name="_checkCondition" Value='"CONTACT_NAME" IS NOT NULL'/>
+            <Attr Name="_isCheck" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_CONTACT_CONTACT_NAME_C"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyContactEO.ContactName"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyContactPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="COMPANY_CONTACT_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyContactEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyContactEO.CompanyContactTypeIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyContactEO.EffectiveStartDate"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyContactEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyContactFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_COUNTRY_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_CONTACT_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyContactEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyContactEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyContactTypeFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_CONTACT_TYPE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_CONTACT_TYPE_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyContactEO.CompanyContactTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

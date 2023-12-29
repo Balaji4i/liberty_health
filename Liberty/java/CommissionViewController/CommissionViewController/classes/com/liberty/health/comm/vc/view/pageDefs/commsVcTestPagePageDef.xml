@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="commsVcTestPagePageDef"
+                Package="com.liberty.health.comm.vc.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <taskFlow id="allcommswatchlistflow1"
+              taskFlowId="/WEB-INF/flows/watchlist/all-comms-watchlist-flow.xml#all-comms-watchlist-flow"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding">
+      <parameters>
+        <parameter id="webApplObjectNo" value="42"/>
+        <parameter id="menuItemName" value="adfasdfasdfsadf"/>
+      </parameters>
+    </taskFlow>
+    <taskFlow id="allbrokerageflow1" taskFlowId="/WEB-INF/flows/brokerage/all-brokerage-flow.xml#all-brokerage-flow"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

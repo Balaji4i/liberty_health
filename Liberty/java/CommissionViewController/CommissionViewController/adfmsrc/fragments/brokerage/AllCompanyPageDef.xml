@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="AllCompanyPageDef"
+                Package="fragments.brokerage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllCompanyRoView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="AllCompanyRoViewIterator"/>
+    <searchRegion Criteria="SearchCompanyRoViewCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllCompanyRoViewIterator" id="SearchCompanyRoViewCriteriaQuery"/>
+    <iterator Binds="CompanyAuditRoView1" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="CompanyAuditRoView1Iterator"/>   
+    <searchRegion Criteria="SearchCompanyRoViewCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllCompanyRoViewIterator" id="SearchCompanyRoViewCriteriaQuery4"/>
+    <searchRegion Criteria="SearchCompanyRoViewCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="AllCompanyRoViewIterator" id="SearchCompanyRoViewCriteriaQuery1"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllCompanyRoViewIterator" id="AllCompanyRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyRoView" Name="AllCompanyRoView0">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="MultinationalInd"/>
+          <Item Value="InternalBrokerInd"/>
+          <Item Value="CompanyName"/>
+          <Item Value="BrokerFunctionDesc"/>
+          <Item Value="BrokerStatementDesc"/>
+          <Item Value="BrokerStatusDesc"/>
+          <Item Value="BrokerTypeDesc"/>
+          <Item Value="HoldInd"/>
+          <Item Value="HoldReason"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllCompanyRoViewIterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="CompanyAuditRoView1Iterator" id="CompanyAuditRoView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.vo.CompanyAuditRoView" Name="CompanyAuditRoView10">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionUsername"/>
+          <Item Value="TransactionDesc"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="submitJob" RequiresUpdateModel="true" Action="invokeMethod" MethodName="submitJob"
+                  IsViewObjectMethod="false" DataControl="DashboardAMDataControl"
+                  InstanceName="bindings.submitJob.dataControl.dataProvider">
+      <NamedData NDName="pBu" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

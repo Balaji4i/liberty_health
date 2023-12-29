@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerStatementsSubmitRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+    RowClass="com.liberty.health.comms.model.broker.vo.BrokerStatementsSubmitRoViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+    xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+        <Attr Name="_codeGenFlag2" Value="Access"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.broker.vo.BrokerStatementsSubmitRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewAccessor
+      Name="BrokerLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.BrokerLovView"
+      RowLevelBinds="true">
+        <ViewCriteriaUsage
+          Name="BrokerCompanyLovViewCriteria"
+          FullName="BrokerCompanyLovViewCriteria"/>
+        <ViewCriteriaUsage
+            Name="BrokerLovViewCriteria"
+            FullName="com.liberty.health.comms.lov.BrokerLovView.BrokerLovViewCriteria"/>
+    </ViewAccessor>
+    <ViewAccessor
+      Name="CompanyLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CompanyLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+      Name="LanguageLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.LanguageLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+      Name="CommHubTemplateTypeLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CommHubTemplateTypeLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="CompanyCountryLovView1"
+        ViewObjectName="com.liberty.health.comms.lov.CompanyCountryLovView"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="CountryLovView1"
+        ViewObjectName="com.liberty.health.comms.lov.CountryLovView"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="CountryLovView_N1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.CountryLovView_N"
+        RowLevelBinds="true"/>
+    <ListBinding
+      Name="LOV_BrokerIdNo"
+      ListVOName="BrokerLovView1"
+      NullValueFlag="none"
+      MRUCount="0"
+        ComboRowCountHint="10">
+        <AttrArray Name="AttrNames">
+            <Item Value="BrokerIdNo"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="DerivedAttrNames">
+            <Item Value="LanguageCode"/>
+            <Item Value="CompanyIdNo"/>
+        </AttrArray>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="BrokerIdNo"/>
+            <Item Value="LanguageCode"/>
+            <Item Value="CompanyIdNo"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="BrokerName"/>
+            <Item Value="BrokerLastName"/>
+            <Item Value="CompanyName"/>
+        </AttrArray>
+        <DisplayCriteria
+            Name="BrokerLovViewCriteria"/>
+    </ListBinding>
+    <ListBinding
+      Name="LOV_CompanyIdNo"
+      ListVOName="CompanyLovView1"
+      ComboRowCountHint="10"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CompanyIdNo"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="CompanyIdNo"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="CompanyIdNo"/>
+            <Item Value="CompanyName"/>
+        </AttrArray>
+        <DisplayCriteria
+          Name="CompanyLovViewCriteria"/>
+    </ListBinding>
+    <ListBinding
+      Name="LOV_LanguageCode"
+      ListVOName="LanguageLovView1"
+      ComboRowCountHint="10"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="LanguageCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="LanguageCode"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="LanguageCode"/>
+            <Item Value="LanguageDesc"/>
+        </AttrArray>
+        <DisplayCriteria
+          Name="LanguageLovViewCriteria"/>
+    </ListBinding>
+    <ListBinding
+      Name="LOV_TemplateCode"
+      ListVOName="CommHubTemplateTypeLovView1"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="TemplateCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="CommHubTemplateTypeCode"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="CommHubTemplateTypeDesc"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+        Name="LOV_CountryCode"
+        ListVOName="CountryLovView_N1"
+        NullValueFlag="start"
+        NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Name"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <SQLQuery><![CDATA[select sysdate day  
+from dual]]></SQLQuery>
+    <ViewAttribute
+      Name="Day"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="DAY"
+      Expression="DAY"
+      SQLType="DATE"/>
+    <ViewAttribute
+      Name="BrokerIdNo"
+      IsSelected="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="NUMERIC"
+      LOVName="LOV_BrokerIdNo">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerIdNo']}"/>
+                <CONTROLTYPE
+                    Value="input_text_lov"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyIdNo"
+      IsSelected="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="NUMERIC"
+      LOVName="LOV_CompanyIdNo">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+                <CONTROLTYPE
+                  Value="input_text_lov"/>
+                <DISPLAYWIDTH
+                  Value="20"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="StatementStartDate"
+      IsSelected="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="VIEW_ATTR"
+      SQLType="DATE">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.StatementStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="LanguageCode"
+      IsSelected="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR"
+      LOVName="LOV_LanguageCode"
+        DefaultValue="en">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LanguageCode']}"/>
+                <CONTROLTYPE
+                  Value="input_text_lov"/>
+                <DISPLAYWIDTH
+                    Value="50"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="TemplateCode"
+      IsSelected="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="255"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR"
+      LOVName="LOV_TemplateCode">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="com.liberty.health.comms.model.broker.vo.BrokerStatementsSubmitRoView.TemplateCode_LABEL"/>
+                <CONTROLTYPE
+                  Value="choice"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="StatementEndDate"
+        IsSelected="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Type="oracle.jbo.domain.Date"
+        ColumnType="DATE"
+        AliasName="VIEW_ATTR"
+        SQLType="DATE">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.StatementEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CountryCode"
+        IsSelected="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="255"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="VIEW_ATTR"
+        SQLType="VARCHAR"
+        LOVName="LOV_CountryCode">
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYWIDTH
+                    Value="5"/>
+                <CONTROLTYPE
+                    Value="choice"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="Day"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="all_comms_watchlist_flow_all_comms_watchlist_flow_Execute1PageDef" Package="flows.watchlist"
+                SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="AllBrokerageStatusRoView" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="AllBrokerageStatusRoViewIterator" Refresh="never"/>
+  </executables>
+  <bindings>
+    <action IterBinding="AllBrokerageStatusRoViewIterator" id="Execute" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+  </bindings>
+</pageDefinition>

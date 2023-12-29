@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommsDMInvoiceHistoryVO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.comms.views.CommsDMInvoiceHistoryVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.comms.views.CommsDMInvoiceHistoryVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+  QueryHint="FIRST_ROWS(1000)"
+  FetchMode="FETCH_AS_NEEDED">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.comms.views.CommsDMInvoiceHistoryVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pCountryList"
+    Kind="where"
+    Type="java.lang.String">
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="CommsDMInvoiceHistoryVO"/>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <SQLQuery><![CDATA[SELECT INV.COUNTRY_CODE   
+        ,INV.COMPANY_ID_NO   
+        ,INVT.INVOICE_TYPE_DESC   
+        ,INV.INVOICE_NO INVOICE_NUMBER   
+        ,INV.INVOICE_DATE   
+        ,INV.PAYMENT_RECEIVE_DATE   
+        ,INV.RELEASE_DATE   
+        ,INV.RELEASE_HOLD_REASON   
+        ,INV.PAYMENT_DATE   
+        ,INV.PAYMENT_REJECT_DATE   
+        ,INV.PAYMENT_REJECT_DESC   
+        ,INV.PAYMENT_AMT INVOICE_PAYMENT_AMT   
+        ,INV.PAYMENT_EXCH_RATE   
+        ,INV.CURRENCY_CODE   
+        ,INV.LAST_UPDATE_DATETIME   
+        ,INV.USERNAME   
+        ,INV.INVOICE_TAX_CODES   
+        ,INVD.FEE_TYPE_AMT      INV_DETAIL_AMT   
+        ,INVD.FEE_TYPE_EXCH_AMT INV_DETAIL_EXCH_AMT   
+        ,INVD.FEE_TYPE_DESC     INV_DETAIL_DESCRIPTION   
+FROM INVOICE_DM        INV,   
+     INVOICE_DETAIL_DM INVD,   
+     INVOICE_TYPE      INVT   
+WHERE INV.INVOICE_NO  = INVD.INVOICE_NO   
+  AND INV.INVOICE_TYPE_ID_NO  = INVT.INVOICE_TYPE_ID_NO
+  AND INV.COUNTRY_CODE IN (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')     
+ , '[^,]+', 1, LEVEL)             
+            FROM DUAL             
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')   
+, '[^,]+', 1, LEVEL) IS NOT NULL)]]></SQLQuery>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMPANY_ID_NO"
+    Expression="COMPANY_ID_NO"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="InvoiceTypeDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_TYPE_DESC"
+    Expression="INVOICE_TYPE_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICE_NUMBER"
+    Expression="INVOICE_NUMBER"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="InvoiceDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="INVOICE_DATE"
+    Expression="INVOICE_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="PaymentReceiveDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="PAYMENT_RECEIVE_DATE"
+    Expression="PAYMENT_RECEIVE_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="ReleaseDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="RELEASE_DATE"
+    Expression="RELEASE_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="ReleaseHoldReason"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="RELEASE_HOLD_REASON"
+    Expression="RELEASE_HOLD_REASON"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PaymentDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="PAYMENT_DATE"
+    Expression="PAYMENT_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="PaymentRejectDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="PAYMENT_REJECT_DATE"
+    Expression="PAYMENT_REJECT_DATE"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="PaymentRejectDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="500"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PAYMENT_REJECT_DESC"
+    Expression="PAYMENT_REJECT_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="500"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicePaymentAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="22"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICE_PAYMENT_AMT"
+    Expression="INVOICE_PAYMENT_AMT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="PaymentExchRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PAYMENT_EXCH_RATE"
+    Expression="PAYMENT_EXCH_RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CurrencyCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CURRENCY_CODE"
+    Expression="CURRENCY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdateDatetime"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="LAST_UPDATE_DATETIME"
+    Expression="LAST_UPDATE_DATETIME"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="Username"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="USERNAME"
+    Expression="USERNAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceTaxCodes"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_TAX_CODES"
+    Expression="INVOICE_TAX_CODES"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvDetailAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="22"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INV_DETAIL_AMT"
+    Expression="INV_DETAIL_AMT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="InvDetailExchAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="22"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INV_DETAIL_EXCH_AMT"
+    Expression="INV_DETAIL_EXCH_AMT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="InvDetailDescription"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="200"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INV_DETAIL_DESCRIPTION"
+    Expression="INV_DETAIL_DESCRIPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="InvoiceNumber"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

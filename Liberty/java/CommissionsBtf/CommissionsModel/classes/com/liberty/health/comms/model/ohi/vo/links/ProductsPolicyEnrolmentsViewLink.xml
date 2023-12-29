@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ProductsPolicyEnrolmentsViewLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.ohi.vo.links.ProductsPolicyEnrolmentsViewLink_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="OhiProductsRoView"
+    Cardinality="1"
+    Source="true"
+    Owner="com.liberty.health.comms.model.ohi.vo.OhiProductsRoView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="OhiProductsRoView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.ohi.vo.OhiProductsRoView.ProductCode"/>
+      <Item Value="com.liberty.health.comms.model.ohi.vo.OhiProductsRoView.GracId"/>
+      <Item Value="com.liberty.health.comms.model.ohi.vo.OhiProductsRoView.EnprId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="OhiPolicyEnrollmentRoView"
+    Cardinality="-1"
+    Owner="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentRoView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="OhiPolicyEnrollmentRoView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentRoView.ProductCode"/>
+      <Item Value="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentRoView.GracId"/>
+      <Item Value="com.liberty.health.comms.model.ohi.vo.OhiPolicyEnrollmentRoView.EnprId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

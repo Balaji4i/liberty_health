@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-function-btf">
+        <default-activity>router1</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__8">
+            <name>createInd</name>
+            <value>#{pageFlowScope.createInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__9">
+            <name>newCompanyInd</name>
+            <value>#{pageFlowScope.newCompanyInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__4">
+            <managed-bean-name>companyAttributesBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <managed-bean id="__24">
+            <managed-bean-name>brokerAttributes</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>pageFlow</managed-bean-scope>
+        </managed-bean>
+        <method-call id="setpCompanyIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpCompanyIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainCompanyFunction">
+            <page>/WEB-INF/fragment/company/maintainCompanyFunction.jsff</page>
+        </view>
+        <task-flow-call id="maintain-company-table-btf">
+            <task-flow-reference>
+                <document>/WEB-INF/btf/companyTable/maintain-company-table-btf.xml</document>
+                <id>maintain-company-table-btf</id>
+            </task-flow-reference>
+            <input-parameter id="__5">
+                <name>tableTypeIdNo</name>
+                <value>#{data.com_liberty_health_comms_broker_maintainCompanyFunctionPageDef.CompanyTableIdNo.inputValue}</value>
+            </input-parameter>
+        </task-flow-call>
+        <router id="router1">
+            <case id="__12">
+                <expression>#{pageFlowScope.newCompanyInd == 'N'}</expression>
+                <outcome>createManual</outcome>
+            </case>
+            <case id="__13">
+                <expression>#{pageFlowScope.newCompanyInd == 'Y'}</expression>
+                <outcome>createAuto</outcome>
+            </case>
+            <default-outcome>createAuto</default-outcome>
+        </router>
+        <method-call id="CreateStatus">
+            <method>#{bindings.CreateWithParams.execute}</method>
+            <outcome>
+                <fixed-outcome>CreateWithParams</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="CreateType">
+            <method>#{bindings.CreateWithParams.execute}</method>
+            <outcome>
+                <fixed-outcome>CreateWithParams</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="CreateStatement">
+            <method>#{bindings.CreateWithParams.execute}</method>
+            <outcome>
+                <fixed-outcome>CreateWithParams</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="Commit">
+            <method>#{bindings.Commit.execute}</method>
+            <outcome>
+                <fixed-outcome>Commit</fixed-outcome>
+            </outcome>
+        </method-call>
+        <control-flow-rule id="__2">
+            <from-activity-id>setpCompanyIdNo</from-activity-id>
+            <control-flow-case id="__3">
+                <from-outcome>setpCompanyIdNo</from-outcome>
+                <to-activity-id>maintainCompanyFunction</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__6">
+            <from-activity-id>maintainCompanyFunction</from-activity-id>
+            <control-flow-case id="__7">
+                <from-outcome>goCompanyTable</from-outcome>
+                <to-activity-id>maintain-company-table-btf</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__23">
+                <from-outcome>goExecute</from-outcome>
+                <to-activity-id>setpCompanyIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__10">
+            <from-activity-id>router1</from-activity-id>
+            <control-flow-case id="__11">
+                <from-outcome>createManual</from-outcome>
+                <to-activity-id>setpCompanyIdNo</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__14">
+                <from-outcome>createAuto</from-outcome>
+                <to-activity-id>CreateStatus</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__15">
+            <from-activity-id>CreateStatus</from-activity-id>
+            <control-flow-case id="__16">
+                <from-outcome>CreateWithParams</from-outcome>
+                <to-activity-id>CreateType</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__17">
+            <from-activity-id>CreateType</from-activity-id>
+            <control-flow-case id="__18">
+                <from-outcome>CreateWithParams</from-outcome>
+                <to-activity-id>CreateStatement</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__19">
+            <from-activity-id>CreateStatement</from-activity-id>
+            <control-flow-case id="__20">
+                <from-outcome>CreateWithParams</from-outcome>
+                <to-activity-id>Commit</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__21">
+            <from-activity-id>Commit</from-activity-id>
+            <control-flow-case id="__22">
+                <from-outcome>Commit</from-outcome>
+                <to-activity-id>setpCompanyIdNo</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

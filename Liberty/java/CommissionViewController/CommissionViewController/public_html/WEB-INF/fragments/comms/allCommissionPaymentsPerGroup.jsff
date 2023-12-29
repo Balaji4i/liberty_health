@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout layout="vertical" id="pgl1">
+    <af:panelHeader text="Commission Payments Per Group" id="ph1" styleClass="AFStretchWidth">
+      <af:query id="qryId1" headerText="Search" disclosed="true"
+                value="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryDescriptor}"
+                model="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryModel}"
+                queryListener="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.processQuery}"
+                queryOperationListener="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.processQueryOperation}"
+                resultComponentId="::pc1:t1" styleClass="AFStretchWidth"/>
+    </af:panelHeader>
+    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+      <f:facet name="menus">
+      <af:menu text="File" id="m2">
+            <af:commandMenuItem text="Export" id="cmi2">
+                <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                   filename="Commission Payments per group.xls"
+                                                   title="Commission Payments per group"/>
+            </af:commandMenuItem>
+        </af:menu>
+        </f:facet>
+      <f:facet name="toolbar">
+        <af:toolbar id="t2">
+          <af:popup childCreation="deferred" autoCancel="disabled" id="parentpopup"
+                    binding="#{pageFlowScope.DashBoard.bv_parentpopup}" partialTriggers="t1:l1">
+            <af:dialog id="d1" >
+              <f:facet name="buttonBar"/>
+              <af:button actionListener="#{bindings.Execute.execute}" text="Execute" visible="false"
+                         disabled="#{!bindings.Execute.enabled}" id="b1"/>
+              <af:panelHeader text="Parent Subgroups" id="ph2">
+                <f:facet name="context"/>
+                <f:facet name="toolbar"/>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+              </af:panelHeader>
+              <af:table value="#{bindings.OhiGroupsParent1.collectionModel}" var="row"
+                        rows="#{bindings.OhiGroupsParent1.rangeSize}"
+                        emptyText="#{bindings.OhiGroupsParent1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        rowBandingInterval="0"
+                        selectedRowKeys="#{bindings.OhiGroupsParent1.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.OhiGroupsParent1.collectionModel.makeCurrent}"
+                        rowSelection="single" fetchSize="#{bindings.OhiGroupsParent1.rangeSize}"
+                        filterModel="#{bindings.OhiGroupsParent1Query.queryDescriptor}" filterVisible="true"
+                        queryListener="#{bindings.OhiGroupsParent1Query.processQuery}" varStatus="vs" id="t3"
+                        partialTriggers="::b1">
+                <af:column sortProperty="#{bindings.OhiGroupsParent1.hints.ParentgroupCode.name}" filterable="true"
+                           sortable="true" headerText="#{bindings.OhiGroupsParent1.hints.ParentgroupCode.label}"
+                           id="c11">
+                  <af:outputText value="#{row.ParentgroupCode}"
+                                 shortDesc="#{bindings.OhiGroupsParent1.hints.ParentgroupCode.tooltip}" id="ot2"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.OhiGroupsParent1.hints.GroupCode.name}" filterable="true"
+                           sortable="true" headerText="#{bindings.OhiGroupsParent1.hints.GroupCode.label}" id="c12">
+                  <af:outputText value="#{row.GroupCode}"
+                                 shortDesc="#{bindings.OhiGroupsParent1.hints.GroupCode.tooltip}" id="ot3"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.OhiGroupsParent1.hints.GroupName.name}" filterable="true"
+                           sortable="true" headerText="#{bindings.OhiGroupsParent1.hints.GroupName.label}" id="c13">
+                  <af:outputText value="#{row.GroupName}"
+                                 shortDesc="#{bindings.OhiGroupsParent1.hints.GroupName.tooltip}" id="ot4"/>
+                </af:column>
+                <af:column sortProperty="#{bindings.OhiGroupsParent1.hints.CountryCode.name}" filterable="true"
+                           sortable="true" headerText="#{bindings.OhiGroupsParent1.hints.CountryCode.label}" id="c14">
+                  <af:outputText value="#{row.CountryCode}"
+                                 shortDesc="#{bindings.OhiGroupsParent1.hints.CountryCode.tooltip}" id="ot5"/>
+                </af:column>
+              </af:table>
+            </af:dialog>
+          </af:popup>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.CommissionPaymentsPerGroupVO11.collectionModel}" var="row"
+                rows="#{bindings.CommissionPaymentsPerGroupVO11.rangeSize}"
+                emptyText="#{bindings.CommissionPaymentsPerGroupVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" scrollPolicy="page"
+                selectedRowKeys="#{bindings.CommissionPaymentsPerGroupVO11.collectionModel.selectedRow}"
+                selectionListener="#{bindings.CommissionPaymentsPerGroupVO11.collectionModel.makeCurrent}"
+                rowSelection="single" fetchSize="#{bindings.CommissionPaymentsPerGroupVO11.rangeSize}"
+                filterModel="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryDescriptor}" filterVisible="true"
+                queryListener="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.processQuery}" varStatus="vs" id="t1">
+        <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.CompanyIdNo.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.CompanyIdNo.label}"
+                   id="c1">
+          <af:outputText value="#{row.CompanyIdNo}"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.CompanyIdNo.tooltip}" id="ot10"/>
+        </af:column>
+        <af:column headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.ParentgroupCode.label}" id="c10">
+          <af:link id="l1" text="#{row.ParentgroupCode}" actionListener="#{pageFlowScope.DashBoard.onClickParentLinkPerGroup}"
+                   partialTriggers="::parentpopup">
+            
+          </af:link>
+          <af:outputText value="#{row.ParentgroupCode}" visible="false"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.ParentgroupCode.tooltip}" id="ot1"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.GroupCode.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.GroupCode.label}"
+                   id="c2">
+          <af:outputText value="#{row.GroupCode}"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.GroupCode.tooltip}" id="ot11"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.FinanceInvoiceNo.name}"
+                   filterable="true" sortable="true"
+                   headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.FinanceInvoiceNo.label}" id="c4">
+          <af:outputText value="#{row.FinanceInvoiceNo}"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.FinanceInvoiceNo.tooltip}"
+                         id="ot13"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.InvoiceNo.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.InvoiceNo.label}"
+                   id="c3">
+          <af:outputText value="#{row.InvoiceNo}"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.InvoiceNo.tooltip}" id="ot12"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.CurrencyCode.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.CurrencyCode.label}"
+                   id="c5">
+          <af:outputText value="#{row.CurrencyCode}"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.CurrencyCode.tooltip}" id="ot14"/>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.label}"
+                   id="c6">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryDescriptor.filterConjunctionCriterion.criterionMap.ReleaseDate.value}"
+                          id="id1">
+              <af:convertDateTime pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.format}"/>
+            </af:inputDate>
+          </f:facet>
+          <af:outputText value="#{row.ReleaseDate}"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.tooltip}" id="ot15">
+            <af:convertDateTime pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.label}"
+                   id="c7">
+          <f:facet name="filter">
+            <af:inputDate value="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryDescriptor.filterConjunctionCriterion.criterionMap.PaymentDate.value}"
+                          id="id2">
+              <af:convertDateTime pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.format}"/>
+            </af:inputDate>
+          </f:facet>
+          <af:outputText value="#{row.PaymentDate}"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.tooltip}" id="ot16">
+            <af:convertDateTime pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalAmount.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalAmount.label}"
+                   id="c8">
+          <af:outputText value="#{row.TotalAmount}"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalAmount.tooltip}" id="ot17">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalAmount.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalPayable.name}" filterable="true"
+                   sortable="true" headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalPayable.label}"
+                   id="c9">
+          <af:outputText value="#{row.TotalPayable}"
+                         shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalPayable.tooltip}" id="ot18">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalPayable.format}"/>
+          </af:outputText>
+        </af:column>
+      </af:table>
+    </af:panelCollection>
+  </af:panelGroupLayout>
+</ui:composition>

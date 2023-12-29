@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24" id="maintainCountryTaxesPageDef"
+                Package="fragment">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="allCountryTaxesView" RangeSize="25" DataControl="LookupAMDataControl" id="CountryTaxesVO1Iterator"
+              Refresh="ifNeeded"/>
+    <searchRegion Criteria="CountryTaxesVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="CountryTaxesVO1Iterator" id="CountryTaxesVOCriteriaQuery"/>
+    <iterator Binds="CountryTaxAccredLov1" RangeSize="25" DataControl="LookupAMDataControl"
+              id="CountryTaxAccredLov1Iterator" Refresh="ifNeeded"/>
+    <iterator Binds="CountryTaxesAccrLov1" RangeSize="25" DataControl="LookupAMDataControl"
+              id="CountryTaxesAccrLov1Iterator" Refresh="ifNeeded"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="CountryTaxesVO1Iterator" id="CountryTaxesVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.CountryTaxesVO" Name="CountryTaxesVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="AccreditationTypeIdNo"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="AccredLocal"/>
+          <Item Value="AccredMulti"/>
+          <Item Value="NoAccrLocal"/>
+          <Item Value="NoAccrMulti"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="Username"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="LookupAMDataControl"/>
+    <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction" DataControl="LookupAMDataControl"/>
+    <list IterBinding="CountryTaxesVO1Iterator" StaticList="false" Uses="LOV_CountryCode" id="CountryCode"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="CountryTaxesVO1Iterator" id="AccreditationTypeIdNo">
+      <AttrNames>
+        <Item Value="AccreditationTypeIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CountryTaxesVO1Iterator" id="EffectiveStartDate">
+      <AttrNames>
+        <Item Value="EffectiveStartDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CountryTaxesVO1Iterator" id="EffectiveEndDate">
+      <AttrNames>
+        <Item Value="EffectiveEndDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CountryTaxesVO1Iterator" id="LastUpdateDatetime">
+      <AttrNames>
+        <Item Value="LastUpdateDatetime"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CountryTaxesVO1Iterator" id="Username">
+      <AttrNames>
+        <Item Value="Username"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="CountryTaxesVO1Iterator" id="AccredLocal1" DTSupportsMRU="true" SelectItemValueMode="ListObject"
+          StaticList="true">
+      <AttrNames>
+        <Item Value="AccredLocal"/>
+      </AttrNames>
+    </list>
+    <list IterBinding="CountryTaxesVO1Iterator" id="Percentage1" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject" StaticList="false" ListIter="CountryTaxAccredLov1Iterator">
+      <AttrNames>
+        <Item Value="AccredLocal"/>
+      </AttrNames>
+      <ListAttrNames>
+        <Item Value="Percentage"/>
+      </ListAttrNames>
+      <ListDisplayAttrNames>
+        <Item Value="Percentage"/>
+      </ListDisplayAttrNames>
+    </list>
+    <list IterBinding="CountryTaxesVO1Iterator" id="AccredMulti1" DTSupportsMRU="true" SelectItemValueMode="ListObject"
+          StaticList="false" ListIter="CountryTaxAccredLov1Iterator">
+      <AttrNames>
+        <Item Value="AccredMulti"/>
+      </AttrNames>
+      <ListAttrNames>
+        <Item Value="Percentage"/>
+      </ListAttrNames>
+      <ListDisplayAttrNames>
+        <Item Value="Percentage"/>
+      </ListDisplayAttrNames>
+    </list>
+    <list IterBinding="CountryTaxesVO1Iterator" id="NoAccrLocal1" DTSupportsMRU="true" SelectItemValueMode="ListObject"
+          StaticList="false" ListIter="CountryTaxesAccrLov1Iterator">
+      <AttrNames>
+        <Item Value="NoAccrLocal"/>
+      </AttrNames>
+      <ListAttrNames>
+        <Item Value="Percentage"/>
+      </ListAttrNames>
+      <ListDisplayAttrNames>
+        <Item Value="Percentage"/>
+      </ListDisplayAttrNames>
+    </list>
+    <list IterBinding="CountryTaxesVO1Iterator" id="NoAccrMulti1" DTSupportsMRU="true" SelectItemValueMode="ListObject"
+          StaticList="false" ListIter="CountryTaxesAccrLov1Iterator">
+      <AttrNames>
+        <Item Value="NoAccrMulti"/>
+      </AttrNames>
+      <ListAttrNames>
+        <Item Value="Percentage"/>
+      </ListAttrNames>
+      <ListDisplayAttrNames>
+        <Item Value="Percentage"/>
+      </ListDisplayAttrNames>
+    </list>
+    <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                  IsViewObjectMethod="true" DataControl="LookupAMDataControl"
+                  InstanceName="data.LookupAMDataControl.allCountryTaxesView">
+      <NamedData NDName="countryCode" NDValue="#{pageFlowScope.CountryCode}" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

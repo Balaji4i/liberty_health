@@ -1,0 +1,4 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <system systemId="https://efnu.fa.em3.oraclecloud.com/xmlpserver/services/PublicReportService?WSDL#%7Bhttp%3A%2F%2Fxmlns.oracle.com%2Foxp%2Fservice%2FPublicReportService%7DPublicReportServiceService"
+          uri="../com/oracle/xmlns/oxp/service/publicreportservice/PublicReportServiceService.wsdl"/>
+</catalog>

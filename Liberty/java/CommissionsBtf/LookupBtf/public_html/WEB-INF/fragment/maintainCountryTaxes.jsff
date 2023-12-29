@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelGroupLayout id="pgl2" inlineStyle="height:384px; width:761px;">
+        <af:panelFormLayout id="pfl1">
+            <af:selectOneChoice label="#{bindings.CountryCode.label}"
+                                required="#{bindings.CountryCode.hints.mandatory}"
+                                shortDesc="#{bindings.CountryCode.hints.tooltip}" id="soc1"
+                                valueChangeListener="#{CountryTaxes.CountrySelected}" autoSubmit="true"
+                                readOnly="#{pageFlowScope.TaxesAction == &quot;Edit&quot; ? true:false}"
+                                value="#{bindings.CountryCode.inputValue}">
+                <f:selectItems value="#{bindings.CountryCode.items}" id="si1"/>
+                <f:validator binding="#{bindings.CountryCode.validator}"/>
+            </af:selectOneChoice>
+            <af:inputText value="#{bindings.AccreditationTypeIdNo.inputValue}"
+                          label="#{bindings.AccreditationTypeIdNo.hints.label}"
+                          required="#{bindings.AccreditationTypeIdNo.hints.mandatory}"
+                          columns="#{bindings.AccreditationTypeIdNo.hints.displayWidth}"
+                          maximumLength="#{bindings.AccreditationTypeIdNo.hints.precision}"
+                          shortDesc="#{bindings.AccreditationTypeIdNo.hints.tooltip}" id="it1" rendered="false">
+                <f:validator binding="#{bindings.AccreditationTypeIdNo.validator}"/>
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.AccreditationTypeIdNo.format}"/>
+            </af:inputText>
+            <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                          label="#{bindings.EffectiveStartDate.hints.label}"
+                          required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                          columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                          shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id1"
+                          readOnly="#{pageFlowScope.TaxesAction == &quot;Edit&quot; ? true : false}">
+                <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+            </af:inputDate>
+            <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                          label="#{bindings.EffectiveEndDate.hints.label}"
+                          required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                          columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                          shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id2">
+                <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+            </af:inputDate>
+            <af:selectOneChoice value="#{bindings.Percentage1.inputValue}" label="#{bindings.Percentage1.label}"
+                                required="#{bindings.Percentage1.hints.mandatory}"
+                                shortDesc="#{bindings.AccredLocal1.hints.tooltip}" id="soc2" partialTriggers="soc1">
+                <f:selectItems value="#{bindings.Percentage1.items}" id="si2"/>
+                <f:validator binding="#{bindings.Percentage1.validator}"/>
+            </af:selectOneChoice>
+            <af:selectOneChoice value="#{bindings.AccredMulti1.inputValue}" label="#{bindings.AccredMulti1.label}"
+                                required="#{bindings.AccredMulti1.hints.mandatory}"
+                                shortDesc="#{bindings.AccredMulti1.hints.tooltip}" id="soc3" partialTriggers="soc1">
+                <f:selectItems value="#{bindings.AccredMulti1.items}" id="si3"/>
+                <f:validator binding="#{bindings.AccredMulti1.validator}"/>
+            </af:selectOneChoice>
+            <af:selectOneChoice value="#{bindings.NoAccrLocal1.inputValue}" label="#{bindings.NoAccrLocal1.label}"
+                                required="#{bindings.NoAccrLocal1.hints.mandatory}"
+                                shortDesc="#{bindings.NoAccrLocal1.hints.tooltip}" id="soc4" partialTriggers="soc1">
+                <f:selectItems value="#{bindings.NoAccrLocal1.items}" id="si4"/>
+                <f:validator binding="#{bindings.NoAccrLocal1.validator}"/>
+            </af:selectOneChoice>
+            <af:selectOneChoice value="#{bindings.NoAccrMulti1.inputValue}" label="#{bindings.NoAccrMulti1.label}"
+                                required="#{bindings.NoAccrMulti1.hints.mandatory}"
+                                shortDesc="#{bindings.NoAccrMulti1.hints.tooltip}" id="soc5" partialTriggers="soc1">
+                <f:selectItems value="#{bindings.NoAccrMulti1.items}" id="si5"/>
+                <f:validator binding="#{bindings.NoAccrMulti1.validator}"/>
+            </af:selectOneChoice>
+            <af:inputDate value="#{bindings.LastUpdateDatetime.inputValue}"
+                          label="#{bindings.LastUpdateDatetime.hints.label}"
+                          required="#{bindings.LastUpdateDatetime.hints.mandatory}"
+                          columns="#{bindings.LastUpdateDatetime.hints.displayWidth}"
+                          shortDesc="#{bindings.LastUpdateDatetime.hints.tooltip}" id="id3" rendered="false">
+                <f:validator binding="#{bindings.LastUpdateDatetime.validator}"/>
+                <af:convertDateTime pattern="#{bindings.LastUpdateDatetime.format}"/>
+            </af:inputDate>
+            <af:inputText value="#{bindings.Username.inputValue}" label="#{bindings.Username.hints.label}"
+                          required="#{bindings.Username.hints.mandatory}"
+                          columns="#{bindings.Username.hints.displayWidth}"
+                          maximumLength="#{bindings.Username.hints.precision}"
+                          shortDesc="#{bindings.Username.hints.tooltip}" id="it6" rendered="false">
+                <f:validator binding="#{bindings.Username.validator}"/>
+            </af:inputText>
+            <f:facet name="footer">
+                <af:panelGroupLayout id="pgl3">
+                    <af:button text="#{coreLabels['G.Save']}" id="b1" actionListener="#{CountryTaxes.setEffectiveDates}"
+                               disabled="#{!bindings.Commit.enabled}" icon="/adf/images/save_16x16.png" action="Save"/>
+                    <af:button text="#{coreLabels['G.Cancel']}" id="b2" actionListener="#{bindings.Rollback.execute}" immediate="true"
+                               icon="/adf/images/remove_16x16.png" action="Rollback">
+                        <af:resetActionListener/>
+                    </af:button>
+                </af:panelGroupLayout>
+            </f:facet>
+        </af:panelFormLayout>
+    </af:panelGroupLayout>
+</jsp:root>

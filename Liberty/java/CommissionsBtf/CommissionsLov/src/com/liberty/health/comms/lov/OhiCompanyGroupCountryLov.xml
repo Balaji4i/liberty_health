@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiCompanyGroupCountryLov"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  OrderBy='"COMPANY_ID_NO","GROUP_CODE","COUNTRY_CODE"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.lov.OhiCompanyGroupCountryLovRowImpl"
+  ComponentClass="com.liberty.health.comms.lov.OhiCompanyGroupCountryLovImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="OhiCompanyGroupCountryLov_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[select INFO.company_id_no, co.company_name, info.group_code, info.country_code   
+from ( SELECT distinct     
+            grps.group_code    
+           ,grps.group_name   
+           ,grps.parentgroup_code   
+           ,nvl(pobr.company_id_no,brok.company_id_no)    AS company_id_no    
+           ,grps.group_class    
+           ,grps.preferred_currency_code    
+           ,grps.country_code  
+   FROM ohi_policy_brokers               pobr      
+   JOIN ohi_policies                     poli    
+    ON pobr.poli_id = poli.poli_id     
+   JOIN ohi_policy_groups                pogr    
+     ON poli.poli_id = pogr.poli_id       
+   JOIN ohi_groups                       grps     
+    ON pogr.grac_id = grps.grac_id     
+   LEFT OUTER JOIN company               comp    
+                  ON pobr.company_id_no = comp.company_id_no      
+  LEFT OUTER JOIN broker                 brok    
+                  ON pobr.broker_id_no = brok.broker_id_no     
+  LEFT OUTER JOIN company                brco    
+                 ON brok.company_id_no = brco.company_id_no    
+                  AND trunc(SYSDATE) BETWEEN pobr.effective_start_date     
+                                                                      AND pobr.effective_end_date                                                                                 
+) info, 
+company co 
+where co.company_id_no  = info.company_id_no 
+  and trunc(sysdate) between co.effective_Start_date and nvl(co.effective_end_date,TO_DATE('31-DEC-4712'))]]></SQLQuery>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMPANY_ID_NO"
+    Expression="COMPANY_ID_NO"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CompanyName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COMPANY_NAME"
+    Expression="COMPANY_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GroupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_CODE"
+    Expression="GROUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CompanyIdNo"/>
+    <Item Value="GroupCode"/>
+    <Item Value="CountryCode"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.lov.common.OhiCompanyGroupCountryLovMsgBundle"/>
+  </ResourceBundle>
+</ViewObject>

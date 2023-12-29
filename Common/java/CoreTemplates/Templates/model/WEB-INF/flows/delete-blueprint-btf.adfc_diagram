@@ -1,0 +1,71 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1">
+      <property
+         name="linkStyle">Orthogonal</property>
+   </OverallProperties>
+   <MethodCall
+      id="MethodCall2">
+      <property
+         name="activityId">RemoveRowWithKey</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>RemoveRowWithKey&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">133.17805</property>
+      <property
+         name="x">60.333336</property>
+   </MethodCall>
+   <MethodCall
+      id="MethodCall3">
+      <property
+         name="activityId">Commit</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>Commit&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">224.74121</property>
+      <property
+         name="x">231.0</property>
+   </MethodCall>
+   <TaskFlowReturn
+      id="TaskFlowReturn4">
+      <property
+         name="activityId">commitTaskFlowName</property>
+      <property
+         name="finish">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>commitTaskFlowName&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Return&lt;/p>&lt;p>Outcome:  commitTaskFlowName&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">224.45966</property>
+      <property
+         name="x">403.6667</property>
+   </TaskFlowReturn>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase5"
+      from="MethodCall2"
+      to="MethodCall3">
+      <property
+         name="fromOutcome">removeRowWithKey</property>
+      <property
+         name="sdm:polyPoints">R50,145.66667,132.82747,145.66667,224.39062,L50</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase6"
+      from="MethodCall3"
+      to="TaskFlowReturn4">
+      <property
+         name="fromOutcome">commit</property>
+      <property
+         name="sdm:polyPoints">R50,317.33334,224.39062,317.33334,224.45966,L50</property>
+   </ControlFlowCase>
+</SDM>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24" id="partialReceiptApprovalPageDef"
+                Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="CommsPartialReceiptApproveVO1" RangeSize="-1" DataControl="MaintainBrokerageAMDataControl"
+              id="CommsPartialReceiptApproveVO1Iterator" Refresh="always" CacheResults="false"/>
+    <searchRegion Binds="CommsPartialReceiptApproveVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="CommsPartialReceiptApproveVO1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="CommsPartialReceiptApproveVO1Iterator" id="CommsPartialReceiptApproveVO1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CommsPartialReceiptApproveVO"
+                      Name="CommsPartialReceiptApproveVO10">
+        <AttrNames>
+          <Item Value="CommsPartialPk"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="GroupCode"/>
+          <Item Value="CountryCode"/>
+          <Item Value="Bu"/>
+          <Item Value="CommsPercentage"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="ActiveYn"/>
+          <Item Value="InterfaceToComms"/>
+          <Item Value="ApprovedBy"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreationDate"/>
+          <Item Value="LastUpdateDate"/>
+          <Item Value="LastUpdatedBy"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="setAuthUsername" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setAuthUsername"
+                  IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                  InstanceName="data.MaintainBrokerageAMDataControl.CommsPartialReceiptApproveVO1"
+                  ReturnName="data.MaintainBrokerageAMDataControl.methodResults.setAuthUsername_setAuthUsername_dataControl_CommsPartialReceiptApproveVO1_setAuthUsername_result">
+      <NamedData NDName="username" NDValue="#{securityContext.userName}" NDType="java.lang.String"/>
+    </methodAction>
+    <action id="Rollback" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="false"
+            Action="rollbackTransaction"/>
+    <action IterBinding="CommsPartialReceiptApproveVO1Iterator" id="Delete"
+            InstanceName="MaintainBrokerageAMDataControl.CommsPartialReceiptApproveVO1"
+            DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <action id="Commit" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true"
+            Action="commitTransaction"/>
+  </bindings>
+</pageDefinition>

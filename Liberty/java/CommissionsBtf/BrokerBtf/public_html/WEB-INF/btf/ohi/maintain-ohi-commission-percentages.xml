@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-ohi-commission-percentages">
+        <default-activity>router1</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__2">
+            <name>productCode</name>
+            <value>#{pageFlowScope.productCode}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__3">
+            <name>groupCode</name>
+            <value>#{pageFlowScope.groupCode}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__4">
+            <name>personCode</name>
+            <value>#{pageFlowScope.personCode}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__5">
+            <name>policyCode</name>
+            <value>#{pageFlowScope.policyCode}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__7">
+            <name>levelCodeInd</name>
+            <value>#{pageFlowScope.levelCodeInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__6">
+            <managed-bean-name>ohiPercentages</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.OhiPercentage</managed-bean-class>
+            <managed-bean-scope>pageFlow</managed-bean-scope>
+        </managed-bean>
+        <router id="router1">
+            <case id="__8">
+                <expression>#{pageFlowScope.levelCodeInd == 'G'}</expression>
+                <outcome>goGroup</outcome>
+            </case>
+            <case id="__9">
+                <expression>#{pageFlowScope.levelCodeInd == 'C'}</expression>
+                <outcome>goCompany</outcome>
+            </case>
+            <case id="__10">
+                <expression>#{pageFlowScope.levelCodeInd == 'P'}</expression>
+                <outcome>goPolicy</outcome>
+            </case>
+            <case id="__11">
+                <expression>#{pageFlowScope.levelCodeInd == 'I'}</expression>
+                <outcome>goPerson</outcome>
+            </case>
+            <case id="__12">
+                <expression>#{pageFlowScope.levelCodeInd == 'O'}</expression>
+                <outcome>goProduct</outcome>
+            </case>
+            <default-outcome>goGroup</default-outcome>
+        </router>
+        <method-call id="setProductVc">
+            <method>#{bindings.setProductVc.execute}</method>
+            <outcome>
+                <fixed-outcome>setProductVc</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="setPolicyVc">
+            <method>#{bindings.setPolicyVc.execute}</method>
+            <outcome>
+                <fixed-outcome>setPolicyVc</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="setPersonVc">
+            <method>#{bindings.setPersonVc.execute}</method>
+            <outcome>
+                <fixed-outcome>setPersonVc</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="setCompanyVc">
+            <method>#{bindings.setCompanyVc.execute}</method>
+            <outcome>
+                <fixed-outcome>setCompanyVc</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="setGroupVc">
+            <method>#{bindings.setGroupVc.execute}</method>
+            <outcome>
+                <fixed-outcome>setGroupVc</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="Commit">
+            <method>#{bindings.Commit.execute}</method>
+            <outcome>
+                <fixed-outcome>Commit</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="Rollback">
+            <method>#{bindings.Rollback.execute}</method>
+            <outcome>
+                <fixed-outcome>Rollback</fixed-outcome>
+            </outcome>
+        </method-call>
+        <task-flow-return id="taskFlowReturn1">
+            <outcome>
+                <name>taskFlowReturn1</name>
+            </outcome>
+        </task-flow-return>
+        <view id="maintainOhiCommPerc">
+            <page>/WEB-INF/fragment/ohi/maintainOhiCommPerc.jsff</page>
+        </view>
+        <control-flow-rule id="__13">
+            <from-activity-id>router1</from-activity-id>
+            <control-flow-case id="__14">
+                <from-outcome>goProduct</from-outcome>
+                <to-activity-id>setProductVc</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__15">
+                <from-outcome>goPolicy</from-outcome>
+                <to-activity-id>setPolicyVc</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__16">
+                <from-outcome>goCompany</from-outcome>
+                <to-activity-id>setCompanyVc</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__17">
+                <from-outcome>goPerson</from-outcome>
+                <to-activity-id>setPersonVc</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__18">
+                <from-outcome>goGroup</from-outcome>
+                <to-activity-id>setGroupVc</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__20">
+            <from-activity-id>Commit</from-activity-id>
+            <control-flow-case id="__21">
+                <from-outcome>Commit</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__22">
+            <from-activity-id>Rollback</from-activity-id>
+            <control-flow-case id="__23">
+                <from-outcome>Rollback</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__24">
+            <from-activity-id>maintainOhiCommPerc</from-activity-id>
+            <control-flow-case id="__25">
+                <from-outcome>save</from-outcome>
+                <to-activity-id>Commit</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__26">
+                <from-outcome>cancel</from-outcome>
+                <to-activity-id>Rollback</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__27">
+            <from-activity-id>setPersonVc</from-activity-id>
+            <control-flow-case id="__28">
+                <from-outcome>setPersonVc</from-outcome>
+                <to-activity-id>maintainOhiCommPerc</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__29">
+            <from-activity-id>setCompanyVc</from-activity-id>
+            <control-flow-case id="__30">
+                <from-outcome>setCompanyVc</from-outcome>
+                <to-activity-id>maintainOhiCommPerc</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__31">
+            <from-activity-id>setPolicyVc</from-activity-id>
+            <control-flow-case id="__32">
+                <from-outcome>setPolicyVc</from-outcome>
+                <to-activity-id>maintainOhiCommPerc</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__33">
+            <from-activity-id>setProductVc</from-activity-id>
+            <control-flow-case id="__34">
+                <from-outcome>setProductVc</from-outcome>
+                <to-activity-id>maintainOhiCommPerc</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__35">
+            <from-activity-id>setGroupVc</from-activity-id>
+            <control-flow-case id="__36">
+                <from-outcome>setGroupVc</from-outcome>
+                <to-activity-id>maintainOhiCommPerc</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

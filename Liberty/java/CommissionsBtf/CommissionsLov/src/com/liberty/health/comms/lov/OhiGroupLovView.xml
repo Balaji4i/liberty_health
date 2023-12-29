@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiGroupLovView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  OrderBy='"GROUP_CODE"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="OhiGroupLovView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+      Name="pCountryCode"
+      Kind="viewcriteria"
+      Type="java.lang.String"/>
+    <Variable
+      Name="pCompanyIdNo"
+      Kind="viewcriteria"
+        Type="java.lang.String"/>
+    <Variable
+        Name="pCountryList"
+        Kind="where"
+        Type="java.lang.String">
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="OhiGroupLovView"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Variable>
+    <ViewAccessor
+      Name="CountryLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CountryLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+      Name="CompanyLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CompanyLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+      Name="CurrencyLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CurrencyLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="CountryLovView_N1"
+        ViewObjectName="com.liberty.health.comms.lov.CountryLovView_N"
+        RowLevelBinds="true"/>
+    <ListBinding
+      Name="LOV_CountryCode"
+        ListVOName="CountryLovView_N1"
+      NullValueFlag="start"
+      NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Name"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <SQLQuery><![CDATA[select * from ( SELECT distinct      
+           grps.group_code        
+           ,grps.group_name       
+           ,grps.country_code      
+   FROM ohi_policy_brokers               pobr          
+   JOIN ohi_policies                     poli        
+    ON pobr.poli_id = poli.poli_id         
+   JOIN ohi_policy_groups                pogr        
+     ON poli.poli_id = pogr.poli_id           
+   JOIN ohi_groups                       grps         
+    ON pogr.grac_id = grps.grac_id         
+   LEFT OUTER JOIN company               comp        
+                  ON pobr.company_id_no = comp.company_id_no          
+  LEFT OUTER JOIN broker                 brok        
+                  ON pobr.broker_id_no = brok.broker_id_no         
+  LEFT OUTER JOIN company                brco        
+                 ON brok.company_id_no = brco.company_id_no        
+                AND trunc(SYSDATE) BETWEEN pobr.effective_start_date         
+                AND pobr.effective_end_date    
+  WHERE grps.country_code IN  
+  (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')       
+ , '[^,]+', 1, LEVEL)               
+            FROM DUAL               
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')     
+, '[^,]+', 1, LEVEL) IS NOT NULL)                                                                                  
+)]]></SQLQuery>
+    <ViewAttribute
+        Name="GroupCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="255"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="GROUP_CODE"
+        Expression="GROUP_CODE"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.GroupCode']}"/>
+                <DISPLAYWIDTH
+                    Value="50"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="GroupName"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="100"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="GROUP_NAME"
+        Expression="GROUP_NAME"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.GroupName']}"/>
+                <DISPLAYWIDTH
+                    Value="90"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CountryCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="4"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="COUNTRY_CODE"
+        Expression="COUNTRY_CODE"
+        SQLType="VARCHAR"
+        LOVName="LOV_CountryCode">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+                <DISPLAYWIDTH
+                    Value="50"/>
+                <CONTROLTYPE
+                    Value="choice"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewCriteria
+      Name="SearchOhiGroupViewCriteria"
+      ViewObjectName="com.liberty.health.comms.lov.OhiGroupLovView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="OhiGroupLovViewCriteria_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="OhiGroupLovViewCriteria_OhiGroupLovViewCriteria_row_0_GroupCode"
+              ViewAttribute="GroupCode"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="SelectivelyRequired"/>
+            <ViewCriteriaItem
+              Name="OhiGroupLovViewCriteria_OhiGroupLovViewCriteria_row_0_GroupName"
+              ViewAttribute="GroupName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="SelectivelyRequired"/>
+            <ViewCriteriaItem
+              Name="OhiGroupLovViewCriteria_OhiGroupLovViewCriteria_row_0_CountryCode"
+              ViewAttribute="CountryCode"
+              Operator="="
+              Conjunction="AND"
+              Required="SelectivelyRequired"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <ViewCriteria
+      Name="OhiGroupLovViewCriteria"
+      ViewObjectName="com.liberty.health.comms.lov.OhiGroupLovView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="OhiGroupLovViewCriteria_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="CountryCode"
+              ViewAttribute="CountryCode"
+              Operator="="
+              Conjunction="AND"
+              Value=":pCountryCode"
+              IsBindVarValue="true"
+              Required="Optional"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <ViewCriteria
+      Name="SearchPercentageMaintenanceViewCriteria"
+      ViewObjectName="com.liberty.health.comms.lov.OhiGroupLovView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="OhiGroupLovViewCriteria1_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="GroupCode"
+              ViewAttribute="GroupCode"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="GroupName"
+              ViewAttribute="GroupName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="CountryCode"
+              ViewAttribute="CountryCode"
+              Operator="="
+              Conjunction="AND"
+              Value=":pCountryCode"
+              IsBindVarValue="true"
+              Required="Optional">
+                <Properties>
+                    <CustomProperties>
+                        <Property
+                          Name="renderedMode"
+                          Value="Never"/>
+                    </CustomProperties>
+                </Properties>
+            </ViewCriteriaItem>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="GroupCode"/>
+    </AttrArray>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.lov.common.OhiGroupLovViewMsgBundle"/>
+    </ResourceBundle>
+</ViewObject>

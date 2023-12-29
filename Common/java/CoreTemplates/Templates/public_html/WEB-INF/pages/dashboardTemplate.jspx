@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <af:pageTemplateDef var="attrs" componentVar="dasboardTemplate">
+    <af:resource type="css">.MySideBarItem { background-color: #E8F3FF;
+                            background-image:
+                            url('../../images/side_bar_dis_bg.png');
+                            background-repeat: repeat-x; background-position:
+                            top; border: 1px solid #BFCDC9; margin: 4px;
+                            padding: 4px; } .MySideBarItemDisabled { color:
+                            #AAADB1; } .MySideBarItemEnabled { cursor: move;
+                            background-color: white; background-image:
+                            url('../../images/side_bar_ena_bg.png'); border: 1px
+                            solid #858FA5; } .MySideBarTitle { font-weight:
+                            bold; } .MySideBarItemDisabled .MySideBarTitle {
+                            color: #AAADB1; } .MySideBarItemEnabled
+                            .MySideBarTitle { color: #003D5B; }</af:resource>
+    <af:panelStretchLayout id="psl1">
+      <f:facet name="bottom"/>
+      <f:facet name="center">
+        <af:panelSplitter splitterPosition="200" id="ps1" firstBorder="none"
+                          secondBorder="all">
+          <f:facet name="first">
+            <af:panelGroupLayout layout="scroll" id="pgl3">
+              <af:dropTarget actions="MOVE"
+                             dropListener="#{pageFlowScope.dashboardBean.handleSideBarDrop}">
+                <af:dataFlavor flavorClass="javax.faces.component.UIComponent"
+                               discriminant="fromDashboardBody"/>
+              </af:dropTarget>
+              <af:panelGroupLayout layout="vertical"
+                                   binding="#{pageFlowScope.dashboardBean.sideBarContainer}"
+                                   styleClass="AFIEOverflowWorkaround"
+                                   id="pgl4">
+                <af:iterator value="#{pageFlowScope.dashboardBean.sideBarDataItems}"
+                             var="item" id="i1">
+                  <af:switcher id="sideSwitch"
+                               facetName="#{item.panelBoxRendered}">
+                    <f:facet name="true">
+                      <af:panelGroupLayout layout="vertical" halign="start"
+                                           styleClass="MySideBarItem MySideBarItemDisabled"
+                                           id="pgl5a">
+                        <af:outputText value="#{item.title}"
+                                       styleClass="MySideBarTitle" id="ot1a"/>
+                        <af:outputText value="#{item.status}" id="ot2a"/>
+                      </af:panelGroupLayout>
+                    </f:facet>
+                    <f:facet name="false">
+                      <af:panelGroupLayout layout="vertical" halign="start"
+                                           styleClass="MySideBarItem MySideBarItemEnabled"
+                                           id="pgl5b">
+                        <f:attribute name="associatedPanelKey"
+                                     value="#{item.itemId}"/>
+                        <af:componentDragSource discriminant="fromDashboardSideBar"/>
+                        <af:panelBorderLayout id="pbl1b">
+                          <af:panelGroupLayout layout="vertical" id="pgl6b">
+                            <af:outputText value="#{item.title}"
+                                           styleClass="MySideBarTitle"
+                                           id="ot1b"/>
+                            <af:outputText value="#{item.status}" id="ot2b"/>
+                          </af:panelGroupLayout>
+                          <f:facet name="end">
+                            <af:panelGroupLayout layout="vertical"
+                                                 halign="center" id="pgl7b">
+                              <!-- Use an commandLink with a behavior if the dashboard is shown so
+                                             that we can animate the insert: -->
+                              <af:commandImageLink shortDesc="Show #{item.title}"
+                                                   partialSubmit="true"
+                                                   icon="/images/addavailable_ena.png"
+                                                   hoverIcon="/images/addavailable_ovr.png"
+                                                   depressedIcon="/images/addavailable_dwn.png"
+                                                   actionListener="#{pageFlowScope.dashboardBean.sideBarShow}"
+                                                   rendered="#{pageFlowScope.dashboardBean.maximizedKey == 'empty'}"
+                                                   id="cil1b">
+                                <af:panelDashboardBehavior for="::dashboard"
+                                                           type="insert"
+                                                           index="#{item.indexIfRendered}"/>
+                                <f:attribute name="associatedPanelKey"
+                                             value="#{item.itemId}"/>
+                              </af:commandImageLink>
+                              <!-- Use an commandLink without a behavior if the dashboard is hidden
+                                             because we have nothing to animate: -->
+                              <af:commandImageLink shortDesc="Show #{item.title}"
+                                                   partialSubmit="true"
+                                                   icon="/images/addavailable_ena.png"
+                                                   hoverIcon="/images/addavailable_ovr.png"
+                                                   depressedIcon="/images/addavailable_dwn.png"
+                                                   actionListener="#{pageFlowScope.dashboardBean.sideBarShow}"
+                                                   rendered="#{pageFlowScope.dashboardBean.maximizedKey != 'empty'}"
+                                                   id="cil2b">
+                                <f:attribute name="associatedPanelKey"
+                                             value="#{item.itemId}"/>
+                              </af:commandImageLink>
+                            </af:panelGroupLayout>
+                          </f:facet>
+                        </af:panelBorderLayout>
+                      </af:panelGroupLayout>
+                    </f:facet>
+                  </af:switcher>
+                </af:iterator>
+              </af:panelGroupLayout>
+            </af:panelGroupLayout>
+          </f:facet>
+          <f:facet name="second">
+            <af:panelStretchLayout id="psl3">
+              <f:facet name="center">
+                <af:switcher defaultFacet="restored"
+                             binding="#{pageFlowScope.dashboardBean.switcher}"
+                             id="s1">
+                  <f:facet name="restored">
+                    <af:panelStretchLayout topHeight="2.5em" id="psl4">
+                      <f:facet name="top">
+                        <af:panelGroupLayout layout="vertical"
+                                             inlineStyle="padding: 7px;"
+                                             id="pgl8">
+                          <af:navigationPane hint="bar" id="np1">
+                            <af:commandNavigationItem partialSubmit="true"
+                                                      text="View All"
+                                                      actionListener="#{pageFlowScope.dashboardBean.showPresetItems}"
+                                                      id="cni4">
+                              <f:attribute name="mode" value="all"/>
+                            </af:commandNavigationItem>
+                            <af:commandNavigationItem partialSubmit="true"
+                                                      text="View None"
+                                                      actionListener="#{pageFlowScope.dashboardBean.showPresetItems}"
+                                                      id="cni5">
+                              <f:attribute name="mode" value="none"/>
+                            </af:commandNavigationItem>
+                          </af:navigationPane>
+                        </af:panelGroupLayout>
+                      </f:facet>
+                      <f:facet name="center">
+                        <af:panelDashboard id="dashboard"
+                                           binding="#{pageFlowScope.dashboardBean.dashboard}"
+                                           columns="2" rowHeight="350px"
+                                           dropListener="#{pageFlowScope.dashboardBean.move}">
+                          <af:dataFlavor flavorClass="javax.faces.component.UIComponent"
+                                         discriminant="fromDashboardSideBar"/>
+                          <!-- start iterating over the af:regions -->
+                          <af:forEach items="#{pageFlowScope.dashboardBean.regions}"
+                                       var="region" varStatus="vs">
+                            <af:panelBox id="region_${region.id}" text="#{region.attributes['title']}"
+                                         showDisclosure="false" rendered="#{region.rendered}">
+                              <f:facet name="toolbar">
+                                <af:panelGroupLayout layout="horizontal"
+                                                     id="dcpgl1">
+                                  <f:facet name="separator">
+                                    <af:spacer width="2" id="dcs1"/>
+                                  </f:facet>
+                                  <af:commandImageLink id="minregion_${vs.index}"
+                                                       shortDesc="Minimize"
+                                                       partialSubmit="true"
+                                                       icon="/images/removeselected_ena.png"
+                                                       hoverIcon="/images/removeselected_ovr.png"
+                                                       depressedIcon="/images/removeselected_dwn.png"
+                                                       actionListener="#{pageFlowScope.dashboardBean.minimize}">
+                                    <f:attribute name="associatedPanelKey"
+                                                 value="region_#{region.id}"/>
+                                  </af:commandImageLink>
+                                  <af:commandImageLink id="maxregion_${vs.index}"
+                                                       rendered="#{true}"
+                                                       shortDesc="Maximize"
+                                                       partialSubmit="true"
+                                                       icon="/images/max_ena.png"
+                                                       hoverIcon="/images/max_ovr.png"
+                                                       depressedIcon="/images/max_dwn.png"
+                                                       actionListener="#{pageFlowScope.dashboardBean.maximize}">
+                                    <f:attribute name="associatedPanelKey"
+                                                 value="region_#{region.id}"/>
+                                  </af:commandImageLink>
+                                </af:panelGroupLayout>
+                              </f:facet>
+                              <af:componentDragSource discriminant="fromDashboardBody"/>
+                              
+                                
+                              <af:region value="#{region.value}"/>
+                              
+                             <!-- <af:facetRef facetName="regions" /> -->
+                            </af:panelBox>
+                          </af:forEach>
+                        </af:panelDashboard>
+                      </f:facet>
+                    </af:panelStretchLayout>
+                  </f:facet>
+                  <f:facet name="maximized">
+                    <af:panelStretchLayout topHeight="7px" startWidth="7px"
+                                           endWidth="7px" bottomHeight="7px"
+                                           id="psl5">
+                      <f:facet name="top">
+                        <af:spacer id="s2"/>
+                      </f:facet>
+                      <f:facet name="start">
+                        <af:spacer id="s3"/>
+                      </f:facet>
+                      <f:facet name="end">
+                        <af:spacer id="s4"/>
+                      </f:facet>
+                      <f:facet name="bottom">
+                        <af:spacer id="s5"/>
+                      </f:facet>
+                      <f:facet name="center">
+                        <af:panelBox id="maximized"
+                                     text="#{pageFlowScope.dashboardBean.maximizedTitle}"
+                                     showDisclosure="false">
+                          <f:facet name="toolbar">
+                            <af:panelGroupLayout layout="horizontal" id="pgl1">
+                              <f:facet name="separator">
+                                <af:spacer width="2" id="s6"/>
+                              </f:facet>
+                              <af:commandImageLink id="maximize${pageFlowScope.dashboardBean.maximizedKey}"
+                                                   shortDesc="Minimize"
+                                                   partialSubmit="true"
+                                                   icon="/images/removeselected_ena.png"
+                                                   hoverIcon="/images/removeselected_ovr.png"
+                                                   depressedIcon="/images/removeselected_dwn.png"
+                                                   actionListener="#{pageFlowScope.dashboardBean.minimize}">
+                                <f:attribute name="associatedPanelKey"
+                                             value="#{pageFlowScope.dashboardBean.maximizedKey}"/>
+                              </af:commandImageLink>
+                              <af:commandImageLink id="restore${pageFlowScope.dashboardBean.maximizedKey}"
+                                                   shortDesc="Restore"
+                                                   partialSubmit="true"
+                                                   icon="/images/restore_ena.png"
+                                                   hoverIcon="/images/restore_ovr.png"
+                                                   depressedIcon="/images/restore_dwn.png"
+                                                   actionListener="#{pageFlowScope.dashboardBean.restore}"/>
+                            </af:panelGroupLayout>
+                          </f:facet>
+                          <af:panelStretchLayout rendered="#{pageFlowScope.dashboardBean.maximizedKey != 'empty' &amp;&amp; pageFlowScope.dashboardBean.maximizedKey != null}"
+                                                 id="psl6">
+                            <f:facet name="center">
+                              <af:region value="#{pageFlowScope.dashboardBean.maximizedRegion.value}" rendered="#{pageFlowScope.dashboardBean.maximizedRegion.value !=null}"/>
+                            </f:facet>
+                          </af:panelStretchLayout>
+                        </af:panelBox>
+                      </f:facet>
+                    </af:panelStretchLayout>
+                  </f:facet>
+                </af:switcher>
+              </f:facet>
+            </af:panelStretchLayout>
+          </f:facet>
+        </af:panelSplitter>
+      </f:facet>
+      <f:facet name="start"/>
+      <f:facet name="end"/>
+      <f:facet name="top"/>
+    </af:panelStretchLayout>
+    <af:xmlContent>
+      <component xmlns="http://xmlns.oracle.com/adf/faces/rich/component">
+        <display-name>dashboardTemplate</display-name>
+        <facet>
+          <facet-name>regions</facet-name>
+        </facet>
+      </component>
+    </af:xmlContent>
+  </af:pageTemplateDef>
+</jsp:root>

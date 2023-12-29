@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl2" halign="right" valign="top" styleClass="AFStretchWidth">
+    <af:button actionListener="#{pageFlowScope.DashBoard.onClickRefreshPreGroup}" text="Refresh"
+               partialTriggers="pc1:t1" id="b7"/>
+  </af:panelGroupLayout>
+  <af:panelFormLayout id="pfl1">
+    <f:facet name="footer"/>
+    <af:inputListOfValues id="groupCode1Id" popupTitle="Search and Select: #{bindings.GroupCode1.hints.label}"
+                          value="#{bindings.GroupCode1.inputValue}" label="#{bindings.GroupCode1.hints.label}"
+                          model="#{bindings.GroupCode1.listOfValuesModel}"
+                          required="#{bindings.GroupCode1.hints.mandatory}"
+                          columns="#{bindings.GroupCode1.hints.displayWidth}"
+                          shortDesc="#{bindings.GroupCode1.hints.tooltip}"
+                          autoSubmit="true" valueChangeListener="#{pageFlowScope.DashBoard.setGroupCode}">
+      <f:validator binding="#{bindings.GroupCode1.validator}"/>
+    </af:inputListOfValues>
+    <af:inputListOfValues id="parentgroupCodeId" popupTitle="Search and Select: #{bindings.ParentgroupCode.hints.label}"
+                          value="#{bindings.ParentgroupCode.inputValue}" label="#{bindings.ParentgroupCode.hints.label}"
+                          model="#{bindings.ParentgroupCode.listOfValuesModel}"
+                          required="#{bindings.ParentgroupCode.hints.mandatory}"
+                          columns="#{bindings.ParentgroupCode.hints.displayWidth}"
+                          shortDesc="#{bindings.ParentgroupCode.hints.tooltip}"
+                          autoSubmit="true" valueChangeListener="#{pageFlowScope.DashBoard.setParentgroupCode}">
+      <f:validator binding="#{bindings.ParentgroupCode.validator}"/>
+    </af:inputListOfValues>
+    <af:panelGroupLayout id="pgl1">
+      <af:button text="Submit Request" id="b4" partialTriggers="pc1:t1"
+                 actionListener="#{pageFlowScope.DashBoard.callFusionGroupRecon}"/>
+      
+    </af:panelGroupLayout>
+  </af:panelFormLayout>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t2" >
+        <af:button actionListener="#{pageFlowScope.DashBoard.onClickRefreshPreGroup}" text="Refresh" partialTriggers="t1" visible="false"
+                 id="b1"/>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.FusionGroupPremiumsReconVO1.collectionModel}" var="row"
+              rows="#{bindings.FusionGroupPremiumsReconVO1.rangeSize}"
+              emptyText="#{bindings.FusionGroupPremiumsReconVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" 
+              selectedRowKeys="#{bindings.FusionGroupPremiumsReconVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.FusionGroupPremiumsReconVO1.collectionModel.makeCurrent}"
+              rowSelection="single" fetchSize="#{bindings.FusionGroupPremiumsReconVO1.rangeSize}" id="t1"
+              partialTriggers=":::b4 ::b1 :::b7">
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.KeyValue.label}" id="c1">
+        <af:outputText value="#{row.KeyValue}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.KeyValue.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.Bu.label}" id="c2">
+        <af:outputText value="#{row.Bu}" shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.Bu.tooltip}" id="ot2"/>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.GroupCode.label}" id="c4">
+        <af:outputText value="#{row.GroupCode}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.GroupCode.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.InvoiceNo.label}" id="c5">
+        <af:outputText value="#{row.InvoiceNo}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.InvoiceNo.tooltip}" id="ot5"/>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.GlDateClosed.label}" id="c6">
+        <af:outputText value="#{row.GlDateClosed}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.GlDateClosed.tooltip}" id="ot6">
+          <af:convertDateTime pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.GlDateClosed.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.InvoiceAmt.label}" id="c7">
+        <af:outputText value="#{row.InvoiceAmt}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.InvoiceAmt.tooltip}" id="ot7">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.InvoiceAmt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.PaymentAmt.label}" id="c8">
+        <af:outputText value="#{row.PaymentAmt}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.PaymentAmt.tooltip}" id="ot8">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.PaymentAmt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.SelfbuildTotal.label}" id="c9">
+        <af:outputText value="#{row.SelfbuildTotal}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.SelfbuildTotal.tooltip}" id="ot9">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.SelfbuildTotal.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.Adjustments.label}" id="c10">
+        <af:outputText value="#{row.Adjustments}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.Adjustments.tooltip}" id="ot10">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.Adjustments.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.CreditMemo.label}" id="c11">
+        <af:outputText value="#{row.CreditMemo}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.CreditMemo.tooltip}" id="ot11">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.CreditMemo.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.TaxAmt.label}" id="c12">
+        <af:outputText value="#{row.TaxAmt}" shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.TaxAmt.tooltip}"
+                       id="ot12">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.TaxAmt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.BalanceAmt.label}" id="c13">
+        <af:outputText value="#{row.BalanceAmt}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.BalanceAmt.tooltip}" id="ot13">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.BalanceAmt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column headerText="#{bindings.FusionGroupPremiumsReconVO1.hints.CountryCode.label}" id="c3">
+        <af:outputText value="#{row.CountryCode}"
+                       shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.CountryCode.tooltip}" id="ot3"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</ui:composition>

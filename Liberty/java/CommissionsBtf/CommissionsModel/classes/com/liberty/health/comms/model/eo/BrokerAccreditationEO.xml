@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerAccreditationEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="BROKER_ACCREDITATION"
+  AliasName="BrokerAccreditationEO"
+  BindingStyle="OracleName"
+  RowClass="com.liberty.health.comms.model.eo.BrokerAccreditationEOImpl"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+    <DesignTime>
+        <Attr Name="_isCodegen" Value="true"/>
+        <Attr Name="_codeGenFlag2" Value="Access"/>
+    </DesignTime>
+    <Attribute
+      Name="BrokerIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="BROKER_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="BROKER_ACCREDITATION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="BROKER_ACCREDITATION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="BrokerAccreditationEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="BROKER_ACCREDITATION"
+      DefaultValue="3100-01-31">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BrokerAccredNo"
+      Precision="9"
+      Scale="0"
+      ColumnName="BROKER_ACCRED_NO"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="BROKER_ACCREDITATION">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyAccredNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BrokerAccredStartDate"
+      IsNotNull="true"
+      ColumnName="BROKER_ACCRED_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="BROKER_ACCREDITATION">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyAccredStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="BrokerAccredEndDate"
+      IsNotNull="true"
+      ColumnName="BROKER_ACCRED_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="BROKER_ACCREDITATION">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyAccredEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="BROKER_ACCREDITATION"
+      HistoryColumn="DateHistory"/>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="BROKER_ACCREDITATION"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="AccreditationTypeIdNo"
+      IsNotNull="true"
+      Precision="2"
+      Scale="0"
+      ColumnName="ACCREDITATION_TYPE_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="BROKER_ACCREDITATION"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AccredidationType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+      Name="AccreditationType"
+      Association="com.liberty.health.comms.model.eo.assoc.AccreditationBrokerFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.AccreditationBrokerFkAssoc.AccreditationType"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.AccreditationBrokerFkAssoc.BrokerAccreditation"
+      Type="oracle.jbo.server.EntityImpl"
+      IsUpdateable="true"/>
+    <AccessorAttribute
+      Name="Broker"
+      Association="com.liberty.health.comms.model.eo.assoc.FkBrokerAccredBrokerAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.FkBrokerAccredBrokerAssoc.Broker"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.FkBrokerAccredBrokerAssoc.BrokerAccreditation"
+      Type="com.liberty.health.comms.model.eo.BrokerEOImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="BrokerAccredPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="BROKER_ACCRED_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerAccreditationEO.BrokerIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.BrokerAccreditationEO.EffectiveStartDate"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="AccreditationBrokerFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="ACCREDITATION_TYPE_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="ACCREDITATION_BROKER_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerAccreditationEO.AccreditationTypeIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="BrokerAccredFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="BROKER_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="BROKER_ACCRED_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerAccreditationEO.BrokerIdNo"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="fk_BrokerAccreditationEO">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="BROKER_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="FK_BROKER_ACCREDITATION_EO"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.BrokerAccreditationEO.BrokerIdNo"/>
+        </AttrArray>
+    </Key>
+    <validation:MethodValidationBean
+      Name="BrokerAccreditationStartDateRule"
+      ResId="ValidAfterDate"
+      ResBundleId="com.core.liberty.resources.messages.CORE_messages"
+      MethodName="validateBrokerEffectiveStartDate">
+        <validation:OnAttributes>
+            <validation:Item
+              Value="EffectiveStartDate"/>
+        </validation:OnAttributes>
+        <validation:ResExpressions
+          Name="BrokerAccreditationStartDateRule_ResExprList">
+            <validation:Expression
+              Name="ValidObject1"
+              trustMode="untrusted"
+              CodeSourceName="BrokerAccreditationEORow"/>
+            <validation:Expression
+              Name="ValidObject2"
+              trustMode="untrusted"
+              CodeSourceName="BrokerAccreditationEORow"/>
+        </validation:ResExpressions>
+    </validation:MethodValidationBean>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1">
+        <f:facet name="start"/>
+        <f:facet name="end"/>
+        <f:facet name="top"/>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+            <af:panelHeader text="#{coreLabels['G.Medware']}" id="ph1">
+                <f:facet name="context"/>
+                <f:facet name="toolbar"/>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+                <af:panelTabbed position="above" id="pt1">
+                    <af:showDetailItem id="tab1" text="#{coreLabels['G.Company']}">
+                        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t3">
+                                    <af:button text="#{coreLabels['G.Export']}" id="b1"
+                                               icon="/adf/images/excel_16x16.png"
+                                               rendered="#{securityContext.userInRole['comms-consultant']}">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                                           filename="medware_brokerage.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.AllMedwareCompanyView.collectionModel}" var="row"
+                                      rows="#{bindings.AllMedwareCompanyView.rangeSize}"
+                                      emptyText="#{bindings.AllMedwareCompanyView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1" scrollPolicy="page"
+                                      selectedRowKeys="#{bindings.AllMedwareCompanyView.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.AllMedwareCompanyView.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.AllMedwareCompanyView.rangeSize}"
+                                      id="t2" columnStretching="column:c7" displayRow="selected"
+                                      styleClass="AFStretchWidth">
+                                <af:column headerText="#{bindings.AllMedwareCompanyView.hints.AgCode.label}" id="c5"
+                                           width="150">
+                                    <af:outputText value="#{row.AgCode}"
+                                                   shortDesc="#{bindings.AllMedwareCompanyView.hints.AgCode.tooltip}"
+                                                   id="ot2"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.AllMedwareCompanyView.hints.CompanyIdNo.label}"
+                                           id="c6">
+                                    <af:switcher id="s1" defaultFacet="maintain"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.CompanyIdNo}" id="ot5">
+                                                <af:convertNumber type="number" groupingUsed="false"/>
+                                            </af:outputText>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.CompanyIdNo}" id="l5" action="goCompany"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.AllMedwareCompanyView.hints.CompanyName.label}"
+                                           id="c7">
+                                    <af:outputText value="#{row.CompanyName}"
+                                                   shortDesc="#{bindings.AllMedwareCompanyView.hints.CompanyName.tooltip}"
+                                                   id="ot6"/>
+                                </af:column>
+                                <af:column headerText="Country Code"
+                                           id="c8">
+                                    <af:outputText value="#{row.CountryCode}"
+                                                   shortDesc="#{bindings.AllMedwareCompanyView.hints.CountryCode.tooltip}"
+                                                   id="ot8"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:showDetailItem>
+                    <af:showDetailItem text="Agents" id="sdi1">
+                        <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t4">
+                                    <af:button text="#{coreLabels['G.Export']}" id="b2"
+                                               icon="/adf/images/excel_16x16.png"
+                                               rendered="#{securityContext.userInRole['comms-consultant']}">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                                           filename="agents.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.AllMedwareBrokerView.collectionModel}" var="row"
+                                      rows="#{bindings.AllMedwareBrokerView.rangeSize}"
+                                      emptyText="#{bindings.AllMedwareBrokerView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1" scrollPolicy="page"
+                                      selectedRowKeys="#{bindings.AllMedwareBrokerView.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.AllMedwareBrokerView.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.AllMedwareBrokerView.rangeSize}"
+                                      id="t1" styleClass="AFStretchWidth" displayRow="selected">
+                                <af:column headerText="#{bindings.AllMedwareBrokerView.hints.AgCode.label}" id="c1">
+                                    <af:outputText value="#{row.AgCode}"
+                                                   shortDesc="#{bindings.AllMedwareBrokerView.hints.AgCode.tooltip}"
+                                                   id="ot1"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.AllMedwareBrokerView.hints.BrokerIdNo.label}" id="c2">
+                                
+                                                                       <af:switcher id="s2" defaultFacet="maintain"
+                                                 facetName="#{securityContext.userInRole['comms-consultant'] ? 'maintain' : 'view'}">
+                                        <f:facet name="view">
+                                            <af:outputText value="#{row.BrokerIdNo}" id="ot7"/>
+                                        </f:facet>
+                                        <f:facet name="maintain">
+                                            <af:link text="#{row.BrokerIdNo}" id="l1" action="goBroker"/>
+                                        </f:facet>
+                                    </af:switcher>
+                                </af:column>
+                                <af:column headerText="#{bindings.AllMedwareBrokerView.hints.BrokerName.label}" id="c3"
+                                           width="300">
+                                    <af:outputText value="#{row.BrokerName}"
+                                                   shortDesc="#{bindings.AllMedwareBrokerView.hints.BrokerName.tooltip}"
+                                                   id="ot3"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.AllMedwareBrokerView.hints.BrokerLastName.label}"
+                                           id="c4" width="300">
+                                    <af:outputText value="#{row.BrokerLastName}"
+                                                   shortDesc="#{bindings.AllMedwareBrokerView.hints.BrokerLastName.tooltip}"
+                                                   id="ot4"/>
+                                </af:column>
+                                <af:column headerText="Country Code"
+                                           id="c9">
+                                    <af:outputText value="#{row.CountryCode}"
+                                                   shortDesc="#{bindings.AllMedwareBrokerView.hints.CountryCode.tooltip}"
+                                                   id="ot9"/>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:showDetailItem>
+                </af:panelTabbed>
+            </af:panelHeader>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

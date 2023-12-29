@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FusionPrepaymentVO"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.dashboard.vo.FusionPrepaymentVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.dashboard.vo.FusionPrepaymentVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.dashboard.vo.FusionPrepaymentVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[with xmldata AS (    
+  SELECT distinct  
+         OPERATING_UNIT_NAME 
+        ,SOURCE 
+        ,SUPPLIER_NUMBER 
+        ,PARTY_NAME 
+        ,VENDOR_TYPE_LOOKUP_CODE 
+        ,INVOICE_NUM 
+        ,INVOICE_LINE_AMOUNT 
+        ,LINE_NUMBER 
+        ,LINE_TYPE_LOOKUP_CODE 
+        ,INVOICE_LINE_DESCRIPTION 
+        ,AMOUNT 
+        ,CHECK_NUMBER 
+        ,CHECK_DATE 
+        ,CURRENCY_CODE 
+        ,CHECK_AMOUNT 
+  from ws_soap_inbound t,      
+       XMLTABLE('//DATA_DS/G_1'        
+              PASSING XMLTYPE(t.payload)     
+            COLUMNS      
+            OPERATING_UNIT_NAME varchar2(150) PATH 'OPERATING_UNIT_NAME/text()',     
+            SOURCE varchar2(150) PATH 'SOURCE/text()',     
+            SUPPLIER_NUMBER varchar2(150) PATH 'SUPPLIER_NUMBER/text()',  
+            PARTY_NAME varchar2(150) PATH 'PARTY_NAME/text()',     
+            VENDOR_TYPE_LOOKUP_CODE varchar2(150) PATH 'VENDOR_TYPE_LOOKUP_CODE/text()',     
+            INVOICE_NUM varchar2(150) PATH 'INVOICE_NUM/text()',     
+            INVOICE_LINE_AMOUNT NUMBER PATH 'INVOICE_LINE_AMOUNT/text()',     
+            LINE_NUMBER NUMBER PATH 'LINE_NUMBER/text()',     
+            LINE_TYPE_LOOKUP_CODE varchar2(150) PATH 'LINE_TYPE_LOOKUP_CODE/text()',     
+            INVOICE_LINE_DESCRIPTION varchar2(150) PATH 'INVOICE_LINE_DESCRIPTION/text()',     
+            AMOUNT NUMBER PATH 'AMOUNT/text()',  
+            CHECK_NUMBER varchar2(20) PATH 'CHECK_NUMBER/text()',     
+            CHECK_DATE varchar2(10) PATH 'CHECK_DATE/text()',     
+            CURRENCY_CODE varchar2(100) PATH 'CURRENCY_CODE/text()',     
+            CHECK_AMOUNT NUMBER PATH 'CHECK_AMOUNT/text()' 
+            )  
+        WHERE t.process_name = 'FUSION_PREPAYMENTS') 
+SELECT   xmldata.OPERATING_UNIT_NAME OPERATING_UNIT_NAME 
+        ,xmldata.SOURCE    SOURCE 
+        ,xmldata.SUPPLIER_NUMBER     SUPPLIER_NUMBER 
+        ,xmldata.PARTY_NAME    PARTY_NAME 
+        ,xmldata.VENDOR_TYPE_LOOKUP_CODE   VENDOR_TYPE_LOOKUP_CODE   
+        ,xmldata.INVOICE_NUM   INVOICE_NUM 
+       -- ,xmldata.LINE_NUMBER     
+        ,xmldata.AMOUNT paid_amt 
+        ,xmldata.INVOICE_LINE_AMOUNT    INV_AMOUNT 
+        ,xmldata.LINE_TYPE_LOOKUP_CODE  LINE_TYPE_LOOKUP_CODE    
+        ,xmldata.INVOICE_LINE_DESCRIPTION  INVOICE_LINE_DESCRIPTION   
+        ,xmldata.CHECK_NUMBER    CHECK_NUMBER 
+        ,SUBSTR(xmldata.CHECK_DATE,1,10) CHECK_DATE 
+        ,xmldata.CHECK_AMOUNT  CHECK_AMOUNT 
+ FROM xmldata]]></SQLQuery>
+  <ViewAttribute
+    Name="OperatingUnitName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="OPERATING_UNIT_NAME"
+    Expression="OPERATING_UNIT_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Source"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SOURCE"
+    Expression="SOURCE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SupplierNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SUPPLIER_NUMBER"
+    Expression="SUPPLIER_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PartyName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PARTY_NAME"
+    Expression="PARTY_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorTypeLookupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VENDOR_TYPE_LOOKUP_CODE"
+    Expression="VENDOR_TYPE_LOOKUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_NUM"
+    Expression="INVOICE_NUM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PaidAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PAID_AMT"
+    Expression="PAID_AMT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="InvAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INV_AMOUNT"
+    Expression="INV_AMOUNT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="LineTypeLookupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LINE_TYPE_LOOKUP_CODE"
+    Expression="LINE_TYPE_LOOKUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceLineDescription"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="150"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_LINE_DESCRIPTION"
+    Expression="INVOICE_LINE_DESCRIPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CheckNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CHECK_NUMBER"
+    Expression="CHECK_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CheckDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CHECK_DATE"
+    Expression="CHECK_DATE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CheckAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CHECK_AMOUNT"
+    Expression="CHECK_AMOUNT"
+    SQLType="NUMERIC"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="SupplierNumber"/>
+    <Item Value="InvoiceNum"/>
+    <Item Value="CheckNumber"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCompanyFunctionPageDef"
+                Package="fragment.company">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyAttributesByCompanyView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="BrokerAttributesByBrokerViewIterator" Refresh="ifNeeded"/>
+        <iterator Binds="CompanyFunctionAuditRoView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyFunctionAuditRoViewIterator" Refresh="ifNeeded"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="BrokerAttributesByBrokerViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerAttributesByBrokerViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <tree id="BrokerAttributesByBrokerView" IterBinding="BrokerAttributesByBrokerViewIterator">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyFunctionVO"
+                            Name="BrokerAttributesByBrokerView0">
+                <AttrNames>
+                    <Item Value="CompanyIdNo"/>
+                    <Item Value="CompanyTableDesc"/>
+                    <Item Value="CompanyTableIdNo"/>
+                    <Item Value="CompanyTableIdNo1"/>
+                    <Item Value="CompanyTableIdNoFk"/>
+                    <Item Value="CompanyTableTypeDesc"/>
+                    <Item Value="CompanyTableTypeIdNo"/>
+                    <Item Value="CompanyTableTypeIdNoFk"/>
+                    <Item Value="EffectiveEndDate"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="LastUpdateDatetime"/>
+                    <Item Value="Username"/>
+                    <Item Value="ViewAttr"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <list IterBinding="BrokerAttributesByBrokerViewIterator" StaticList="false" Uses="LOV_CompanyTableIdNo"
+              id="CompanyTableIdNo" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <list IterBinding="BrokerAttributesByBrokerViewIterator" StaticList="false" Uses="LOV_CompanyTableTypeIdNo"
+              id="CompanyTableTypeIdNo" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <action IterBinding="BrokerAttributesByBrokerViewIterator" id="CreateWithParams"
+                InstanceName="MaintainBrokerageAMDataControl.CompanyAttributesByCompanyView"
+                DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true" Action="createWithParams">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDType="oracle.jbo.domain.Timestamp" NDName="EffectiveStartDate"
+                       NDValue="#{companyAttributesBean.timestamp}"/>
+            <NamedData NDValue="1" NDName="CompanyTableIdNo" NDType="java.lang.Integer"/>
+            <NamedData NDValue="21" NDName="CompanyTableTypeIdNo" NDType="java.lang.Integer"/>
+        </action>
+        <attributeValues IterBinding="BrokerAttributesByBrokerViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Commit" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="true"
+                Action="commitTransaction"/>
+        <action id="Rollback" DataControl="MaintainBrokerageAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <methodAction id="createComment" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="createCompanyComment" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="MaintainBrokerageAMDataControl.dataProvider">
+            <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}"
+                       NDType="oracle.jbo.domain.Number"/>
+            <NamedData NDName="commentDesc"
+                       NDValue="#{bindings.CompanyTableDesc} with value #{bindings.CompanyTableTypeDesc}: #{pageFlowScope.brokerAttributes.commentDesc}"
+                       NDType="java.lang.String"/>
+        </methodAction>
+        <tree IterBinding="CompanyFunctionAuditRoViewIterator" id="CompanyFunctionAuditRoView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyFunctionAuditRoView"
+                            Name="CompanyFunctionAuditRoView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="CompanyIdNo"/>
+                    <Item Value="EffectiveStartDate"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="BrokerAttributesByBrokerViewIterator" id="CompanyTableTypeDesc">
+            <AttrNames>
+                <Item Value="CompanyTableTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerAttributesByBrokerViewIterator" id="CompanyTableDesc">
+            <AttrNames>
+                <Item Value="CompanyTableDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                      IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyAttributesByCompanyView">
+            <NamedData NDName="compIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="compTableIdNo" NDValue="#{bindings.CompanyTableIdNo.inputValue}"
+                       NDType="java.lang.Integer"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributesBean.timestamp}"
+                       NDType="oracle.jbo.domain.Timestamp"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

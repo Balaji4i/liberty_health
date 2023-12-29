@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BrokerLovView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.lov.BrokerLovView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+      Name="pCountryCode"
+      Kind="viewcriteria"
+      Type="java.lang.String"/>
+    <Variable
+        Name="pCountryList"
+        Kind="where"
+        Type="java.lang.String">
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="BrokerLovView"/>
+    </Variable>
+    <ViewAccessor
+        Name="CountryLovView1"
+        ViewObjectName="com.liberty.health.comms.lov.CountryLovView"
+        RowLevelBinds="true"/>
+    <ListBinding
+        Name="LOV_CountryCode"
+        ListVOName="CountryLovView1"
+        NullValueFlag="start"
+        NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="CountryName"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <SQLQuery><![CDATA[SELECT   
+    b.broker_id_no,   
+    b.broker_name,   
+    b.broker_last_name,   
+    b.language_code,   
+    p.broker_id_no                  parent_broker_id_no,   
+    p.broker_name                   parent_broker_name,   
+    p.broker_last_name              parent_broker_last_name,   
+    c.company_id_no,   
+    c.company_name,   
+    b_type.broker_table_type_desc   broker_type_desc,   
+    b_status.broker_table_type_desc broker_status_desc,   
+    cc.country_code   
+FROM   
+    broker  b,   
+    broker  p,   
+    company c,   
+    company_country cc,   
+       
+    (   
+        SELECT   
+            bf.broker_id_no,   
+            btt.broker_table_type_desc   
+        FROM   
+            broker_function   bf,   
+            broker_table      bt,   
+            broker_table_type btt   
+        WHERE   
+                bf.broker_table_id_no = bt.broker_table_id_no   
+            AND upper(broker_table_desc) = 'TYPE'   
+            AND bf.broker_table_type_id_no = btt.broker_table_type_id_no   
+            AND trunc(sysdate) BETWEEN bf.effective_start_date AND bf.effective_end_date   
+    )       b_type,   
+    (   
+        SELECT   
+            bf.broker_id_no,   
+            btt.broker_table_type_desc   
+        FROM   
+            broker_function   bf,   
+            broker_table      bt,   
+            broker_table_type btt   
+        WHERE   
+                bf.broker_table_id_no = bt.broker_table_id_no   
+            AND upper(broker_table_desc) = 'STATUS'   
+            AND bf.broker_table_type_id_no = btt.broker_table_type_id_no   
+            AND trunc(sysdate) BETWEEN bf.effective_start_date AND bf.effective_end_date   
+    )       b_status   
+WHERE   
+        b.company_id_no = c.company_id_no   
+    AND b.parent_broker_id_no = p.broker_id_no (+)   
+    AND b.broker_id_no = b_type.broker_id_no (+)   
+    AND b.broker_id_no = b_status.broker_id_no (+)   
+    AND c.company_id_no = cc.company_id_no    
+    AND cc.country_code is not null   
+    AND cc.country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')         
+ , '[^,]+', 1, LEVEL)                 
+            FROM DUAL                 
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')       
+, '[^,]+', 1, LEVEL) IS NOT NULL)]]></SQLQuery>
+    <ViewAttribute
+        Name="BrokerIdNo"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="9"
+        Scale="0"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="BROKER_ID_NO"
+        Expression="BROKER_ID_NO"
+        SQLType="NUMERIC"/>
+    <ViewAttribute
+        Name="BrokerName"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="50"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="BROKER_NAME"
+        Expression="BROKER_NAME"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="BrokerLastName"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="100"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="BROKER_LAST_NAME"
+        Expression="BROKER_LAST_NAME"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="LanguageCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="4"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="LANGUAGE_CODE"
+        Expression="LANGUAGE_CODE"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="ParentBrokerIdNo"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="9"
+        Scale="0"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="PARENT_BROKER_ID_NO"
+        Expression="PARENT_BROKER_ID_NO"
+        SQLType="NUMERIC"/>
+    <ViewAttribute
+        Name="ParentBrokerName"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="50"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="PARENT_BROKER_NAME"
+        Expression="PARENT_BROKER_NAME"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="ParentBrokerLastName"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="100"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="PARENT_BROKER_LAST_NAME"
+        Expression="PARENT_BROKER_LAST_NAME"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CompanyIdNo"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="9"
+        Scale="0"
+        Type="oracle.jbo.domain.Number"
+        ColumnType="NUMBER"
+        AliasName="COMPANY_ID_NO"
+        Expression="COMPANY_ID_NO"
+        SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.lov.BrokerLovView.CompanyIdNo_LABEL"/>
+                <DISPLAYWIDTH
+                    Value="30"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CompanyName"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="50"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="COMPANY_NAME"
+        Expression="COMPANY_NAME"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.lov.BrokerLovView.CompanyName_LABEL"/>
+                <DISPLAYWIDTH
+                    Value="30"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="BrokerTypeDesc"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="50"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="BROKER_TYPE_DESC"
+        Expression="BROKER_TYPE_DESC"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="BrokerStatusDesc"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="50"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="BROKER_STATUS_DESC"
+        Expression="BROKER_STATUS_DESC"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CountryCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="4"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="COUNTRY_CODE"
+        Expression="COUNTRY_CODE"
+        SQLType="VARCHAR"
+        LOVName="LOV_CountryCode">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.lov.BrokerLovView.CountryCode_LABEL"/>
+                <DISPLAYWIDTH
+                    Value="30"/>
+                <CONTROLTYPE
+                    Value="choice"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewCriteria
+      Name="BrokerCompanyLovViewCriteria"
+      ViewObjectName="com.liberty.health.comms.lov.BrokerLovView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="BrokerLovViewCriteria1_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="CompanyCountryLovView"
+              ViewAttribute="CompanyCountryLovView"
+              Operator="EXISTS"
+              Conjunction="AND"
+              IsNestedCriteria="true"
+              Required="Optional">
+                <ViewCriteria
+                  Name="CompanyCountryLovViewNestedCriteria"
+                  ViewObjectName="com.liberty.health.comms.lov.CompanyCountryLovView"
+                  Conjunction="AND">
+                    <ViewCriteriaRow
+                      Name="CompanyCountryLovViewNestedCriteria_row_0"
+                      UpperColumns="1">
+                        <ViewCriteriaItem
+                          Name="CountryCode"
+                          ViewAttribute="CountryCode"
+                          Operator="="
+                          Conjunction="AND"
+                          Value=":pCountryCode"
+                          IsBindVarValue="true"
+                          Required="Optional"/>
+                    </ViewCriteriaRow>
+                </ViewCriteria>
+            </ViewCriteriaItem>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <ViewCriteria
+        Name="BrokerLovViewCriteria"
+        ViewObjectName="com.liberty.health.comms.lov.BrokerLovView"
+        Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                    Name="autoExecute"
+                    Value="false"/>
+                <Property
+                    Name="mode"
+                    Value="Basic"/>
+                <Property
+                    Name="allowConjunctionOverride"
+                    Value="true"/>
+                <Property
+                    Name="showInList"
+                    Value="true"/>
+                <Property
+                    Name="displayOperators"
+                    Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+            Name="BrokerLovViewCriteria_row_0"
+            UpperColumns="1">
+            <ViewCriteriaItem
+                Name="CompanyIdNo"
+                ViewAttribute="CompanyIdNo"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="CountryCode"
+                ViewAttribute="CountryCode"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="BrokerIdNo"/>
+        <Item Value="CompanyIdNo"/>
+        <Item Value="CompanyName"/>
+        <Item Value="CountryCode"/>
+    </AttrArray>
+    <ViewLinkAccessor
+      Name="CompanyCountryLovView"
+      ViewLink="com.liberty.health.comms.lov.links.FkBrokerCountryLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.lov.CommissionsLovBundle"/>
+    </ResourceBundle>
+</ViewObject>

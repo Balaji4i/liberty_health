@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-reg-btf">
+        <default-activity>setByPrimaryKeyViewCriteria</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__3">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__4">
+            <name>countryCode</name>
+            <value>#{pageFlowScope.countryCode}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__1">
+            <name>createInd</name>
+            <value>#{pageFlowScope.createInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__2">
+            <managed-bean-name>companyAttributesBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <view id="maintainCompanyReg">
+            <page>/WEB-INF/fragment/company/maintainCompanyReg.jsff</page>
+        </view>
+        <method-call id="setByPrimaryKeyViewCriteria">
+            <method>#{bindings.setByPrimaryKeyViewCriteria.execute}</method>
+            <outcome>
+                <fixed-outcome>setByPrimaryKeyViewCriteria</fixed-outcome>
+            </outcome>
+        </method-call>
+        <control-flow-rule id="__5">
+            <from-activity-id>setByPrimaryKeyViewCriteria</from-activity-id>
+            <control-flow-case id="__6">
+                <from-outcome>setByPrimaryKeyViewCriteria</from-outcome>
+                <to-activity-id>maintainCompanyReg</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

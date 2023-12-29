@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="allCommsPercentageApprovalsVO"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.dashboard.vo.allCommsPercentageApprovalsVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.dashboard.vo.allCommsPercentageApprovalsVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.dashboard.vo.allCommsPercentageApprovalsVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[select COUNT(o.company_id_no) approval_count,  
+      'Brokerage' perc_type, 
+      '/WEB-INF/fragments/watchList/companyCommPercApproval.jsff' url 
+from ohi_comm_perc o , company c   
+where o.company_id_no = c.company_id_no   
+  and auth_username is null   
+  and reject_username is null  
+  and o.company_id_no is not null 
+UNION ALL 
+select count(o.broker_id_no) approval_count, 
+'Broker' perc_type, 
+'/WEB-INF/fragments/watchList/companyCommPercApproval.jsff' url 
+from ohi_comm_perc o , broker c   
+where o.broker_id_no = c.broker_id_no   
+  and auth_username is null   
+    and reject_username is null  
+  and o.broker_id_no is not null 
+UNION ALL 
+select count(o.inse_code) approval_count,  
+  'Member' perc_type, 
+'/WEB-INF/fragments/watchList/memberCommPercApproval.jsff' url 
+from ohi_comm_perc o , ohi_insured_entities c   
+where o.inse_code = c.inse_code   
+  and auth_username is null   
+  and reject_username is null   
+  and o.inse_code is not null 
+UNION ALL 
+  select count(o.policy_code) approval_count, 
+   'Policy' perc_type, 
+  '/WEB-INF/fragments/watchList/policyCommPercApproval.jsff' url 
+from ohi_comm_perc o , ohi_policies c  
+where o.policy_code = c.policy_code  
+  and auth_username is null  
+  and o.policy_code is not null 
+UNION ALL 
+  select COUNT(o.group_code) approval_count,  
+   'Group' perc_type, 
+  '/WEB-INF/fragments/watchList/groupCommPercApproval.jsff' url 
+  from ohi_comm_perc o , ohi_groups c    
+where o.group_code = c.group_code    
+  and auth_username is null    
+  and product_code is null  
+    and reject_username is null   
+  and o.group_code is not null 
+UNION ALL 
+select COUNT(o.group_code) approval_count,  
+'Product' perc_type, 
+'/WEB-INF/fragments/watchList/productComPercApproval.jsff' url 
+from ohi_comm_perc o , ohi_products c    
+ where o.product_code = c.product_code    
+   and auth_username is null    
+     and reject_username is null    
+   and o.product_code is not null]]></SQLQuery>
+  <ViewAttribute
+    Name="ApprovalCount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="APPROVAL_COUNT"
+    Expression="APPROVAL_COUNT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="PercType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PERC_TYPE"
+    Expression="PERC_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="9"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Url"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="57"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="URL"
+    Expression="URL"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="57"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="PercType"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

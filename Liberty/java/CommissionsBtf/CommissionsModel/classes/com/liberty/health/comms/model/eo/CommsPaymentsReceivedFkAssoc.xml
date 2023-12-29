@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommsPaymentsReceivedFkAssoc"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="CommsCalcSnapshot"
+    Cardinality="1"
+    Source="true"
+    Owner="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="CommsCalcSnapshot"/>
+      <Attr Name="_foreignKey" Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.CommsCalcSnapshotPk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.BrokerIdNo"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.CountryCode"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.PaymentReceiveDate"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.CalculationDatetime"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.GroupCode"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.ProductCode"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.PersonCode"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.ContributionDate"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.CommsCalcTypeCode"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.CommsPerc"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.PaymentReceiveAmt"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.CommsCalculatedAmt"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.CommsCalculatedExchAmt"/>
+      <Item Value="com.liberty.health.comms.model.eo.CommsCalcSnapshotEO.RowID"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="CommsPaymentsReceived"
+    Cardinality="-1"
+    Owner="com.liberty.health.comms.model.eo.CommsPaymentsReceivedEO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="CommsPaymentsReceived"/>
+      <Attr Name="_foreignKey"
+        Value="com.liberty.health.comms.model.eo.CommsPaymentsReceivedEO.CommsPaymentsReceivedFk"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.CommsPaymentsReceivedEO.CommsCalcSnapshotNo"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

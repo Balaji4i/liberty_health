@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainBrokerAttributesPageDef"
+                Package="fragment.broker">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyStatusByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="BrokerStatusByPkViewIterator"/>
+        <iterator Binds="CompanyStatementByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="BrokerStatementByPkViewIterator"/>
+        <iterator Binds="CompanyFunctionByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="BrokerFunctionByPkViewIterator"/>
+        <iterator Binds="CompanyTypeByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="BrokerTypeByPkViewIterator"/>
+    </executables>
+    <bindings>
+        <list IterBinding="BrokerStatusByPkViewIterator" StaticList="false" Uses="LOV_CompanyTableTypeIdNo"
+              id="BrokerTableTypeIdNo" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <list IterBinding="BrokerStatementByPkViewIterator" StaticList="false" Uses="LOV_CompanyTableTypeIdNo"
+              id="BrokerTableTypeIdNo1" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BrokerStatementByPkViewIterator" id="BrokerStatementDesc">
+            <AttrNames>
+                <Item Value="CompanyTableTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="BrokerFunctionByPkViewIterator" StaticList="false" Uses="LOV_CompanyTableTypeIdNo"
+              id="BrokerTableTypeIdNo2" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BrokerFunctionByPkViewIterator" id="BrokerFunctionDesc">
+            <AttrNames>
+                <Item Value="CompanyTableTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <list IterBinding="BrokerTypeByPkViewIterator" StaticList="false" Uses="LOV_CompanyTableTypeIdNo"
+              id="BrokerTableTypeIdNo3" DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+        <attributeValues IterBinding="BrokerTypeByPkViewIterator" id="BrokerTypeDesc">
+            <AttrNames>
+                <Item Value="CompanyTableTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerStatusByPkViewIterator" id="BrokerStatusDesc">
+            <AttrNames>
+                <Item Value="CompanyTableTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+        <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+        <action IterBinding="BrokerStatusByPkViewIterator" id="CreateStatus" RequiresUpdateModel="true"
+                Action="createWithParams" InstanceName="MaintainBrokerageAMDataControl.CompanyStatusByPkView"
+                DataControl="MaintainBrokerageAMDataControl">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyTableIdNo" NDValue="2" NDType="java.lang.String"/>
+        </action>
+        <action IterBinding="BrokerTypeByPkViewIterator" id="CreateType" RequiresUpdateModel="true"
+                Action="createWithParams" InstanceName="MaintainBrokerageAMDataControl.CompanyTypeByPkView"
+                DataControl="MaintainBrokerageAMDataControl">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyTableIdNo" NDValue="4" NDType="java.lang.String"/>
+        </action>
+        <action IterBinding="BrokerFunctionByPkViewIterator" id="CreateFunction" RequiresUpdateModel="true"
+                Action="createWithParams" InstanceName="MaintainBrokerageAMDataControl.CompanyFunctionByPkView"
+                DataControl="MaintainBrokerageAMDataControl">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyTableIdNo" NDValue="3" NDType="java.lang.String"/>
+        </action>
+        <action IterBinding="BrokerStatementByPkViewIterator" id="CreateStatement" RequiresUpdateModel="true"
+                Action="createWithParams" InstanceName="MaintainBrokerageAMDataControl.CompanyStatementByPkView"
+                DataControl="MaintainBrokerageAMDataControl">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.String"/>
+            <NamedData NDName="CompanyTableIdNo" NDValue="1" NDType="java.lang.String"/>
+        </action>
+        <methodAction id="createCompanyComment" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="createCompanyComment" IsViewObjectMethod="false"
+                      DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="MaintainBrokerageAMDataControl.dataProvider">
+            <NamedData NDName="companyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="oracle.jbo.domain.Number"/>
+            <NamedData NDName="commentDesc" NDValue="#{pageFlowScope.brokerAttributes.commentDesc}"
+                       NDType="java.lang.String"/>
+        </methodAction>
+        <methodAction id="updateEffStatementDates" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="updateEffDates" IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyStatementByPkView">
+            <NamedData NDName="compIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributes.timestamp}"
+                       NDType="oracle.jbo.domain.Timestamp"/>
+        </methodAction>
+        <methodAction id="updateEffStatusDates" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="updateEffDates" IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyStatusByPkView">
+            <NamedData NDName="compIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributes.timestamp}"
+                       NDType="oracle.jbo.domain.Timestamp"/>
+        </methodAction>
+        <methodAction id="updateEffTypeDates" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="updateEffDates" IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyTypeByPkView">
+            <NamedData NDName="compIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributes.timestamp}"
+                       NDType="oracle.jbo.domain.Timestamp"/>
+        </methodAction>
+        <methodAction id="updateEffFunctionDates" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="updateEffDates" IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyFunctionByPkView">
+            <NamedData NDName="compIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributes.timestamp}"
+                       NDType="oracle.jbo.domain.Timestamp"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

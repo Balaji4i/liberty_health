@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1">
+        <f:facet name="center">
+            <af:panelHeader text="#{coreLabels['G.MaintainCompanyContactType']}" id="TopPH">
+                <f:facet name="context"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t1">
+                        <af:button text="#{coreLabels['G.Save']}" id="SaveButton" icon="/adf/images/save_16x16.png"
+                                   action="save" immediate="false" disabled="false"/>
+                        <af:button text="#{coreLabels['G.Cancel']}" id="CancelButton"
+                                   icon="/adf/images/remove_16x16.png" immediate="true" action="cancel">
+                            <af:resetActionListener/>
+                        </af:button>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+                <af:panelFormLayout id="pfl1">
+                    <f:facet name="footer"/>
+                    <af:inputText label="#{bindings.CompanyContactTypeIdNo.hints.label}" id="it1"
+                                  value="#{bindings.CompanyContactTypeIdNo.inputValue}"
+                                  required="#{bindings.CompanyContactTypeIdNo.hints.mandatory}"
+                                  columns="#{bindings.CompanyContactTypeIdNo.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyContactTypeIdNo.hints.precision}">
+                        <f:validator binding="#{bindings.CompanyContactTypeIdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyContactTypeIdNo.format}"/>
+                    </af:inputText>
+                    <af:inputText label="#{bindings.CompanyContactTypeDesc.hints.label}" id="it2"
+                                  value="#{bindings.CompanyContactTypeDesc.inputValue}"
+                                  required="#{bindings.CompanyContactTypeDesc.hints.mandatory}"
+                                  columns="#{bindings.CompanyContactTypeDesc.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyContactTypeDesc.hints.precision}">
+                        <f:validator binding="#{bindings.CompanyContactTypeDesc.validator}"/>
+                    </af:inputText>
+                    <af:inputDate label="#{bindings.EffectiveStartDate.hints.label}" id="id1"
+                                  value="#{bindings.EffectiveStartDate.inputValue}"
+                                  required="#{bindings.EffectiveStartDate.hints.mandatory}">
+                        <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                    </af:inputDate>
+                    <af:inputDate label="#{bindings.EffectiveEndDate.hints.label}" id="id2"
+                                  value="#{bindings.EffectiveEndDate.inputValue}"
+                                  required="#{bindings.EffectiveEndDate.hints.mandatory}" readOnly="false">
+                        <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                    </af:inputDate>
+                </af:panelFormLayout>
+            </af:panelHeader>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

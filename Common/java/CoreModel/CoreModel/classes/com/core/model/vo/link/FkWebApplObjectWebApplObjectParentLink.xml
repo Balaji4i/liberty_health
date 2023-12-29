@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkWebApplObjectWebApplObjectParentLink"
+  Version="12.2.1.0.31"
+  InheritPersonalization="merge">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.core.model.vo.link.FkWebApplObjectWebApplObjectParentLink_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="WebApplObjectView"
+    Cardinality="1"
+    Source="true"
+    Owner="com.core.model.vo.WebApplObjectView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="WebApplObjectView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.vo.WebApplObjectView.WebApplObjectNo"/>
+      <Item Value="com.core.model.vo.WebApplObjectView.LocalCode"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="ParentWebApplObjectNoWebApplObjectView"
+    Cardinality="-1"
+    Owner="com.core.model.vo.WebApplObjectView">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="ParentWebApplObjectNoWebApplObjectView"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.vo.WebApplObjectView.ParentWebApplObjectNo"/>
+      <Item Value="com.core.model.vo.WebApplObjectView.LocalCode"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.core.model.CoreModelBundle"/>
+  </ResourceBundle>
+</ViewLink>

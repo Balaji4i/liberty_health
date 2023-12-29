@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24" id="dashBoardPageDef"
+                Package="fragments.dashboard">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="allCommsPercentageApprovals1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="allCommsPercentageApprovals1Iterator" Refresh="ifNeeded"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="allCommsPercentageApprovals1Iterator" id="allCommsPercentageApprovals1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.allCommsPercentageApprovalsVO"
+                      Name="allCommsPercentageApprovals10">
+        <AttrNames>
+          <Item Value="ApprovalCount"/>
+          <Item Value="PercType"/>
+          <Item Value="Url"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

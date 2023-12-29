@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="company-fees-btf">
+        <default-activity>setpCompanyIdNo</default-activity>
+        <transaction>
+            <requires-transaction/>
+        </transaction>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__6">
+            <name>createInd</name>
+            <value>#{pageFlowScope.createInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__4">
+            <managed-bean-name>brokerFees</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.BrokerFees</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <managed-bean id="__5">
+            <managed-bean-name>companyAttributesBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <method-call id="setpCompanyIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpBrokerIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainbrokerFees">
+            <page>/WEB-INF/fragment/broker/maintainbrokerFees.jsff</page>
+        </view>
+        <control-flow-rule id="__2">
+            <from-activity-id>setpCompanyIdNo</from-activity-id>
+            <control-flow-case id="__3">
+                <from-outcome>setpBrokerIdNo</from-outcome>
+                <to-activity-id>maintainbrokerFees</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

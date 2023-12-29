@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="allfusionPaymentsPageDef"
+                Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+    <variable Name="FromDate" Type="java.lang.String"/>
+      <variable Name="ToDate" Type="java.lang.String"/>
+      <variable Name="CompanyIdNoRun" Type="java.lang.String"/>
+      <variable Name="InvoiceNoRun" Type="java.lang.String"/>
+      <variable Name="BusinessUnit" Type="java.lang.String"/>
+    </variableIterator>
+    <iterator Binds="FusionPayments1" RangeSize="25" DataControl="DashboardAMDataControl" id="FusionPayments1Iterator"/>
+    <iterator Binds="FusionPaymentsRecon1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="FusionPaymentsRecon1Iterator"/>
+    <searchRegion Binds="FusionPaymentsRecon1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="FusionPaymentsRecon1Query"/>
+    <iterator Binds="FusionPremiumsRecon1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="FusionPremiumsRecon1Iterator"/>
+    <iterator Binds="FusionActiveBu1" RangeSize="25" DataControl="DashboardAMDataControl" id="FusionActiveBu1Iterator"/>
+  </executables>
+  <bindings>
+  <methodAction id="submitFusionPayReconJob" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="submitFusionPayReconJob" IsViewObjectMethod="false" DataControl="DashboardAMDataControl"
+                  InstanceName="data.DashboardAMDataControl.dataProvider">
+      <NamedData NDName="companyIdNo" NDValue="#{bindings.CompanyIdNoRun1}" NDType="java.lang.String"/>
+      <NamedData NDName="invNo" NDValue="#{bindings.InvoiceNoRun1}" NDType="java.lang.String"/>
+      <NamedData NDName="fromDate" NDValue="#{bindings.FromDate1}" NDType="java.lang.String"/>
+      <NamedData NDName="toDate" NDValue="#{bindings.ToDate1}" NDType="java.lang.String"/>
+      <NamedData NDName="businessUnit" NDValue="#{bindings.BusinessUnit}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="FusionPayments1Iterator" id="FusionPayments1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionPaymentsVO" Name="FusionPayments10">
+        <AttrNames>
+          <Item Value="CommissionsInvNo"/>
+          <Item Value="SupplierNumber"/>
+          <Item Value="SupplierName"/>
+          <Item Value="Bu"/>
+          <Item Value="FusionInvoiceNo"/>
+          <Item Value="FusionInvoiceDate"/>
+          <Item Value="InvoiceLineAmount"/>
+          <Item Value="LineNumber"/>
+          <Item Value="LineTypeLookupCode"/>
+          <Item Value="LineDescription"/>
+          <Item Value="CheckNumber"/>
+          <Item Value="CheckDate"/>
+          <Item Value="Source"/>
+          <Item Value="InvCurrencyCode"/>
+          <Item Value="PaymentCurrencyCode"/>
+          <Item Value="PaymentAmt"/>
+          <Item Value="PaymentType"/>
+          <Item Value="PrepayInvoiceNo"/>
+          <Item Value="ReversalFlag"/>
+          
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="FusionPayments1Iterator" id="Execute" RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <attributeValues IterBinding="variables" id="FromDate1">
+      <AttrNames>
+        <Item Value="FromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="ToDate1">
+      <AttrNames>
+        <Item Value="ToDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="CompanyIdNoRun1">
+      <AttrNames>
+        <Item Value="CompanyIdNoRun"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="InvoiceNoRun1">
+      <AttrNames>
+        <Item Value="InvoiceNoRun"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="FusionPaymentsRecon1Iterator" id="FusionPaymentsRecon1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.dashboard.vo.FusionPaymentsReconVO"
+                      Name="FusionPaymentsRecon10">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="Bu"/>
+          <Item Value="Source"/>
+          <Item Value="LineTypeLookupCode"/>
+          <Item Value="FusionPayment"/>
+          <Item Value="ReleaseDate"/>
+          <Item Value="CommissionsPayment"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="FusionPaymentsRecon1Iterator" id="Execute1" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <attributeValues IterBinding="variables" id="BusinessUnit1">
+      <AttrNames>
+        <Item Value="BusinessUnit"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues IterBinding="FusionPayments1Iterator" StaticList="false" Uses="LOV_Bu" id="Bu"/>
+    <list IterBinding="FusionPayments1Iterator" StaticList="false" Uses="LOV_Bu" id="Bu1" DTSupportsMRU="false"
+          SelectItemValueMode="ListObject"/>
+    <list IterBinding="FusionPremiumsRecon1Iterator" StaticList="false" Uses="LOV_OrganizationName"
+          id="OrganizationName" DTSupportsMRU="true" SelectItemValueMode="ListObject"/>
+    <list IterBinding="FusionActiveBu1Iterator" id="BuName" DTSupportsMRU="true" SelectItemValueMode="ListObject"
+          StaticList="true">
+      <AttrNames>
+        <Item Value="BuName"/>
+      </AttrNames>
+    </list>
+    <list IterBinding="FusionActiveBu1Iterator" StaticList="false" Uses="LOV_BuName" id="BuName1" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <listOfValues IterBinding="FusionActiveBu1Iterator" StaticList="false" Uses="LOV_BuName" id="BuName2"/>
+  </bindings>
+</pageDefinition>

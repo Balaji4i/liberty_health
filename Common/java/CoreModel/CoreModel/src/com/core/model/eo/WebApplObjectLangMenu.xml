@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="WebApplObjectLangMenu"
+  Version="12.2.1.0.31"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="WEB_APPL_OBJECT_LANG_MENU"
+  AliasName="WebApplObjectLangMenu"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache">
+  <Attribute
+    Name="WebApplObjectNo"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    Precision="9"
+    Scale="0"
+    ColumnName="WEB_APPL_OBJECT_NO"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="WEB_APPL_OBJECT_LANG_MENU"
+    PrimaryKey="true">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObject.WebApplObjectNo"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="LocalCode"
+    IsNotNull="true"
+    Precision="5"
+    ColumnName="LOCAL_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="WEB_APPL_OBJECT_LANG_MENU"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObjectLangMenu.LocalCode"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="MenuItemName"
+    IsNotNull="true"
+    Precision="200"
+    ColumnName="MENU_ITEM_NAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="WEB_APPL_OBJECT_LANG_MENU">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="WebApplObjectLangMenu.MenuItemName"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <AccessorAttribute
+    Name="WebApplObject"
+    Association="com.core.model.eo.assoc.WebApplObjectLangMenuFk1Assoc"
+    AssociationEnd="com.core.model.eo.assoc.WebApplObjectLangMenuFk1Assoc.WebApplObject"
+    AssociationOtherEnd="com.core.model.eo.assoc.WebApplObjectLangMenuFk1Assoc.WebApplObjectLangMenu"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="WebApplObjectLangMenuPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="WEB_APPL_OBJECT_LANG_MENU_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.eo.WebApplObjectLangMenu.WebApplObjectNo"/>
+      <Item Value="com.core.model.eo.WebApplObjectLangMenu.LocalCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="WebApplObjectLangMenuFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="WEB_APPL_OBJECT_NO_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="WEB_APPL_OBJECT_LANG_MENU_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.core.model.eo.WebApplObjectLangMenu.WebApplObjectNo"/>
+    </AttrArray>
+  </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.core.model.CoreModelBundle"/>
+  </ResourceBundle>
+</Entity>

@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<MetadataDirectory xmlns="http://xmlns.oracle.com/adfm/metainf" version="11.1.1.0.0">
+   <BusinessComponentProjectRegistry path="com/liberty/health/comms/model/CommissionsModel.jpx"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/broker/services/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/brokerage/services/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/comms/services/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/dashboard/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/eo/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/lookup/services/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/ohi/services/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/payment/services/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/payment/vo/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/vo/common/bc4j.xcfg"/>
+   <BusinessComponentServiceRegistry path="com/liberty/health/comms/model/watchlist/services/common/bc4j.xcfg"/>
+</MetadataDirectory>

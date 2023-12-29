@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-accreditation-btf">
+        <default-activity>setByPkViewCriteria</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__2">
+            <name>countryCode</name>
+            <value>#{pageFlowScope.countryCode}</value>
+            <class>java.lang.StringBuffer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__5">
+            <name>createInd</name>
+            <value>#{pageFlowScope.createInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__6">
+            <managed-bean-name>companyAttributesBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <method-call id="setByPkViewCriteria">
+            <method>#{bindings.setByPkViewCriteria.execute}</method>
+            <outcome>
+                <fixed-outcome>setByPkViewCriteria</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainCompanyAccred">
+            <page>/WEB-INF/fragment/company/maintainCompanyAccred.jsff</page>
+        </view>
+        <control-flow-rule id="__3">
+            <from-activity-id>setByPkViewCriteria</from-activity-id>
+            <control-flow-case id="__4">
+                <from-outcome>setByPkViewCriteria</from-outcome>
+                <to-activity-id>maintainCompanyAccred</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

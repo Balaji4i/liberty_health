@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.0.31"
+                id="maintain_menu_item_name_btf_maintain_menu_item_name_btf_setUpdateMenuItemViewCriteriaPageDef"
+                Package="flows" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="setUpdateMenuItemViewCriteria" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="setUpdateMenuItemViewCriteria" IsViewObjectMethod="true"
+                  DataControl="HomeMenuAMDataControl" InstanceName="data.HomeMenuAMDataControl.UpdateMenuItemNameView">
+      <NamedData NDName="localCode" NDValue="#{pageFlowScope.localCode}" NDType="java.lang.String"/>
+      <NamedData NDName="webApplObjNo" NDValue="#{pageFlowScope.webApplObjNo}" NDType="java.lang.Integer"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

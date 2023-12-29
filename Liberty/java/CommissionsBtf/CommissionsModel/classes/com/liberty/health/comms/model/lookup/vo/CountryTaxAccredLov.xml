@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CountryTaxAccredLov"
+  Version="12.2.1.12.24"
+  InheritPersonalization="merge"
+  OrderBy='"ORD_BY"'
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.lookup.vo.CountryTaxAccredLovRowImpl"
+  ComponentClass="com.liberty.health.comms.model.lookup.vo.CountryTaxAccredLovImpl"
+  PageIterMode="Full"
+  ComponentInterface="com.liberty.health.comms.model.lookup.vo.common.CountryTaxAccredLov">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="CountryTaxAccredLov_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pCountryFilter"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[SELECT ord_by, percentage 
+from (select ORD_BY, PERCENTAGE 
+from ( 
+WITH CNT AS (SELECT LEVEL-1 PERC FROM DUAL CONNECT BY LEVEL < 32), 
+country as (select distinct code 
+from FCOD_COUNTRY@POLICIES.LIBERTY.CO.ZA) 
+select CNT.PERC ORD_BY, COUNTRY.CODE||'_'|| 
+      (CASE WHEN LENGTH(CNT.PERC) = 1 THEN 
+           0||CNT.PERC ELSE 
+            TO_CHAR(CNT.PERC) 
+       END) PERCENTAGE 
+  FROM CNT, COUNTRY 
+ORDER BY 1 ASC) 
+UNION 
+SELECT -1, 'EXEMPT' 
+FROM DUAL) 
+where (percentage LIKE '%'||:pCountryFilter||'%' 
+  or percentage = 'EXEMPT')]]></SQLQuery>
+  <ViewAttribute
+    Name="OrdBy"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="ORD_BY"
+    Expression="ORD_BY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Percentage"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="842"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PERCENTAGE"
+    Expression="PERCENTAGE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="842"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="Percentage"/>
+  </AttrArray>
+  <ClientInterface
+    Name="__clientInterface">
+    <Method
+      Name="setpCountryFilter"
+      MethodName="setpCountryFilter">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="value"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.lookup.vo.common.CountryTaxAccredLovMsgBundle"/>
+  </ResourceBundle>
+</ViewObject>

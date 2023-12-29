@@ -1,0 +1,846 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelGroupLayout id="pgl2" inlineStyle="width:1500px; height:1500px;" layout="scroll">
+        <af:panelTabbed position="above" id="pt1" inlineStyle="width:1443px;">
+            <?audit suppress oracle.jdeveloper.jsp.validate-children?>
+            <af:showDetailItem id="tab1" text="#{coreLabels['G.PremiumRecon']}" stretchChildren="first">
+                <af:panelGroupLayout id="pgl1">
+                    <af:button text="Refresh Data" id="b1"
+                               disabled="#{!bindings.Execute1.enabled}" actionListener="#{bindings.Execute1.execute}"/>
+                </af:panelGroupLayout>
+                <af:panelCollection id="pc1" inlineStyle="width:1424px;">
+                    <?audit suppress oracle.jdeveloper.jsp.validate-children?>
+                    <f:facet name="menus">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                        <af:menu text="File" id="m1">
+                            <af:commandMenuItem text="Export" id="cmi1">
+                                <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                                   filename="Fusion to CSB Premium Reconciliation.xls"
+                                                                   title="Fusion to CSB Premium Reconciliation"/>
+                            </af:commandMenuItem>
+                        </af:menu>
+                    </f:facet>
+                    <f:facet name="toolbar">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                    </f:facet>
+                    <f:facet name="statusbar">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                    </f:facet>
+                    <af:table value="#{bindings.FusionPremiumsRecon1.collectionModel}" var="row"
+                              rows="#{bindings.FusionPremiumsRecon1.rangeSize}"
+                              emptyText="#{bindings.FusionPremiumsRecon1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="0" fetchSize="#{bindings.FusionPremiumsRecon1.rangeSize}"
+                              filterModel="#{bindings.FusionPremiumsRecon1Query.queryDescriptor}" filterVisible="true"
+                              queryListener="#{bindings.FusionPremiumsRecon1Query.processQuery}" varStatus="vs" id="t2"
+                              scrollPolicy="page" partialTriggers=":::b1" contentDelivery="whenAvailable">
+                        <?audit suppress oracle.adf.faces.tableneedsrowheader?>
+                        <af:column headerText="#{bindings.FusionPremiumsRecon1.hints.TemplColour.label}" id="c68"
+                                   visible="false">
+                            <af:outputText value="#{row.TemplColour}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.TemplColour.tooltip}"
+                                           id="ot64"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.OrganizationName.name}"
+                                   filterable="true" sortable="true" headerText="BU" id="c15" width="80">
+                            <af:outputText value="#{row.OrganizationName}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.OrganizationName.tooltip}"
+                                           id="ot15"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.ReceiptType.name}"
+                                   filterable="true" sortable="true" headerText="Receipt Type" id="c16" width="60">
+                            <af:outputText value="#{row.ReceiptType}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.ReceiptType.tooltip}"
+                                           id="ot16"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.Status.name}" filterable="true"
+                                   sortable="true" headerText="Status" id="c17" width="80">
+                            <af:outputText value="#{row.Status}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.Status.tooltip}" id="ot17"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.CustomerNumber.name}"
+                                   filterable="true" sortable="true" headerText="Group" id="c18" width="100">
+                            <af:outputText value="#{row.CustomerNumber}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.CustomerNumber.tooltip}"
+                                           id="ot18"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.InvoiceType.name}"
+                                   filterable="true" sortable="true" headerText="Invoice Type" id="c19" width="100">
+                            <af:outputText value="#{row.InvoiceType}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.InvoiceType.tooltip}"
+                                           id="ot19"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.InvoiceNo.name}"
+                                   filterable="true" sortable="true" headerText="Invoice No" id="c20" width="60">
+                            <af:outputText value="#{row.InvoiceNo}" clientComponent="true" shortDesc="#{bindings.FusionPremiumsRecon1.hints.InvoiceNo.tooltip}" id="ot20">           
+                                <af:showPopupBehavior popupId="::p1" triggerType="mouseHover" align="endAfter"
+                                                      alignId="ot20"/>
+                                <af:clientAttribute name="invoiceNumber" value="#{row.InvoiceNo}"/>  
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.TrxDate.name}" filterable="true"
+                                   sortable="true" headerText="Transaction Date" id="c21" width="80">
+                            <f:facet name="filter">
+                                <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                                <af:inputDate value="#{bindings.FusionPremiumsRecon1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.TrxDate.value}"
+                                              id="id2">
+                                    <af:convertDateTime pattern="#{bindings.FusionPremiumsRecon1.hints.TrxDate.format}"/>
+                                </af:inputDate>
+                            </f:facet>
+                            <af:outputText value="#{row.TrxDate}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.TrxDate.tooltip}" id="ot21">
+                                <af:convertDateTime pattern="#{bindings.FusionPremiumsRecon1.hints.TrxDate.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.InvoiceAmt.name}"
+                                   filterable="true" sortable="true" headerText="Invoice Amt" id="c22" align="right"
+                                   width="100">
+                            <af:outputText value="#{row.InvoiceAmt}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.InvoiceAmt.tooltip}"
+                                           id="ot22">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionPremiumsRecon1.hints.InvoiceAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.InvCsb.name}" filterable="true"
+                                   sortable="true" headerText="CSB Amt" id="c23" align="right" width="100">
+                            <af:outputText value="#{row.InvCsb}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.InvCsb.tooltip}" id="ot23"
+                                           inlineStyle="#{row.TemplColour}">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionPremiumsRecon1.hints.InvCsb.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.PaymentAmt.name}"
+                                   filterable="true" sortable="true" headerText="Fusion Payment" id="c24" align="right"
+                                   width="100">
+                            <af:outputText value="#{row.PaymentAmt}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.PaymentAmt.tooltip}"
+                                           id="ot24" inlineStyle="#{row.TemplColour}">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionPremiumsRecon1.hints.PaymentAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.Adjustments.name}"
+                                   filterable="true" sortable="true" headerText="Fusion Adj" id="c25" align="right"
+                                   width="100">
+                            <af:outputText value="#{row.Adjustments}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.Adjustments.tooltip}"
+                                           id="ot25">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionPremiumsRecon1.hints.Adjustments.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.CreditMemo.name}"
+                                   filterable="true" sortable="true" headerText="Fusion CM" id="c26" align="right"
+                                   width="100">
+                            <af:outputText value="#{row.CreditMemo}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.CreditMemo.tooltip}"
+                                           id="ot26">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionPremiumsRecon1.hints.CreditMemo.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.TaxAmount.name}"
+                                   filterable="true" sortable="true" headerText="Fusion Tax" id="c27" align="right"
+                                   width="100">
+                            <af:outputText value="#{row.TaxAmount}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.TaxAmount.tooltip}"
+                                           id="ot27">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionPremiumsRecon1.hints.TaxAmount.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPremiumsRecon1.hints.BalanceAmt.name}"
+                                   filterable="true" sortable="true" headerText="Fusion Balance" id="c28" align="right"
+                                   width="105">
+                            <af:outputText value="#{row.BalanceAmt}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.BalanceAmt.tooltip}"
+                                           id="ot28">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionPremiumsRecon1.hints.BalanceAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="Country Code" id="c84">
+                            <af:outputText value="#{row.CountryCode}"
+                                           shortDesc="#{bindings.FusionPremiumsRecon1.hints.CountryCode.tooltip}"
+                                           id="ot80"/>
+                        </af:column>
+                    </af:table>
+                    <af:popup id="p1" eventContext="launcher"
+                              contentDelivery="lazyUncached" launcherVar="source">
+                         <af:setPropertyListener type="popupFetch"
+                              from="#{source.attributes.invoiceNumber}" to="#{pageFlowScope.DashBoard.invoiceNumber}"/>     
+                        <af:dialog id="d1" title="Receipt Information">
+                            <f:facet name="buttonBar">
+                                <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                            </f:facet>
+                            <af:table value="#{bindings.FusionPremInvoiceMedReceipt1.collectionModel}" var="row"
+                                      rows="#{bindings.FusionPremInvoiceMedReceipt1.rangeSize}"
+                                      emptyText="#{bindings.FusionPremInvoiceMedReceipt1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="0"
+                                      selectedRowKeys="#{bindings.FusionPremInvoiceMedReceipt1.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.FusionPremInvoiceMedReceipt1.collectionModel.makeCurrent}"
+                                      rowSelection="none"
+                                      fetchSize="#{bindings.FusionPremInvoiceMedReceipt1.rangeSize}"
+                                      filterModel="#{bindings.FusionPremInvoiceMedReceipt1Query.queryDescriptor}"
+                                      filterVisible="false"
+                                      queryListener="#{bindings.FusionPremInvoiceMedReceipt1Query.processQuery}"
+                                      varStatus="vs" id="t6" contentDelivery="immediate" immediate="true"
+                                      scrollPolicy="page">
+                                <af:column headerText="Receipt Type"
+                                           id="c76">
+                                    <af:outputText value="#{row.ReceiptType}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt1.hints.ReceiptType.tooltip}"
+                                                   id="ot72"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt1.hints.ReceiptNumber.name}"
+                                           filterable="true" sortable="true" headerText="Receipt Number" id="c69">
+                                    <af:outputText value="#{row.ReceiptNumber}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt1.hints.ReceiptNumber.tooltip}"
+                                                   id="ot65"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt1.hints.ReceivableApplicationId.name}"
+                                           filterable="true" sortable="true" headerText="Application Id" id="c70">
+                                    <af:outputText value="#{row.ReceivableApplicationId}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt1.hints.ReceivableApplicationId.tooltip}"
+                                                   id="ot66"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt1.hints.CashReceiptId.name}"
+                                           filterable="true" sortable="true" headerText="Cash Receipt Id" id="c71">
+                                    <af:outputText value="#{row.CashReceiptId}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt1.hints.CashReceiptId.tooltip}"
+                                                   id="ot67"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt1.hints.GroupCode.name}"
+                                           filterable="true" sortable="true" headerText="Group Code" id="c72">
+                                    <af:outputText value="#{row.GroupCode}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt1.hints.GroupCode.tooltip}"
+                                                   id="ot68"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt1.hints.InvoiceNo.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Number" id="c73">
+                                    <af:outputText value="#{row.InvoiceNo}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt1.hints.InvoiceNo.tooltip}"
+                                                   id="ot69"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt1.hints.BusinessUnit.name}"
+                                           filterable="true" sortable="true" headerText="Business Unit" id="c74">
+                                    <af:outputText value="#{row.BusinessUnit}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt1.hints.BusinessUnit.tooltip}"
+                                                   id="ot70"/>
+                                </af:column>
+                            </af:table>
+                        </af:dialog>
+                    </af:popup>
+                </af:panelCollection>
+            </af:showDetailItem>
+            <af:showDetailItem text="#{coreLabels['G.CommissionFusionGrpRecon']}" id="sdi1">
+                <af:panelGroupLayout id="pgl5">
+                    <af:selectOneChoice value="#{bindings.OhiGroupCodes1.inputValue}"
+                                        label="#{bindings.OhiGroupCodes1.label}"
+                                        required="#{bindings.OhiGroupCodes1.hints.mandatory}"
+                                        shortDesc="#{bindings.OhiGroupCodes1.hints.tooltip}" id="soc1"
+                                        autoSubmit="true">
+                        <f:selectItems value="#{bindings.OhiGroupCodes1.items}" id="si1"/>
+                        <f:validator binding="#{bindings.OhiGroupCodes1.validator}"/>
+                    </af:selectOneChoice>
+                    <af:inputListOfValues id="groupCode2Id"
+                                          popupTitle="Search and Select: #{bindings.GroupCode2.hints.label}"
+                                          value="#{bindings.GroupCode2.inputValue}" autoSubmit="true"
+                                          label="#{bindings.GroupCode2.hints.label}" rendered="false"
+                                          model="#{bindings.GroupCode2.listOfValuesModel}"
+                                          required="#{bindings.GroupCode2.hints.mandatory}"
+                                          columns="#{bindings.GroupCode2.hints.displayWidth}"
+                                          shortDesc="#{bindings.GroupCode2.hints.tooltip}">
+                        <f:validator binding="#{bindings.GroupCode2.validator}"/>
+                    </af:inputListOfValues>
+                    <af:button text="Submit Request" id="b4"
+                               actionListener="#{pageFlowScope.DashBoard.callFusionGroupRecon}"/>
+                    <af:button text="Refresh Data" id="b5" actionListener="#{bindings.Execute3.execute}"
+                               disabled="#{!bindings.Execute3.enabled}"/>
+                </af:panelGroupLayout>
+                <af:panelCollection id="pc4" inlineStyle="width:1251px;">
+                    <f:facet name="menus">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                        <af:menu text="File" id="m4">
+                            <af:commandMenuItem text="Export File" id="cmi4">
+                                <af:exportCollectionActionListener type="excelHTML" exportedId="t4"
+                                                                   filename="Fusion Premiums Invoices per Group.xls"
+                                                                   title="Fusion Premiums Invoices per Group"/>
+                            </af:commandMenuItem>
+                        </af:menu>
+                    </f:facet>
+                    <f:facet name="toolbar">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                    </f:facet>
+                    <f:facet name="statusbar">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                    </f:facet>
+                    <af:table value="#{bindings.FusionGroupPremiumsReconVO1.collectionModel}" var="row"
+                              rows="#{bindings.FusionGroupPremiumsReconVO1.rangeSize}"
+                              emptyText="#{bindings.FusionGroupPremiumsReconVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="0" fetchSize="#{bindings.FusionGroupPremiumsReconVO1.rangeSize}"
+                              id="t4" partialTriggers=":::b5" scrollPolicy="page">
+                        <af:column headerText="Key Value" id="c46">
+                            <af:outputText value="#{row.bindings.KeyValue.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.KeyValue.tooltip}"
+                                           id="it1"/>
+                        </af:column>
+                        <af:column headerText="Business Unit" id="c47">
+                            <af:outputText value="#{row.bindings.Bu.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.Bu.tooltip}"
+                                           id="it2"/>
+                        </af:column>
+                        <af:column headerText="Group Code" id="c48">
+                            <af:outputText value="#{row.bindings.GroupCode.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.GroupCode.tooltip}"
+                                           id="it3"/>
+                        </af:column>
+                        <af:column headerText="Country Code"
+                                   id="c85">
+                            <af:outputText value="#{row.CountryCode}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.CountryCode.tooltip}"
+                                           id="ot81"/>
+                        </af:column>
+                        <af:column headerText="Invoice Number" id="c49">
+                            <af:outputText value="#{row.bindings.InvoiceNo.inputValue}" clientComponent="true"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.InvoiceNo.tooltip}"
+                                           id="it4">
+                                <af:showPopupBehavior popupId="::p2" triggerType="mouseHover" align="endAfter"
+                                                      alignId="it4"/>
+                                <af:clientAttribute name="invoiceNumber" value="#{row.InvoiceNo}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="GL Date Closed"
+                                   id="c75">
+                            <af:outputText value="#{row.GlDateClosed}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.GlDateClosed.tooltip}"
+                                           id="ot71">
+                                <af:convertDateTime pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.GlDateClosed.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="Invoice Amount" id="c50" align="right">
+                            <af:outputText value="#{row.bindings.InvoiceAmt.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.InvoiceAmt.tooltip}"
+                                           id="it5">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.InvoiceAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="Payment Amount" id="c51" align="right">
+                            <af:outputText value="#{row.bindings.PaymentAmt.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.PaymentAmt.tooltip}"
+                                           id="it6">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.PaymentAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="Commissions Payment Amount" id="c52" align="right">
+                            <af:outputText value="#{row.bindings.SelfbuildTotal.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.SelfbuildTotal.tooltip}"
+                                           id="it7">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.SelfbuildTotal.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="Adjustments" id="c53" align="right">
+                            <af:outputText value="#{row.bindings.Adjustments.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.Adjustments.tooltip}"
+                                           id="it8">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.Adjustments.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="Credit Memo" id="c54" align="right">
+                            <af:outputText value="#{row.bindings.CreditMemo.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.CreditMemo.tooltip}"
+                                           id="it9">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.CreditMemo.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="Tax Amount" id="c55" align="right">
+                            <af:outputText value="#{row.bindings.TaxAmt.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.TaxAmt.tooltip}"
+                                           id="it10">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.TaxAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="Balance Outstanding" id="c56" align="right">
+                            <af:outputText value="#{row.bindings.BalanceAmt.inputValue}"
+                                           shortDesc="#{bindings.FusionGroupPremiumsReconVO1.hints.BalanceAmt.tooltip}"
+                                           id="it11">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.FusionGroupPremiumsReconVO1.hints.BalanceAmt.format}"/>
+                            </af:outputText>
+                        </af:column>
+                    </af:table>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p2" contentDelivery="lazyUncached"
+                              launcherVar="source" eventContext="launcher">
+                        <af:setPropertyListener from="#{source.attributes.invoiceNumber}"
+                                                to="#{pageFlowScope.DashBoard.invoiceNumber}" type="popupFetch"/>
+                        <af:dialog id="d2">
+                            <f:facet name="buttonBar">
+                                <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                            </f:facet>
+                            <af:table value="#{bindings.FusionPremInvoiceMedReceipt11.collectionModel}" var="row"
+                                      rows="#{bindings.FusionPremInvoiceMedReceipt11.rangeSize}"
+                                      emptyText="#{bindings.FusionPremInvoiceMedReceipt11.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="0"
+                                      selectedRowKeys="#{bindings.FusionPremInvoiceMedReceipt11.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.FusionPremInvoiceMedReceipt11.collectionModel.makeCurrent}"
+                                      rowSelection="single"
+                                      fetchSize="#{bindings.FusionPremInvoiceMedReceipt11.rangeSize}"
+                                      filterModel="#{bindings.FusionPremInvoiceMedReceipt1Query.queryDescriptor}"
+                                      filterVisible="true"
+                                      queryListener="#{bindings.FusionPremInvoiceMedReceipt1Query.processQuery}"
+                                      varStatus="vs" id="t7">
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt11.hints.ReceiptType.name}"
+                                           filterable="true" sortable="true" headerText="Receipt Type" id="c77">
+                                    <af:outputText value="#{row.ReceiptType}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt11.hints.ReceiptType.tooltip}"
+                                                   id="ot73"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt11.hints.ReceiptNumber.name}"
+                                           filterable="true" sortable="true" headerText="Receipt Number" id="c78">
+                                    <af:outputText value="#{row.ReceiptNumber}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt11.hints.ReceiptNumber.tooltip}"
+                                                   id="ot74"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt11.hints.ReceivableApplicationId.name}"
+                                           filterable="true" sortable="true" headerText="Receivable Application Id"
+                                           id="c79">
+                                    <af:outputText value="#{row.ReceivableApplicationId}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt11.hints.ReceivableApplicationId.tooltip}"
+                                                   id="ot75"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt11.hints.CashReceiptId.name}"
+                                           filterable="true" sortable="true" headerText="Cash Receipt Id" id="c80">
+                                    <af:outputText value="#{row.CashReceiptId}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt11.hints.CashReceiptId.tooltip}"
+                                                   id="ot76"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt11.hints.GroupCode.name}"
+                                           filterable="true" sortable="true" headerText="Group Code" id="c81">
+                                    <af:outputText value="#{row.GroupCode}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt11.hints.GroupCode.tooltip}"
+                                                   id="ot77"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt11.hints.InvoiceNo.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Number" id="c82">
+                                    <af:outputText value="#{row.InvoiceNo}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt11.hints.InvoiceNo.tooltip}"
+                                                   id="ot78"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPremInvoiceMedReceipt11.hints.BusinessUnit.name}"
+                                           filterable="true" sortable="true" headerText="Business Unit" id="c83">
+                                    <af:outputText value="#{row.BusinessUnit}"
+                                                   shortDesc="#{bindings.FusionPremInvoiceMedReceipt11.hints.BusinessUnit.tooltip}"
+                                                   id="ot79"/>
+                                </af:column>
+                            </af:table>
+                        </af:dialog>
+                    </af:popup>
+                </af:panelCollection>
+            </af:showDetailItem>
+            <af:showDetailItem text="#{coreLabels['G.CommissionPaymentsPerGroup']}" id="sdi2">
+                <af:panelGroupLayout layout="vertical" id="pgl6" inlineStyle="width:1004px;">
+                    <af:panelHeader text="#{coreLabels['G.CommissionPaymentsPerGroup']}" id="ph1">
+                        <af:query id="qryId1" headerText="Search" disclosed="true"
+                                  value="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryDescriptor}"
+                                  model="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryModel}"
+                                  queryListener="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.processQuery}"
+                                  queryOperationListener="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.processQueryOperation}"
+                                  resultComponentId="::pc3:t8"/>
+                    </af:panelHeader>
+                    <af:panelCollection id="pc3" inlineStyle="width:994px;">
+                        <f:facet name="menus">
+                            <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                            <af:menu text="File" id="m2">
+                                <af:commandMenuItem text="Export" id="cmi2">
+                                    <af:exportCollectionActionListener type="excelHTML" exportedId="t8"
+                                                                       filename="Commission Payments per group.xls"
+                                                                       title="Commission Payments per group"/>
+                                </af:commandMenuItem>
+                            </af:menu>
+                        </f:facet>
+                        <f:facet name="toolbar">
+                            <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                        </f:facet>
+                        <f:facet name="statusbar">
+                            <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                        </f:facet>
+                        <af:table value="#{bindings.CommissionPaymentsPerGroupVO11.collectionModel}" var="row"
+                                  rows="#{bindings.CommissionPaymentsPerGroupVO11.rangeSize}"
+                                  emptyText="#{bindings.CommissionPaymentsPerGroupVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  rowBandingInterval="0" scrollPolicy="page"
+                                  selectedRowKeys="#{bindings.CommissionPaymentsPerGroupVO11.collectionModel.selectedRow}"
+                                  selectionListener="#{bindings.CommissionPaymentsPerGroupVO11.collectionModel.makeCurrent}"
+                                  rowSelection="single" fetchSize="#{bindings.CommissionPaymentsPerGroupVO11.rangeSize}"
+                                  filterModel="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryDescriptor}"
+                                  filterVisible="true"
+                                  queryListener="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.processQuery}"
+                                  varStatus="vs" id="t8">
+                            <?audit suppress oracle.adf.faces.tableneedsrowheader?><?audit suppress oracle.adf.faces.tableneedsrowheader?>
+                            <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.CompanyIdNo.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.CompanyIdNo.label}"
+                                       id="c92">
+                                <af:outputText value="#{row.CompanyIdNo}"
+                                               shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.CompanyIdNo.tooltip}"
+                                               id="ot86"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.GroupCode.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.GroupCode.label}"
+                                       id="c93">
+                                <af:outputText value="#{row.GroupCode}"
+                                               shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.GroupCode.tooltip}"
+                                               id="ot87"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.FinanceInvoiceNo.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.FinanceInvoiceNo.label}"
+                                       id="c95">
+                                <af:outputText value="#{row.FinanceInvoiceNo}"
+                                               shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.FinanceInvoiceNo.tooltip}"
+                                               id="ot89"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.InvoiceNo.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.InvoiceNo.label}"
+                                       id="c94">
+                                <af:outputText value="#{row.InvoiceNo}"
+                                               shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.InvoiceNo.tooltip}"
+                                               id="ot88"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.CurrencyCode.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.CurrencyCode.label}"
+                                       id="c96">
+                                <af:outputText value="#{row.CurrencyCode}"
+                                               shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.CurrencyCode.tooltip}"
+                                               id="ot90"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.label}"
+                                       id="c97">
+                                <f:facet name="filter">
+                                    <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                                    <af:inputDate value="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryDescriptor.filterConjunctionCriterion.criterionMap.ReleaseDate.value}"
+                                                  id="id10">
+                                        <af:convertDateTime pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:outputText value="#{row.ReleaseDate}"
+                                               shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.tooltip}"
+                                               id="ot91">
+                                    <af:convertDateTime pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.ReleaseDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.label}"
+                                       id="c98">
+                                <f:facet name="filter">
+                                    <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                                    <af:inputDate value="#{bindings.CommissionPaymentsPerGroupCriteriaQuery.queryDescriptor.filterConjunctionCriterion.criterionMap.PaymentDate.value}"
+                                                  id="id11">
+                                        <af:convertDateTime pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.format}"/>
+                                    </af:inputDate>
+                                </f:facet>
+                                <af:outputText value="#{row.PaymentDate}"
+                                               shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.tooltip}"
+                                               id="ot92">
+                                    <af:convertDateTime pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.PaymentDate.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalAmount.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalAmount.label}"
+                                       id="c99">
+                                <af:outputText value="#{row.TotalAmount}"
+                                               shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalAmount.tooltip}"
+                                               id="ot93">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalAmount.format}"/>
+                                </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalPayable.name}"
+                                       filterable="true" sortable="true"
+                                       headerText="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalPayable.label}"
+                                       id="c100">
+                                <af:outputText value="#{row.TotalPayable}"
+                                               shortDesc="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalPayable.tooltip}"
+                                               id="ot94">
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.CommissionPaymentsPerGroupVO11.hints.TotalPayable.format}"/>
+                                </af:outputText>
+                            </af:column>
+                        </af:table>
+                    </af:panelCollection>
+                </af:panelGroupLayout>
+            </af:showDetailItem>
+            <af:showDetailItem text="#{coreLabels['G.CommissionPayablesInterface']}" id="sdi3" stretchChildren="first">
+                <af:panelFormLayout id="pfl2">
+                    <f:facet name="footer">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                    </f:facet>
+                    <af:inputDate label="From Date" id="id6"
+                                  valueChangeListener="#{pageFlowScope.Payments.setFromDateAttribute}"/>
+                    <af:inputDate label="To Date" id="id7"
+                                  valueChangeListener="#{pageFlowScope.Payments.setToDateAttribute}"/>
+                    <af:panelGroupLayout id="pgl7">
+                        <af:button text="Submit" id="b6"
+                                   actionListener="#{pageFlowScope.Payments.submitFusionPayablesIntRecon}"/>
+                        <af:button text="Refresh" id="b7" actionListener="#{bindings.Execute2.execute}"
+                                   disabled="#{!bindings.Execute2.enabled}"/>
+                    </af:panelGroupLayout>
+                </af:panelFormLayout>
+                <af:panelCollection id="pc5" inlineStyle="width:1426px; height:1000px;">
+                    <f:facet name="menus">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                        <af:menu text="File" id="m5">
+                            <af:commandMenuItem text="Export" id="cmi5">
+                                <af:exportCollectionActionListener type="excelHTML" exportedId="t3"
+                                                                   filename="Fusion Payables Interface Reconcilation.xls"
+                                                                   title="Fusion Payables Interface Reconcilation"/>
+                            </af:commandMenuItem>
+                        </af:menu>
+                    </f:facet>
+                    <f:facet name="toolbar">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                    </f:facet>
+                    <f:facet name="statusbar">
+                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                    </f:facet>
+                    <af:table value="#{bindings.FusionPayablesInterfaceVO1.collectionModel}" var="row"
+                              rows="#{bindings.FusionPayablesInterfaceVO1.rangeSize}"
+                              emptyText="#{bindings.FusionPayablesInterfaceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="0"
+                              selectedRowKeys="#{bindings.FusionPayablesInterfaceVO1.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.FusionPayablesInterfaceVO1.collectionModel.makeCurrent}"
+                              rowSelection="single" fetchSize="#{bindings.FusionPayablesInterfaceVO1.rangeSize}"
+                              filterModel="#{bindings.FusionPayablesInterfaceVO1Query.queryDescriptor}"
+                              filterVisible="true"
+                              queryListener="#{bindings.FusionPayablesInterfaceVO1Query.processQuery}" varStatus="vs"
+                              id="t3" partialTriggers=":::b7" scrollPolicy="page">
+                        <?audit suppress oracle.adf.faces.tableneedsrowheader?>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InterfacedYn.name}"
+                                   filterable="true" sortable="true" headerText="Interfaced To Fusion" id="c35">
+                            <af:outputText value="#{row.InterfacedYn}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InterfacedYn.tooltip}"
+                                           id="ot8"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.Status.name}"
+                                   filterable="true" sortable="true" headerText="Status" id="c36">
+                            <af:outputText value="#{row.Status}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.Status.tooltip}"
+                                           id="ot9"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.Bu.name}" filterable="true"
+                                   sortable="true" headerText="Bu" id="c37">
+                            <af:outputText value="#{row.Bu}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.Bu.tooltip}"
+                                           id="ot10"/>
+                        </af:column>
+                        <af:column headerText="Country Code" id="c86">
+                            <af:outputText value="#{row.CountryCode}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.CountryCode.tooltip}"
+                                           id="ot82"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.VendorNumber.name}"
+                                   filterable="true" sortable="true" headerText="Vendor Number" id="c38">
+                            <af:outputText value="#{row.VendorNumber}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.VendorNumber.tooltip}"
+                                           id="ot11"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.VendorName.name}"
+                                   filterable="true" sortable="true" headerText="Vendor Name" id="c39">
+                            <af:outputText value="#{row.VendorName}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.VendorName.tooltip}"
+                                           id="ot12"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.VendorSite.name}"
+                                   filterable="true" sortable="true" headerText="Vendor Site" id="c40">
+                            <af:outputText value="#{row.VendorSite}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.VendorSite.tooltip}"
+                                           id="ot13"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceNumber.name}"
+                                   filterable="true" sortable="true" headerText="Invoice Number" id="c41">
+                            <af:outputText value="#{row.InvoiceNumber}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceNumber.tooltip}"
+                                           id="ot14"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceType.name}"
+                                   filterable="true" sortable="true" headerText="Invoice Type" id="c42">
+                            <af:outputText value="#{row.InvoiceType}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceType.tooltip}"
+                                           id="ot29"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.Description.name}"
+                                   filterable="true" sortable="true" headerText="Description" id="c43">
+                            <af:outputText value="#{row.Description}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.Description.tooltip}"
+                                           id="ot30"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceDate.name}"
+                                   filterable="true" sortable="true" headerText="Invoice Date" id="c44">
+                            <af:outputText value="#{row.InvoiceDate}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceDate.tooltip}"
+                                           id="ot31"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceCurrency.name}"
+                                   filterable="true" sortable="true" headerText="Invoice Currency" id="c45">
+                            <af:outputText value="#{row.InvoiceCurrency}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceCurrency.tooltip}"
+                                           id="ot32"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceAmt.name}"
+                                   filterable="true" sortable="true" headerText="Invoice Amount" id="c57" align="right">
+                            <af:outputText value="#{row.InvoiceAmt}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.InvoiceAmt.tooltip}"
+                                           id="ot33"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.Terms.name}"
+                                   filterable="true" sortable="true" headerText="Terms" id="c58">
+                            <af:outputText value="#{row.Terms}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.Terms.tooltip}"
+                                           id="ot34"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.CreationDate.name}"
+                                   filterable="true" sortable="true" headerText="Creation Date" id="c59">
+                            <af:outputText value="#{row.CreationDate}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.CreationDate.tooltip}"
+                                           id="ot35"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.FusionPayablesInterfaceVO1.hints.CreatedBy.name}"
+                                   filterable="true" sortable="true" headerText="Created By" id="c60">
+                            <af:outputText value="#{row.CreatedBy}"
+                                           shortDesc="#{bindings.FusionPayablesInterfaceVO1.hints.CreatedBy.tooltip}"
+                                           id="ot36"/>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:showDetailItem>
+            <af:showDetailItem id="tab2" text="#{coreLabels['G.CommissionFusionPayments']}" rendered="true"
+                               stretchChildren="first">
+                <af:panelTabbed position="above" id="pt2" inlineStyle="width:1423px;">
+                    <af:showDetailItem text="#{coreLabels['G.CommissionPaymentsRecon']}" id="sdi4">
+                        <af:button text="Refresh" id="b8" actionListener="#{bindings.Execute4.execute}"
+                                   disabled="#{!bindings.Execute4.enabled}"/>
+                        <af:panelCollection id="pc6" inlineStyle="width:1017px;">
+                            <f:facet name="menus">
+                                <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                                <af:menu text="File" id="m6">
+                                    <af:commandMenuItem text="Export" id="cmi6">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t5"
+                                                                           filename="Fusion Commissions Payments Reconciliation.xls"
+                                                                           title="Fusion Commissions Payments Reconciliation"/>
+                                    </af:commandMenuItem>
+                                </af:menu>
+                            </f:facet>
+                            <f:facet name="toolbar">
+                                <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                            </f:facet>
+                            <f:facet name="statusbar">
+                                <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                            </f:facet>
+                            <af:table value="#{bindings.FusionPaymentsRecon1.collectionModel}" var="row"
+                                      rows="#{bindings.FusionPaymentsRecon1.rangeSize}"
+                                      emptyText="#{bindings.FusionPaymentsRecon1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="0"
+                                      selectedRowKeys="#{bindings.FusionPaymentsRecon1.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.FusionPaymentsRecon1.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.FusionPaymentsRecon1.rangeSize}"
+                                      filterModel="#{bindings.FusionPaymentsRecon1Query.queryDescriptor}"
+                                      filterVisible="true"
+                                      queryListener="#{bindings.FusionPaymentsRecon1Query.processQuery}" varStatus="vs"
+                                      id="t5" width="1495" partialTriggers=":::b8" scrollPolicy="page">
+                                <?audit suppress oracle.adf.faces.tableneedsrowheader?>
+                                <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.CompanyIdNo.name}"
+                                           filterable="true" sortable="true" headerText="Brokerage Code" id="c34">
+                                    <af:outputText value="#{row.CompanyIdNo}"
+                                                   shortDesc="#{bindings.FusionPaymentsRecon1.hints.CompanyIdNo.tooltip}"
+                                                   id="ot56"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.InvoiceNo.name}"
+                                           filterable="true" sortable="true" headerText="Invoice Number" id="c61">
+                                    <af:outputText value="#{row.InvoiceNo}"
+                                                   shortDesc="#{bindings.FusionPaymentsRecon1.hints.InvoiceNo.tooltip}"
+                                                   id="ot57"/>
+                                </af:column>
+                                <af:column headerText="Country Code"
+                                           id="c87">
+                                    <af:outputText value="#{row.CountryCode}"
+                                                   shortDesc="#{bindings.FusionPaymentsRecon1.hints.CountryCode.tooltip}"
+                                                   id="ot83"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.Bu.name}"
+                                           filterable="true" sortable="true" headerText="BU" id="c62">
+                                    <af:outputText value="#{row.Bu}"
+                                                   shortDesc="#{bindings.FusionPaymentsRecon1.hints.Bu.tooltip}"
+                                                   id="ot58"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.Source.name}"
+                                           filterable="true" sortable="true" headerText="Source" id="c63">
+                                    <af:outputText value="#{row.Source}"
+                                                   shortDesc="#{bindings.FusionPaymentsRecon1.hints.Source.tooltip}"
+                                                   id="ot59"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.LineTypeLookupCode.name}"
+                                           filterable="true" sortable="true" headerText="Line Type" id="c64">
+                                    <af:outputText value="#{row.LineTypeLookupCode}"
+                                                   shortDesc="#{bindings.FusionPaymentsRecon1.hints.LineTypeLookupCode.tooltip}"
+                                                   id="ot60"/>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.FusionPayment.name}"
+                                           filterable="true" sortable="true" headerText="Fusion Payment Amt" id="c65"
+                                           align="right">
+                                    <af:outputText value="#{row.FusionPayment}"
+                                                   shortDesc="#{bindings.FusionPaymentsRecon1.hints.FusionPayment.tooltip}"
+                                                   id="ot61">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FusionPaymentsRecon1.hints.FusionPayment.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.ReleaseDate.name}"
+                                           filterable="true" sortable="true" headerText="Commissions Release Date"
+                                           id="c66">
+                                    <f:facet name="filter">
+                                        <?audit suppress oracle.jdeveloper.jsp.check-valid-parent?>
+                                        <af:inputDate value="#{bindings.FusionPaymentsRecon1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ReleaseDate.value}"
+                                                      id="id9">
+                                            <af:convertDateTime pattern="#{bindings.FusionPaymentsRecon1.hints.ReleaseDate.format}"/>
+                                        </af:inputDate>
+                                    </f:facet>
+                                    <af:outputText value="#{row.ReleaseDate}"
+                                                   shortDesc="#{bindings.FusionPaymentsRecon1.hints.ReleaseDate.tooltip}"
+                                                   id="ot62">
+                                        <af:convertDateTime pattern="#{bindings.FusionPaymentsRecon1.hints.ReleaseDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column sortProperty="#{bindings.FusionPaymentsRecon1.hints.CommissionsPayment.name}"
+                                           filterable="true" sortable="true" headerText="Commissions Payment Amt"
+                                           id="c67" align="right">
+                                    <af:outputText value="#{row.CommissionsPayment}"
+                                                   shortDesc="#{bindings.FusionPaymentsRecon1.hints.CommissionsPayment.tooltip}"
+                                                   id="ot63">
+                                        <af:convertNumber groupingUsed="false"
+                                                          pattern="#{bindings.FusionPaymentsRecon1.hints.CommissionsPayment.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:showDetailItem>
+                </af:panelTabbed>
+            </af:showDetailItem>
+        </af:panelTabbed>
+    </af:panelGroupLayout>
+</jsp:root>

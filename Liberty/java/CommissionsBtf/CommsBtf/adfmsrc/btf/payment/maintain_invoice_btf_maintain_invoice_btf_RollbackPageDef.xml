@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_invoice_btf_maintain_invoice_btf_RollbackPageDef" Package="btf.payment"
+                SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="PaymentAMDataControl"/>
+    </bindings>
+</pageDefinition>

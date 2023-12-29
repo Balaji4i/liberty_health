@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" topHeight="auto">
+        <f:facet name="start"/>
+        <f:facet name="end"/>
+        <f:facet name="top">
+            <af:panelHeader text="#{coreLabels['G.BrokerTable']}" id="ph1">
+                <f:facet name="context"/>
+                <f:facet name="toolbar">
+                    <af:toolbar id="t1">
+                        <af:button text="#{coreLabels['G.Save']}" id="b1" action="save"
+                                   icon="/adf/images/save_16x16.png"/>
+                        <af:button text="#{coreLabels['G.Cancel']}" id="b2" action="cancel"
+                                   icon="/adf/images/remove_16x16.png" immediate="true"/>
+                    </af:toolbar>
+                </f:facet>
+                <f:facet name="menuBar"/>
+                <f:facet name="legend"/>
+                <f:facet name="info"/>
+                <af:panelFormLayout id="pfl1">
+                    <af:panelLabelAndMessage label="#{bindings.BrokerTableIdNo.hints.label}" id="plam1">
+                        <af:outputText value="#{bindings.BrokerTableIdNo.inputValue}"
+                                       shortDesc="#{bindings.BrokerTableIdNo.hints.tooltip}" id="ot1">
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.BrokerTableIdNo.format}"/>
+                        </af:outputText>
+                    </af:panelLabelAndMessage>
+                    <af:inputText value="#{bindings.BrokerTableDesc.inputValue}"
+                                  label="#{bindings.BrokerTableDesc.hints.label}"
+                                  required="#{bindings.BrokerTableDesc.hints.mandatory}"
+                                  columns="#{bindings.BrokerTableDesc.hints.displayWidth}"
+                                  maximumLength="#{bindings.BrokerTableDesc.hints.precision}"
+                                  shortDesc="#{bindings.BrokerTableDesc.hints.tooltip}" id="it1" showRequired="true">
+                        <f:validator binding="#{bindings.BrokerTableDesc.validator}"/>
+                    </af:inputText>
+                    <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}"
+                                  label="#{bindings.EffectiveStartDate.hints.label}"
+                                  required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id1"
+                                  minValue="#{brokerAttributesBean.minDatePickerDate}">
+                        <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+                    </af:inputDate>
+                    <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}"
+                                  label="#{bindings.EffectiveEndDate.hints.label}"
+                                  required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                                  columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                                  shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id2" readOnly="true">
+                        <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+                    </af:inputDate>
+                </af:panelFormLayout>
+            </af:panelHeader>
+        </f:facet>
+        <f:facet name="bottom"/>
+        <f:facet name="center">
+            <af:region value="#{bindings.maintainbrokertabletypebtf1.regionModel}" id="r1"/>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

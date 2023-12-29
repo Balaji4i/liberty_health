@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_bank_account_type_btf_maintain_bank_account_type_btf_setpBankAccTypeIdNoPageDef"
+                Package="btf.lookup">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpBankAccTypeIdNo" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="setpBankAccTypeIdNo" IsViewObjectMethod="true"
+                      DataControl="BankAccountTypeAMDataControl"
+                      InstanceName="data.BankAccountTypeAMDataControl.BankAccountTypeByPk">
+            <NamedData NDName="value" NDValue="#{pageFlowScope.bankAccountTypeIdNo}" NDType="java.lang.Integer"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

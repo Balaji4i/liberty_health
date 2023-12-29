@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="HomeMenuAM"
+  Version="12.2.1.0.31"
+  InheritPersonalization="merge"
+  ComponentClass="com.core.model.services.classes.CoreApplicationModuleImpl"
+  DefClass="com.core.model.services.classes.CoreApplicationModuleDefImpl"
+  ClearCacheOnRollback="true">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.core.model.menu.services.HomeMenuAM_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewUsage
+    Name="UpdateMenuSortSeqView"
+    ViewObjectName="com.core.model.vo.WebApplObjectView">
+    <ViewCriteriaUsage
+      Name="ByParentNoViewCriteria"
+      FullName="com.core.model.vo.WebApplObjectView.ByParentNoViewCriteria"/>
+  </ViewUsage>
+  <ViewUsage
+    Name="UpdateMenuItemNameView"
+    ViewObjectName="com.core.model.vo.WebApplObjectLangMenuView">
+    <ViewCriteriaUsage
+      Name="UpdateMenuItemViewCriteria"
+      FullName="com.core.model.vo.WebApplObjectLangMenuView.UpdateMenuItemViewCriteria"/>
+  </ViewUsage>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.core.model.CoreModelBundle"/>
+  </ResourceBundle>
+</AppModule>

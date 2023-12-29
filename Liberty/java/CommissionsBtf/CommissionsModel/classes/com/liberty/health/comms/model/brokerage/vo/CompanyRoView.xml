@@ -1,0 +1,962 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyRoView"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+    RowClass="com.liberty.health.comms.model.brokerage.vo.CompanyRoViewRowImpl"
+    ComponentClass="com.liberty.health.comms.model.brokerage.vo.CompanyRoViewImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+    OrderBy='"COMPANY_NAME","COUNTRY_CODE"'
+    ComponentInterface="com.liberty.health.comms.model.brokerage.vo.common.CompanyRoView">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+        <Attr Name="_codeGenFlag2" Value="Coll|VarAccess"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.brokerage.vo.CompanyRoView_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <Variable
+      Name="pCompanyIdNo"
+      Kind="viewcriteria"
+      Type="oracle.jbo.domain.Number"/>
+    <Variable
+        Name="pcountrylist"
+        Kind="where"
+        Type="java.lang.String">
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="CompanyRoView"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Variable>
+    <ViewAccessor
+      Name="ActiveLov1"
+      ViewObjectName="com.core.model.lov.ActiveLov"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="BooleanLov1"
+        ViewObjectName="com.core.model.lov.BooleanLov"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="CompanyTableTypeLovView1"
+        ViewObjectName="com.liberty.health.comms.lov.CompanyTableTypeLovView"
+        RowLevelBinds="true">
+        <ViewCriteriaUsage
+            Name="ByCompanyTableLovViewCriteria"
+            FullName="com.liberty.health.comms.lov.CompanyTableTypeLovView.ByCompanyTableLovViewCriteria"/>
+        <ParameterMap>
+            <PIMap Variable="pCpompanyTableIdNo">
+                <TransientExpression
+                    trustMode="untrusted"
+                    Name="ExpressionScript"><![CDATA[2]]></TransientExpression>
+            </PIMap>
+        </ParameterMap>
+    </ViewAccessor>
+    <ViewAccessor
+        Name="OhiStructureAM_AllOhiCountryLovView1_1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.AllOhiCountryLovView"
+        AMUsageName="OhiStructureAM"
+        ViewInstanceName="AllOhiCountryLovView1"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="OhiStructureAM_CountryLovView_N1_1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.CountryLovView_N"
+        AMUsageName="OhiStructureAM"
+        ViewInstanceName="CountryLovView_N1"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="CountryLovView"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.CountryLovView_N"
+        RowLevelBinds="true"/>
+    <ListBinding
+      Name="LOV_MultinationalInd"
+      ListVOName="ActiveLov1"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="MultinationalInd"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+      Name="LOV_InternalBrokerInd"
+      ListVOName="ActiveLov1"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="InternalBrokerInd"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+        Name="LOV_BrokerStatusDesc"
+        ListVOName="CompanyTableTypeLovView1"
+        NullValueFlag="start"
+        NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="BrokerStatusDesc"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="CompanyTableTypeDesc"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="CompanyTableTypeDesc"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+        Name="LOV_CompanyRegDocInd"
+        ListVOName="ActiveLov1"
+        NullValueFlag="start"
+        NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CompanyRegDocInd"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+        Name="LOV_BankDetailsInd"
+        ListVOName="ActiveLov1"
+        NullValueFlag="start"
+        NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="BankDetailsInd"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+        Name="LOV_HoldInd"
+        ListVOName="ActiveLov1"
+        NullValueFlag="start"
+        NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="HoldInd"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+        Name="LOV_CountryCode"
+        ListVOName="CountryLovView"
+        NullValueFlag="none"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Name"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <SQLQuery><![CDATA[select c.company_id_no,                        
+b_multi_net.company_table_type_desc multinational_ind,                       
+c.internal_broker_ind,                        
+c.company_name,                 
+c.bank_details_ind,             
+C.COMPANY_REG_DOC_IND,             
+b_function.company_table_type_desc broker_function_desc,                       
+b_statement.company_table_type_desc broker_statement_desc,                       
+b_status.company_table_type_desc broker_status_desc,                       
+b_type.company_table_type_desc broker_type_desc ,            
+nvl(hold.hold_ind,'N') hold_ind,            
+hold.hold_reason   ,cc.country_code   
+from company c,  company_country cc  ,                  
+       (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                   
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                         
+         from company_function bf, company_table bt, company_table_type btt                          
+        where bf.company_table_id_no = bt.company_table_id_no                          
+          and bf.company_table_id_no = 3             
+          and btt.company_Table_id_no = bf.company_table_id_no        
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                          
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_function,                       
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                   
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                    
+         from company_function bf, company_table bt, company_table_type btt                          
+        where bf.company_table_id_no = bt.company_table_id_no              
+        and btt.company_Table_id_no = bf.company_table_id_no        
+          and bf.company_table_id_no = 2                        
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                          
+          and sysdate between bf.effective_start_date and bf.effective_end_date) b_status,                          
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                   
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                         
+         from company_function bf, company_table bt, company_table_type btt                          
+        where bf.company_table_id_no = bt.company_table_id_no                           
+          and bf.company_table_id_no = 1               
+          and btt.company_Table_id_no = bf.company_table_id_no        
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                          
+          and sysdate between bf.effective_start_date and bf.effective_end_date) b_statement,                                    
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                   
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                    
+         from company_function bf, company_table bt, company_table_type btt                          
+        where bf.company_table_id_no = bt.company_table_id_no                          
+          and bf.company_table_id_no = 4             
+          and btt.company_Table_id_no = bf.company_table_id_no        
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                          
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_type,                  
+      (select distinct bf.company_id_no, btt.company_table_type_desc, bf.effective_start_date,                   
+       rank() over (partition by bf.company_id_no order by bf.effective_start_date desc) rank_no                    
+         from company_function bf, company_table bt, company_table_type btt                          
+        where bf.company_table_id_no = bt.company_table_id_no                  
+          and btt.company_table_id_no = bt.company_table_id_no           
+          and bf.company_table_id_no = 6                        
+          and bf.company_table_type_id_no = btt.company_table_type_id_no                          
+          and sysdate between bf.effective_start_date and bf.effective_end_date ) b_multi_net ,            
+      (select company_id_no, hold_ind, hold_reason            
+         from ohi_hold_ind            
+        where trunc(SYSDATE) BETWEEN effective_start_date AND effective_end_date            
+          and company_id_no IS NOT NULL) hold            
+where c.company_id_no = b_function.company_id_no(+)                   
+    and nvl(b_function.rank_no,1) = 1                   
+  and c.company_id_no = b_status.company_id_no(+)                      
+    and nvl(b_status.rank_no,1) = 1                   
+  and c.company_id_no = b_statement.company_id_no(+)                    
+    and nvl(b_statement.rank_no,1) = 1                   
+  and c.company_id_no = b_type.company_id_no(+)                   
+    and nvl(b_type.rank_no,1) = 1                 
+    and c.company_id_no = b_multi_net.company_id_no(+)                   
+    and nvl(b_multi_net.rank_no,1) = 1            
+    and c.company_id_no = hold.company_id_no(+) and c.company_id_no= cc.company_id_no  
+    and cc.country_code IN (    
+        SELECT    
+            regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level)    
+        FROM    
+            dual    
+        CONNECT BY    
+            regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level) IS NOT NULL    
+    )]]></SQLQuery>
+    <ViewAttribute
+      Name="CompanyIdNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="9"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="COMPANY_ID_NO"
+      Expression="COMPANY_ID_NO"
+      SQLType="NUMERIC">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="MultinationalInd"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="1"
+      Type="java.lang.String"
+      ColumnType="CHAR"
+      AliasName="MULTINATIONAL_IND"
+      Expression="MULTINATIONAL_IND"
+      SQLType="VARCHAR"
+      LOVName="LOV_MultinationalInd">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.MultinationalInd']}"/>
+                <CONTROLTYPE
+                  Value="check_box"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="InternalBrokerInd"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="1"
+      Type="java.lang.String"
+      ColumnType="CHAR"
+      AliasName="INTERNAL_BROKER_IND"
+      Expression="INTERNAL_BROKER_IND"
+      SQLType="VARCHAR"
+      LOVName="LOV_InternalBrokerInd">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.InternalBrokerInd']}"/>
+                <CONTROLTYPE
+                  Value="check_box"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CompanyName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COMPANY_NAME"
+      Expression="COMPANY_NAME"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyName']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="BankDetailsInd"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="1"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="BANK_DETAILS_IND"
+        Expression="BANK_DETAILS_IND"
+        SQLType="VARCHAR"
+        LOVName="LOV_BankDetailsInd">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BankDetails']}"/>
+                <CONTROLTYPE
+                    Value="choice"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CompanyRegDocInd"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="1"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="COMPANY_REG_DOC_IND"
+        Expression="COMPANY_REG_DOC_IND"
+        SQLType="VARCHAR"
+        LOVName="LOV_CompanyRegDocInd">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyRegDocInd']}"/>
+                <CONTROLTYPE
+                    Value="choice"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerFunctionDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_FUNCTION_DESC"
+      Expression="BROKER_FUNCTION_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerFunction']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerStatementDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_STATEMENT_DESC"
+      Expression="BROKER_STATEMENT_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerStatement']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerStatusDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_STATUS_DESC"
+      Expression="BROKER_STATUS_DESC"
+      SQLType="VARCHAR"
+        LOVName="LOV_BrokerStatusDesc">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerStatus']}"/>
+                <CONTROLTYPE
+                    Value="choice"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="BrokerTypeDesc"
+      IsUpdateable="false"
+      IsPersistent="false"
+      PrecisionRule="true"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="BROKER_TYPE_DESC"
+      Expression="BROKER_TYPE_DESC"
+      SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.BrokerType']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="HoldInd"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="1"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="HOLD_IND"
+        Expression="HOLD_IND"
+        SQLType="VARCHAR"
+        LOVName="LOV_HoldInd">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="1"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.HoldInd']}"/>
+                <CONTROLTYPE
+                    Value="choice"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="HoldReason"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="100"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="HOLD_REASON"
+        Expression="HOLD_REASON"
+        SQLType="VARCHAR">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="100"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ReleaseHoldReason']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+        Name="CountryCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="4"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="COUNTRY_CODE"
+        Expression="COUNTRY_CODE"
+        SQLType="VARCHAR"
+        LOVName="LOV_CountryCode">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <CONTROLTYPE
+                    Value="choice"/>
+                <LABEL
+                    ResId="com.liberty.health.comms.model.brokerage.vo.CompanyRoView.CountryCode_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewCriteria
+      Name="SearchCompanyRoViewCriteria"
+      ViewObjectName="com.liberty.health.comms.model.brokerage.vo.CompanyRoView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="CompanyRoViewCriteria_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="CompanyIdNo"
+              ViewAttribute="CompanyIdNo"
+              Operator="="
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="MultinationalInd"
+              ViewAttribute="MultinationalInd"
+              Operator="="
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+              Name="CompanyName"
+              ViewAttribute="CompanyName"
+              Operator="STARTSWITH"
+              Conjunction="AND"
+              Required="Optional"/>
+            <ViewCriteriaItem
+                Name="SearchCompanyRoViewCriteria_CompanyRoViewCriteria_row_0_BankDetailsInd"
+                ViewAttribute="BankDetailsInd"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="CompanyRegDocInd"
+                ViewAttribute="CompanyRegDocInd"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="BrokerStatusDesc"
+                ViewAttribute="BrokerStatusDesc"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="HoldInd"
+                ViewAttribute="HoldInd"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="CountryCode"
+                ViewAttribute="CountryCode"
+                Operator="="
+                Conjunction="AND"
+                Required="Required"/>
+            <ViewCriteriaItem
+                Name="CompanyRoViewCriteria_CompanyRoViewCriteria_row_0_Broker"
+                ViewAttribute="Broker"
+                Operator="EXISTS"
+                Conjunction="AND"
+                IsNestedCriteria="true"
+                Required="Optional">
+                <ViewCriteria
+                    Name="BrokerVONestedCriteria"
+                    ViewObjectName="com.liberty.health.comms.model.broker.vo.BrokerVO"
+                    Conjunction="AND">
+                    <ViewCriteriaRow
+                        Name="BrokerVONestedCriteria_row_0"
+                        UpperColumns="1">
+                        <ViewCriteriaItem
+                            Name="BrokerVONestedCriteria_BrokerVONestedCriteria_row_0_BrokerIdNo"
+                            ViewAttribute="BrokerIdNo"
+                            Operator="="
+                            Conjunction="AND"
+                            Required="Optional"/>
+                        <ViewCriteriaItem
+                            Name="BrokerLastName"
+                            ViewAttribute="BrokerLastName"
+                            Operator="STARTSWITH"
+                            Conjunction="AND"
+                            Required="Optional"/>
+                        <ViewCriteriaItem
+                            Name="BrokerName"
+                            ViewAttribute="BrokerName"
+                            Operator="STARTSWITH"
+                            Conjunction="AND"
+                            Required="Optional"/>
+                        <ViewCriteriaItem
+                            Name="IdNo"
+                            ViewAttribute="IdNo"
+                            Operator="="
+                            Conjunction="AND"
+                            Required="Optional"/>
+                        <ViewCriteriaItem
+                            Name="PassportCode"
+                            ViewAttribute="PassportCode"
+                            Operator="STARTSWITH"
+                            Conjunction="AND"
+                            Required="Optional"/>
+                    </ViewCriteriaRow>
+                </ViewCriteria>
+            </ViewCriteriaItem>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <ViewCriteria
+      Name="CompanyByPkView"
+      ViewObjectName="com.liberty.health.comms.model.brokerage.vo.CompanyRoView"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+          Name="CompanyRoViewCriteria_row_0"
+          UpperColumns="1">
+            <ViewCriteriaItem
+              Name="CompanyIdNo"
+              ViewAttribute="CompanyIdNo"
+              Operator="="
+              Conjunction="AND"
+              Value=":pCompanyIdNo"
+              IsBindVarValue="true"
+              Required="Optional"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <ViewCriteria
+        Name="CompanyRoViewCriteria_country_code"
+        ViewObjectName="com.liberty.health.comms.model.brokerage.vo.CompanyRoView"
+        Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                    Name="autoExecute"
+                    Value="false"/>
+                <Property
+                    Name="mode"
+                    Value="Basic"/>
+                <Property
+                    Name="allowConjunctionOverride"
+                    Value="true"/>
+                <Property
+                    Name="showInList"
+                    Value="true"/>
+                <Property
+                    Name="displayOperators"
+                    Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+            Name="CompanyRoViewCriteria_row_0"
+            UpperColumns="1">
+            <ViewCriteriaItem
+                Name="CompanyName"
+                ViewAttribute="CompanyName"
+                Operator="CONTAINS"
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="CountryCode"
+                ViewAttribute="CountryCode"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <ViewCriteria
+        Name="CompanyRoViewCriteria_BrokCode_name"
+        ViewObjectName="com.liberty.health.comms.model.brokerage.vo.CompanyRoView"
+        Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                    Name="autoExecute"
+                    Value="false"/>
+                <Property
+                    Name="mode"
+                    Value="Basic"/>
+                <Property
+                    Name="allowConjunctionOverride"
+                    Value="true"/>
+                <Property
+                    Name="showInList"
+                    Value="true"/>
+                <Property
+                    Name="displayOperators"
+                    Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+            Name="CompanyRoViewCriteria_row_0"
+            UpperColumns="1">
+            <ViewCriteriaItem
+                Name="CompanyIdNo"
+                ViewAttribute="CompanyIdNo"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="CompanyName"
+                ViewAttribute="CompanyName"
+                Operator="CONTAINS"
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="CountryCode"
+                ViewAttribute="CountryCode"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <ViewCriteria
+        Name="CompanyRoViewCriteria_countrySelect"
+        ViewObjectName="com.liberty.health.comms.model.brokerage.vo.CompanyRoView"
+        Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                    Name="autoExecute"
+                    Value="false"/>
+                <Property
+                    Name="mode"
+                    Value="Basic"/>
+                <Property
+                    Name="allowConjunctionOverride"
+                    Value="true"/>
+                <Property
+                    Name="showInList"
+                    Value="true"/>
+                <Property
+                    Name="displayOperators"
+                    Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+            Name="CompanyRoViewCriteria_row_0"
+            UpperColumns="1">
+            <ViewCriteriaItem
+                Name="CompanyIdNo"
+                ViewAttribute="CompanyIdNo"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="CompanyName"
+                ViewAttribute="CompanyName"
+                Operator="CONTAINS"
+                Conjunction="AND"
+                Required="Optional"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <AttrArray Name="KeyAttributes">
+        <Item Value="CompanyIdNo"/>
+        <Item Value="CountryCode"/>
+    </AttrArray>
+    <ViewLinkAccessor
+      Name="CompanyCountry"
+      ViewLink="com.liberty.health.comms.model.brokerage.vo.links.FkCompanyRoCompanyCountryLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ViewLinkAccessor
+      Name="Broker"
+      ViewLink="com.liberty.health.comms.model.brokerage.vo.links.FkCompanyRoViewBrokerLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ViewLinkAccessor
+      Name="CompanyAuditRoView"
+      ViewLink="com.liberty.health.comms.model.brokerage.vo.links.FkCompAuditCompRoLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ViewLinkAccessor
+      Name="Broker1"
+      ViewLink="com.liberty.health.comms.model.ohi.vo.links.CompanyBrokerViewLink"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <ClientInterface
+        Name="__clientInterface">
+        <Method
+            Name="setpCompanyIdNo"
+            MethodName="setpCompanyIdNo">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+            <Parameter
+                Name="p0"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="setpCompanyIdNo"
+            MethodName="setpCompanyIdNo">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+            <Parameter
+                Name="p0"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="setpCompanyIdNo"
+            MethodName="setpCompanyIdNo">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+            <Parameter
+                Name="p0"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="setpCompanyIdNo"
+            MethodName="setpCompanyIdNo">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+            <Parameter
+                Name="p0"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="setpCompanyIdNo"
+            MethodName="setpCompanyIdNo">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+            <Parameter
+                Name="p0"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="setpCompanyIdNo"
+            MethodName="setpCompanyIdNo">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+            <Parameter
+                Name="p0"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+        <Method
+            Name="setpCompanyIdNo"
+            MethodName="setpCompanyIdNo">
+            <Return
+                Name="_return_type_"
+                Type="void"/>
+            <Parameter
+                Name="p0"
+                Type="oracle.jbo.domain.Number"/>
+        </Method>
+    </ClientInterface>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>

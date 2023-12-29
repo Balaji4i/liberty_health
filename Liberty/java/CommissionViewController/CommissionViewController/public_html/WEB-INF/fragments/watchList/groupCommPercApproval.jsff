@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelHeader text="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}" id="ph1">
+        <f:facet name="context"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+            <f:facet name="menus"/>
+            <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                    <af:button text="#{coreLabels['G.Approve']}" id="b1"
+                               disabled="#{bindings.AllGroupCommPercOutstandingApprovalViewIterator.deferredEstimatedRowCount == 0}"
+                               partialTriggers="t1 d1" rendered="#{securityContext.userInRole['team-leads']}">
+                        <af:showPopupBehavior popupId="p1" triggerType="action"/>
+                    </af:button>
+                                        <af:button text="#{coreLabels['G.Reject']}" id="b4"
+                               disabled="#{bindings.AllGroupCommPercOutstandingApprovalViewIterator.deferredEstimatedRowCount == 0}"
+                               partialTriggers="t1 d1" rendered="false">
+                        <af:showPopupBehavior popupId="p3" triggerType="action"/>
+                    </af:button>
+                    <af:button text="#{coreLabels['G.Delete']}" id="b3" rendered="#{securityContext.userInRole['team-leads']}"
+                                                   disabled="#{bindings.AllGroupCommPercOutstandingApprovalViewIterator.deferredEstimatedRowCount == 0}"
+                               partialTriggers="t1 d1" >
+                        <af:showPopupBehavior popupId="p4" triggerType="action"/>
+                    </af:button>
+                    <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"
+                               rendered="#{securityContext.userInRole['comms-consultant']}">
+                        <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                           filename="#{pageFlowScope.menuItemName}.xls"/>
+                    </af:button>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p1">
+                        <af:dialog id="d1" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                                   dialogListener="#{watchListBean.groupCommPercApprovalDialogListener}">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.BankApprovalMessage']}" id="ot2"/>
+                        </af:dialog>
+                    </af:popup>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p4">
+                        <af:dialog id="d4" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                                   dialogListener="#{watchListBean.groupCommPercDeleteDialogListener}">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.DeleteMessage']}" id="ot15"/>
+                        </af:dialog>
+                    </af:popup>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p3" contentDelivery="lazyUncached">
+                        <af:dialog id="d3" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                                   dialogListener="#{watchListBean.commPercRejectDialogListener}">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.RejectionConfirmationInputMessage']}" id="ot13"/>
+                            <af:inputText id="it1" rows="3" binding="#{watchListBean.rejectInputTextBox}"
+                                          autoSubmit="true"
+                                          valueChangeListener="#{pageFlowScope.percRejectBean.inputTextBoxValueChangeListener}"/>
+                        </af:dialog>
+                    </af:popup>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                              binding="#{watchListBean.errorMsgPopUp}">
+                        <af:dialog id="d2" title="#{coreLabels['G.Error']}" type="ok">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.ErrorMsg']} #{watchListBean.returnMsg}" id="ot14"/>
+                        </af:dialog>
+                    </af:popup>
+                    <af:button actionListener="#{bindings.Execute.execute}" text="Refresh"
+                                id="b5"/>
+                    <af:button actionListener="#{bindings.Commit.execute}" text="SaveOhi" visible="false"
+                                id="b6"/>
+                </af:toolbar>
+            </f:facet>
+            <f:facet name="statusbar"/>
+            <af:table value="#{bindings.AllGroupCommPercOutstandingApprovalView.collectionModel}" var="row"
+                      rows="#{bindings.AllGroupCommPercOutstandingApprovalView.rangeSize}"
+                      emptyText="#{bindings.AllGroupCommPercOutstandingApprovalView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="0"
+                      selectedRowKeys="#{bindings.AllGroupCommPercOutstandingApprovalView.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.AllGroupCommPercOutstandingApprovalView.collectionModel.makeCurrent}"
+                      rowSelection="single" fetchSize="#{bindings.AllGroupCommPercOutstandingApprovalView.rangeSize}"
+                      id="t1" partialTriggers="::b5">
+                <af:column headerText="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.ParentgroupCode.label}"
+                           id="c1">
+                    <af:outputText value="#{row.ParentgroupCode}"
+                                   shortDesc="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.ParentgroupCode.tooltip}"
+                                   id="ot1"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.GroupCode.label}"
+                           id="c2">
+                    <af:outputText value="#{row.GroupCode}"
+                                   shortDesc="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.GroupCode.tooltip}"
+                                   id="ot3"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.GroupName.label}"
+                           id="c3">
+                    <af:outputText value="#{row.GroupName}"
+                                   shortDesc="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.GroupName.tooltip}"
+                                   id="ot4"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.CommPerc.label}"
+                           id="c4">
+                    <af:outputText value="#{row.CommPerc}"
+                                   shortDesc="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.CommPerc.tooltip}"
+                                   id="ot5">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.CommPerc.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.CommDesc.label}"
+                           id="c5">
+                    <af:outputText value="#{row.CommDesc}"
+                                   shortDesc="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.CommDesc.tooltip}"
+                                   id="ot6"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.EffectiveStartDate.label}"
+                           id="c6">
+                    <af:outputText value="#{row.EffectiveStartDate}"
+                                   shortDesc="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.EffectiveStartDate.tooltip}"
+                                   id="ot7">
+                        <af:convertDateTime pattern="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.EffectiveStartDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.EffectiveEndDate.label}"
+                           id="c7">
+                    <af:outputText value="#{row.EffectiveEndDate}"
+                                   shortDesc="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.EffectiveEndDate.tooltip}"
+                                   id="ot8">
+                        <af:convertDateTime pattern="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.EffectiveEndDate.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.CreatedUsername.label}"
+                           id="c8">
+                    <af:outputText value="#{row.CreatedUsername}"
+                                   shortDesc="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.CreatedUsername.tooltip}"
+                                   id="ot9"/>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.CountryCode.label}"
+                           id="c9">
+                    <af:outputText value="#{row.CountryCode}"
+                                   shortDesc="#{bindings.AllGroupCommPercOutstandingApprovalView.hints.CountryCode.tooltip}"
+                                   id="ot10"/>
+                </af:column>
+            </af:table>
+        </af:panelCollection>
+    </af:panelHeader>
+    <af:panelFormLayout id="pfl1" visible="false">
+        <af:inputText value="#{bindings.AuthUsername.inputValue}" label="#{bindings.AuthUsername.hints.label}"
+                      required="#{bindings.AuthUsername.hints.mandatory}"
+                      columns="#{bindings.AuthUsername.hints.displayWidth}"
+                      maximumLength="#{bindings.AuthUsername.hints.precision}"
+                      shortDesc="#{bindings.AuthUsername.hints.tooltip}" id="it12">
+            <f:validator binding="#{bindings.AuthUsername.validator}"/>
+        </af:inputText>
+    </af:panelFormLayout>
+</jsp:root>

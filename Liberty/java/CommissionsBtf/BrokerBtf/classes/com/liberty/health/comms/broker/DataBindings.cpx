@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.16.48" id="DataBindings"
+             SeparateXMLFiles="false" Package="com.liberty.health.comms.broker" ClientType="Generic">
+        <definitionFactories>
+            <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+                     className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+            <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+        <factory nameSpace="http://xmlns.oracle.com/adfm/dvt"
+                 className="oracle.adfinternal.view.faces.dvt.model.binding.FacesBindingFactory"/>
+    </definitionFactories>
+        <pageMap>
+            <page path="/brokersBtfTestPage.jsf" usageId="com_liberty_health_comms_broker_brokersBtfTestPagePageDef"/>
+            <page path="/WEB-INF/btf/broker/maintain-broker-btf.xml#maintain-broker-btf@setpBrokerIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_btf_maintain_broker_btf_setpBrokerIdNoPageDef"/>
+            <page path="/WEB-INF/btf/broker/maintain-broker-btf.xml#maintain-broker-btf@Commit"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_btf_maintain_broker_btf_CommitPageDef"/>
+            <page path="/WEB-INF/btf/broker/maintain-broker-btf.xml#maintain-broker-btf@Rollback"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_btf_maintain_broker_btf_RollbackPageDef"/>
+            <page path="/WEB-INF/fragment/broker/maintainBroker.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainBrokerPageDef"/>
+            <page path="/WEB-INF/btf/brokerTable/maintain-broker-table-btf.xml#maintain-broker-table-btf@setpBrokerTableIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_table_btf_maintain_broker_table_btf_setpBrokerTableIdNoPageDef"/>
+            <page path="/WEB-INF/btf/brokerTable/maintain-broker-table-btf.xml#maintain-broker-table-btf@CreateInsert"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_table_btf_maintain_broker_table_btf_CreateInsertPageDef"/>
+            <page path="/WEB-INF/fragment/brokerTable/maintainBrokerTable.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainBrokerTablePageDef"/>
+            <page path="/WEB-INF/btf/brokerTable/maintain-broker-table-type-btf.xml#maintain-broker-table-type-btf@setpTableIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_table_type_btf_maintain_broker_table_type_btf_setpTableIdNoPageDef"/>
+            <page path="/WEB-INF/fragment/brokerTable/maintainTableTypeByTable.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainTableTypeByTablePageDef"/>
+            <page path="/WEB-INF/btf/brokerTable/maintain-broker-table-btf.xml#maintain-broker-table-btf@Commit"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_table_btf_maintain_broker_table_btf_CommitPageDef"/>
+            <page path="/WEB-INF/btf/brokerTable/maintain-broker-table-btf.xml#maintain-broker-table-btf@Rollback"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_table_btf_maintain_broker_table_btf_RollbackPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-address-btf.xml#maintain-company-address-btf@setByPrimaryKeyViewCriteria"
+                  usageId="com_liberty_health_comms_broker_maintain_company_address_btf_maintain_company_address_btf_setByPrimaryKeyViewCriteriaPageDef"/>
+            <page path="/WEB-INF/fragment/company/maintainCompanyAddress.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainCompanyAddressPageDef"/>
+            <page path="/WEB-INF/fragment/company/maintainCompanyReg.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainCompanyRegPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-bank-detail-btf.xml#maintain-company-bank-detail-btf@setByPkViewCritiera"
+                  usageId="com_liberty_health_comms_broker_maintain_company_bank_detail_btf_maintain_company_bank_detail_btf_setByPkViewCritieraPageDef"/>
+            <page path="/WEB-INF/fragment/company/maintainCompanyBankDetails.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainCompanyBankDetailsPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-reg-btf.xml#maintain-company-reg-btf@setByPrimaryKeyViewCriteria"
+                  usageId="com_liberty_health_comms_broker_maintain_company_reg_btf_maintain_company_reg_btf_setByPrimaryKeyViewCriteriaPageDef"/>
+            <page path="/WEB-INF/fragment/broker/createNewBroker.jsff"
+                  usageId="com_liberty_health_comms_broker_createNewBrokerPageDef"/>
+            <page path="/WEB-INF/fragment/broker/createNewBrokerDetails.jsff"
+                  usageId="com_liberty_health_comms_broker_createNewBrokerDetailsPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-attributes-btf.xml#maintain-company-attributes-btf@setStatementCompanyIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef1"/>
+            <page path="/WEB-INF/btf/company/maintain-company-attributes-btf.xml#maintain-company-attributes-btf@setStatusCompanyIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef11"/>
+            <page path="/WEB-INF/btf/company/maintain-company-attributes-btf.xml#maintain-company-attributes-btf@setCompanyTypeCompanyIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef111"/>
+            <page path="/WEB-INF/fragment/company/maintainBrokerAttributes.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainBrokerAttributesPageDef"/>
+            <page path="/WEB-INF/btf/company/company-fees-btf.xml#company-fees-btf@setpCompanyIdNo"
+                  usageId="com_liberty_health_comms_broker_broker_fees_btf_broker_fees_btf_setpBrokerIdNoPageDef"/>
+            <page path="/WEB-INF/fragment/broker/maintainbrokerFees.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainbrokerFeesPageDef"/>
+            <page path="/WEB-INF/fragment/broker/maintainBrokerCommPerc.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainBrokerCommPercPageDef"/>
+            <page path="/WEB-INF/fragment/broker/maintainBrokerFunction.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainBrokerFunctionPageDef"/>
+            <page path="/WEB-INF/fragment/company/maintainCompanyContacts.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainCompanyContactsPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-contact-btf.xml#maintain-company-contact-btf@setByPrimaryKeyViewCriteria"
+                  usageId="com_liberty_health_comms_broker_maintain_company_contact_btf_maintain_company_contact_btf_setByPrimaryKeyViewCriteriaPageDef"/>
+            <page path="/WEB-INF/btf/company/create-new-company-btf.xml#create-new-company-btf@Rollback"
+                  usageId="com_liberty_health_comms_broker_create_new_company_btf_create_new_company_btf_RollbackPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-attributes-btf.xml#maintain-company-attributes-btf@setBrokerCompanyBrokerIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef"/>
+            <page path="/WEB-INF/btf/broker/maintain-broker-btf.xml#maintain-broker-btf@CreateInsert"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_btf_maintain_broker_btf_CreateInsertPageDef"/>
+            <page path="/WEB-INF/fragment/broker/maintainBrokerByCompany.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainBrokerByCompanyPageDef"/>
+            <page path="/WEB-INF/btf/broker/maintain-broker-by-company-btf.xml#maintain-broker-by-company-btf@setCompanyIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_by_company_btf_maintain_broker_by_company_btf_setCompanyIdNoPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-comments-btf.xml#maintain-company-comments-btf@setpCompanyIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_company_comments_btf_maintain_company_comments_btf_setpCompanyIdNoPageDef"/>
+            <page path="/WEB-INF/fragment/company/maintainCompanyComments.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainCompanyCommentsPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-accreditation-btf.xml#maintain-company-accreditation-btf@setByPkViewCriteria"
+                  usageId="com_liberty_health_comms_broker_maintain_company_accreditation_btf_maintain_company_accreditation_btf_setByPkViewCriteriaPageDef"/>
+            <page path="/WEB-INF/fragment/company/maintainCompanyAccred.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainCompanyAccredPageDef"/>
+            <page path="/WEB-INF/btf/broker/maintain-broker-acred-btf.xml#maintain-broker-acred-btf@setpBrokerIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_broker_acred_btf_maintain_broker_acred_btf_setpBrokerIdNoPageDef"/>
+            <page path="/WEB-INF/fragment/broker/maintainBrokerAccred.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainBrokerAccredPageDef"/>
+            <page path="/WEB-INF/btf/broker/maintain-broker-function-btf.xml#maintain-broker-function-btf@setpBrokerIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_brokerFunction_btf_maintain_brokerFunction_btf_setpBrokerIdNoPageDef"/>
+            <page path="/WEB-INF/btf/companyTable/maintain-company-table-btf.xml#maintain-company-table-btf@CreateInsert"
+                  usageId="com_liberty_health_comms_broker_maintain_company_table_btf_maintain_company_table_btf_CreateInsertPageDef"/>
+            <page path="/WEB-INF/btf/companyTable/maintain-company-table-btf.xml#maintain-company-table-btf@setpCompanyTableIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_company_table_btf_maintain_company_table_btf_setpCompanyTableIdNoPageDef"/>
+            <page path="/WEB-INF/btf/companyTable/maintain-company-table-btf.xml#maintain-company-table-btf@Commit"
+                  usageId="com_liberty_health_comms_broker_maintain_company_table_btf_maintain_company_table_btf_CommitPageDef"/>
+            <page path="/WEB-INF/btf/companyTable/maintain-company-table-btf.xml#maintain-company-table-btf@Rollback"
+                  usageId="com_liberty_health_comms_broker_maintain_company_table_btf_maintain_company_table_btf_RollbackPageDef"/>
+            <page path="/WEB-INF/fragment/companyTable/maintainCompanyTable.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainCompanyTablePageDef"/>
+            <page path="/WEB-INF/btf/companyTable/maintain-company-table-type-btf.xml#maintain-company-table-type-btf@setpTableIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_company_table_type_btf_maintain_company_table_type_btf_setpTableIdNoPageDef"/>
+            <page path="/WEB-INF/fragment/companyTable/maintainCompanyTableType.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainCompanyTableTypePageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-detail-btf.xml#maintain-company-detail-btf@setpCompanyIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_company_detail_btf_maintain_company_detail_btf_setpCompanyIdNoPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-detail-btf.xml#maintain-company-detail-btf@Commit"
+                  usageId="com_liberty_health_comms_broker_maintain_company_detail_btf_maintain_company_detail_btf_CommitPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-detail-btf.xml#maintain-company-detail-btf@Rollback"
+                  usageId="com_liberty_health_comms_broker_maintain_company_detail_btf_maintain_company_detail_btf_RollbackPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-attributes-btf.xml#maintain-company-attributes-btf@createStatus"
+                  usageId="com_liberty_health_comms_broker_maintain_company_attributes_btf_maintain_company_attributes_btf_CreateWithParametersPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-attributes-btf.xml#maintain-company-attributes-btf@createType"
+                  usageId="com_liberty_health_comms_broker_maintain_company_attributes_btf_maintain_company_attributes_btf_CreateWithParametersPageDef1"/>
+            <page path="/WEB-INF/btf/company/maintain-company-attributes-btf.xml#maintain-company-attributes-btf@createStatement"
+                  usageId="com_liberty_health_comms_broker_maintain_company_attributes_btf_maintain_company_attributes_btf_CreateWithParameters1PageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-function-btf.xml#maintain-company-function-btf@setpCompanyIdNo"
+                  usageId="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_setpCompanyIdNoPageDef"/>
+            <page path="/WEB-INF/fragment/company/maintainCompanyFunction.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainCompanyFunctionPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-function-btf.xml#maintain-company-function-btf@CreateStatus"
+                  usageId="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_CreateWithParametersPageDef"/>
+            <page path="/WEB-INF/btf/company/maintain-company-function-btf.xml#maintain-company-function-btf@CreateType"
+                  usageId="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_CreateWithParametersPageDef1"/>
+            <page path="/WEB-INF/btf/company/maintain-company-function-btf.xml#maintain-company-function-btf@CreateStatement"
+                  usageId="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_CreateWithParametersPageDef11"/>
+            <page path="/WEB-INF/btf/company/maintain-company-function-btf.xml#maintain-company-function-btf@Commit"
+                  usageId="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_CommitPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml#maintain-ohi-commission-percentages@setProductVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setProductVcPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml#maintain-ohi-commission-percentages@setPolicyVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setPolicyVcPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml#maintain-ohi-commission-percentages@setPersonVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setPersonVcPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml#maintain-ohi-commission-percentages@setCompanyVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setCompanyVcPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml#maintain-ohi-commission-percentages@setGroupVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setGroupVcPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml#maintain-ohi-commission-percentages@Commit"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_CommitPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-commission-percentages.xml#maintain-ohi-commission-percentages@Rollback"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_RollbackPageDef"/>
+            <page path="/WEB-INF/fragment/ohi/maintainOhiCommPerc.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainOhiCommPercPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml#maintain-ohi-hold-indicator-btf@setProductVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setProductVcPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml#maintain-ohi-hold-indicator-btf@setPolicyVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setPolicyVcPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml#maintain-ohi-hold-indicator-btf@setCompanyVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setCompanyVcPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml#maintain-ohi-hold-indicator-btf@setPersonVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setPersonVcPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml#maintain-ohi-hold-indicator-btf@setGroupVc"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_methodCall1PageDef"/>
+            <page path="/WEB-INF/fragment/ohi/maintainHoldIndicator.jsff"
+                  usageId="com_liberty_health_comms_broker_maintainHoldIndicatorPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml#maintain-ohi-hold-indicator-btf@Commit"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_CommitPageDef"/>
+            <page path="/WEB-INF/btf/ohi/maintain-ohi-hold-indicator-btf.xml#maintain-ohi-hold-indicator-btf@Rollback"
+                  usageId="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_RollbackPageDef"/>
+        <page path="/WEB-INF/btf/company/maintain-company-comm-perc-btf.xml#maintain-company-com-perc-btf@setCompanyVc"
+              usageId="com_liberty_health_comms_broker_maintain_company_comm_perc_btf_maintain_company_com_perc_btf_setCompanyVcPageDef1"/>
+        <page path="/WEB-INF/btf/company/maintain-company-address-btf.xml#maintain-company-address-btf@setCorrespondence"
+              usageId="com_liberty_health_comms_broker_maintain_company_address_btf_maintain_company_address_btf_methodCall1PageDef"/>
+        <page path="/WEB-INF/btf/company/maintain-company-contact-btf.xml#maintain-company-contact-btf@setCorrPrimaryKeyViewCriteria"
+              usageId="com_liberty_health_comms_broker_maintain_company_contact_btf_maintain_company_contact_btf_methodCall1PageDef"/>
+        <page path="/WEB-INF/fragment/broker/maintainBrokerFunctionBackDated"
+              usageId="com_liberty_health_comms_broker_backDatedBrokerFunctionPageDef"/>
+        <page path="/WEB-INF/fragment/broker/maintainBrokerFunctionBackDate.jsff"
+              usageId="com_liberty_health_comms_broker_maintainBrokerFunctionBackDatePageDef"/>
+    </pageMap>
+        <pageDefinitionUsages>
+            <page id="com_liberty_health_comms_broker_brokersBtfTestPagePageDef"
+                  path="com.liberty.health.comms.broker.pageDefs.brokersBtfTestPagePageDef"/>
+            <page id="com_liberty_health_comms_broker_BrokersBtfTestPgPageDef"
+                  path="com.liberty.health.comms.broker.pageDefs.BrokersBtfTestPgPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_btf_maintain_broker_btf_setpBrokerIdNoPageDef"
+                  path="btf.broker.maintain_broker_btf_maintain_broker_btf_setpBrokerIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_btf_maintain_broker_btf_CommitPageDef"
+                  path="btf.broker.maintain_broker_btf_maintain_broker_btf_CommitPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_btf_maintain_broker_btf_RollbackPageDef"
+                  path="btf.broker.maintain_broker_btf_maintain_broker_btf_RollbackPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainBrokerPageDef"
+                  path="fragment.broker.maintainBrokerPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_table_btf_maintain_broker_table_btf_setpBrokerTableIdNoPageDef"
+                  path="btf.broker.maintain_broker_table_btf_maintain_broker_table_btf_setpBrokerTableIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_table_btf_maintain_broker_table_btf_CreateInsertPageDef"
+                  path="btf.broker.maintain_broker_table_btf_maintain_broker_table_btf_CreateInsertPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainBrokerTablePageDef"
+                  path="fragment.brokerTable.maintainBrokerTablePageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_table_type_btf_maintain_broker_table_type_btf_setpTableIdNoPageDef"
+                  path="btf.brokerTable.maintain_broker_table_type_btf_maintain_broker_table_type_btf_setpTableIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainTableTypeByTablePageDef"
+                  path="fragment.brokerTable.maintainTableTypeByTablePageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_table_btf_maintain_broker_table_btf_CommitPageDef"
+                  path="btf.brokerTable.maintain_broker_table_btf_maintain_broker_table_btf_CommitPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_table_btf_maintain_broker_table_btf_RollbackPageDef"
+                  path="btf.brokerTable.maintain_broker_table_btf_maintain_broker_table_btf_RollbackPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_address_btf_maintain_company_address_btf_setByPrimaryKeyViewCriteriaPageDef"
+                  path="btf.company.maintain_company_address_btf_maintain_company_address_btf_setByPrimaryKeyViewCriteriaPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyAddressPageDef"
+                  path="fragment.company.maintainCompanyAddressPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyRegPageDef"
+                  path="fragment.company.maintainCompanyRegPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_bank_detail_btf_maintain_company_bank_detail_btf_setByPkViewCritieraPageDef"
+                  path="btf.company.maintain_company_bank_detail_btf_maintain_company_bank_detail_btf_setByPkViewCritieraPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyBankDetailsPageDef"
+                  path="fragment.company.maintainCompanyBankDetailsPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_reg_btf_maintain_company_reg_btf_setByPrimaryKeyViewCriteriaPageDef"
+                  path="btf.company.maintain_company_reg_btf_maintain_company_reg_btf_setByPrimaryKeyViewCriteriaPageDef"/>
+            <page id="com_liberty_health_comms_broker_createNewBrokerPageDef"
+                  path="fragment.broker.createNewBrokerPageDef"/>
+            <page id="com_liberty_health_comms_broker_createNewBrokerDetailsPageDef"
+                  path="fragment.broker.createNewBrokerDetailsPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef"
+                  path="btf.broker.maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef1"
+                  path="btf.broker.maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef1"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef11"
+                  path="btf.broker.maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef11"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef111"
+                  path="btf.broker.maintain_broker_attributes_btf_maintain_broker_attributes_btf_setpBrokerIdNoPageDef111"/>
+            <page id="com_liberty_health_comms_broker_maintainBrokerAttributesPageDef"
+                  path="fragment.broker.maintainBrokerAttributesPageDef"/>
+            <page id="com_liberty_health_comms_broker_broker_fees_btf_broker_fees_btf_setpBrokerIdNoPageDef"
+                  path="btf.broker.broker_fees_btf_broker_fees_btf_setpBrokerIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainbrokerFeesPageDef"
+                  path="fragment.broker.maintainbrokerFeesPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainBrokerCommPercPageDef"
+                  path="fragment.broker.maintainBrokerCommPercPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainBrokerFunctionPageDef"
+                  path="fragment.broker.maintainBrokerFunctionPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyContactsPageDef"
+                  path="fragment.company.maintainCompanyContactsPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_contact_btf_maintain_company_contact_btf_setByPrimaryKeyViewCriteriaPageDef"
+                  path="btf.company.maintain_company_contact_btf_maintain_company_contact_btf_setByPrimaryKeyViewCriteriaPageDef"/>
+
+            <page id="com_liberty_health_comms_broker_create_new_company_btf_create_new_company_btf_RollbackPageDef"
+                  path="btf.company.create_new_company_btf_create_new_company_btf_RollbackPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyPageDef"
+                  path="fragment.company.maintainCompanyPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_btf_maintain_broker_btf_CreateInsertPageDef"
+                  path="btf.broker.maintain_broker_btf_maintain_broker_btf_CreateInsertPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainBrokerByCompanyPageDef"
+                  path="fragment.broker.maintainBrokerByCompanyPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_by_company_btf_maintain_broker_by_company_btf_setCompanyIdNoPageDef"
+                  path="btf.broker.maintain_broker_by_company_btf_maintain_broker_by_company_btf_setCompanyIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_comments_btf_maintain_company_comments_btf_setpCompanyIdNoPageDef"
+                  path="btf.company.maintain_company_comments_btf_maintain_company_comments_btf_setpCompanyIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyCommentsPageDef"
+                  path="fragment.company.maintainCompanyCommentsPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_accreditation_btf_maintain_company_accreditation_btf_setByPkViewCriteriaPageDef"
+                  path="btf.company.maintain_company_accreditation_btf_maintain_company_accreditation_btf_setByPkViewCriteriaPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyAccredPageDef"
+                  path="fragment.company.maintainCompanyAccredPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyCountryPageDef"
+                  path="fragment.company.maintainCompanyCountryPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_broker_acred_btf_maintain_broker_acred_btf_setpBrokerIdNoPageDef"
+                  path="btf.broker.maintain_broker_acred_btf_maintain_broker_acred_btf_setpBrokerIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainBrokerAccredPageDef"
+                  path="fragment.broker.maintainBrokerAccredPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_brokerFunction_btf_maintain_brokerFunction_btf_setpBrokerIdNoPageDef"
+                  path="btf.broker.maintain_brokerFunction_btf_maintain_brokerFunction_btf_setpBrokerIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_table_btf_maintain_company_table_btf_CreateInsertPageDef"
+                  path="btf.companyTable.maintain_company_table_btf_maintain_company_table_btf_CreateInsertPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_table_btf_maintain_company_table_btf_setpCompanyTableIdNoPageDef"
+                  path="btf.companyTable.maintain_company_table_btf_maintain_company_table_btf_setpCompanyTableIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_table_btf_maintain_company_table_btf_CommitPageDef"
+                  path="btf.companyTable.maintain_company_table_btf_maintain_company_table_btf_CommitPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_table_btf_maintain_company_table_btf_RollbackPageDef"
+                  path="btf.companyTable.maintain_company_table_btf_maintain_company_table_btf_RollbackPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyTablePageDef"
+                  path="fragment.companyTable.maintainCompanyTablePageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_table_type_btf_maintain_company_table_type_btf_setpTableIdNoPageDef"
+                  path="btf.companyTable.maintain_company_table_type_btf_maintain_company_table_type_btf_setpTableIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyTableTypePageDef"
+                  path="fragment.companyTable.maintainCompanyTableTypePageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_detail_btf_maintain_company_detail_btf_setpCompanyIdNoPageDef"
+                  path="btf.company.maintain_company_detail_btf_maintain_company_detail_btf_setpCompanyIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_detail_btf_maintain_company_detail_btf_CommitPageDef"
+                  path="btf.company.maintain_company_detail_btf_maintain_company_detail_btf_CommitPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_detail_btf_maintain_company_detail_btf_RollbackPageDef"
+                  path="btf.company.maintain_company_detail_btf_maintain_company_detail_btf_RollbackPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_attributes_btf_maintain_company_attributes_btf_CreateWithParametersPageDef"
+                  path="btf.company.maintain_company_attributes_btf_maintain_company_attributes_btf_CreateWithParametersPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_attributes_btf_maintain_company_attributes_btf_CreateWithParametersPageDef1"
+                  path="btf.company.maintain_company_attributes_btf_maintain_company_attributes_btf_CreateWithParametersPageDef1"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_attributes_btf_maintain_company_attributes_btf_CreateWithParameters1PageDef"
+                  path="btf.company.maintain_company_attributes_btf_maintain_company_attributes_btf_CreateWithParameters1PageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_setpCompanyIdNoPageDef"
+                  path="btf.company.maintain_company_function_btf_maintain_company_function_btf_setpCompanyIdNoPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainCompanyFunctionPageDef"
+                  path="fragment.company.maintainCompanyFunctionPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_CreateWithParametersPageDef"
+                  path="btf.company.maintain_company_function_btf_maintain_company_function_btf_CreateWithParametersPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_CreateWithParametersPageDef1"
+                  path="btf.company.maintain_company_function_btf_maintain_company_function_btf_CreateWithParametersPageDef1"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_CreateWithParametersPageDef11"
+                  path="btf.company.maintain_company_function_btf_maintain_company_function_btf_CreateWithParametersPageDef11"/>
+            <page id="com_liberty_health_comms_broker_maintain_company_function_btf_maintain_company_function_btf_CommitPageDef"
+                  path="btf.company.maintain_company_function_btf_maintain_company_function_btf_CommitPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setProductVcPageDef"
+                  path="btf.ohi.maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setProductVcPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setPolicyVcPageDef"
+                  path="btf.ohi.maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setPolicyVcPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setPersonVcPageDef"
+                  path="btf.ohi.maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setPersonVcPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setCompanyVcPageDef"
+                  path="btf.ohi.maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setCompanyVcPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setGroupVcPageDef"
+                  path="btf.ohi.maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_setGroupVcPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_CommitPageDef"
+                  path="btf.ohi.maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_CommitPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_RollbackPageDef"
+                  path="btf.ohi.maintain_ohi_commission_percentages_maintain_ohi_commission_percentages_RollbackPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainOhiCommPercPageDef"
+                  path="fragment.ohi.maintainOhiCommPercPageDef"/>
+                              <page id="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setProductVcPageDef"
+                  path="btf.ohi.maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setProductVcPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setPolicyVcPageDef"
+                  path="btf.ohi.maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setPolicyVcPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setCompanyVcPageDef"
+                  path="btf.ohi.maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setCompanyVcPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setPersonVcPageDef"
+                  path="btf.ohi.maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_setPersonVcPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_methodCall1PageDef"
+                  path="btf.ohi.maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_methodCall1PageDef"/>
+            <page id="com_liberty_health_comms_broker_maintainHoldIndicatorPageDef"
+                  path="fragment.ohi.maintainHoldIndicatorPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_CommitPageDef"
+                  path="btf.ohi.maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_CommitPageDef"/>
+            <page id="com_liberty_health_comms_broker_maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_RollbackPageDef"
+                  path="btf.ohi.maintain_ohi_hold_indicator_btf_maintain_ohi_hold_indicator_btf_RollbackPageDef"/>
+        <page id="com_liberty_health_comms_broker_maintain_company_comm_perc_btf_maintain_company_com_perc_btf_setCompanyVcPageDef"
+              path="btf.company.maintain_company_comm_perc_btf_maintain_company_com_perc_btf_setCompanyVcPageDef"/>
+        <page id="com_liberty_health_comms_broker_maintain_ohi_policy_brokers_btf_maintain_ohi_policy_brokers_btf_CommitPageDef"
+              path="btf.ohi.maintain_ohi_policy_brokers_btf_maintain_ohi_policy_brokers_btf_CommitPageDef"/>
+        <page id="com_liberty_health_comms_broker_maintain_ohi_policy_brokers_btf_maintain_ohi_policy_brokers_btf_RollbackPageDef"
+              path="btf.ohi.maintain_ohi_policy_brokers_btf_maintain_ohi_policy_brokers_btf_RollbackPageDef"/>
+        <page id="com_liberty_health_comms_broker_maintainPolicyBrokerPageDef"
+              path="fragment.ohi.maintainPolicyBrokerPageDef"/>
+        <page id="com_liberty_health_comms_broker_maintain_company_comm_perc_btf_maintain_company_com_perc_btf_setCompanyVcPageDef1"
+              path="btf.company.maintain_company_comm_perc_btf_maintain_company_com_perc_btf_setCompanyVcPageDef1"/>
+        <page id="com_liberty_health_comms_broker_maintain_company_address_btf_maintain_company_address_btf_methodCall1PageDef"
+              path="btf.company.maintain_company_address_btf_maintain_company_address_btf_methodCall1PageDef"/>
+        <page id="com_liberty_health_comms_broker_maintain_company_contact_btf_maintain_company_contact_btf_methodCall1PageDef"
+              path="btf.company.maintain_company_contact_btf_maintain_company_contact_btf_methodCall1PageDef"/>
+        <page id="com_liberty_health_comms_broker_backDatedBrokerFunctionPageDef"
+              path="fragment.broker.backDatedBrokerFunctionPageDef"/>
+        <page id="com_liberty_health_comms_broker_maintainBrokerFunctionBackDatePageDef"
+              path="fragment.broker.maintainBrokerFunctionBackDatePageDef"/>
+    </pageDefinitionUsages>
+        <dataControlUsages>
+            <BC4JDataControl id="AppModuleDataControl" Package="com.liberty.health.comms.model.vo"
+                             FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                             SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                             SupportsSortCollection="true" Configuration="AppModuleLocal" syncMode="Immediate"
+                             xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+            <BC4JDataControl id="BrokerMaintenanceAMDataControl"
+                             Package="com.liberty.health.comms.model.broker.services"
+                             FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                             SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                             SupportsSortCollection="true" Configuration="BrokerMaintenanceAMLocal" syncMode="Immediate"
+                             xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+            <BC4JDataControl id="CaptureBrokerAMDataControl" Package="com.liberty.health.comms.model.broker.services"
+                             FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                             SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                             SupportsSortCollection="true" Configuration="CaptureBrokerAMLocal" syncMode="Immediate"
+                             xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+            <BC4JDataControl id="MaintainBrokerageAMDataControl"
+                             Package="com.liberty.health.comms.model.brokerage.services"
+                             FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                             SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                             SupportsSortCollection="true" Configuration="MaintainBrokerageAMLocal" syncMode="Immediate"
+                             xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+            <BC4JDataControl id="OhiStructureAMDataControl" Package="com.liberty.health.comms.model.ohi.services"
+                             FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                             SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                             SupportsSortCollection="true" Configuration="OhiStructureAMLocal" syncMode="Immediate"
+                             xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="WatchListAMDataControl" Package="com.liberty.health.comms.model.watchlist.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="WatchListAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="SystemParameterAMDataControl" Package="com.liberty.health.comms.model.lookup.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="SystemParameterAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+        <BC4JDataControl id="CommsRunAMDataControl" Package="com.liberty.health.comms.model.comms.services"
+                         FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                         SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                         SupportsSortCollection="true" Configuration="CommsRunAMLocal" syncMode="Immediate"
+                         xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    </dataControlUsages>
+</Application>

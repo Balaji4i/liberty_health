@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:inputListOfValues id="parentgroupCodeId" popupTitle="Search and Select: #{bindings.ParentgroupCode.hints.label}"
+                        value="#{bindings.ParentgroupCode.inputValue}" label="#{bindings.ParentgroupCode.hints.label}"
+                        model="#{bindings.ParentgroupCode.listOfValuesModel}"
+                        required="#{bindings.ParentgroupCode.hints.mandatory}"
+                        columns="#{bindings.ParentgroupCode.hints.displayWidth}"
+                        shortDesc="#{bindings.ParentgroupCode.hints.tooltip}" autoSubmit="true"
+                        valueChangeListener="#{watchListBean.onChangeParentGroupLov}" partialTriggers="pfl1 b1">
+    <f:validator binding="#{bindings.ParentgroupCode.validator}"/>
+  </af:inputListOfValues>
+  <af:panelFormLayout id="pfl1" binding="#{watchListBean.bv_ohiForm}" partialTriggers="parentgroupCodeId"
+        visible="false">
+    <af:inputText label="Label 2" id="it4" visible="false"/>
+    <af:inputText label="Group Code" id="it3" binding="#{watchListBean.dummyGroupCodeTextBox}" autoSubmit="true"
+                  partialTriggers="b1"/>
+    <af:outputText value="#{bindings.PoepId.inputValue}" visible="false" shortDesc="#{bindings.PoepId.hints.tooltip}" id="ot1">
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.PoepId.format}"/>
+    </af:outputText>
+    <af:inputText value="#{bindings.CommPerc.inputValue}" label="Commission %"
+                  required="#{bindings.CommPerc.hints.mandatory}" columns="#{bindings.CommPerc.hints.displayWidth}"
+                  maximumLength="#{bindings.CommPerc.hints.precision}" shortDesc="#{bindings.CommPerc.hints.tooltip}"
+                  id="it1">
+      <f:validator binding="#{bindings.CommPerc.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.CommPerc.format}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.CommDesc.inputValue}" label="Commission Description"
+                  required="#{bindings.CommDesc.hints.mandatory}" columns="#{bindings.CommDesc.hints.displayWidth}"
+                  maximumLength="#{bindings.CommDesc.hints.precision}" shortDesc="#{bindings.CommDesc.hints.tooltip}"
+                  id="it2">
+      <f:validator binding="#{bindings.CommDesc.validator}"/>
+    </af:inputText>
+    <af:inputDate value="#{bindings.EffectiveStartDate.inputValue}" label="Effective Start Date"
+                  required="#{bindings.EffectiveStartDate.hints.mandatory}"
+                  columns="#{bindings.EffectiveStartDate.hints.displayWidth}"
+                  shortDesc="#{bindings.EffectiveStartDate.hints.tooltip}" id="id1">
+      <f:validator binding="#{bindings.EffectiveStartDate.validator}"/>
+      <af:convertDateTime pattern="#{bindings.EffectiveStartDate.format}"/>
+    </af:inputDate>
+    <af:inputDate value="#{bindings.EffectiveEndDate.inputValue}" label="Effective End Date"
+                  required="#{bindings.EffectiveEndDate.hints.mandatory}"
+                  columns="#{bindings.EffectiveEndDate.hints.displayWidth}"
+                  shortDesc="#{bindings.EffectiveEndDate.hints.tooltip}" id="id2">
+      <f:validator binding="#{bindings.EffectiveEndDate.validator}"/>
+      <af:convertDateTime pattern="#{bindings.EffectiveEndDate.format}"/>
+    </af:inputDate>
+    <af:outputText value="#{bindings.LastUpdateDatetime.inputValue}" visible="false"
+                   shortDesc="#{bindings.LastUpdateDatetime.hints.tooltip}" id="ot2">
+      <af:convertDateTime pattern="#{bindings.LastUpdateDatetime.format}"/>
+    </af:outputText>
+    <af:outputText value="#{bindings.Username.inputValue}" visible="false" shortDesc="#{bindings.Username.hints.tooltip}" id="ot3"/>
+    <af:outputText value="#{bindings.ProductCode.inputValue}" visible="false" shortDesc="#{bindings.ProductCode.hints.tooltip}"
+                   id="ot4"/>
+    <af:outputText value="#{bindings.InseCode.inputValue}" visible="false" shortDesc="#{bindings.InseCode.hints.tooltip}" id="ot5"/>
+    <af:outputText value="#{bindings.PolicyCode.inputValue}" visible="false" shortDesc="#{bindings.PolicyCode.hints.tooltip}" id="ot6"/>
+    <af:selectOneChoice value="#{bindings.GroupCode.inputValue}" label="#{bindings.GroupCode.label}" visible="false"
+                        required="#{bindings.GroupCode.hints.mandatory}" shortDesc="#{bindings.GroupCode.hints.tooltip}"
+                        id="soc1">
+      <f:selectItems value="#{bindings.GroupCode.items}" id="si1"/>
+      <f:validator binding="#{bindings.GroupCode.validator}"/>
+    </af:selectOneChoice>
+    <af:outputText value="#{bindings.BrokerIdNo.inputValue}" shortDesc="#{bindings.BrokerIdNo.hints.tooltip}" id="ot7"
+            visible="false">
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.BrokerIdNo.format}"/>
+    </af:outputText>
+    <af:outputText value="#{bindings.CompanyIdNo.inputValue}" shortDesc="#{bindings.CompanyIdNo.hints.tooltip}"
+                   id="ot8" visible="false">
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+    </af:outputText>
+    <af:outputText value="#{bindings.CreatedUsername.inputValue}" shortDesc="#{bindings.CreatedUsername.hints.tooltip}"
+                   id="ot9" visible="false"/>
+    <af:outputText value="#{bindings.AuthUsername.inputValue}" shortDesc="#{bindings.AuthUsername.hints.tooltip}"
+                   id="ot10" visible="false"/>
+    <af:outputText value="#{bindings.RejectUsername.inputValue}" shortDesc="#{bindings.RejectUsername.hints.tooltip}"
+                   id="ot11" visible="false"/>
+    <af:outputText value="#{bindings.RowID.inputValue}" shortDesc="#{bindings.RowID.hints.tooltip}" id="ot12"/>
+  </af:panelFormLayout>
+  <af:button text="Continue" id="b1" binding="#{watchListBean.bv_continue}" visible="false"
+             partialTriggers="parentgroupCodeId it3" actionListener="#{watchListBean.onClickContinue}"/>
+</ui:composition>

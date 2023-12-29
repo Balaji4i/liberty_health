@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelGroupLayout id="pgl2">
+    <af:button text="New" id="b9" actionListener="#{pageFlowScope.Payments.onClickNewButton}"
+               partialTriggers="pfl3 b2"/>
+    <af:button text="Save" id="b13" 
+    actionListener="#{pageFlowScope.Payments.onSubmitBrokPaymentsAdjustments}"
+    partialTriggers="it29 it32 it9 it2 it3 it4 it5 it6 it7 it8 b12"/>
+    <af:button actionListener="#{bindings.CreateWithParams2.execute}" visible ="false" text="CreateWithParams2"
+               disabled="#{!bindings.CreateWithParams2.enabled}" id="b2"/>
+    <af:button actionListener="#{pageFlowScope.Payments.onSubmit}" text="Submit" id="b12" disabled="true"
+               binding="#{pageFlowScope.Payments.bv_saveButon}" partialTriggers="b13 b9 pfl3"/>
+  </af:panelGroupLayout>
+  <af:panelFormLayout id="pfl3" partialTriggers="b9 b12" rows="6" styleClass="AFStretchWidth" 
+                      visible="false" binding="#{pageFlowScope.Payments.bvForm}">
+    <f:facet name="footer"/>
+    <af:inputText value="#{bindings.InvoiceNo2.inputValue}" label="Invoice No" disabled = "true"
+                  required="#{bindings.InvoiceNo2.hints.mandatory}" columns="#{bindings.InvoiceNo2.hints.displayWidth}"
+                  maximumLength="#{bindings.InvoiceNo2.hints.precision}" autoSubmit="true"
+                  shortDesc="#{bindings.InvoiceNo2.hints.tooltip}" id="it25"
+                  binding="#{pageFlowScope.Payments.bv_invNo}">
+      <f:validator binding="#{bindings.InvoiceNo2.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.InvoiceNo2.format}"/>
+    </af:inputText>
+    
+    <af:inputListOfValues id="companyIdNoId" popupTitle="Search and Select: #{bindings.CompanyIdNo.hints.label}"
+                          value="#{bindings.CompanyIdNo.inputValue}" label="Brokerage Code"
+                          model="#{bindings.CompanyIdNo.listOfValuesModel}"
+                          required="#{bindings.CompanyIdNo.hints.mandatory}" autoSubmit="true"
+                          partialTriggers="countryCodeId it28 it5 it6 it8"
+                          columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                          valueChangeListener="#{pageFlowScope.Payments.onChangeCompId}"
+                          shortDesc="#{bindings.CompanyIdNo.hints.tooltip}"
+                          binding="#{pageFlowScope.Payments.bv_compIdLov}">
+      <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+    </af:inputListOfValues>
+    <af:inputListOfValues id="countryCodeId" popupTitle="Search and Select: #{bindings.CountryCode.hints.label}"
+                          value="#{bindings.CountryCode.inputValue}" label="Country Code"
+                          model="#{bindings.CountryCode.listOfValuesModel}"
+                          required="#{bindings.CountryCode.hints.mandatory}" autoSubmit="true"
+                          columns="#{bindings.CountryCode.hints.displayWidth}" partialTriggers="companyIdNoId it4"
+                          shortDesc="#{bindings.CountryCode.hints.tooltip}"
+                          valueChangeListener="#{pageFlowScope.Payments.enterCountryCode}"
+                          binding="#{pageFlowScope.Payments.bv_countryCode}">
+      <f:validator binding="#{bindings.CountryCode.validator}"/>
+    </af:inputListOfValues>
+    <af:inputText value="#{bindings.CurrencyCode1.inputValue}" label="Currency Code"
+                  required="#{bindings.CurrencyCode1.hints.mandatory}" autoSubmit="true"
+                  columns="#{bindings.CurrencyCode1.hints.displayWidth}" partialTriggers="companyIdNoId"
+                  maximumLength="#{bindings.CurrencyCode1.hints.precision}" disabled="true"
+                  shortDesc="#{bindings.CurrencyCode1.hints.tooltip}" id="it28"
+                  binding="#{pageFlowScope.Payments.bv_currCode}">
+      <f:validator binding="#{bindings.CurrencyCode1.validator}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.ReleaseHoldReason.inputValue}" label="#{bindings.ReleaseHoldReason.hints.label}"
+                  required="#{bindings.ReleaseHoldReason.hints.mandatory}" visible = "false"
+                  columns="#{bindings.ReleaseHoldReason.hints.displayWidth}" partialTriggers="it31"
+                  maximumLength="#{bindings.ReleaseHoldReason.hints.precision}" autoSubmit="true"
+                  shortDesc="#{bindings.ReleaseHoldReason.hints.tooltip}" id="it1"
+                  binding="#{pageFlowScope.Payments.bv_releaseHoldReason}">
+      <f:validator binding="#{bindings.ReleaseHoldReason.validator}"/>
+    </af:inputText>
+    <af:panelLabelAndMessage label="#{bindings.InvoiceTypeIdNo1.hints.label}" id="plam2" visible="false"> 
+      <af:outputText value="#{bindings.InvoiceTypeIdNo1.inputValue}" 
+                     shortDesc="#{bindings.InvoiceTypeIdNo1.hints.tooltip}" id="ot28">
+        <af:convertNumber groupingUsed="false" pattern="#{bindings.InvoiceTypeIdNo1.format}"/>
+      </af:outputText>
+    </af:panelLabelAndMessage>
+    <af:inputText value="#{bindings.PaymentExchRate1.inputValue}" label="Exchange Rate"
+                  required="#{bindings.PaymentExchRate1.hints.mandatory}"
+                  columns="#{bindings.PaymentExchRate1.hints.displayWidth}"
+                  maximumLength="#{bindings.PaymentExchRate1.hints.precision}"
+                  shortDesc="#{bindings.PaymentExchRate1.hints.tooltip}" id="it29"
+                  partialTriggers="b13" 
+                  binding="#{pageFlowScope.Payments.bv_paymentExchRate}" autoSubmit="true"
+                  valueChangeListener="#{pageFlowScope.Payments.onEnterExchangeRate}">
+      <f:validator binding="#{bindings.PaymentExchRate1.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.PaymentExchRate1.format}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.FeeTypeAmt2.inputValue}" label="Adjustment Amount Local Currency"
+                  required="true" 
+                  columns="#{bindings.FeeTypeAmt2.hints.displayWidth}"
+                  maximumLength="#{bindings.FeeTypeAmt2.hints.precision}"
+                  shortDesc="#{bindings.FeeTypeAmt2.hints.tooltip}" id="it30"
+                  binding="#{pageFlowScope.Payments.bv_feeTypeAmt}" autoSubmit="true"
+                  >
+      <f:validator binding="#{bindings.FeeTypeAmt2.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.FeeTypeAmt2.format}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.FeeTypeExchAmt2.inputValue}" label="Adjustment Amount Broker Currency"
+                   partialTriggers="b13"
+                  columns="#{bindings.FeeTypeExchAmt2.hints.displayWidth}"
+                  maximumLength="#{bindings.FeeTypeExchAmt2.hints.precision}"
+                  shortDesc="#{bindings.FeeTypeExchAmt2.hints.tooltip}" id="it32" 
+                  binding="#{pageFlowScope.Payments.bv_feeTypeExchAmt}" autoSubmit="true"
+                  >
+      <f:validator binding="#{bindings.FeeTypeExchAmt2.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.FeeTypeExchAmt2.format}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.FeeTypeDesc2.inputValue}" label="Reason for Adjustments"
+                  autoSubmit="true" partialTriggers="it1"
+                  columns="#{bindings.FeeTypeDesc2.hints.displayWidth}"
+                  maximumLength="#{bindings.FeeTypeDesc2.hints.precision}" 
+                  valueChangeListener="#{pageFlowScope.Payments.onEnterReason4Adjust}" 
+                  shortDesc="#{bindings.FeeTypeDesc2.hints.tooltip}" id="it31"
+                  binding="#{pageFlowScope.Payments.bv_reason4Adjust}">
+      <f:validator binding="#{bindings.FeeTypeDesc2.validator}"/>
+    </af:inputText>
+    <af:panelLabelAndMessage label="#{bindings.FeeTypeIdNo2.hints.label}" id="plam3" visible="false">
+      <af:outputText value="#{bindings.FeeTypeIdNo2.inputValue}" shortDesc="#{bindings.FeeTypeIdNo2.hints.tooltip}"
+                     id="ot29">
+        <af:convertNumber groupingUsed="false" pattern="#{bindings.FeeTypeIdNo2.format}"/>
+      </af:outputText>
+    </af:panelLabelAndMessage>    <af:inputListOfValues id="buId" popupTitle="Search and Select: #{bindings.Bu.hints.label}"
+                          value="#{bindings.Bu.inputValue}" label="#{bindings.Bu.hints.label}"
+                          model="#{bindings.Bu.listOfValuesModel}" required="true"
+                          columns="#{bindings.Bu.hints.displayWidth}" shortDesc="#{bindings.Bu.hints.tooltip}">
+      <f:validator binding="#{bindings.Bu.validator}"/>
+    </af:inputListOfValues>
+    <af:panelLabelAndMessage label="#{bindings.CommsCalcSnapshotNo.hints.label}" id="plam1" visible="false">
+      <af:outputText value="#{bindings.CommsCalcSnapshotNo.inputValue}"
+                     shortDesc="#{bindings.CommsCalcSnapshotNo.hints.tooltip}" id="ot14">
+        <af:convertNumber groupingUsed="false" pattern="#{bindings.CommsCalcSnapshotNo.format}"/>
+      </af:outputText>
+    </af:panelLabelAndMessage>
+    <af:panelLabelAndMessage label="#{bindings.CommsCalcTypeCode.hints.label}" id="plam4" visible="false">
+      <af:outputText value="#{bindings.CommsCalcTypeCode.inputValue}"
+                     shortDesc="#{bindings.CommsCalcTypeCode.hints.tooltip}" id="ot15"/>
+    </af:panelLabelAndMessage>
+    <af:inputText value="#{bindings.CommsCalculatedAmt.inputValue}" label="#{bindings.CommsCalculatedAmt.hints.label}"
+                  autoSubmit="true" visible="false"
+                  columns="#{bindings.CommsCalculatedAmt.hints.displayWidth}" partialTriggers="b13"
+                  maximumLength="#{bindings.CommsCalculatedAmt.hints.precision}"
+                  shortDesc="#{bindings.CommsCalculatedAmt.hints.tooltip}" id="it2"
+                  binding="#{pageFlowScope.Payments.ss_localCurr}">
+      <f:validator binding="#{bindings.CommsCalculatedAmt.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.CommsCalculatedAmt.format}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.CommsCalculatedExchAmt.inputValue}" autoSubmit="true" visible="false"
+                  label="#{bindings.CommsCalculatedExchAmt.hints.label}" partialTriggers="b13"
+                  
+                  columns="#{bindings.CommsCalculatedExchAmt.hints.displayWidth}"
+                  maximumLength="#{bindings.CommsCalculatedExchAmt.hints.precision}"
+                  shortDesc="#{bindings.CommsCalculatedExchAmt.hints.tooltip}" id="it3"
+                  binding="#{pageFlowScope.Payments.ss_brokerCurr}">
+      <f:validator binding="#{bindings.CommsCalculatedExchAmt.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.CommsCalculatedExchAmt.format}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.CountryCode2.inputValue}" label="#{bindings.CountryCode2.hints.label}"
+                  required="#{bindings.CountryCode2.hints.mandatory}" autoSubmit="true"
+                  columns="#{bindings.CountryCode2.hints.displayWidth}" partialTriggers="b13"
+                  maximumLength="#{bindings.CountryCode2.hints.precision}" visible="false"
+                  shortDesc="#{bindings.CountryCode2.hints.tooltip}" id="it4"
+                  binding="#{pageFlowScope.Payments.ss_countryCode}">
+      <f:validator binding="#{bindings.CountryCode2.validator}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.CompanyIdNo2.inputValue}" label="#{bindings.CompanyIdNo2.hints.label}"
+                   autoSubmit="true" visible="false"
+                  columns="#{bindings.CompanyIdNo2.hints.displayWidth}" partialTriggers="b13"
+                  maximumLength="#{bindings.CompanyIdNo2.hints.precision}"
+                  shortDesc="#{bindings.CompanyIdNo2.hints.tooltip}" id="it5"
+                  binding="#{pageFlowScope.Payments.ss_compId}">
+      <f:validator binding="#{bindings.CompanyIdNo2.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo2.format}"/>
+    </af:inputText>
+    <af:panelLabelAndMessage label="#{bindings.CommsPerc.hints.label}" id="plam5" visible="false">
+      <af:outputText value="#{bindings.CommsPerc.inputValue}" shortDesc="#{bindings.CommsPerc.hints.tooltip}" id="ot16">
+        <af:convertNumber groupingUsed="false" pattern="#{bindings.CommsPerc.format}"/>
+      </af:outputText>
+    </af:panelLabelAndMessage>
+    <af:panelLabelAndMessage label="#{bindings.FinanceReceiptNo.hints.label}" id="plam6" visible="false">
+      <af:outputText value="#{bindings.FinanceReceiptNo.inputValue}"
+                     shortDesc="#{bindings.FinanceReceiptNo.hints.tooltip}" id="ot17"/>
+    </af:panelLabelAndMessage>
+    <af:panelLabelAndMessage label="#{bindings.CalculationDatetime.hints.label}" id="plam7" visible="false">
+      <af:outputText value="#{bindings.CalculationDatetime.inputValue}"
+                     shortDesc="#{bindings.CalculationDatetime.hints.tooltip}" id="ot18">
+        <af:convertDateTime pattern="#{bindings.CalculationDatetime.format}"/>
+      </af:outputText>
+    </af:panelLabelAndMessage>
+    <af:panelLabelAndMessage label="#{bindings.PaymentReceiveAmt.hints.label}" id="plam8" visible="false">
+      <af:outputText value="#{bindings.PaymentReceiveAmt.inputValue}"
+                     shortDesc="#{bindings.PaymentReceiveAmt.hints.tooltip}" id="ot19">
+        <af:convertNumber groupingUsed="false" pattern="#{bindings.PaymentReceiveAmt.format}"/>
+      </af:outputText>
+    </af:panelLabelAndMessage>
+    <af:inputText value="#{bindings.PaymentCurrency.inputValue}" label="#{bindings.PaymentCurrency.hints.label}"
+                  autoSubmit="true" visible="false"
+                  columns="#{bindings.PaymentCurrency.hints.displayWidth}"
+                  maximumLength="#{bindings.PaymentCurrency.hints.precision}"
+                  shortDesc="#{bindings.PaymentCurrency.hints.tooltip}" id="it6"
+                  binding="#{pageFlowScope.Payments.ss_payCurrCode}" partialTriggers="b13">
+      <f:validator binding="#{bindings.PaymentCurrency.validator}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.ExchangeRate.inputValue}" label="#{bindings.ExchangeRate.hints.label}"
+                  required="#{bindings.ExchangeRate.hints.mandatory}" autoSubmit="true" 
+                  columns="#{bindings.ExchangeRate.hints.displayWidth}" partialTriggers="b13"
+                  maximumLength="#{bindings.ExchangeRate.hints.precision}" visible="false"
+                  shortDesc="#{bindings.ExchangeRate.hints.tooltip}" id="it7"
+                  binding="#{pageFlowScope.Payments.ss_exchRate}">
+      <f:validator binding="#{bindings.ExchangeRate.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.ExchangeRate.format}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.ExchangeRateCurrencyCode.inputValue}" autoSubmit="true"
+                  label="#{bindings.ExchangeRateCurrencyCode.hints.label}" partialTriggers="b13"
+                  visible="false"
+                  columns="#{bindings.ExchangeRateCurrencyCode.hints.displayWidth}"
+                  maximumLength="#{bindings.ExchangeRateCurrencyCode.hints.precision}"
+                  shortDesc="#{bindings.ExchangeRateCurrencyCode.hints.tooltip}" id="it8"
+                  binding="#{pageFlowScope.Payments.ss_erCurrCode}">
+      <f:validator binding="#{bindings.ExchangeRateCurrencyCode.validator}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.InvoiceNo.inputValue}" label="#{bindings.InvoiceNo.hints.label}" autoSubmit="true"
+    partialTriggers="it25 b13" visible="false"
+                  required="#{bindings.InvoiceNo.hints.mandatory}" columns="#{bindings.InvoiceNo.hints.displayWidth}"
+                  maximumLength="#{bindings.InvoiceNo.hints.precision}" shortDesc="#{bindings.InvoiceNo.hints.tooltip}"
+                  id="it9" binding="#{pageFlowScope.Payments.ss_invNo}">
+      <f:validator binding="#{bindings.InvoiceNo.validator}"/>
+      <af:convertNumber groupingUsed="false" pattern="#{bindings.InvoiceNo.format}"/>
+    </af:inputText>
+    <af:inputDate value="#{bindings.LastUpdateDatetime.inputValue}" label="#{bindings.LastUpdateDatetime.hints.label}"
+                  required="#{bindings.LastUpdateDatetime.hints.mandatory}" visible="false"
+                  columns="#{bindings.LastUpdateDatetime.hints.displayWidth}"
+                  shortDesc="#{bindings.LastUpdateDatetime.hints.tooltip}" id="id1">
+      <f:validator binding="#{bindings.LastUpdateDatetime.validator}"/>
+      <af:convertDateTime pattern="#{bindings.LastUpdateDatetime.format}"/>
+    </af:inputDate>
+    <af:inputText value="#{bindings.Username.inputValue}" label="#{bindings.Username.hints.label}" visible="false"
+                  required="#{bindings.Username.hints.mandatory}" columns="#{bindings.Username.hints.displayWidth}"
+                  maximumLength="#{bindings.Username.hints.precision}" shortDesc="#{bindings.Username.hints.tooltip}"
+                  id="it10">
+      <f:validator binding="#{bindings.Username.validator}"/>
+    </af:inputText>
+  </af:panelFormLayout>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t1">
+        <af:button actionListener="#{bindings.Execute1.execute}" text="Refresh"
+                   disabled="#{!bindings.Execute1.enabled}" id="b1"/>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.BrokPaymentsAdjust1.collectionModel}" var="row"
+              rows="#{bindings.BrokPaymentsAdjust1.rangeSize}" scrollPolicy="page"
+              emptyText="#{bindings.BrokPaymentsAdjust1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.BrokPaymentsAdjust1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.BrokPaymentsAdjust1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.BrokPaymentsAdjust1.rangeSize}"
+              filterModel="#{bindings.BrokPaymentsAdjust1Query.queryDescriptor}" filterVisible="true"
+              queryListener="#{bindings.BrokPaymentsAdjust1Query.processQuery}" varStatus="vs" id="t2"
+              styleClass="AFStretchWidth" partialTriggers="::b1">
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.InvoiceNo.name}" filterable="true" sortable="true"
+                 headerText="Invoice No" id="c3">
+        <af:outputText value="#{row.InvoiceNo}" shortDesc="#{bindings.BrokPaymentsAdjust1.hints.InvoiceNo.tooltip}"
+                       id="ot3">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.BrokPaymentsAdjust1.hints.InvoiceNo.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.CompanyIdNo.name}" filterable="true" sortable="true"
+                 headerText="Brokerage code" id="c4">
+        <af:outputText value="#{row.CompanyIdNo}" shortDesc="#{bindings.BrokPaymentsAdjust1.hints.CompanyIdNo.tooltip}"
+                       id="ot4">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.BrokPaymentsAdjust1.hints.CompanyIdNo.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.CompanyName.name}" filterable="true" sortable="true"
+                 headerText="Brokerage Name" id="c5">
+        <af:outputText value="#{row.CompanyName}" shortDesc="#{bindings.BrokPaymentsAdjust1.hints.CompanyName.tooltip}"
+                       id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.CountryCode.name}" filterable="true" sortable="true"
+                 headerText="Country Code" id="c6">
+        <af:outputText value="#{row.CountryCode}" shortDesc="#{bindings.BrokPaymentsAdjust1.hints.CountryCode.tooltip}"
+                       id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.CurrencyCode.name}" filterable="true"
+                 sortable="true" headerText="Currency Code" id="c7">
+        <af:outputText value="#{row.CurrencyCode}"
+                       shortDesc="#{bindings.BrokPaymentsAdjust1.hints.CurrencyCode.tooltip}" id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.ReleaseHoldReason.name}" filterable="true" rendered="false"
+                 sortable="true" headerText="Release Hold Reason" id="c8">
+        <af:outputText value="#{row.ReleaseHoldReason}"
+                       shortDesc="#{bindings.BrokPaymentsAdjust1.hints.ReleaseHoldReason.tooltip}" id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.FeeTypeAmt.name}" filterable="true" sortable="true"
+                 headerText="Adjustment Amount for Local Currency" id="c9">
+        <af:outputText value="#{row.FeeTypeAmt}" shortDesc="#{bindings.BrokPaymentsAdjust1.hints.FeeTypeAmt.tooltip}"
+                       id="ot9">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.BrokPaymentsAdjust1.hints.FeeTypeAmt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.PaymentExchRate.name}" filterable="true"
+                 sortable="true" headerText="Exchange Rate" id="c10">
+        <af:outputText value="#{row.PaymentExchRate}"
+                       shortDesc="#{bindings.BrokPaymentsAdjust1.hints.PaymentExchRate.tooltip}" id="ot10">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.BrokPaymentsAdjust1.hints.PaymentExchRate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.FeeTypeExchAmt.name}" filterable="true"
+                 sortable="true" headerText="Adjustment Amount for Broker Currency" id="c11">
+        <af:outputText value="#{row.FeeTypeExchAmt}"
+                       shortDesc="#{bindings.BrokPaymentsAdjust1.hints.FeeTypeExchAmt.tooltip}" id="ot11">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.BrokPaymentsAdjust1.hints.FeeTypeExchAmt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.BrokPaymentsAdjust1.hints.FeeTypeDesc.name}" filterable="true" sortable="true"
+                 headerText="Reason for Adjustments" id="c12">
+        <af:outputText value="#{row.FeeTypeDesc}" shortDesc="#{bindings.BrokPaymentsAdjust1.hints.FeeTypeDesc.tooltip}"
+                       id="ot12"/>
+      </af:column>
+      <af:column headerText="#{bindings.BrokPaymentsAdjust1.hints.Bu.label}" id="c14">
+        <af:outputText value="#{row.Bu}" shortDesc="#{bindings.BrokPaymentsAdjust1.hints.Bu.tooltip}" id="ot20"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+  <af:table value="#{bindings.CompanyCountryByCompanyView.collectionModel}" var="row"
+            rows="#{bindings.CompanyCountryByCompanyView.rangeSize}" rendered="false"
+            emptyText="#{bindings.CompanyCountryByCompanyView.viewable ? 'No data to display.' : 'Access Denied.'}"
+            rowBandingInterval="0" selectedRowKeys="#{bindings.CompanyCountryByCompanyView.collectionModel.selectedRow}"
+            selectionListener="#{bindings.CompanyCountryByCompanyView.collectionModel.makeCurrent}"
+            rowSelection="single" fetchSize="#{bindings.CompanyCountryByCompanyView.rangeSize}" id="t3">
+    <af:column headerText="#{bindings.CompanyCountryByCompanyView.hints.CompanyIdNo.label}" id="c1">
+      <af:outputText value="#{row.CompanyIdNo}"
+                     shortDesc="#{bindings.CompanyCountryByCompanyView.hints.CompanyIdNo.tooltip}" id="ot1">
+        <af:convertNumber groupingUsed="false"
+                          pattern="#{bindings.CompanyCountryByCompanyView.hints.CompanyIdNo.format}"/>
+      </af:outputText>
+    </af:column>
+    <af:column headerText="#{bindings.CompanyCountryByCompanyView.hints.CountryCode.label}" id="c2">
+      <af:outputText value="#{row.CountryCode}"
+                     shortDesc="#{bindings.CompanyCountryByCompanyView.hints.CountryCode.tooltip}" id="ot2"/>
+    </af:column>
+    <af:column headerText="#{bindings.CompanyCountryByCompanyView.hints.CompanyName.label}" id="c13">
+      <af:outputText value="#{row.CompanyName}"
+                     shortDesc="#{bindings.CompanyCountryByCompanyView.hints.CompanyName.tooltip}" id="ot13"/>
+    </af:column>
+  </af:table>
+</ui:composition>

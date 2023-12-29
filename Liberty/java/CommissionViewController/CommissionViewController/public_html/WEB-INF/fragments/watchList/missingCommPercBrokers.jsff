@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}" id="ph1">
+    <f:facet name="context"/>
+    <f:facet name="toolbar"/>
+    <f:facet name="menuBar"/>
+    <f:facet name="legend"/>
+    <f:facet name="info"/>
+    <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+      <f:facet name="menus"/>
+      <f:facet name="toolbar">
+        <af:toolbar id="t2">
+          <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+            <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                               filename="#{pageFlowScope.menuItemName}.xls"/>
+          </af:button>
+        </af:toolbar>
+      </f:facet>
+      <f:facet name="statusbar"/>
+      <af:table value="#{bindings.AllBrokerageWithNoPercentageRovView.collectionModel}" var="row"
+                rows="#{bindings.AllBrokerageWithNoPercentageRovView.rangeSize}"
+                emptyText="#{bindings.AllBrokerageWithNoPercentageRovView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                rowBandingInterval="1"
+                selectedRowKeys="#{bindings.AllBrokerageWithNoPercentageRovView.collectionModel.selectedRow}"
+                selectionListener="#{bindings.AllBrokerageWithNoPercentageRovView.collectionModel.makeCurrent}"
+                rowSelection="single" fetchSize="#{bindings.AllBrokerageWithNoPercentageRovView.rangeSize}" id="t1"
+                displayRow="selected" styleClass="AFStretchWidth">
+        <af:column headerText="#{bindings.AllBrokerageWithNoPercentageRovView.hints.CompanyIdNo.label}" id="c7">
+          <af:link disabled="#{!securityContext.userInRole['comms-consultant']}" text="#{row.CompanyIdNo}" id="l1" action="goCompany"/>
+        </af:column>
+        <af:column headerText="#{bindings.AllBrokerageWithNoPercentageRovView.hints.CompanyName.label}" id="c1"
+                   width="350">
+          <af:outputText value="#{row.CompanyName}"
+                         shortDesc="#{bindings.AllBrokerageWithNoPercentageRovView.hints.CompanyName.tooltip}"
+                         id="ot6"/>
+        </af:column>
+        <af:column headerText="#{bindings.AllBrokerageWithNoPercentageRovView.hints.MultinationalInd.label}" id="c9"
+                   width="60">
+          <af:outputText value="#{row.MultinationalInd}"
+                         shortDesc="#{bindings.AllBrokerageWithNoPercentageRovView.hints.MultinationalInd.tooltip}"
+                         id="ot7"/>
+        </af:column>
+        <af:column headerText="#{bindings.AllBrokerageWithNoPercentageRovView.hints.BrokerFunctionDesc.label}" id="c2">
+          <af:outputText value="#{row.BrokerFunctionDesc}"
+                         shortDesc="#{bindings.AllBrokerageWithNoPercentageRovView.hints.BrokerFunctionDesc.tooltip}"
+                         id="ot3"/>
+        </af:column>
+        <af:column headerText="#{bindings.AllBrokerageWithNoPercentageRovView.hints.BrokerStatementDesc.label}" id="c4">
+          <af:outputText value="#{row.BrokerStatementDesc}"
+                         shortDesc="#{bindings.AllBrokerageWithNoPercentageRovView.hints.BrokerStatementDesc.tooltip}"
+                         id="ot8"/>
+        </af:column>
+        <af:column headerText="#{bindings.AllBrokerageWithNoPercentageRovView.hints.BrokerStatusDesc.label}" id="c8">
+          <af:outputText value="#{row.BrokerStatusDesc}"
+                         shortDesc="#{bindings.AllBrokerageWithNoPercentageRovView.hints.BrokerStatusDesc.tooltip}"
+                         id="ot4"/>
+        </af:column>
+        <af:column headerText="#{bindings.AllBrokerageWithNoPercentageRovView.hints.BrokerTypeDesc.label}" id="c6">
+          <af:outputText value="#{row.BrokerTypeDesc}"
+                         shortDesc="#{bindings.AllBrokerageWithNoPercentageRovView.hints.BrokerTypeDesc.tooltip}"
+                         id="ot2"/>
+        </af:column>
+        <af:column headerText="#{bindings.AllBrokerageWithNoPercentageRovView.hints.EffectiveStartDate.label}" id="c5"
+                   align="center">
+          <af:outputText value="#{row.EffectiveStartDate}"
+                         shortDesc="#{bindings.AllBrokerageWithNoPercentageRovView.hints.EffectiveStartDate.tooltip}"
+                         id="ot9">
+            <af:convertDateTime pattern="#{bindings.AllBrokerageWithNoPercentageRovView.hints.EffectiveStartDate.format}"/>
+          </af:outputText>
+        </af:column>
+        <af:column headerText="#{bindings.AllBrokerageWithNoPercentageRovView.hints.EffectiveEndDate.label}" id="c3"
+                   align="center">
+          <af:outputText value="#{row.EffectiveEndDate}"
+                         shortDesc="#{bindings.AllBrokerageWithNoPercentageRovView.hints.EffectiveEndDate.tooltip}"
+                         id="ot5">
+            <af:convertDateTime pattern="#{bindings.AllBrokerageWithNoPercentageRovView.hints.EffectiveEndDate.format}"/>
+          </af:outputText>
+        </af:column>
+      </af:table>
+    </af:panelCollection>
+  </af:panelHeader>
+</jsp:root>

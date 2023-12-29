@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommsPartialReceiptApproveVO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.brokerage.vo.CommsPartialReceiptApproveVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.brokerage.vo.CommsPartialReceiptApproveVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+  RowInterface="com.liberty.health.comms.model.brokerage.vo.common.CommsPartialReceiptApproveVORow"
+  ComponentInterface="com.liberty.health.comms.model.brokerage.vo.common.CommsPartialReceiptApproveVO">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isCodegen" Value="true"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.brokerage.vo.CommsPartialReceiptApproveVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pcountrylist"
+    Kind="where"
+    Type="java.lang.String">
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="CommsPartialReceiptApproveVO"/>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <SQLQuery><![CDATA[SELECT 
+    commspartialreceipteo.active_yn, 
+    commspartialreceipteo.approved_by, 
+    commspartialreceipteo.bu, 
+    commspartialreceipteo.comms_partial_pk, 
+    commspartialreceipteo.comms_percentage, 
+    commspartialreceipteo.company_id_no, 
+    commspartialreceipteo.country_code, 
+    commspartialreceipteo.created_by, 
+    commspartialreceipteo.creation_date, 
+    commspartialreceipteo.effective_end_date, 
+    commspartialreceipteo.effective_start_date, 
+    commspartialreceipteo.group_code, 
+    commspartialreceipteo.interface_to_comms, 
+    commspartialreceipteo.last_update_date, 
+    commspartialreceipteo.last_updated_by 
+FROM 
+    comms_on_partial_receipt commspartialreceipteo 
+WHERE 
+    ( ( upper(commspartialreceipteo.active_yn) = upper('N') ) 
+      AND ( upper(commspartialreceipteo.approved_by) IS NULL ) ) 
+    AND commspartialreceipteo.country_code IS NOT NULL 
+    AND commspartialreceipteo.country_code IN ( 
+        SELECT 
+            regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level) 
+        FROM 
+            dual 
+        CONNECT BY 
+            regexp_substr(replace(:pcountrylist, '''', ''), '[^,]+', 1, level) IS NOT NULL 
+    )]]></SQLQuery>
+  <EntityUsage
+    Name="CommsPartialReceiptEO"
+    Entity="com.liberty.health.comms.model.eo.CommsPartialReceiptEO"/>
+  <ViewAttribute
+    Name="ActiveYn"
+    PrecisionRule="true"
+    EntityAttrName="ActiveYn"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="ACTIVE_YN"/>
+  <ViewAttribute
+    Name="ApprovedBy"
+    PrecisionRule="true"
+    EntityAttrName="ApprovedBy"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="APPROVED_BY"/>
+  <ViewAttribute
+    Name="Bu"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Bu"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="BU"/>
+  <ViewAttribute
+    Name="CommsPartialPk"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="CommsPartialPk"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="COMMS_PARTIAL_PK"/>
+  <ViewAttribute
+    Name="CommsPercentage"
+    IsUpdateable="while_insert"
+    IsQueriable="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CommsPercentage"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="COMMS_PERCENTAGE"/>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="CompanyIdNo"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="COMPANY_ID_NO"/>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CountryCode"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="COUNTRY_CODE"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="EffectiveEndDate"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveEndDate"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="EFFECTIVE_END_DATE"/>
+  <ViewAttribute
+    Name="EffectiveStartDate"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="EffectiveStartDate"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="EFFECTIVE_START_DATE"/>
+  <ViewAttribute
+    Name="GroupCode"
+    IsUpdateable="while_insert"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="GroupCode"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="GROUP_CODE"/>
+  <ViewAttribute
+    Name="InterfaceToComms"
+    PrecisionRule="true"
+    EntityAttrName="InterfaceToComms"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="INTERFACE_TO_COMMS"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="CommsPartialReceiptEO"
+    AliasName="LAST_UPDATED_BY"/>
+  <ClientInterface
+    Name="__clientInterface">
+    <Method
+      Name="setAuthUsername"
+      MethodName="setAuthUsername">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

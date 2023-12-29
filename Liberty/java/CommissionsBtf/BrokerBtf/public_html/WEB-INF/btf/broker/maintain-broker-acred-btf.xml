@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-broker-acred-btf">
+        <default-activity>setpBrokerIdNo</default-activity>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>brokerIdNo</name>
+            <value>#{pageFlowScope.brokerIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__4">
+            <name>createInd</name>
+            <value>#{pageFlowScope.createInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__5">
+            <managed-bean-name>brokerAttributes</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.BrokerAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <method-call id="setpBrokerIdNo">
+            <method>#{bindings.setpBrokerIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpBrokerIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <view id="maintainBrokerAccred">
+            <page>/WEB-INF/fragment/broker/maintainBrokerAccred.jsff</page>
+        </view>
+        <control-flow-rule id="__2">
+            <from-activity-id>setpBrokerIdNo</from-activity-id>
+            <control-flow-case id="__3">
+                <from-outcome>setpBrokerIdNo</from-outcome>
+                <to-activity-id>maintainBrokerAccred</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

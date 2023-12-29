@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CaptureBrokerAM"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  ComponentClass="com.liberty.health.comms.model.broker.services.CaptureBrokerAMImpl"
+  DefClass="com.liberty.health.comms.model.broker.services.CaptureBrokerAMDefImpl"
+  ClearCacheOnRollback="true">
+    <DesignTime>
+        <Attr Name="_isDefCodegen" Value="true"/>
+        <Attr Name="_isCodegen" Value="true"/>
+    </DesignTime>
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.broker.services.CaptureBrokerAM_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewUsage
+      Name="CaptureCompanyView"
+      ViewObjectName="com.liberty.health.comms.model.vo.CompanyVO"
+      MaxFetchSize="0"/>
+    <ViewUsage
+      Name="CaptureCompanyCountryView"
+      ViewObjectName="com.liberty.health.comms.model.vo.CompanyCountryVO"/>
+    <ViewUsage
+      Name="CaptureCompanyCommentsView"
+      ViewObjectName="com.liberty.health.comms.model.brokerage.vo.CompanyCommentsVO"/>
+    <ViewUsage
+      Name="CaptureBrokerView"
+      ViewObjectName="com.liberty.health.comms.model.broker.vo.BrokerVO"/>
+    <ViewUsage
+      Name="CompanyFeeVO1"
+      ViewObjectName="com.liberty.health.comms.model.brokerage.vo.CompanyFeeVO"/>
+    <ViewUsage
+      Name="CountryLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CountryLovView"/>
+    <ViewUsage
+      Name="CompanyVO1"
+      ViewObjectName="com.liberty.health.comms.model.vo.CompanyVO"/>
+    <ViewLinkUsage
+      Name="FkCompanyCompanyCountryLink2"
+      ViewLinkObjectName="com.liberty.health.comms.model.broker.vo.links.FkCompanyCompanyCountryLink"
+      SrcViewUsageName="com.liberty.health.comms.model.broker.services.CaptureBrokerAM.CaptureCompanyView"
+      DstViewUsageName="com.liberty.health.comms.model.broker.services.CaptureBrokerAM.CaptureCompanyCountryView"
+      Reversed="false"/>
+    <ViewLinkUsage
+      Name="FkCompanyCommentsCompanyLink1"
+      ViewLinkObjectName="com.liberty.health.comms.model.brokerage.vo.links.FkCompanyCommentsCompanyLink"
+      SrcViewUsageName="com.liberty.health.comms.model.broker.services.CaptureBrokerAM.CaptureCompanyView"
+      DstViewUsageName="com.liberty.health.comms.model.broker.services.CaptureBrokerAM.CaptureCompanyCommentsView"
+      Reversed="false"/>
+    <ViewLinkUsage
+      Name="FkCompanyVoBrokerVoLink1"
+      ViewLinkObjectName="com.liberty.health.comms.model.vo.links.FkCompanyVoBrokerVoLink"
+      SrcViewUsageName="com.liberty.health.comms.model.broker.services.CaptureBrokerAM.CaptureCompanyView"
+      DstViewUsageName="com.liberty.health.comms.model.broker.services.CaptureBrokerAM.CaptureBrokerView"
+      Reversed="false"/>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</AppModule>

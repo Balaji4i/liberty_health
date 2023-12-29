@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14"
+                id="allCommissionPaymentsPerGroupPageDef" Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="CommissionPaymentsPerGroupVO1" RangeSize="25" DataControl="PaymentAMDataControl"
+              id="CommissionPaymentsPerGroupVO1Iterator"/>
+    <searchRegion Criteria="CommissionPaymentsPerGroupCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="CommissionPaymentsPerGroupVO1Iterator" id="CommissionPaymentsPerGroupCriteriaQuery"/>
+    <iterator Binds="OhiGroupsParent1" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="OhiGroupsParent1Iterator"/>
+    <searchRegion Binds="OhiGroupsParent1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="OhiGroupsParent1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="CommissionPaymentsPerGroupVO1Iterator" id="CommissionPaymentsPerGroupVO11">
+      <nodeDefinition DefName="com.liberty.health.comms.model.payment.vo.CommissionPaymentsPerGroup"
+                      Name="CommissionPaymentsPerGroupVO110">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="GroupCode"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="FinanceInvoiceNo"/>
+          <Item Value="CurrencyCode"/>
+          <Item Value="ReleaseDate"/>
+          <Item Value="PaymentDate"/>
+          <Item Value="TotalAmount"/>
+          <Item Value="TotalPayable"/>
+          <Item Value="ParentgroupCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="OhiGroupsParent1Iterator" id="OhiGroupsParent1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.ohi.vo.OhiGroupsParentVO" Name="OhiGroupsParent10">
+        <AttrNames>
+          <Item Value="ParentgroupCode"/>
+          <Item Value="GroupCode"/>
+          <Item Value="GroupName"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="CommissionPaymentsPerGroupVO1Iterator" id="ParentgroupCode">
+      <AttrNames>
+        <Item Value="ParentgroupCode"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="OhiGroupsParent1Iterator" id="Execute" RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="OhiGroupsParent1Iterator" id="ExecuteWithParams" RequiresUpdateModel="true"
+            Action="executeWithParams">
+      <NamedData NDName="pParentgroupCode" NDType="java.lang.String"/>
+    </action>
+  </bindings>
+</pageDefinition>

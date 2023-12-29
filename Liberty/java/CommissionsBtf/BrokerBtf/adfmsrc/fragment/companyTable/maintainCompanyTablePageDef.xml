@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCompanyTablePageDef"
+                Package="fragment.companyTable">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyTableByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyTableByPkViewIterator"/>
+        <taskFlow id="maintaincompanytabletypebtf1"
+                  taskFlowId="/WEB-INF/btf/companyTable/maintain-company-table-type-btf.xml#maintain-company-table-type-btf"
+                  activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding">
+            <parameters>
+                <parameter id="tableIdNo" value="#{bindings.CompanyTableIdNo.inputValue}"/>
+            </parameters>
+        </taskFlow>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="CompanyTableByPkViewIterator" id="CompanyTableIdNo">
+            <AttrNames>
+                <Item Value="CompanyTableIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyTableByPkViewIterator" id="CompanyTableDesc">
+            <AttrNames>
+                <Item Value="CompanyTableDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyTableByPkViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyTableByPkViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

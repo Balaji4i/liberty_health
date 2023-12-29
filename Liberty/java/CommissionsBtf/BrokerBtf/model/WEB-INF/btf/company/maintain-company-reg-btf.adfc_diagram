@@ -1,0 +1,47 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View3">
+      <property
+         name="activityId">maintainCompanyReg</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">471.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>maintainCompanyReg&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">68.19531</property>
+      <property
+         name="page">/WEB-INF/fragment/company/maintainCompanyReg.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <MethodCall
+      id="MethodCall5">
+      <property
+         name="activityId">setByPrimaryKeyViewCriteria</property>
+      <property
+         name="x">190.35156</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setByPrimaryKeyViewCriteria&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">327.09766</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase6"
+      from="MethodCall5"
+      to="View3">
+      <property
+         name="fromOutcome">setByPrimaryKeyViewCriteria</property>
+      <property
+         name="sdm:polyPoints">T50,190.35156,272.74707,430.0,67.84473,L50</property>
+   </ControlFlowCase>
+</SDM>

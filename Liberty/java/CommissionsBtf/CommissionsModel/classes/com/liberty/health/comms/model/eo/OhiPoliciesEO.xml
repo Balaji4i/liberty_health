@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiPoliciesEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="OHI_POLICIES"
+  AliasName="OhiPoliciesEO"
+  BindingStyle="OracleName"
+  RowClass="com.core.model.eo.classes.CoreEntityImpl"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  CollClass="com.core.model.eo.classes.CoreEntityCache">
+    <Attribute
+      Name="PoliId"
+      IsNotNull="true"
+      Precision="14"
+      Scale="0"
+      ColumnName="POLI_ID"
+      SQLType="NUMERIC"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      TableName="OHI_POLICIES"
+      PrimaryKey="true"/>
+    <Attribute
+      Name="PolicyCode"
+      IsNotNull="true"
+      Precision="30"
+      ColumnName="POLICY_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_POLICIES">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="OHI_POLICIES"/>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="20"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="OHI_POLICIES">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="20"/>
+        </DesignTime>
+    </Attribute>
+    <AccessorAttribute
+      Name="OhiPolicyholders"
+      Association="com.liberty.health.comms.model.eo.assoc.OhiPolicyholdersPoliciesFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.OhiPolicyholdersPoliciesFkAssoc.OhiPolicyholders"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.OhiPolicyholdersPoliciesFkAssoc.OhiPolicies"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <AccessorAttribute
+      Name="OhiPolicyBrokers"
+      Association="com.liberty.health.comms.model.eo.assoc.OhiPolicyBrokersPoliciesFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.OhiPolicyBrokersPoliciesFkAssoc.OhiPolicyBrokers"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.OhiPolicyBrokersPoliciesFkAssoc.OhiPolicies"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <AccessorAttribute
+      Name="OhiPolicyEnrollments"
+      Association="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsPoliFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsPoliFkAssoc.OhiPolicyEnrollments"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.OhiPoliEnrollmentsPoliFkAssoc.OhiPolicies"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false"/>
+    <Key
+      Name="OhiPoliciesPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="OHI_POLICIES_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.OhiPoliciesEO.PoliId"/>
+        </AttrArray>
+    </Key>
+</Entity>

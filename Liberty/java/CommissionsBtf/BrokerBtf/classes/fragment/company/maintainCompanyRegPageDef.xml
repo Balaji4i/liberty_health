@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainCompanyRegPageDef"
+                Package="fragment.company">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="CompanyRegByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyRegByPkViewIterator"/>
+        <iterator Binds="CompanyRegAuditView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyRegAuditViewIterator"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="VatNo">
+            <AttrNames>
+                <Item Value="VatNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="RegNo">
+            <AttrNames>
+                <Item Value="RegNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="ExpiryDate">
+            <AttrNames>
+                <Item Value="ExpiryDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="ApplicationDate">
+            <AttrNames>
+                <Item Value="ApplicationDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="AuthoriseDate">
+            <AttrNames>
+                <Item Value="AuthoriseDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <action IterBinding="CompanyRegByPkViewIterator" id="CreateWithParams" RequiresUpdateModel="true"
+                Action="createWithParams">
+            <NamedData NDName="CompanyIdNo" NDValue="#{pageFlowScope.companyIdNo}" NDType="java.lang.Integer"/>
+            <NamedData NDName="CountryCode" NDValue="#{pageFlowScope.countryCode}" NDType="java.lang.String"/>
+        </action>
+        <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+        <action id="Rollback" RequiresUpdateModel="false" Action="rollbackTransaction"
+                DataControl="MaintainBrokerageAMDataControl"/>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="CompanyIdNo">
+            <AttrNames>
+                <Item Value="CompanyIdNo"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="CountryCode">
+            <AttrNames>
+                <Item Value="CountryCode"/>
+            </AttrNames>
+        </attributeValues>
+        <methodAction id="updateEffDates" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateEffDates"
+                      IsViewObjectMethod="true" DataControl="MaintainBrokerageAMDataControl"
+                      InstanceName="data.MaintainBrokerageAMDataControl.CompanyRegByPkView">
+            <NamedData NDName="compIdNo" NDValue="#{bindings.CompanyIdNo.inputValue}" NDType="java.lang.Integer"/>
+            <NamedData NDName="countryCode" NDValue="#{bindings.CountryCode.inputValue}" NDType="java.lang.String"/>
+            <NamedData NDName="currentDate" NDValue="#{companyAttributesBean.currentDate}"
+                       NDType="oracle.jbo.domain.Date"/>
+        </methodAction>
+        <tree IterBinding="CompanyRegAuditViewIterator" id="CompanyRegAuditView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyRegAuditRoView"
+                            Name="CompanyRegAuditView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="VatNo"/>
+                    <Item Value="RegNo"/>
+                    <!--<Item Value="FaisNo"/>-->
+                    <Item Value="ExpiryDate"/>
+                    <Item Value="ApplicationDate"/>
+                    <Item Value="AuthoriseDate"/>
+                    <Item Value="TaxIdentificationNo"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <attributeValues IterBinding="CompanyRegByPkViewIterator" id="TaxIdentificationNo">
+            <AttrNames>
+                <Item Value="TaxIdentificationNo"/>
+            </AttrNames>
+        </attributeValues>
+    </bindings>
+</pageDefinition>

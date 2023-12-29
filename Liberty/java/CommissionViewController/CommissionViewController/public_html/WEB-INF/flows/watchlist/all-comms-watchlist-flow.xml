@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-comms-watchlist-flow">
+    <template-reference>
+      <document>/WEB-INF/flows/exception-template-btf.xml</document>
+      <id>exception-template-btf</id>
+    </template-reference>
+    <default-activity>router1</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__2">
+      <name>webApplObjectNo</name>
+      <value>#{pageFlowScope.webApplObjectNo}</value>
+      <class>java.lang.Integer</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__3">
+      <name>menuItemName</name>
+      <value>#{pageFlowScope.menuItemName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__9">
+      <managed-bean-name>watchListBean</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.beans.WatchList</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__59">
+      <managed-bean-name>percRejectBean</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.beans.PercentageRejection</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__75">
+      <managed-bean-name>fusion</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.Fusion</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__77">
+      <managed-bean-name>dashBoard</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.DashBoard</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <router id="router1">
+      <case id="__7">
+        <expression>#{pageFlowScope.webApplObjectNo ==14}</expression>
+        <outcome>goBankDetailApproval</outcome>
+      </case>
+      <case id="__1">
+        <expression>#{pageFlowScope.webApplObjectNo ==13}</expression>
+        <outcome>goBrokerStatus</outcome>
+      </case>
+      <case id="__16">
+        <expression>#{pageFlowScope.webApplObjectNo ==26}</expression>
+        <outcome>goOutstandingBrokerPayments</outcome>
+      </case>
+      <case id="__22">
+        <expression>#{pageFlowScope.webApplObjectNo == 20}</expression>
+        <outcome>goException</outcome>
+      </case>
+      <case id="__31">
+        <expression>#{pageFlowScope.webApplObjectNo ==28}</expression>
+        <outcome>goMissingCommPerc</outcome>
+      </case>
+      <case id="__45">
+        <expression>#{pageFlowScope.webApplObjectNo ==29}</expression>
+        <outcome>goCommsRunApproval</outcome>
+      </case>
+      
+      <case id="__51">
+        <expression>#{pageFlowScope.webApplObjectNo ==30}</expression>
+        <outcome>goCompanyPercApproval</outcome>
+      </case>
+      <case id="__52">
+        <expression>#{pageFlowScope.webApplObjectNo ==31}</expression>
+        <outcome>goBrokerCommPercApproval</outcome>
+      </case>
+      <case id="__53">
+        <expression>#{pageFlowScope.webApplObjectNo ==32}</expression>
+        <outcome>goGroupPercApproval</outcome>
+      </case>
+      <case id="__54">
+        <expression>#{pageFlowScope.webApplObjectNo ==33}</expression>
+        <outcome>goProductPercApproval</outcome>
+      </case>
+      <case id="__55">
+        <expression>#{pageFlowScope.webApplObjectNo ==34}</expression>
+        <outcome>goPolicyPercApproval</outcome>
+      </case>
+      <case id="__56">
+        <expression>#{pageFlowScope.webApplObjectNo ==35}</expression>
+        <outcome>goMemberPercApproval</outcome>
+      </case>
+      <case id="__60">
+        <expression>#{pageFlowScope.webApplObjectNo ==36}</expression>
+        <outcome>goGroupRejection</outcome>
+      </case>
+      <case id="__63">
+        <expression>#{pageFlowScope.webApplObjectNo ==41}</expression>
+        <outcome>goBrokerageRejections</outcome>
+      </case>
+      <case id="__68">
+        <expression>#{pageFlowScope.webApplObjectNo ==39}</expression>
+        <outcome>goPolicyRejections</outcome>
+      </case>
+      <case id="__69">
+        <expression>#{pageFlowScope.webApplObjectNo ==40}</expression>
+        <outcome>goMemberRejections</outcome>
+      </case>
+      <case id="__70">
+        <expression>#{pageFlowScope.webApplObjectNo ==38}</expression>
+        <outcome>goProductRejections</outcome>
+      </case>
+      <case id="__71">
+        <expression>#{pageFlowScope.webApplObjectNo ==42}</expression>
+        <outcome>goBackDatedChangesError</outcome>
+      </case>
+      <case id="__72">
+        <expression>#{pageFlowScope.webApplObjectNo ==47}</expression>
+        <outcome>goApprovaPartialReceipt</outcome>
+      </case>
+        <case id="__85">
+        <expression>#{pageFlowScope.webApplObjectNo ==49}</expression>
+        <outcome>goPartialPaymentsPercDiff</outcome>
+        </case>
+      <case id="__76">
+        <expression>#{pageFlowScope.webApplObjectNo ==48}</expression>
+        <outcome>goBrokerageWithNoBrokers</outcome>
+      </case>
+      <case id="__90">
+        <expression>#{pageFlowScope.webApplObjectNo ==50}</expression>
+        <outcome>goBrokerageWithExpiredLic</outcome>
+      </case>
+      <case id="__91">
+        <expression>#{pageFlowScope.webApplObjectNo ==58}</expression>
+        <outcome>goPreferredCurrencyCodeApprovals</outcome>
+      </case>
+      <default-outcome>goBrokerStatus</default-outcome>
+    </router>
+    <view id="brokerBankDetailsApproval">
+      <page>/WEB-INF/fragments/watchList/brokerBankDetailsApproval.jsff</page>
+    </view>
+    <task-flow-call id="maintain-company-bank-detail-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/company/maintain-company-bank-detail-btf.xml</document>
+        <id>maintain-company-bank-detail-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__12">
+        <name>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_brokerBankDetailsApprovalPageDef.CompanyIdNo.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__13">
+        <name>countryCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_brokerBankDetailsApprovalPageDef.CountryCode.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__14">
+        <name>createInd</name>
+        <value>N</value>
+      </input-parameter>
+    </task-flow-call>
+    <view id="brokerStatusDays">
+      <page>/WEB-INF/fragments/watchList/brokerInvoicesOnHold.jsff</page>
+    </view>
+    <task-flow-call id="maintain-company-detail-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/company/maintain-company-detail-btf.xml</document>
+        <id>maintain-company-detail-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__19">
+        <name>createInd</name>
+        <value>Y</value>
+      </input-parameter>
+      <input-parameter id="__20">
+        <name>newCompanyInd</name>
+        <value>N</value>
+      </input-parameter>
+      <input-parameter id="__21">
+        <name>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_brokerStatusDaysPageDef.CompanyIdNo.inputValue}</value>
+      </input-parameter>
+    </task-flow-call>
+    <view id="brokerageOutstandingPayments">
+      <page>/WEB-INF/fragments/watchList/brokerageOutstandingPayments.jsff</page>
+    </view>
+    <task-flow-call id="maintain-invoices-by-company-btf">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/payment/maintain-invoices-by-company-btf.xml</document>
+        <id>maintain-invoices-by-company-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__23">
+        <name><?audit suppress oracle.ide.xml.brokenref-warning?>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_brokerageOutstandingPaymentsPageDef.CompanyIdNo.inputValue}</value>
+      </input-parameter>
+      <input-parameter id="__74">
+        <name>countryCode</name>
+        <value>#{data.com_liberty_health_comm_vc_view_brokerageOutstandingPaymentsPageDef.CountryCode.inputValue}</value>
+      </input-parameter>
+    </task-flow-call>
+    <view id="exception">
+      <page>/WEB-INF/fragments/watchList/exception.jsff</page>
+    </view>
+    <method-call id="Execute">
+      <method>#{bindings.Execute.execute}</method>
+      <outcome>
+        <fixed-outcome>Execute</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="Execute1">
+      <method>#{bindings.Execute.execute}</method>
+      <outcome>
+        <fixed-outcome>Execute</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="missingCommPercBrokers">
+      <page>/WEB-INF/fragments/watchList/missingCommPercBrokers.jsff</page>
+    </view>
+    <task-flow-call id="maintain-company-detail-btf1">
+      <task-flow-reference>
+        <document>/WEB-INF/btf/company/maintain-company-detail-btf.xml</document>
+        <id>maintain-company-detail-btf</id>
+      </task-flow-reference>
+      <input-parameter id="__38">
+        <name>companyIdNo</name>
+        <value>#{data.com_liberty_health_comm_vc_view_missingCommPercBrokersPageDef.CompanyIdNo}</value>
+      </input-parameter>
+      <input-parameter id="__39">
+        <name>createInd</name>
+        <value>Y</value>
+      </input-parameter>
+      <input-parameter id="__42">
+        <name>newCompanyInd</name>
+        <value>N</value>
+      </input-parameter>
+    </task-flow-call>
+    <view id="commsRunApproval">
+      <page>/WEB-INF/fragments/watchList/commsRunApproval.jsff</page>
+    </view>
+    <view id="companyCommPercApproval">
+      <page>/WEB-INF/fragments/watchList/companyCommPercApproval.jsff</page>
+    </view>
+    <view id="brokerCommPercApproval">
+      <page>/WEB-INF/fragments/watchList/brokerCommPercApproval.jsff</page>
+    </view>
+    <view id="groupCommPercApproval">
+      <page>/WEB-INF/fragments/watchList/groupCommPercApproval.jsff</page>
+    </view>
+    <view id="productComPercApproval">
+      <page>/WEB-INF/fragments/watchList/productComPercApproval.jsff</page>
+    </view>
+    <view id="policyCommPercApproval">
+      <page>/WEB-INF/fragments/watchList/policyCommPercApproval.jsff</page>
+    </view>
+    <view id="memberCommPercApproval">
+      <page>/WEB-INF/fragments/watchList/memberCommPercApproval.jsff</page>
+    </view>
+    <view id="brokerageWithNoBrokers">
+      <page>/WEB-INF/fragments/watchList/brokerageWithNoBrokers.jsff</page>
+    </view>
+    <view id="partialPaymentsPercDiff">
+      <page>/WEB-INF/fragments/watchList/partialPaymentsPercDiff.jsff</page>
+    </view>
+    <view id="brokerageWithExpiredLic">
+      <page>/WEB-INF/fragments/watchList/brokerageWithExpiredLic.jsff</page>
+    </view>
+    <view id="preferredCurrencyCodeApprovals">
+      <page>/WEB-INF/fragments/watchList/preferredCurrencyCodeApprovals.jsff</page>
+    </view>
+    <task-flow-return id="taskFlowReturn1">
+      <outcome>
+        <name>taskFlowReturn1</name>
+      </outcome>
+    </task-flow-return>
+    <view id="allGroupRejections">
+      <page>/WEB-INF/fragments/watchList/allGroupRejections.jsff</page>
+    </view>
+    <view id="allCompanyRejections">
+      <page>/WEB-INF/fragments/watchList/allCompanyRejections.jsff</page>
+    </view>
+    <view id="allProductRejections">
+      <page>/WEB-INF/fragments/watchList/allProductRejections.jsff</page>
+    </view>
+    <view id="allPolicyRejections">
+      <page>/WEB-INF/fragments/watchList/allPolicyRejections.jsff</page>
+    </view>
+    <view id="allMemberRejections">
+      <page>/WEB-INF/fragments/watchList/allMemberRejections.jsff</page>
+    </view>
+    <view id="backDatedErrors">
+      <page>/WEB-INF/fragments/watchList/backDatedErrors.jsff</page>
+    </view>
+    <view id="partialReceiptApproval">
+      <page>/WEB-INF/fragments/watchList/partialReceiptApproval.jsff</page>
+    </view>
+    <control-flow-rule id="__4">
+      <from-activity-id>router1</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>goBankDetailApproval</from-outcome>
+        <to-activity-id>brokerBankDetailsApproval</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__15">
+        <from-outcome>goBrokerStatus</from-outcome>
+        <to-activity-id>Execute1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__6">
+        <from-outcome>goOutstandingBrokerPayments</from-outcome>
+        <to-activity-id>Execute</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__8">
+        <from-outcome>goException</from-outcome>
+        <to-activity-id>exception</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__30">
+        <from-outcome>goMissingCommPerc</from-outcome>
+        <to-activity-id>missingCommPercBrokers</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__44">
+        <from-outcome>goCommsRunApproval</from-outcome>
+        <to-activity-id>commsRunApproval</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__43">
+        <from-outcome>goProductPercApproval</from-outcome>
+        <to-activity-id>productComPercApproval</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__46">
+        <from-outcome>goGroupPercApproval</from-outcome>
+        <to-activity-id>groupCommPercApproval</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__47">
+        <from-outcome>goPolicyPercApproval</from-outcome>
+        <to-activity-id>policyCommPercApproval</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__48">
+        <from-outcome>goBrokerCommPercApproval</from-outcome>
+        <to-activity-id>brokerCommPercApproval</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__49">
+        <from-outcome>goCompanyPercApproval</from-outcome>
+        <to-activity-id>companyCommPercApproval</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__50">
+        <from-outcome>goMemberPercApproval</from-outcome>
+        <to-activity-id>memberCommPercApproval</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__61">
+        <from-outcome>goGroupRejection</from-outcome>
+        <to-activity-id>allGroupRejections</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__62">
+        <from-outcome>goBrokerageRejections</from-outcome>
+        <to-activity-id>allCompanyRejections</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__64">
+        <from-outcome>goMemberRejections</from-outcome>
+        <to-activity-id>allMemberRejections</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__65">
+        <from-outcome>goProductRejections</from-outcome>
+        <to-activity-id>allProductRejections</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__66">
+        <from-outcome>goPolicyRejections</from-outcome>
+        <to-activity-id>allPolicyRejections</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__67">
+        <from-outcome>goBackDatedChangesError</from-outcome>
+        <to-activity-id>backDatedErrors</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__73">
+        <from-outcome>goApprovaPartialReceipt</from-outcome>
+        <to-activity-id>partialReceiptApproval</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__89">
+        <from-outcome>goBrokerageWithNoBrokers</from-outcome>
+        <to-activity-id>brokerageWithNoBrokers</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__86">
+        <from-outcome>goPartialPaymentsPercDiff</from-outcome>
+        <to-activity-id>partialPaymentsPercDiff</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__92">
+        <from-outcome>goBrokerageWithExpiredLic</from-outcome>
+        <to-activity-id>brokerageWithExpiredLic</to-activity-id>
+      </control-flow-case>
+      
+      <control-flow-case id="__97">
+        <from-outcome>goPreferredCurrencyCodeApprovals</from-outcome>
+        <to-activity-id>preferredCurrencyCodeApprovals</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__10">
+      <from-activity-id>brokerBankDetailsApproval</from-activity-id>
+      <control-flow-case id="__11">
+        <from-outcome>goBankDetails</from-outcome>
+        <to-activity-id>maintain-company-bank-detail-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__17">
+      <from-activity-id>brokerStatusDays</from-activity-id>
+      <control-flow-case id="__18">
+        <from-outcome>goCompany</from-outcome>
+        <to-activity-id>maintain-company-detail-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__24">
+      <from-activity-id>brokerageOutstandingPayments</from-activity-id>
+      <control-flow-case id="__25">
+        <from-outcome>goInvoices</from-outcome>
+        <to-activity-id>maintain-invoices-by-company-btf</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__26">
+      <from-activity-id>maintain-company-bank-detail-btf</from-activity-id>
+      <control-flow-case id="__27">
+        <from-outcome>taskFlowReturn1</from-outcome>
+        <to-activity-id>router1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__28">
+      <from-activity-id>maintain-company-detail-btf</from-activity-id>
+      <control-flow-case id="__29">
+        <from-outcome>taskFlowReturn1</from-outcome>
+        <to-activity-id>router1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__34">
+      <from-activity-id>Execute1</from-activity-id>
+      <control-flow-case id="__35">
+        <from-outcome>Execute</from-outcome>
+        <to-activity-id>brokerStatusDays</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__36">
+      <from-activity-id>Execute</from-activity-id>
+      <control-flow-case id="__37">
+        <from-outcome>Execute</from-outcome>
+        <to-activity-id>brokerageOutstandingPayments</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__40">
+      <from-activity-id>maintain-invoices-by-company-btf</from-activity-id>
+      <control-flow-case id="__41">
+        <to-activity-id>Execute</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__32">
+      <from-activity-id>missingCommPercBrokers</from-activity-id>
+      <control-flow-case id="__33">
+        <from-outcome>goCompany</from-outcome>
+        <to-activity-id>maintain-company-detail-btf1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__57">
+      <from-activity-id>exceptionHandler</from-activity-id>
+      <control-flow-case id="__58">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

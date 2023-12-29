@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+    <task-flow-definition id="maintain-company-detail-btf">
+        <default-activity>setpCompanyIdNo</default-activity>
+        <transaction>
+            <requires-transaction/>
+        </transaction>
+        <data-control-scope>
+            <shared/>
+        </data-control-scope>
+        <input-parameter-definition id="__1">
+            <name>companyIdNo</name>
+            <value>#{pageFlowScope.companyIdNo}</value>
+            <class>java.lang.Integer</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__7">
+            <name>createInd</name>
+            <value>#{pageFlowScope.createInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <input-parameter-definition id="__2">
+            <name>newCompanyInd</name>
+            <value>#{pageFlowScope.newCompanyInd}</value>
+            <class>java.lang.String</class>
+        </input-parameter-definition>
+        <managed-bean id="__5">
+            <managed-bean-name>createBrokerageBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CreateBrokerage</managed-bean-class>
+            <managed-bean-scope>pageFlow</managed-bean-scope>
+        </managed-bean>
+        <managed-bean id="__14">
+            <managed-bean-name>companyAttributesBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.CompanyAttributes</managed-bean-class>
+            <managed-bean-scope>request</managed-bean-scope>
+        </managed-bean>
+        <managed-bean id="__15">
+            <managed-bean-name>updateBrokerageBean</managed-bean-name>
+            <managed-bean-class>com.liberty.health.comms.broker.beans.UpdateBrokerage</managed-bean-class>
+            <managed-bean-scope>pageFlow</managed-bean-scope>
+        </managed-bean>
+        <view id="createNewBrokerDetails">
+            <page>/WEB-INF/fragment/broker/createNewBrokerDetails.jsff</page>
+        </view>
+        <task-flow-return id="taskFlowReturn1">
+            <outcome>
+                <name>taskFlowReturn1</name>
+                <commit/>
+            </outcome>
+        </task-flow-return>
+        <method-call id="setpCompanyIdNo">
+            <method>#{bindings.setpCompanyIdNo.execute}</method>
+            <outcome>
+                <fixed-outcome>setpCompanyIdNo</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="Commit">
+            <method>#{bindings.Commit.execute}</method>
+            <outcome>
+                <fixed-outcome>Commit</fixed-outcome>
+            </outcome>
+        </method-call>
+        <method-call id="Rollback">
+            <method>#{bindings.Rollback.execute}</method>
+            <outcome>
+                <fixed-outcome>Rollback</fixed-outcome>
+            </outcome>
+        </method-call>
+        <control-flow-rule id="__3">
+            <from-activity-id>createNewBrokerDetails</from-activity-id>
+            <control-flow-case id="__4">
+                <from-outcome>cancel</from-outcome>
+                <to-activity-id>Rollback</to-activity-id>
+            </control-flow-case>
+            <control-flow-case id="__9">
+                <from-outcome>save</from-outcome>
+                <to-activity-id>Commit</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__6">
+            <from-activity-id>setpCompanyIdNo</from-activity-id>
+            <control-flow-case id="__8">
+                <from-outcome>setpCompanyIdNo</from-outcome>
+                <to-activity-id>createNewBrokerDetails</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__10">
+            <from-activity-id>Commit</from-activity-id>
+            <control-flow-case id="__11">
+                <from-outcome>Commit</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <control-flow-rule id="__12">
+            <from-activity-id>Rollback</from-activity-id>
+            <control-flow-case id="__13">
+                <from-outcome>Rollback</from-outcome>
+                <to-activity-id>taskFlowReturn1</to-activity-id>
+            </control-flow-case>
+        </control-flow-rule>
+        <use-page-fragments/>
+    </task-flow-definition>
+</adfc-config>

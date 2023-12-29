@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24"
+                id="Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_methodCall1PageDef" Package="btf.lookup"
+                SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <methodAction id="setpCompanyContactTypeIdNo" RequiresUpdateModel="true" Action="invokeMethod"
+                      MethodName="setpCompanyContactTypeIdNo" IsViewObjectMethod="true"
+                      DataControl="CompanyContactTypeAMDataControl"
+                      InstanceName="data.CompanyContactTypeAMDataControl.CompanyContactTypeByPkVo">
+            <NamedData NDName="value" NDValue="#{pageFlowScope.companyContactTypeIdNo}" NDType="java.lang.Integer"/>
+        </methodAction>
+    </bindings>
+</pageDefinition>

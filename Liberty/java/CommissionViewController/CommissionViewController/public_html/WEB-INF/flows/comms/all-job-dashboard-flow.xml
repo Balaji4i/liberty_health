@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="all-job-dashboard-flow">
+    <default-activity>allJobDashboard</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__4">
+      <name>pCountryCode</name>
+      <value>#{pageFlowScope.pCountryCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__3">
+      <name>pFileName</name>
+      <value>#{pageFlowScope.pFileName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__5">
+      <name>pOutFileName</name>
+      <value>#{pageFlowScope.pOutFileName}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__6">
+      <name>pStage</name>
+      <value>#{pageFlowScope.pStage}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__1">
+      <managed-bean-name>CommsHistory</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.beans.CommsHistory</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__2">
+      <managed-bean-name>MedwareSchemesLOV</managed-bean-name>
+      <managed-bean-class>com.liberty.health.comm.vc.view.beans.MedwareSchemesLOV</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="allJobDashboard">
+      <page>/WEB-INF/fragments/comms/allJobDashboard.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

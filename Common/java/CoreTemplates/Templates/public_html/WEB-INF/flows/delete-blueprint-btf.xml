@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-template id="delete-blueprint-btf">
+    <default-activity id="__d1">RemoveRowWithKey</default-activity>
+    <method-call id="RemoveRowWithKey"></method-call>
+    <method-call id="Commit"></method-call>
+    <task-flow-return id="commitTaskFlowName">
+      <outcome id="__d2">
+        <name>commitTaskFlowName</name>
+      </outcome>
+    </task-flow-return>
+    <control-flow-rule id="__d3">
+      <from-activity-id id="__d4">RemoveRowWithKey</from-activity-id>
+      <control-flow-case id="__d6">
+        <from-outcome id="__d12">removeRowWithKey</from-outcome>
+        <to-activity-id id="__d5">Commit</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__d7">
+      <from-activity-id id="__d8">Commit</from-activity-id>
+      <control-flow-case id="__d10">
+        <from-outcome id="__d11">commit</from-outcome>
+        <to-activity-id id="__d9">commitTaskFlowName</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-template>
+</adfc-config>

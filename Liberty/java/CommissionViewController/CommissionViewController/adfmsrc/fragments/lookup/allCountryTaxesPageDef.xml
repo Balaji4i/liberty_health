@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24" id="allCountryTaxesPageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="allCountryTaxesView" RangeSize="25" DataControl="LookupAMDataControl1"
+              id="allCountryTaxesViewIterator"/>
+    <searchRegion Criteria="CountryTaxesVOCriteria" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="allCountryTaxesViewIterator" id="CountryTaxesVOCriteriaQuery"/>
+    <iterator Binds="CountryTaxesAuditView" RangeSize="25" DataControl="LookupAMDataControl1"
+              id="CountryTaxesAuditViewIterator"/>
+    <searchRegion Binds="CountryTaxesAuditViewIterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="CountryTaxesAuditViewQuery"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="allCountryTaxesViewIterator" id="allCountryTaxesView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.CountryTaxesVO" Name="allCountryTaxesView0">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="AccreditationTypeIdNo"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="AccredLocal"/>
+          <Item Value="AccredMulti"/>
+          <Item Value="NoAccrLocal"/>
+          <Item Value="NoAccrMulti"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="Username"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="CountryTaxesAuditViewIterator" id="CountryTaxesAuditView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.CountryTaxesAuditVO"
+                      Name="CountryTaxesAuditView0">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionDesc"/>
+          <Item Value="TransactionUsername"/>
+          <Item Value="CountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="allCountryTaxesViewIterator" id="CountryCode">
+      <AttrNames>
+        <Item Value="CountryCode"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

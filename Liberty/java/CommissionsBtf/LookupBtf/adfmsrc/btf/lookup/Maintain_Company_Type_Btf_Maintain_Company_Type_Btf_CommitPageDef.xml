@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24"
+                id="Maintain_Company_Type_Btf_Maintain_Company_Type_Btf_CommitPageDef" Package="btf.lookup"
+                SkipValidation="true">
+    <parameters/>
+    <executables/>
+    <bindings>
+        <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+                DataControl="CompanyContactTypeAMDataControl"/>
+    </bindings>
+</pageDefinition>

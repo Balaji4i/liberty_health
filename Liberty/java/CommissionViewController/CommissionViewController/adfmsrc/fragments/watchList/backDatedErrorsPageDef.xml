@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="backDatedErrorsPageDef"
+                Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="BackDatedChangesErrorsView" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="BackDatedChangesErrorsViewIterator" Refresh="ifNeeded"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="BackDatedChangesErrorsViewIterator" id="BackDatedChangesErrorsView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.BackDatedChangesErrorsRoView"
+                      Name="BackDatedChangesErrorsView0">
+        <AttrNames>
+          <Item Value="Description"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

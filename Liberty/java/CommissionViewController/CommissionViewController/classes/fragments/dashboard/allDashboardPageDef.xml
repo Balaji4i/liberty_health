@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allDashboardPageDef"
+                Package="fragments.dashboard">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Name="wsCompleted" Type="java.lang.String" DefaultValue="N"/>
+    </variableIterator>
+    <iterator id="DbNoOfCommPercChangesRoView1Iterator" Binds="DbNoOfCommPercChangesRoView1"
+              DataControl="DashboardAMDataControl" RangeSize="25" Refresh="never"/>
+    <iterator Binds="DbLocalCodeRoView1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="DbLocalCodeRoView1Iterator"/>
+    <iterator id="DbCommPercRoView1Iterator" Binds="DbCommPercRoView1" DataControl="DashboardAMDataControl"
+              RangeSize="25" Refresh="never"/>
+    <iterator Binds="BackDatedChangesView1" RangeSize="25" DataControl="DashboardAMDataControl"
+              id="NoOfBackDatedChangesErrorsRoView1Iterator" Refresh="never"/>
+    <iterator Binds="DashboardNoOfDaysParameter" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="DashboardNoOfDaysParameterIterator" Refresh="never"/>
+    <iterator Binds="NoOfCommsTestRunsRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="NoOfCommsTestRunsRoView1Iterator" Refresh="never"/>
+    <iterator Binds="NoOfCreatedPaymentsRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="NoOfCreatedPaymentsRoView1Iterator" Refresh="never"/>
+    <iterator Binds="NoOfReleasedPaymentsRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="NoOfReleasedPaymentsRoView1Iterator" Refresh="never"/>
+    <iterator Binds="NoOfHoldPaymentsRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="NoOfHoldPaymentsRoView1Iterator" Refresh="never"/>
+    <iterator Binds="TotalPayoutStatusRoView1" RangeSize="-1" DataControl="DashboardAMDataControl"
+              id="TotalPayoutStatusRoView1Iterator" Refresh="never"/>
+    <iterator Binds="TopPerformersRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="TopPerformersRoView1Iterator" Refresh="never"/>
+    <iterator Binds="NoOfCommPercCompanyChangesView" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="NoOfCommPercCompanyChangesViewIterator" Refresh="never"/>
+    <iterator Binds="NoOfCommPercGroupChangesView" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="NoOfCommPercGroupChangesViewIterator" Refresh="never"/>
+    <iterator Binds="NoOfCommPercPolicyChangesView" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="NoOfCommPercPolicyChangesViewIterator" Refresh="never"/>
+    <iterator Binds="HoldIndCompanyIdNoRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="HoldIndCompanyIdNoRoView1Iterator" Refresh="never"/>
+    <iterator Binds="HoldIndGroupCodeRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="HoldIndGroupCodeRoView1Iterator" Refresh="never"/>
+    <iterator Binds="HoldIndPersonRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="HoldIndPersonRoView1Iterator" Refresh="never"/>
+    <iterator Binds="HoldIndPolicyCodeRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="HoldIndPolicyCodeRoView1Iterator" Refresh="never"/>
+    <iterator Binds="HoldIndProductCodeRoView1" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="HoldIndProductCodeRoView1Iterator" Refresh="never"/>
+    <iterator Binds="NoOfCommPercPersonChangesView" RangeSize="10" DataControl="DashboardAMDataControl"
+              id="NoOfCommPercPersonChangesViewIterator" Refresh="never"/>
+    <iterator Binds="fusionPremiumsReport1" RangeSize="-1" DataControl="DashboardAMDataControl"
+              id="fusionPremiumsReport1Iterator" Refresh="ifNeeded"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="DbLocalCodeRoView1Iterator" id="LocalCode">
+      <AttrNames>
+        <Item Value="LocalCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DbCommPercRoView1Iterator" id="WebApplObjectNo">
+      <AttrNames>
+        <Item Value="WebApplObjectNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DbCommPercRoView1Iterator" id="UrlPathName">
+      <AttrNames>
+        <Item Value="UrlPathName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DbCommPercRoView1Iterator" id="AlertDesc">
+      <AttrNames>
+        <Item Value="AlertDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="DashboardNoOfDaysParameterIterator" id="Execute"
+            InstanceName="DashboardAMDataControl.DashboardNoOfDaysParameter" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="DbLocalCodeRoView1Iterator" id="Execute1"
+            InstanceName="DashboardAMDataControl.DbLocalCodeRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="DbNoOfCommPercChangesRoView1Iterator" id="Execute2"
+            InstanceName="DashboardAMDataControl.DbNoOfCommPercChangesRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="HoldIndCompanyIdNoRoView1Iterator" id="Execute3"
+            InstanceName="DashboardAMDataControl.HoldIndCompanyIdNoRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="HoldIndGroupCodeRoView1Iterator" id="Execute4"
+            InstanceName="DashboardAMDataControl.HoldIndGroupCodeRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="HoldIndPersonRoView1Iterator" id="Execute5"
+            InstanceName="DashboardAMDataControl.HoldIndPersonRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="HoldIndPolicyCodeRoView1Iterator" id="Execute6"
+            InstanceName="DashboardAMDataControl.HoldIndPolicyCodeRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="HoldIndProductCodeRoView1Iterator" id="Execute7"
+            InstanceName="DashboardAMDataControl.HoldIndProductCodeRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfCommPercCompanyChangesViewIterator" id="Execute8"
+            InstanceName="DashboardAMDataControl.NoOfCommPercCompanyChangesView" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfCommPercGroupChangesViewIterator" id="Execute9"
+            InstanceName="DashboardAMDataControl.NoOfCommPercGroupChangesView" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfCommPercPersonChangesViewIterator" id="Execute10"
+            InstanceName="DashboardAMDataControl.NoOfCommPercPersonChangesView" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfCommPercPolicyChangesViewIterator" id="Execute11"
+            InstanceName="DashboardAMDataControl.NoOfCommPercPolicyChangesView" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfCommsTestRunsRoView1Iterator" id="Execute12"
+            InstanceName="DashboardAMDataControl.NoOfCommsTestRunsRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfCreatedPaymentsRoView1Iterator" id="Execute13"
+            InstanceName="DashboardAMDataControl.NoOfCreatedPaymentsRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfCreatedPaymentsRoView1Iterator" id="Execute14"
+            InstanceName="DashboardAMDataControl.NoOfCreatedPaymentsRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfHoldPaymentsRoView1Iterator" id="Execute15"
+            InstanceName="DashboardAMDataControl.NoOfHoldPaymentsRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfBackDatedChangesErrorsRoView1Iterator" id="Execute16"
+            InstanceName="DashboardAMDataControl.NoOfPaymentsReceivedErrorsRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="NoOfReleasedPaymentsRoView1Iterator" id="Execute17"
+            InstanceName="DashboardAMDataControl.NoOfReleasedPaymentsRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="TopPerformersRoView1Iterator" id="Execute18"
+            InstanceName="DashboardAMDataControl.TopPerformersRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="TotalPayoutStatusRoView1Iterator" id="Execute19"
+            InstanceName="DashboardAMDataControl.TotalPayoutStatusRoView1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action IterBinding="fusionPremiumsReport1Iterator" id="refreshPremiums"
+            InstanceName="DashboardAMDataControl.fusionPremiumsReport1" DataControl="DashboardAMDataControl"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <methodAction id="callWsbilling" RequiresUpdateModel="true" Action="invokeMethod" MethodName="callWsbilling"
+                  IsViewObjectMethod="false" DataControl="DashboardAMDataControl"
+                  InstanceName="data.DashboardAMDataControl.dataProvider">
+      <NamedData NDName="reportName" NDValue="/Custom/Financials/Integration/AR/Liberty_Invoice_Balances_report.xdo"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="processName" NDValue="FUSION_BILLING" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="variables" id="wsCompleted1">
+      <AttrNames>
+        <Item Value="wsCompleted"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="callWsbilling1" RequiresUpdateModel="true" Action="invokeMethod" MethodName="callWsbilling"
+                  IsViewObjectMethod="false" DataControl="DashboardAMDataControl"
+                  InstanceName="data.DashboardAMDataControl.dataProvider">
+      <NamedData NDName="reportName" NDValue="/Custom/Financials/Integration/AR/Liberty_Applied_Amounts_report.xdo"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="processName" NDValue="FUSION_APPLIED" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

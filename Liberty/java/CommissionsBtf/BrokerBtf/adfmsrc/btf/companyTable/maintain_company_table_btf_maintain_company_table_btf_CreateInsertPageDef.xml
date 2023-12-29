@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48"
+                id="maintain_company_table_btf_maintain_company_table_btf_CreateInsertPageDef"
+                Package="btf.companyTable" SkipValidation="true">
+    <parameters/>
+    <executables>
+        <iterator Binds="CompanyTableByPkView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+                  id="CompanyTableByPkViewIterator"/>
+    </executables>
+    <bindings>
+        <action IterBinding="CompanyTableByPkViewIterator" id="CreateInsert" RequiresUpdateModel="true"
+                Action="createInsertRow"/>
+    </bindings>
+</pageDefinition>

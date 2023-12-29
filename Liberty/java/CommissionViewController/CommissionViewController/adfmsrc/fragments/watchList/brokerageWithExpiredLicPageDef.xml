@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="brokerageWithExpiredLicPageDef"
+                Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="BrokerageWithExpiredLicRoView1" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="BrokerageWithExpiredLicRoView1Iterator"/>
+    <searchRegion Binds="BrokerageWithExpiredLicRoView1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="BrokerageWithExpiredLicRoView1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="BrokerageWithExpiredLicRoView1Iterator" id="BrokerageWithExpiredLicRoView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.BrokerageWithExpiredLicRoView"
+                      Name="BrokerageWithExpiredLicRoView10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="AccreditationTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

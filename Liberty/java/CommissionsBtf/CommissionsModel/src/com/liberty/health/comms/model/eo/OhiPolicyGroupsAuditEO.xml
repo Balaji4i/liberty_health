@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="OhiPolicyGroupsAuditEO"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="OHI_POLICY_GROUPS_AUDIT"
+  AliasName="OhiPolicyGroupsAuditEO"
+  BindingStyle="OracleName">
+  <Attribute
+    Name="TransactionDatetime"
+    ColumnName="TRANSACTION_DATETIME"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="OHI_POLICY_GROUPS_AUDIT"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="TransactionDesc"
+    Precision="250"
+    ColumnName="TRANSACTION_DESC"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="OHI_POLICY_GROUPS_AUDIT"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TransactionUsername"
+    Precision="50"
+    ColumnName="TRANSACTION_USERNAME"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="OHI_POLICY_GROUPS_AUDIT"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PogrId"
+    Precision="14"
+    Scale="0"
+    ColumnName="POGR_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="OHI_POLICY_GROUPS_AUDIT"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="PoliId"
+    Precision="14"
+    Scale="0"
+    ColumnName="POLI_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="OHI_POLICY_GROUPS_AUDIT"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="GracId"
+    Precision="14"
+    Scale="0"
+    ColumnName="GRAC_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="OHI_POLICY_GROUPS_AUDIT"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="EffectiveStartDate"
+    ColumnName="EFFECTIVE_START_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="OHI_POLICY_GROUPS_AUDIT"
+    PrimaryKey="true"/>
+  <Attribute
+    Name="EffectiveEndDate"
+    ColumnName="EFFECTIVE_END_DATE"
+    SQLType="DATE"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="OHI_POLICY_GROUPS_AUDIT"
+    PrimaryKey="true"/>
+  <Key
+    Name="OhipolicygroupsauditeoPrimaryKey"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="OHIPOLICYGROUPSAUDITEO_PRIMARY"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.liberty.health.comms.model.eo.OhiPolicyGroupsAuditEO.TransactionDatetime"/>
+      <Item Value="com.liberty.health.comms.model.eo.OhiPolicyGroupsAuditEO.TransactionDesc"/>
+      <Item Value="com.liberty.health.comms.model.eo.OhiPolicyGroupsAuditEO.TransactionUsername"/>
+      <Item Value="com.liberty.health.comms.model.eo.OhiPolicyGroupsAuditEO.PogrId"/>
+      <Item Value="com.liberty.health.comms.model.eo.OhiPolicyGroupsAuditEO.PoliId"/>
+      <Item Value="com.liberty.health.comms.model.eo.OhiPolicyGroupsAuditEO.GracId"/>
+      <Item Value="com.liberty.health.comms.model.eo.OhiPolicyGroupsAuditEO.EffectiveStartDate"/>
+      <Item Value="com.liberty.health.comms.model.eo.OhiPolicyGroupsAuditEO.EffectiveEndDate"/>
+    </AttrArray>
+  </Key>
+</Entity>

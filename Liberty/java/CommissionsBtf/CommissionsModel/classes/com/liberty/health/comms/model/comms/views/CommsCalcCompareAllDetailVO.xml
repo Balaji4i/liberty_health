@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommsCalcCompareAllDetailVO"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVORowImpl"
+  ComponentClass="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVOImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full"
+  ComponentInterface="com.liberty.health.comms.model.comms.views.common.CommsCalcCompareAllDetailVO">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="pCompanyIdNo"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="pCountryCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="pGroupCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="pProductCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="pCountryList"
+    Kind="where"
+    Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYHINT
+          Value="Hide"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <TransientExpression
+      Name="VariableScript"
+      CodeSourceName="CommsCalcCompareAllDetailVO"/>
+  </Variable>
+  <Variable
+    Name="pParentgroupCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[SELECT *             
+FROM (             
+SELECT  calculation_datetime                    
+        ,ct.comms_calc_type_desc               
+        ,country_code                
+        ,cc.broker_id_no                                   
+        ,b.broker_name                                   
+        ,b.company_id_no                                   
+        ,c.company_name     
+        ,grp.parentgroup_code  
+        ,cc.group_code                   
+        ,grp.group_name                                  
+        ,cc.product_code                           
+        ,prod.product_name                           
+        ,person_code                                   
+        ,contribution_date                                   
+        ,payment_receive_date                                                  
+        ,cc.comms_calc_type_code               
+        ,comms_perc                           
+        ,payment_receive_amt                 
+        ,comms_calculated_amt                                   
+        ,invoice_no            
+        ,finance_receipt_no    
+        ,preferred_currency_code                          
+        ,comms_calculated_exch_amt               
+        ,exchange_Rate                  
+   FROM comms_calc_snapshot cc,                
+        broker              b,                
+        company             c,                
+        comms_calc_type     ct,                         
+        (SELECT DISTINCT product_code, product_name                             
+           FROM ohi_products) prod ,                      
+        (SELECT DISTINCT group_code, group_name  ,parentgroup_code                           
+           FROM ohi_groups) grp                             
+   WHERE cc.broker_id_no = b.broker_id_no                                   
+     AND b.company_id_no = c.company_id_no                                  
+     AND cc.product_code = prod.product_code(+)                         
+     AND cc.group_code = grp.group_code(+)                         
+     AND cc.comms_calc_type_code = 'T'                                   
+     AND cc.comms_calc_type_code = ct.comms_calc_type_code                                      
+      And calculation_datetime = (SELECT MAX(calculation_datetime)                                            
+                                   FROM comms_calc_snapshot                                            
+                                  WHERE comms_calc_type_code = 'T'       
+                                      AND  company_id_no = nvl(:pCompanyIdNo,company_id_no)                     
+                                      AND country_code  = NVL(:pCountryCode,country_code)                  
+                                      AND group_code   = NVL(:pGroupCode,group_code)              
+                                      AND product_code  = NVL(:pProductCode,product_code)  
+                                      AND parentgroup_code = NVL(:pParentgroupCode,parentgroup_code) )     
+                                      and country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')             
+ , '[^,]+', 1, LEVEL)                     
+            FROM DUAL                     
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')           
+, '[^,]+', 1, LEVEL) IS NOT NULL)     
+  union all                    
+  select calculation_datetime                    
+        ,ct.comms_calc_type_desc               
+        ,country_code                
+        ,cc.broker_id_no                                   
+        ,b.broker_name                                   
+        ,b.company_id_no                                   
+        ,c.company_name    
+        ,grp.parentgroup_code  
+        ,cc.group_code                   
+        ,grp.group_name                                  
+        ,cc.product_code                           
+        ,prod.product_name                           
+        ,person_code                                   
+        ,contribution_date                                   
+        ,payment_receive_date                                                  
+        ,cc.comms_calc_type_code               
+        ,comms_perc                           
+        ,payment_receive_amt                 
+        ,comms_calculated_amt                                   
+        ,invoice_no            
+        ,finance_receipt_no    
+        ,preferred_currency_code                          
+        ,comms_calculated_exch_amt               
+        ,exchange_Rate                  
+          from comms_calc_snapshot cc, broker b, company c, comms_calc_type ct ,                         
+                        (select distinct product_code, product_name                             
+                 from ohi_products) prod ,                      
+              (select distinct group_code, group_name     ,parentgroup_code                        
+                 from ohi_groups) grp                             
+         where cc.broker_id_no = b.broker_id_no                                   
+           and b.company_id_no = c.company_id_no                                  
+           and cc.product_code = prod.product_code(+)                         
+            and cc.group_code = grp.group_code(+)                         
+           and cc.comms_calc_type_code = 'A'                                   
+           and cc.comms_calc_type_code = ct.comms_calc_type_code                                      
+            and invoice_no is null   and country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')             
+ , '[^,]+', 1, LEVEL)                     
+            FROM DUAL                     
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')           
+, '[^,]+', 1, LEVEL) IS NOT NULL)               
+union all                    
+  select calculation_datetime                    
+        ,ct.comms_calc_type_desc               
+        ,country_code                
+        ,cc.broker_id_no                                   
+        ,b.broker_name                                   
+        ,b.company_id_no                                   
+        ,c.company_name                                   
+        ,grp.parentgroup_code  
+        ,cc.group_code                   
+        ,grp.group_name                                  
+        ,cc.product_code                           
+        ,prod.product_name                           
+        ,person_code                                   
+        ,contribution_date                                   
+        ,payment_receive_date                                                  
+        ,cc.comms_calc_type_code               
+        ,comms_perc                           
+        ,payment_receive_amt                 
+        ,comms_calculated_amt                                   
+        ,invoice_no            
+        ,finance_receipt_no    
+        ,preferred_currency_code                          
+        ,comms_calculated_exch_amt               
+        ,exchange_Rate                  
+          from comms_calc_snapshot cc, broker b, company c, comms_calc_type ct ,                         
+                        (select distinct product_code, product_name                             
+                 from ohi_products) prod ,                      
+              (select distinct group_code, group_name     ,parentgroup_code                        
+                 from ohi_groups) grp                             
+         where cc.broker_id_no = b.broker_id_no                                   
+           and b.company_id_no = c.company_id_no                                  
+           and cc.product_code = prod.product_code(+)                         
+            and cc.group_code = grp.group_code(+)                         
+           and cc.comms_calc_type_code = 'R'                                   
+           and cc.comms_calc_type_code = ct.comms_calc_type_code                                      
+            and invoice_no is null)             
+   WHERE company_id_no = nvl(:pCompanyIdNo,company_id_no)                     
+  AND country_code  = NVL(:pCountryCode,country_code)                  
+  AND group_code   = NVL(:pGroupCode,group_code)              
+  AND product_code  = NVL(:pProductCode,product_code)   
+  AND parentgroup_code = NVL(:pParentgroupCode,parentgroup_code) 
+  AND (:pCompanyIdNo is not null or        
+       :pCountryCode is not null or        
+       :pGroupCode is not null or        
+       :pProductCode is not null or 
+       :pParentgroupCode is not null)     
+       and country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')             
+ , '[^,]+', 1, LEVEL)                     
+            FROM DUAL                     
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')           
+, '[^,]+', 1, LEVEL) IS NOT NULL)  
+order by parentgroup_code]]></SQLQuery>
+  <ViewAttribute
+    Name="CalculationDatetime"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="CALCULATION_DATETIME"
+    Expression="CALCULATION_DATETIME"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.CalculationDatetime_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CommsCalcTypeDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COMMS_CALC_TYPE_DESC"
+    Expression="COMMS_CALC_TYPE_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.CommsCalcTypeDesc_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.CountryCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BrokerIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="BROKER_ID_NO"
+    Expression="BROKER_ID_NO"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.BrokerIdNo_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BrokerName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BROKER_NAME"
+    Expression="BROKER_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.BrokerName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyIdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMPANY_ID_NO"
+    Expression="COMPANY_ID_NO"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.CompanyIdNo_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COMPANY_NAME"
+    Expression="COMPANY_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.CompanyName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ParentgroupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PARENTGROUP_CODE"
+    Expression="PARENTGROUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.ParentgroupCode_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GroupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_CODE"
+    Expression="GROUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.GroupCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GroupName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_NAME"
+    Expression="GROUP_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.GroupName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProductCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRODUCT_CODE"
+    Expression="PRODUCT_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.ProductCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProductName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRODUCT_NAME"
+    Expression="PRODUCT_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.ProductName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PersonCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PERSON_CODE"
+    Expression="PERSON_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.PersonCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ContributionDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="CONTRIBUTION_DATE"
+    Expression="CONTRIBUTION_DATE"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.ContributionDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PaymentReceiveDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="PAYMENT_RECEIVE_DATE"
+    Expression="PAYMENT_RECEIVE_DATE"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.PaymentReceiveDate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CommsCalcTypeCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="COMMS_CALC_TYPE_CODE"
+    Expression="COMMS_CALC_TYPE_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CommsPerc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMMS_PERC"
+    Expression="COMMS_PERC"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.CommsPerc_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PaymentReceiveAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PAYMENT_RECEIVE_AMT"
+    Expression="PAYMENT_RECEIVE_AMT"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.PaymentReceiveAmt_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CommsCalculatedAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMMS_CALCULATED_AMT"
+    Expression="COMMS_CALCULATED_AMT"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.CommsCalculatedAmt_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICE_NO"
+    Expression="INVOICE_NO"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.InvoiceNo_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FinanceReceiptNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="FINANCE_RECEIPT_NO"
+    Expression="FINANCE_RECEIPT_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.FinanceReceiptNo_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PreferredCurrencyCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PREFERRED_CURRENCY_CODE"
+    Expression="PREFERRED_CURRENCY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.PreferredCurrencyCode_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CommsCalculatedExchAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="COMMS_CALCULATED_EXCH_AMT"
+    Expression="COMMS_CALCULATED_EXCH_AMT"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.CommsCalculatedExchAmt_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ExchangeRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="9"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="EXCHANGE_RATE"
+    Expression="EXCHANGE_RATE"
+    SQLType="NUMERIC">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="com.liberty.health.comms.model.comms.views.CommsCalcCompareAllDetailVO.ExchangeRate_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CalculationDatetime"/>
+    <Item Value="CommsCalcTypeDesc"/>
+    <Item Value="CountryCode"/>
+    <Item Value="BrokerIdNo"/>
+    <Item Value="BrokerName"/>
+    <Item Value="CompanyIdNo"/>
+    <Item Value="CompanyName"/>
+    <Item Value="GroupCode"/>
+    <Item Value="GroupName"/>
+    <Item Value="ProductCode"/>
+    <Item Value="ProductName"/>
+    <Item Value="PersonCode"/>
+    <Item Value="ContributionDate"/>
+    <Item Value="PaymentReceiveDate"/>
+    <Item Value="CommsCalcTypeCode"/>
+    <Item Value="CommsPerc"/>
+    <Item Value="PaymentReceiveAmt"/>
+    <Item Value="CommsCalculatedAmt"/>
+    <Item Value="InvoiceNo"/>
+    <Item Value="FinanceReceiptNo"/>
+    <Item Value="PreferredCurrencyCode"/>
+    <Item Value="CommsCalculatedExchAmt"/>
+    <Item Value="ExchangeRate"/>
+  </AttrArray>
+  <ClientInterface
+    Name="__clientInterface">
+    <Method
+      Name="returnAllCommsDetail"
+      MethodName="returnAllCommsDetail">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="countryCode"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="groupCode"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="productCode"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="companyIdNo"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="parentgroupCode"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

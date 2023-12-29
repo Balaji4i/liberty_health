@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" topHeight="auto">
+        <f:facet name="top">
+            <af:panelHeader text="#{coreLabels['G.CompanyTable']}" id="ph1">
+                <af:query id="qryId1" headerText="Search" disclosed="true"
+                          value="#{bindings.SearchCompanyTableVOCriteriaQuery.queryDescriptor}"
+                          model="#{bindings.SearchCompanyTableVOCriteriaQuery.queryModel}"
+                          queryListener="#{bindings.SearchCompanyTableVOCriteriaQuery.processQuery}"
+                          queryOperationListener="#{bindings.SearchCompanyTableVOCriteriaQuery.processQueryOperation}"
+                          resultComponentId="::pc1:resId1"/>
+            </af:panelHeader>
+        </f:facet>
+        <f:facet name="center">
+            <af:panelGroupLayout layout="scroll" id="pgl1">
+                <af:panelTabbed position="above" id="pt1" dimensionsFrom="auto">
+                    <af:showDetailItem id="tab1" text="#{coreLabels['G.CurrentDetails']}">
+                        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t1">
+                                    <af:button text="#{coreLabels['G.Add']}" id="b1" action="create"
+                                               icon="/adf/images/add_16x16.png" rendered="#{securityContext.userInRole['comms-consultant']}"/>
+                                    <af:button text="#{coreLabels['G.Export']}" id="b2"
+                                               icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="resId1"
+                                                                           filename="#{coreLabels['G.CompanyTable']}.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.AllCompanyTableView.collectionModel}" var="row"
+                                      rows="#{bindings.AllCompanyTableView.rangeSize}"
+                                      emptyText="#{bindings.AllCompanyTableView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.AllCompanyTableView.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.AllCompanyTableView.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.AllCompanyTableView.rangeSize}"
+                                      id="resId1" styleClass="AFStretchWidth" displayRow="selected">
+                                <af:column headerText="#{bindings.AllCompanyTableView.hints.CompanyTableIdNo.label}"
+                                           id="resId1c1">
+                                    <af:link disabled="#{!securityContext.userInRole['comms-consultant']}"   text="#{row.CompanyTableIdNo}" id="l1" action="edit"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.AllCompanyTableView.hints.CompanyTableDesc.label}"
+                                           id="resId1c2" width="300">
+                                    <af:outputText value="#{row.CompanyTableDesc}"
+                                                   shortDesc="#{bindings.AllCompanyTableView.hints.CompanyTableDesc.tooltip}"
+                                                   id="ot2"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.AllCompanyTableView.hints.EffectiveStartDate.label}"
+                                           id="resId1c3" align="center">
+                                    <af:outputText value="#{row.EffectiveStartDate}"
+                                                   shortDesc="#{bindings.AllCompanyTableView.hints.EffectiveStartDate.tooltip}"
+                                                   id="ot3">
+                                        <af:convertDateTime pattern="#{bindings.AllCompanyTableView.hints.EffectiveStartDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.AllCompanyTableView.hints.EffectiveEndDate.label}"
+                                           id="resId1c4" align="center">
+                                    <af:outputText value="#{row.EffectiveEndDate}"
+                                                   shortDesc="#{bindings.AllCompanyTableView.hints.EffectiveEndDate.tooltip}"
+                                                   id="ot4">
+                                        <af:convertDateTime pattern="#{bindings.AllCompanyTableView.hints.EffectiveEndDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:showDetailItem>
+                    <af:showDetailItem text="#{coreLabels['G.History']}" id="sdi1">
+                        <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+                            <f:facet name="menus"/>
+                            <f:facet name="toolbar">
+                                <af:toolbar id="t3">
+                                    <af:button text="#{coreLabels['G.Export']}" id="b3"
+                                               icon="/adf/images/excel_16x16.png"  rendered="#{securityContext.userInRole['comms-consultant']}">
+                                        <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                                           filename="#{coreLabels['G.History']}.xls"/>
+                                    </af:button>
+                                </af:toolbar>
+                            </f:facet>
+                            <f:facet name="statusbar"/>
+                            <af:table value="#{bindings.CompanyTableAuditView.collectionModel}" var="row"
+                                      rows="#{bindings.CompanyTableAuditView.rangeSize}"
+                                      emptyText="#{bindings.CompanyTableAuditView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="1"
+                                      selectedRowKeys="#{bindings.CompanyTableAuditView.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.CompanyTableAuditView.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.CompanyTableAuditView.rangeSize}"
+                                      id="t2" displayRow="selected" styleClass="AFStretchWidth"
+                                      columnStretching="column:c2">
+                                <af:column headerText="#{bindings.CompanyTableAuditView.hints.TransactionDatetime.label}"
+                                           id="c1" align="center">
+                                    <af:outputText value="#{row.TransactionDatetime}"
+                                                   shortDesc="#{bindings.CompanyTableAuditView.hints.TransactionDatetime.tooltip}"
+                                                   id="ot1">
+                                        <af:convertDateTime pattern="#{bindings.CompanyTableAuditView.hints.TransactionDatetime.format}" type="both"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.CompanyTableAuditView.hints.TransactionUsername.label}"
+                                           id="c3">
+                                    <af:outputText value="#{row.TransactionUsername}"
+                                                   shortDesc="#{bindings.CompanyTableAuditView.hints.TransactionUsername.tooltip}"
+                                                   id="ot6"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.CompanyTableAuditView.hints.TransactionDesc.label}"
+                                           id="c2" width="350">
+                                    <af:outputText value="#{row.TransactionDesc}"
+                                                   shortDesc="#{bindings.CompanyTableAuditView.hints.TransactionDesc.tooltip}"
+                                                   id="ot5"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.CompanyTableAuditView.hints.CompanyTableDesc.label}"
+                                           id="c4" width="150">
+                                    <af:outputText value="#{row.CompanyTableDesc}"
+                                                   shortDesc="#{bindings.CompanyTableAuditView.hints.CompanyTableDesc.tooltip}"
+                                                   id="ot7"/>
+                                </af:column>
+                                <af:column headerText="#{bindings.CompanyTableAuditView.hints.EffectiveStartDate.label}"
+                                           id="c5" align="center">
+                                    <af:outputText value="#{row.EffectiveStartDate}"
+                                                   shortDesc="#{bindings.CompanyTableAuditView.hints.EffectiveStartDate.tooltip}"
+                                                   id="ot8">
+                                        <af:convertDateTime pattern="#{bindings.CompanyTableAuditView.hints.EffectiveStartDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                                <af:column headerText="#{bindings.CompanyTableAuditView.hints.EffectiveEndDate.label}"
+                                           id="c6" align="center">
+                                    <af:outputText value="#{row.EffectiveEndDate}"
+                                                   shortDesc="#{bindings.CompanyTableAuditView.hints.EffectiveEndDate.tooltip}"
+                                                   id="ot9">
+                                        <af:convertDateTime pattern="#{bindings.CompanyTableAuditView.hints.EffectiveEndDate.format}"/>
+                                    </af:outputText>
+                                </af:column>
+                            </af:table>
+                        </af:panelCollection>
+                    </af:showDetailItem>
+                </af:panelTabbed>
+            </af:panelGroupLayout>
+        </f:facet>
+    </af:panelStretchLayout>
+</jsp:root>

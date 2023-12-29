@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CompanyRegEO"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="COMPANY_REG"
+  AliasName="CompanyRegEO"
+  BindingStyle="OracleName"
+  DefClass="com.core.model.eo.classes.CoreEntityDefImpl"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation"
+  RowClass="com.liberty.health.comms.model.eo.CompanyRegEOImpl">
+    <DesignTime>
+        <Attr Name="_isCodegen" Value="true"/>
+        <Attr Name="_codeGenFlag2" Value="Access"/>
+    </DesignTime>
+    <Attribute
+      Name="CompanyIdNo"
+      IsNotNull="true"
+      Precision="9"
+      Scale="0"
+      ColumnName="COMPANY_ID_NO"
+      SQLType="NUMERIC"
+      Type="java.lang.Integer"
+      ColumnType="NUMBER"
+      TableName="COMPANY_REG"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CompanyIdNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="CountryCode"
+      IsNotNull="true"
+      Precision="4"
+      ColumnName="COUNTRY_CODE"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_REG"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="4"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.CountryCode']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveStartDate"
+      IsNotNull="true"
+      ColumnName="EFFECTIVE_START_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_REG"
+      PrimaryKey="true"
+      IsUpdateable="while_insert">
+        <TransientExpression
+          Name="ExpressionScript"
+          trustMode="untrusted"
+          CodeSourceName="CompanyRegEORow"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveStartDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="EffectiveEndDate"
+      ColumnName="EFFECTIVE_END_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_REG"
+      DefaultValue="3100-01-31"
+      IsNotNull="true">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.EffectiveEndDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="VatNo"
+        Precision="50"
+      ColumnName="VAT_NO"
+        SQLType="VARCHAR"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+      TableName="COMPANY_REG">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.VatNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="RegNo"
+        Precision="50"
+      ColumnName="REG_NO"
+        SQLType="VARCHAR"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+      TableName="COMPANY_REG">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.RegNo']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="ExpiryDate"
+      ColumnName="EXPIRY_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_REG">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ExpiryDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="ApplicationDate"
+      ColumnName="APPLICATION_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_REG">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.ApplicationDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="AuthoriseDate"
+      ColumnName="AUTHORISE_DATE"
+      SQLType="DATE"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      TableName="COMPANY_REG">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.AuthoriseDate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      ColumnName="LAST_UPDATE_DATETIME"
+      SQLType="DATE"
+      Type="java.sql.Timestamp"
+      ColumnType="DATE"
+      TableName="COMPANY_REG"
+      HistoryColumn="DateHistory">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.LastUpdate']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+      Name="Username"
+      IsNotNull="true"
+      Precision="50"
+      ColumnName="USERNAME"
+      SQLType="VARCHAR"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      TableName="COMPANY_REG"
+      HistoryColumn="UserHistory">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                  ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Username']}"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <Attribute
+        Name="TaxIdentificationNo"
+        Precision="50"
+        ColumnName="TAX_IDENTIFICATION_NO"
+        SQLType="VARCHAR"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        TableName="COMPANY_REG">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="50"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.model.eo.CompanyRegEO.TaxIdentificationNo_LABEL"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Attribute>
+    <AccessorAttribute
+      Name="CompanyCountry"
+      Association="com.liberty.health.comms.model.eo.assoc.CompanyRegFkAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.CompanyRegFkAssoc.CompanyCountry"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.CompanyRegFkAssoc.CompanyReg"
+      Type="com.core.model.eo.classes.CoreEntityImpl"
+      IsUpdateable="true"/>
+    <AccessorAttribute
+      Name="Company"
+      Association="com.liberty.health.comms.model.eo.assoc.FkComRegCompanyAssoc"
+      AssociationEnd="com.liberty.health.comms.model.eo.assoc.FkComRegCompanyAssoc.Company"
+      AssociationOtherEnd="com.liberty.health.comms.model.eo.assoc.FkComRegCompanyAssoc.CompanyReg"
+      Type="com.liberty.health.comms.model.eo.CompanyEOImpl"
+      IsUpdateable="true"/>
+    <Key
+      Name="CompanyRegEffectiveEndDateCheck">
+        <DesignTime>
+            <Attr Name="_isNotNull" Value="true"/>
+            <Attr Name="_checkCondition" Value='"EFFECTIVE_END_DATE" IS NOT NULL'/>
+            <Attr Name="_isCheck" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_REG_EFFECTIVE_END_DATE"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyRegEO.EffectiveEndDate"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyRegPk"
+      PrimaryKey="true">
+        <DesignTime>
+            <Attr Name="_DBObjectName" Value="COMPANY_REG_PK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyRegEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyRegEO.EffectiveStartDate"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyRegEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="CompanyRegFk">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_COUNTRY_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="COMPANY_REG_FK"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyRegEO.CompanyIdNo"/>
+            <Item Value="com.liberty.health.comms.model.eo.CompanyRegEO.CountryCode"/>
+        </AttrArray>
+    </Key>
+    <Key
+      Name="fk_CompanyRegEO">
+        <DesignTime>
+            <Attr Name="_referencedKey" Value="COMPANY_PK"/>
+            <Attr Name="_isForeign" Value="true"/>
+            <Attr Name="_DBObjectName" Value="FK_COMPANY_REG_EO"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.eo.CompanyRegEO.CompanyIdNo"/>
+        </AttrArray>
+    </Key>
+    <validation:MethodValidationBean
+      Name="CompanyRegStartDateRule"
+      ResId="ValidAfterDate"
+      ResBundleId="com.core.liberty.resources.messages.CORE_messages"
+      MethodName="validateCompanyStartDate">
+        <validation:OnAttributes>
+            <validation:Item
+              Value="EffectiveStartDate"/>
+        </validation:OnAttributes>
+        <validation:ResExpressions
+          Name="CompanyRegStartDateRule_ResExprList">
+            <validation:Expression
+              Name="ValidObject1"
+              trustMode="untrusted"
+              CodeSourceName="CompanyRegEORow"/>
+            <validation:Expression
+              Name="ValidObject2"
+              trustMode="untrusted"
+              CodeSourceName="CompanyRegEORow"/>
+        </validation:ResExpressions>
+    </validation:MethodValidationBean>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</Entity>

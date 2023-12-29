@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelTabbed position="above" id="pt1">
+        <af:showDetailItem id="tab1" text="#{coreLabels['G.Comments']}">
+            <af:panelGroupLayout id="pgl2" rendered="#{pageFlowScope.createInd == 'Y'}">
+                <af:button text="#{coreLabels['G.Add']}" id="b1" icon="/adf/images/add_16x16.png"
+                           rendered="#{securityContext.userInRole['comms-consultant']}"
+                           disabled="#{!bindings.CreateInsert.enabled}"
+                           actionListener="#{bindings.CreateInsert.execute}"/>
+                <af:button text="#{coreLabels['G.Save']}" id="b2" icon="/adf/images/save_16x16.png"
+                           disabled="#{!bindings.Commit.enabled}"
+                           actionListener="#{companyAttributesBean.saveAndEffectiveDateActionListener}"/>
+                <af:button text="#{coreLabels['G.Cancel']}" id="b3" icon="/adf/images/remove_16x16.png"
+                           disabled="#{!bindings.Rollback.enabled}" actionListener="#{bindings.Rollback.execute}"
+                           immediate="true">
+                    <af:resetActionListener/>
+                </af:button>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl1" layout="vertical">
+                <af:panelFormLayout id="pfl1" visible="#{bindings.Rollback.enabled}" partialTriggers="b1 b2 b3">
+                    <af:inputText value="#{bindings.CompanyIdNo.inputValue}" label="#{bindings.CompanyIdNo.hints.label}"
+                                  required="#{bindings.CompanyIdNo.hints.mandatory}"
+                                  columns="#{bindings.CompanyIdNo.hints.displayWidth}"
+                                  maximumLength="#{bindings.CompanyIdNo.hints.precision}"
+                                  shortDesc="#{bindings.CompanyIdNo.hints.tooltip}" id="it1" visible="false">
+                        <f:validator binding="#{bindings.CompanyIdNo.validator}"/>
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.CompanyIdNo.format}"/>
+                    </af:inputText>
+                    <af:inputDate value="#{bindings.CommentDatetime.inputValue}"
+                                  label="#{bindings.CommentDatetime.hints.label}"
+                                  required="#{bindings.CommentDatetime.hints.mandatory}"
+                                  columns="#{bindings.CommentDatetime.hints.displayWidth}"
+                                  shortDesc="#{bindings.CommentDatetime.hints.tooltip}" id="id1" visible="false">
+                        <f:validator binding="#{bindings.CommentDatetime.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.CommentDatetime.format}"/>
+                    </af:inputDate>
+                    <af:inputText value="#{bindings.CommentDesc.inputValue}" label="#{bindings.CommentDesc.hints.label}"
+                                  required="#{bindings.CommentDesc.hints.mandatory}" columns="50"
+                                  maximumLength="#{bindings.CommentDesc.hints.precision}"
+                                  shortDesc="#{bindings.CommentDesc.hints.tooltip}" id="it2" rows="6">
+                        <f:validator binding="#{bindings.CommentDesc.validator}"/>
+                    </af:inputText>
+                    <af:inputDate value="#{bindings.LastUpdateDatetime.inputValue}"
+                                  label="#{bindings.LastUpdateDatetime.hints.label}"
+                                  required="#{bindings.LastUpdateDatetime.hints.mandatory}"
+                                  columns="#{bindings.LastUpdateDatetime.hints.displayWidth}"
+                                  shortDesc="#{bindings.LastUpdateDatetime.hints.tooltip}" id="id2" visible="false">
+                        <f:validator binding="#{bindings.LastUpdateDatetime.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.LastUpdateDatetime.format}"/>
+                    </af:inputDate>
+                    <af:inputText value="#{bindings.Username.inputValue}" label="#{bindings.Username.hints.label}"
+                                  required="#{bindings.Username.hints.mandatory}"
+                                  columns="#{bindings.Username.hints.displayWidth}"
+                                  maximumLength="#{bindings.Username.hints.precision}"
+                                  shortDesc="#{bindings.Username.hints.tooltip}" id="it3" visible="false">
+                        <f:validator binding="#{bindings.Username.validator}"/>
+                    </af:inputText>
+                </af:panelFormLayout>
+                <af:table value="#{bindings.CompanyCommentsView.collectionModel}" var="row"
+                          rows="#{bindings.CompanyCommentsView.rangeSize}"
+                          emptyText="#{bindings.CompanyCommentsView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          rowBandingInterval="1"
+                          selectedRowKeys="#{bindings.CompanyCommentsView.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.CompanyCommentsView.collectionModel.makeCurrent}"
+                          rowSelection="single" fetchSize="#{bindings.CompanyCommentsView.rangeSize}" id="t1"
+                          displayRow="selected" columnStretching="column:c2" partialTriggers="::b1 ::b2 ::b3"
+                          visible="#{!bindings.Rollback.enabled}">
+                    <af:column headerText="#{bindings.CompanyCommentsView.hints.CommentDatetime.label}" id="c1">
+                        <af:outputText value="#{row.CommentDatetime}"
+                                       shortDesc="#{bindings.CompanyCommentsView.hints.CommentDatetime.tooltip}"
+                                       id="ot2">
+                            <af:convertDateTime pattern="#{bindings.CompanyCommentsView.hints.CommentDatetime.format}"/>
+                        </af:outputText>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyCommentsView.hints.CommentDesc.label}" id="c2">
+                        <af:outputText value="#{row.CommentDesc}"
+                                       shortDesc="#{bindings.CompanyCommentsView.hints.CommentDesc.tooltip}" id="ot1"/>
+                    </af:column>
+                    <af:column headerText="#{bindings.CompanyCommentsView.hints.Username.label}" id="c3">
+                        <af:outputText value="#{row.Username}"
+                                       shortDesc="#{bindings.CompanyCommentsView.hints.Username.tooltip}" id="ot3"/>
+                    </af:column>
+                </af:table>
+            </af:panelGroupLayout>
+        </af:showDetailItem>
+    </af:panelTabbed>
+</jsp:root>

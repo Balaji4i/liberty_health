@@ -1,0 +1,1 @@
+select distinct ORIGIN, STATUS from ACT_ACTIVITIES_V@POLICIES;

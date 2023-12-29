@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allCompanyFeeTypePageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllCompanyFeeTypeVO" RangeSize="25" DataControl="CompanyFeeTypeAMDataControl"
+              id="AllCompanyFeeTypeVOIterator"/>
+    <searchRegion Criteria="AllCompanyFeeTypeViewCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" Binds="AllCompanyFeeTypeVOIterator"
+                  id="AllCompanyFeeTypeViewCriteriaQuery"/>
+    <iterator Binds="CompanyFeeTypeAuditView" RangeSize="25" DataControl="CompanyFeeTypeAMDataControl"
+              id="CompanyFeeTypeAuditViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllCompanyFeeTypeVOIterator" id="AllCompanyFeeTypeVO">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.CompanyFeeTypeVO" Name="AllCompanyFeeTypeVO0">
+        <AttrNames>
+          <Item Value="CompanyFeeTypeIdNo"/>
+          <Item Value="CompanyFeeTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllCompanyFeeTypeVOIterator" id="CompanyFeeTypeIdNo">
+      <AttrNames>
+        <Item Value="CompanyFeeTypeIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="CompanyFeeTypeAuditViewIterator" id="CompanyFeeTypeAuditView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyFeeTypeAuditRoView"
+                      Name="CompanyFeeTypeAuditView0">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionUsername"/>
+          <Item Value="TransactionDesc"/>
+          <Item Value="CompanyFeeTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="parentGroupCommPercPageDef"
+                Package="fragments.comms">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="SearchCommsRunRoView" RangeSize="25" DataControl="CommsRunAMDataControl"
+              id="SearchCommsRunRoViewIterator"/>
+    <iterator Binds="MaintainOhiCommPercentageView" RangeSize="25" DataControl="OhiStructureAMDataControl"
+              id="MaintainOhiCommPercentageViewIterator"/>
+  </executables>
+  <bindings>
+    <listOfValues IterBinding="SearchCommsRunRoViewIterator" StaticList="false" Uses="LOV_ParentgroupCode"
+                  id="ParentgroupCode"/>
+    <action IterBinding="MaintainOhiCommPercentageViewIterator" id="CreateWithParams" RequiresUpdateModel="true"
+            Action="createWithParams">
+      <NamedData NDName="GroupCode" NDValue="#{bindings.GroupCode.inputValue}" NDType="java.lang.String"/>
+       <NamedData NDName="CompanyIdNo" NDValue="" NDType="java.lang.String"/>
+    </action>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="OhiStructureAMDataControl"/>
+    <action IterBinding="MaintainOhiCommPercentageViewIterator" id="Create" RequiresUpdateModel="true"
+            Action="createRow"/>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="PoepId">
+      <AttrNames>
+        <Item Value="PoepId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CommPerc">
+      <AttrNames>
+        <Item Value="CommPerc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CommDesc">
+      <AttrNames>
+        <Item Value="CommDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="EffectiveStartDate">
+      <AttrNames>
+        <Item Value="EffectiveStartDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="EffectiveEndDate">
+      <AttrNames>
+        <Item Value="EffectiveEndDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="LastUpdateDatetime">
+      <AttrNames>
+        <Item Value="LastUpdateDatetime"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="Username">
+      <AttrNames>
+        <Item Value="Username"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="ProductCode">
+      <AttrNames>
+        <Item Value="ProductCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="InseCode">
+      <AttrNames>
+        <Item Value="InseCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="PolicyCode">
+      <AttrNames>
+        <Item Value="PolicyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="MaintainOhiCommPercentageViewIterator" StaticList="false" Uses="LOV_GroupCode" id="GroupCode"
+          DTSupportsMRU="false" SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="BrokerIdNo">
+      <AttrNames>
+        <Item Value="BrokerIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="CreatedUsername">
+      <AttrNames>
+        <Item Value="CreatedUsername"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="AuthUsername">
+      <AttrNames>
+        <Item Value="AuthUsername"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="RejectUsername">
+      <AttrNames>
+        <Item Value="RejectUsername"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MaintainOhiCommPercentageViewIterator" id="RowID">
+      <AttrNames>
+        <Item Value="RowID"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

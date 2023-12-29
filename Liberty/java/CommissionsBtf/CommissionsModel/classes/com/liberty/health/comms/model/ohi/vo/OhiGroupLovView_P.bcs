@@ -1,0 +1,19 @@
+//Groovy Scripts for com.liberty.health.comms.model.ohi.vo.OhiGroupLovView_P
+
+package com.liberty.health.comms.model.ohi.vo
+
+import oracle.jbo.script.annotation.VariableExpression;
+
+//@VariableExpression(path="pCountryList")
+//def pCountryList_VariableScript_Variable()
+//{
+//adf.context.sessionScope.countryList
+//}
+
+
+@VariableExpression(path="pCountryList")
+def pCountryList_VariableScript_Variable()
+{
+adf.context.sessionScope.countryList
+}
+

@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelHeader text="#{coreLabels['G.WatchList']}: #{pageFlowScope.menuItemName}" id="ph1">
+        <f:facet name="context"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+            <f:facet name="menus"/>
+            <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                    <af:button text="#{coreLabels['G.ReSubmit']}" id="b1"
+                               disabled="#{bindings.AllGroupCommPercRejectedViewIterator.deferredEstimatedRowCount == 0}"
+                               partialTriggers="t1 d1" >
+                        <af:showPopupBehavior popupId="p1" triggerType="action"/>
+                    </af:button>
+                    <af:button text="#{coreLabels['G.Export']}" id="b2" icon="/adf/images/excel_16x16.png"
+                               rendered="#{securityContext.userInRole['comms-consultant']}">
+                        <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                           filename="#{pageFlowScope.menuItemName}.xls"/>
+                    </af:button>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p1" contentDelivery="lazyUncached"
+                              popupFetchListener="#{watchListBean.reSubmitPopUpFetchListener}">
+                        <af:dialog id="d1" title="#{coreLabels['G.Confirmation']}" type="yesNo" resize="off"
+                                   dialogListener="#{watchListBean.commPercRejecedResubmitDialogListener}">
+                            <f:facet name="buttonBar"/>
+                            <af:panelFormLayout id="pfl1">
+                                <af:inputText value="#{bindings.CommPerc.inputValue}"
+                                              label="#{bindings.CommPerc.hints.label}"
+                                              required="#{bindings.CommPerc.hints.mandatory}"
+                                              columns="#{bindings.CommPerc.hints.displayWidth}"
+                                              maximumLength="#{bindings.CommPerc.hints.precision}"
+                                              shortDesc="#{bindings.CommPerc.hints.tooltip}" id="it1">
+                                    <f:validator binding="#{bindings.CommPerc.validator}"/>
+                                    <af:convertNumber groupingUsed="false" pattern="#{bindings.CommPerc.format}"/>
+                                </af:inputText>
+                                <af:inputText value="#{bindings.CommDesc.inputValue}"
+                                              label="#{bindings.CommDesc.hints.label}"
+                                              required="#{bindings.CommDesc.hints.mandatory}"
+                                              columns="#{bindings.CommDesc.hints.displayWidth}"
+                                              maximumLength="#{bindings.CommDesc.hints.precision}"
+                                              shortDesc="#{bindings.CommDesc.hints.tooltip}" id="it8">
+                                    <f:validator binding="#{bindings.CommDesc.validator}"/>
+                                </af:inputText>
+                            </af:panelFormLayout>
+                        </af:dialog>
+                    </af:popup>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                              binding="#{watchListBean.errorMsgPopUp}">
+                        <af:dialog id="d2" title="#{coreLabels['G.Error']}" type="ok">
+                            <f:facet name="buttonBar"/>
+                            <af:outputText value="#{coreLabels['G.ErrorMsg']} #{watchListBean.returnMsg}" id="ot14"/>
+                        </af:dialog>
+                    </af:popup>
+                </af:toolbar>
+            </f:facet>
+            <f:facet name="statusbar"/>
+            <af:table value="#{bindings.AllGroupCommPercRejectedView.collectionModel}" var="row"
+                      rows="#{bindings.AllGroupCommPercRejectedView.rangeSize}"
+                      emptyText="#{bindings.AllGroupCommPercRejectedView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      rowBandingInterval="1"
+                      selectedRowKeys="#{bindings.AllGroupCommPercRejectedView.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.AllGroupCommPercRejectedView.collectionModel.makeCurrent}"
+                      rowSelection="single" fetchSize="#{bindings.AllGroupCommPercRejectedView.rangeSize}"
+                      id="t1" displayRow="selected" styleClass="AFStretchWidth" columnStretching="column:c1"
+                      partialTriggers="::d2 ::d1">
+                <af:column headerText="#{bindings.AllGroupCommPercRejectedView.hints.GroupCode.label}" id="c2"
+                           width="150">
+                    <af:inputText value="#{row.bindings.GroupCode.inputValue}"
+                                  label="#{bindings.AllGroupCommPercRejectedView.hints.GroupCode.label}"
+                                  required="#{bindings.AllGroupCommPercRejectedView.hints.GroupCode.mandatory}"
+                                  columns="#{bindings.AllGroupCommPercRejectedView.hints.GroupCode.displayWidth}"
+                                  maximumLength="#{bindings.AllGroupCommPercRejectedView.hints.GroupCode.precision}"
+                                  shortDesc="#{bindings.AllGroupCommPercRejectedView.hints.GroupCode.tooltip}" id="it6">
+                        <f:validator binding="#{row.bindings.GroupCode.validator}"/>
+                    </af:inputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercRejectedView.hints.GroupName.label}" id="c3"
+                           width="250">
+                    <af:inputText value="#{row.bindings.GroupName.inputValue}"
+                                  label="#{bindings.AllGroupCommPercRejectedView.hints.GroupName.label}"
+                                  required="#{bindings.AllGroupCommPercRejectedView.hints.GroupName.mandatory}"
+                                  columns="#{bindings.AllGroupCommPercRejectedView.hints.GroupName.displayWidth}"
+                                  maximumLength="#{bindings.AllGroupCommPercRejectedView.hints.GroupName.precision}"
+                                  shortDesc="#{bindings.AllGroupCommPercRejectedView.hints.GroupName.tooltip}" id="it3">
+                        <f:validator binding="#{row.bindings.GroupName.validator}"/>
+                    </af:inputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercRejectedView.hints.CommPerc.label}" id="c7"
+                           align="right" width="80">
+                    <af:inputText value="#{row.bindings.CommPerc.inputValue}"
+                                  label="#{bindings.AllGroupCommPercRejectedView.hints.CommPerc.label}"
+                                  required="#{bindings.AllGroupCommPercRejectedView.hints.CommPerc.mandatory}"
+                                  columns="#{bindings.AllGroupCommPercRejectedView.hints.CommPerc.displayWidth}"
+                                  maximumLength="#{bindings.AllGroupCommPercRejectedView.hints.CommPerc.precision}"
+                                  shortDesc="#{bindings.AllGroupCommPercRejectedView.hints.CommPerc.tooltip}" id="it2">
+                        <f:validator binding="#{row.bindings.CommPerc.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.AllGroupCommPercRejectedView.hints.CommPerc.format}"/>
+                    </af:inputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercRejectedView.hints.CommDesc.label}" id="c1">
+                    <af:inputText value="#{row.bindings.CommDesc.inputValue}"
+                                  label="#{bindings.AllGroupCommPercRejectedView.hints.CommDesc.label}"
+                                  required="#{bindings.AllGroupCommPercRejectedView.hints.CommDesc.mandatory}"
+                                  columns="#{bindings.AllGroupCommPercRejectedView.hints.CommDesc.displayWidth}"
+                                  maximumLength="#{bindings.AllGroupCommPercRejectedView.hints.CommDesc.precision}"
+                                  shortDesc="#{bindings.AllGroupCommPercRejectedView.hints.CommDesc.tooltip}" id="it5">
+                        <f:validator binding="#{row.bindings.CommDesc.validator}"/>
+                    </af:inputText>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveStartDate.label}" id="c4"
+                           align="center" width="80">
+                    <af:inputDate value="#{row.bindings.EffectiveStartDate.inputValue}"
+                                  label="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveStartDate.label}"
+                                  required="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveStartDate.mandatory}"
+                                  columns="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveStartDate.displayWidth}"
+                                  shortDesc="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveStartDate.tooltip}"
+                                  id="id1">
+                        <f:validator binding="#{row.bindings.EffectiveStartDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveStartDate.format}"/>
+                    </af:inputDate>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveEndDate.label}" id="c6"
+                           align="center" width="80">
+                    <af:inputDate value="#{row.bindings.EffectiveEndDate.inputValue}"
+                                  label="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveEndDate.label}"
+                                  required="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveEndDate.mandatory}"
+                                  columns="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveEndDate.displayWidth}"
+                                  shortDesc="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveEndDate.tooltip}"
+                                  id="id3">
+                        <f:validator binding="#{row.bindings.EffectiveEndDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.AllGroupCommPercRejectedView.hints.EffectiveEndDate.format}"/>
+                    </af:inputDate>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercRejectedView.hints.RejectDate.label}" id="c5"
+                           align="center" width="80">
+                    <af:inputDate value="#{row.bindings.RejectDate.inputValue}"
+                                  label="#{bindings.AllGroupCommPercRejectedView.hints.RejectDate.label}"
+                                  required="#{bindings.AllGroupCommPercRejectedView.hints.RejectDate.mandatory}"
+                                  columns="#{bindings.AllGroupCommPercRejectedView.hints.RejectDate.displayWidth}"
+                                  shortDesc="#{bindings.AllGroupCommPercRejectedView.hints.RejectDate.tooltip}"
+                                  id="id2">
+                        <f:validator binding="#{row.bindings.RejectDate.validator}"/>
+                        <af:convertDateTime pattern="#{bindings.AllGroupCommPercRejectedView.hints.RejectDate.format}"/>
+                    </af:inputDate>
+                </af:column>
+                <af:column headerText="#{bindings.AllGroupCommPercRejectedView.hints.RejectUsername.label}" id="c8">
+                    <af:inputText value="#{row.bindings.RejectUsername.inputValue}"
+                                  label="#{bindings.AllGroupCommPercRejectedView.hints.RejectUsername.label}"
+                                  required="#{bindings.AllGroupCommPercRejectedView.hints.RejectUsername.mandatory}"
+                                  columns="#{bindings.AllGroupCommPercRejectedView.hints.RejectUsername.displayWidth}"
+                                  maximumLength="#{bindings.AllGroupCommPercRejectedView.hints.RejectUsername.precision}"
+                                  shortDesc="#{bindings.AllGroupCommPercRejectedView.hints.RejectUsername.tooltip}"
+                                  id="it4">
+                        <f:validator binding="#{row.bindings.RejectUsername.validator}"/>
+                    </af:inputText>
+                </af:column>
+            </af:table>
+        </af:panelCollection>
+    </af:panelHeader>
+    <af:panelFormLayout id="pfl2" visible="false">
+        <af:inputText value="#{bindings.RejectUsername.inputValue}" label="#{bindings.RejectUsername.hints.label}"
+                      required="#{bindings.RejectUsername.hints.mandatory}"
+                      columns="#{bindings.RejectUsername.hints.displayWidth}"
+                      maximumLength="#{bindings.RejectUsername.hints.precision}"
+                      shortDesc="#{bindings.RejectUsername.hints.tooltip}" id="it7">
+            <f:validator binding="#{bindings.RejectUsername.validator}"/>
+        </af:inputText>
+    </af:panelFormLayout>
+</jsp:root>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="missingCommPercBrokersPageDef"
+                Package="fragments.watchList">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllBrokerageWithNoPercentageRovView" RangeSize="25" DataControl="WatchListAMDataControl"
+              id="AllBrokerageWithNoPercentageRovViewIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AllBrokerageWithNoPercentageRovViewIterator" id="AllBrokerageWithNoPercentageRovView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.watchlist.vo.BrokerageWithNoPercentageRovView"
+                      Name="AllBrokerageWithNoPercentageRovView0">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="MultinationalInd"/>
+          <Item Value="BrokerFunctionDesc"/>
+          <Item Value="BrokerStatementDesc"/>
+          <Item Value="BrokerStatusDesc"/>
+          <Item Value="BrokerTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="AllBrokerageWithNoPercentageRovViewIterator" id="CompanyIdNo">
+      <AttrNames>
+        <Item Value="CompanyIdNo"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

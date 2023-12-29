@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FkCompContactAuditCompContactTypeLink"
+  Version="12.2.1.16.48"
+  InheritPersonalization="merge">
+    <Properties>
+        <SchemaBasedProperties>
+            <LABEL
+              ResId="com.liberty.health.comms.model.lookup.vo.links.FkCompContactAuditCompContactTypeLink_LABEL"/>
+        </SchemaBasedProperties>
+    </Properties>
+    <ViewLinkDefEnd
+      Name="CompanyContactType"
+      Cardinality="1"
+      Source="true"
+      Owner="com.liberty.health.comms.model.lookup.vo.CompanyContactTypeVO">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="CompanyContactType"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item Value="com.liberty.health.comms.model.lookup.vo.CompanyContactTypeVO.CompanyContactTypeIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ViewLinkDefEnd
+      Name="CompanyContactTypeAuditRoView"
+      Cardinality="-1"
+      Owner="com.liberty.health.comms.model.lookup.vo.CompanyContactTypeAuditRoView">
+        <DesignTime>
+            <Attr Name="_isUpdateable" Value="true"/>
+            <Attr Name="_finderName" Value="CompanyContactTypeAuditRoView"/>
+        </DesignTime>
+        <AttrArray Name="Attributes">
+            <Item
+              Value="com.liberty.health.comms.model.lookup.vo.CompanyContactTypeAuditRoView.CompanyContactTypeIdNo"/>
+        </AttrArray>
+    </ViewLinkDefEnd>
+    <ResourceBundle>
+        <PropertiesBundle
+          PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewLink>

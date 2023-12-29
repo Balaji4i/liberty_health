@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelGroupLayout id="pgl2" inlineStyle="width:128px; height:49px;">
+        <af:button text="Continue to Broker Communication" id="b1" action="Continue"/>
+    </af:panelGroupLayout>
+    <af:panelGroupLayout id="pgl1">
+        <af:panelTabbed position="above" id="pt1" inlineStyle="width:1000px;">
+            <af:showDetailItem id="tab1" text="	#{coreLabels['G.BrokerCheckCorrespondence']}">
+                <af:panelCollection id="pc1" inlineStyle="width:968px;">
+                    <f:facet name="menus">
+                        <af:menu text="File" id="m1">
+                            <af:commandMenuItem text="Export" id="cmi1">
+                                <af:exportCollectionActionListener type="excelHTML" exportedId="md1"
+                                                                   filename="Correspondence Issues - High Level per Brokerage.xls"
+                                                                   title="Correspondence Issues - High Level per Brokerage"/>
+                            </af:commandMenuItem>
+                        </af:menu>
+                    </f:facet>
+                    <f:facet name="toolbar"/>
+                    <f:facet name="statusbar"/>
+                    <af:table id="md1" rows="#{bindings.CompanyCorrMultinatView.rangeSize}"
+                              fetchSize="20"
+                              emptyText="#{bindings.CompanyCorrMultinatView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              var="row" value="#{bindings.CompanyCorrMultinatView.collectionModel}"
+                              rowBandingInterval="0"
+                              selectedRowKeys="#{bindings.CompanyCorrMultinatView.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.CompanyCorrMultinatView.collectionModel.makeCurrent}"
+                              rowSelection="single" columnStretching="none"
+                              filterVisible="true" width="1168" scrollPolicy="page">
+                        <af:column headerText="#{bindings.CompanyCorrMultinatView.hints.CompanyIdNo.label}"
+                                   sortProperty="#{bindings.CompanyCorrMultinatView.hints.CompanyIdNo.name}"
+                                   sortable="false" id="c1" width="87">
+                            <af:outputText value="#{row.CompanyIdNo}"
+                                           shortDesc="#{bindings.CompanyCorrMultinatView.hints.CompanyIdNo.tooltip}"
+                                           id="ot1">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.CompanyCorrMultinatView.hints.CompanyIdNo.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrMultinatView.hints.CompanyName.label}"
+                                   sortProperty="#{bindings.CompanyCorrMultinatView.hints.CompanyName.name}"
+                                   sortable="true" id="c2" width="216" filterable="true">
+                            <af:outputText value="#{row.CompanyName}"
+                                           shortDesc="#{bindings.CompanyCorrMultinatView.hints.CompanyName.tooltip}"
+                                           id="ot2"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrMultinatView.hints.CompanyStartDate.label}"
+                                   sortProperty="#{bindings.CompanyCorrMultinatView.hints.CompanyStartDate.name}"
+                                   sortable="false" id="c3" width="104">
+                            <af:outputText value="#{row.CompanyStartDate}"
+                                           shortDesc="#{bindings.CompanyCorrMultinatView.hints.CompanyStartDate.tooltip}"
+                                           id="ot3">
+                                <af:convertDateTime pattern="#{bindings.CompanyCorrMultinatView.hints.CompanyStartDate.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrMultinatView.hints.CompanyEndDate.label}"
+                                   sortProperty="#{bindings.CompanyCorrMultinatView.hints.CompanyEndDate.name}"
+                                   sortable="false" id="c4" width="84">
+                            <af:outputText value="#{row.CompanyEndDate}"
+                                           shortDesc="#{bindings.CompanyCorrMultinatView.hints.CompanyEndDate.tooltip}"
+                                           id="ot4">
+                                <af:convertDateTime pattern="#{bindings.CompanyCorrMultinatView.hints.CompanyEndDate.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrMultinatView.hints.CorrespondenceTemplate.label}"
+                                   id="c14" filterable="true" sortable="true" width="123">
+                            <af:outputText value="#{row.CorrespondenceTemplate}"
+                                           shortDesc="#{bindings.CompanyCorrMultinatView.hints.CorrespondenceTemplate.tooltip}"
+                                           id="ot14" inlineStyle="#{row.TemplColour}"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrMultinatView.hints.Countries.label}"
+                                   sortProperty="#{bindings.CompanyCorrMultinatView.hints.Countries.name}"
+                                   sortable="true" id="c5" width="192" filterable="true">
+                            <af:outputText value="#{row.Countries}"
+                                           shortDesc="#{bindings.CompanyCorrMultinatView.hints.Countries.tooltip}"
+                                           id="ot5" inlineStyle="#{row.Colour}"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrMultinatView.hints.Colour.label}"
+                                   sortProperty="#{bindings.CompanyCorrMultinatView.hints.Colour.name}" sortable="false"
+                                   id="c6" width="71" rendered="false">
+                            <af:outputText value="#{row.Colour}"
+                                           shortDesc="#{bindings.CompanyCorrMultinatView.hints.Colour.tooltip}"
+                                           id="ot6"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrMultinatView.hints.TemplColour.label}" id="c15"
+                                   rendered="false">
+                            <af:outputText value="#{row.TemplColour}"
+                                           shortDesc="#{bindings.CompanyCorrMultinatView.hints.TemplColour.tooltip}"
+                                           id="ot15"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrMultinatView.hints.Multinational.label}"
+                                   sortProperty="#{bindings.CompanyCorrMultinatView.hints.Multinational.name}"
+                                   sortable="true" id="c7" width="71" filterable="true">
+                            <af:outputText value="#{row.Multinational}"
+                                           shortDesc="#{bindings.CompanyCorrMultinatView.hints.Multinational.tooltip}"
+                                           id="ot7"/>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:showDetailItem>
+            <af:showDetailItem id="tab2" text="	#{coreLabels['G.BrokerCorrespondenceErrors']}" stretchChildren="none">
+                <af:panelCollection id="pc2" inlineStyle="width:830px;">
+                    <f:facet name="menus">
+                        <af:menu text="File" id="m2">
+                            <af:commandMenuItem text="Export" id="cmi2">
+                                <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                                                   filename="Correspondence Issues - Detail Per Brokerage.xls"
+                                                                   title="Correspondence Issues - Detail Per Brokerage"/>
+                            </af:commandMenuItem>
+                        </af:menu>
+                    </f:facet>
+                    <f:facet name="toolbar"/>
+                    <f:facet name="statusbar"/>
+                    <af:table rows="#{bindings.CompanyCorrExceptionView.rangeSize}"
+                              fetchSize="20"
+                              emptyText="#{bindings.CompanyCorrExceptionView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              var="row" value="#{bindings.CompanyCorrExceptionView.collectionModel}"
+                              rowBandingInterval="0" scrollPolicy="page" 
+                              selectedRowKeys="#{bindings.CompanyCorrExceptionView.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.CompanyCorrExceptionView.collectionModel.makeCurrent}"
+                              rowSelection="single" id="t1" partialTriggers=":::pc1:md1" columnStretching="multiple">
+                        <af:column headerText="#{bindings.CompanyCorrExceptionView.hints.ContactType.label}"
+                                   sortProperty="#{bindings.CompanyCorrExceptionView.hints.ContactType.name}"
+                                   sortable="false" id="c8" width="100" rendered="false">
+                            <af:outputText value="#{row.ContactType}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView.hints.ContactType.tooltip}"
+                                           id="ot8"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrExceptionView.hints.CompanyIdNo.label}"
+                                   sortProperty="#{bindings.CompanyCorrExceptionView.hints.CompanyIdNo.name}"
+                                   sortable="false" id="c9" width="100">
+                            <af:outputText value="#{row.CompanyIdNo}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView.hints.CompanyIdNo.tooltip}"
+                                           id="ot9">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.CompanyCorrExceptionView.hints.CompanyIdNo.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrExceptionView.hints.CompanyName.label}"
+                                   sortProperty="#{bindings.CompanyCorrExceptionView.hints.CompanyName.name}"
+                                   sortable="false" id="c10" width="138">
+                            <af:outputText value="#{row.CompanyName}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView.hints.CompanyName.tooltip}"
+                                           id="ot10"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrExceptionView.hints.Countries.label}"
+                                   sortProperty="#{bindings.CompanyCorrExceptionView.hints.Countries.name}"
+                                   sortable="false" id="c11" width="103">
+                            <af:outputText value="#{row.Countries}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView.hints.Countries.tooltip}"
+                                           id="ot11"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrExceptionView.hints.Reason.label}"
+                                   sortProperty="#{bindings.CompanyCorrExceptionView.hints.Reason.name}"
+                                   sortable="false" id="c12" width="269">
+                            <af:outputText value="#{row.Reason}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView.hints.Reason.tooltip}"
+                                           id="ot12"/>
+                        </af:column>
+                        <af:column headerText="#{bindings.CompanyCorrExceptionView.hints.LinkRecord.label}"
+                                   sortProperty="#{bindings.CompanyCorrExceptionView.hints.LinkRecord.name}"
+                                   sortable="false" id="c13" width="138">
+                            <af:outputText value="#{row.LinkRecord}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView.hints.LinkRecord.tooltip}"
+                                           id="ot13"/>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:showDetailItem>
+            <af:showDetailItem text="All Detail" id="sdi1">
+                <af:panelCollection id="pc3" inlineStyle="width:841px;">
+                    <f:facet name="menus">
+                        <af:menu text="File" id="m3">
+                            <af:commandMenuItem text="Export" id="cmi3">
+                                <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                                                   filename="All Correspondence Data Issues Extract.xls"
+                                                                   title="All Correspondence Data Issues"/>
+                            </af:commandMenuItem>
+                        </af:menu>
+                    </f:facet>
+                    <f:facet name="toolbar"/>
+                    <f:facet name="statusbar"/>
+                    <af:table value="#{bindings.CompanyCorrExceptionView1.collectionModel}" var="row"
+                              rows="#{bindings.CompanyCorrExceptionView1.rangeSize}"
+                              emptyText="#{bindings.CompanyCorrExceptionView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="0" fetchSize = "20"
+                              selectedRowKeys="#{bindings.CompanyCorrExceptionView1.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.CompanyCorrExceptionView1.collectionModel.makeCurrent}"
+                              rowSelection="single"
+                              filterModel="#{bindings.CompanyCorrExceptionView1Query.queryDescriptor}"
+                              filterVisible="true" 
+                              queryListener="#{bindings.CompanyCorrExceptionView1Query.processQuery}" varStatus="vs"
+                              id="t2" scrollPolicy="page" columnStretching="multiple" width="1048">
+                        <af:column sortProperty="#{bindings.CompanyCorrExceptionView1.hints.CompanyIdNo.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CompanyCorrExceptionView1.hints.CompanyIdNo.label}" id="c16"
+                                   width="100">
+                            <af:outputText value="#{row.CompanyIdNo}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView1.hints.CompanyIdNo.tooltip}"
+                                           id="ot16">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.CompanyCorrExceptionView1.hints.CompanyIdNo.format}"/>
+                            </af:outputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CompanyCorrExceptionView1.hints.CompanyName.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CompanyCorrExceptionView1.hints.CompanyName.label}" id="c17"
+                                   width="228">
+                            <af:outputText value="#{row.CompanyName}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView1.hints.CompanyName.tooltip}"
+                                           id="ot17"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CompanyCorrExceptionView1.hints.Countries.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CompanyCorrExceptionView1.hints.Countries.label}" id="c18"
+                                   width="114">
+                            <af:outputText value="#{row.Countries}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView1.hints.Countries.tooltip}"
+                                           id="ot18"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CompanyCorrExceptionView1.hints.Reason.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CompanyCorrExceptionView1.hints.Reason.label}" id="c19"
+                                   width="233">
+                            <af:outputText value="#{row.Reason}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView1.hints.Reason.tooltip}"
+                                           id="ot19"/>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.CompanyCorrExceptionView1.hints.LinkRecord.name}"
+                                   filterable="true" sortable="true"
+                                   headerText="#{bindings.CompanyCorrExceptionView1.hints.LinkRecord.label}" id="c20"
+                                   width="104">
+                            <af:outputText value="#{row.LinkRecord}"
+                                           shortDesc="#{bindings.CompanyCorrExceptionView1.hints.LinkRecord.tooltip}"
+                                           id="ot20"/>
+                        </af:column>
+                    </af:table>
+                </af:panelCollection>
+            </af:showDetailItem>
+        </af:panelTabbed>
+    </af:panelGroupLayout>
+</jsp:root>

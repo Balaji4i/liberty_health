@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.12.24"
+                id="allBrokerCommsExceptionsPageDef" Package="fragments.brokers">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="CompanyCorrMultinatView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="CompanyCorrMultinatViewIterator" Refresh="ifNeeded"/>
+    <iterator Binds="CompanyCorrExceptionView" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="CompanyCorrExceptionViewIterator" Refresh="ifNeeded"/>
+    <iterator Binds="CompanyCorrExceptionView1" RangeSize="25" DataControl="MaintainBrokerageAMDataControl"
+              id="CompanyCorrExceptionView1Iterator"/>
+    <searchRegion Binds="CompanyCorrExceptionView1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="CompanyCorrExceptionView1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="CompanyCorrMultinatViewIterator" id="CompanyCorrMultinatView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyCorrMultinatVO"
+                      Name="CompanyCorrMultinatView0">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="CompanyStartDate"/>
+          <Item Value="CompanyEndDate"/>
+          <Item Value="Countries"/>
+          <Item Value="Colour"/>
+          <Item Value="Multinational"/>
+          <Item Value="CorrespondenceTemplate"/>
+          <Item Value="TemplColour"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="CompanyCorrExceptionViewIterator" id="CompanyCorrExceptionView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyCorrExceptionReport"
+                      Name="CompanyCorrExceptionView0">
+        <AttrNames>
+          <Item Value="ContactType"/>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="Countries"/>
+          <Item Value="Reason"/>
+          <Item Value="LinkRecord"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="CompanyCorrExceptionView1Iterator" id="CompanyCorrExceptionView1">
+      <nodeDefinition DefName="com.liberty.health.comms.model.brokerage.vo.CompanyCorrExceptionReport"
+                      Name="CompanyCorrExceptionView10">
+        <AttrNames>
+          <Item Value="CompanyIdNo"/>
+          <Item Value="CompanyName"/>
+          <Item Value="Countries"/>
+          <Item Value="Reason"/>
+          <Item Value="LinkRecord"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

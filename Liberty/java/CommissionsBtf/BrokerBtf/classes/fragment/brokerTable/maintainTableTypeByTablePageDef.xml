@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="maintainTableTypeByTablePageDef"
+                Package="fragment.brokerTable">
+    <parameters/>
+    <executables>
+        <variableIterator id="variables"/>
+        <iterator Binds="BrokerTableTypeByTableView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerTableTypeByTableViewIterator"/>
+        <iterator Binds="BrokerTableTypeAuditView" RangeSize="25" DataControl="BrokerMaintenanceAMDataControl"
+                  id="BrokerTableTypeAuditViewIterator"/>
+    </executables>
+    <bindings>
+        <attributeValues IterBinding="BrokerTableTypeByTableViewIterator" id="BrokerTableTypeDesc">
+            <AttrNames>
+                <Item Value="BrokerTableTypeDesc"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerTableTypeByTableViewIterator" id="EffectiveStartDate">
+            <AttrNames>
+                <Item Value="EffectiveStartDate"/>
+            </AttrNames>
+        </attributeValues>
+        <attributeValues IterBinding="BrokerTableTypeByTableViewIterator" id="EffectiveEndDate">
+            <AttrNames>
+                <Item Value="EffectiveEndDate"/>
+            </AttrNames>
+        </attributeValues>
+        <action IterBinding="BrokerTableTypeByTableViewIterator" id="CreateInsert"
+                InstanceName="BrokerMaintenanceAMDataControl.BrokerTableTypeByTableView"
+                DataControl="BrokerMaintenanceAMDataControl" RequiresUpdateModel="true" Action="createWithParams">
+            <NamedData NDName="BrokerTableIdNo" NDValue="#{pageFlowScope.tableIdNo}" NDType="java.lang.Integer"/>
+        </action>
+        <action id="Rollback" DataControl="BrokerMaintenanceAMDataControl" RequiresUpdateModel="false"
+                Action="rollbackTransaction"/>
+        <tree IterBinding="BrokerTableTypeByTableViewIterator" id="BrokerTableTypeByTableView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerTableTypeVO"
+                            Name="BrokerTableTypeByTableView0">
+                <AttrNames>
+                    <Item Value="BrokerTableTypeDesc"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+        <tree IterBinding="BrokerTableTypeAuditViewIterator" id="BrokerTableTypeAuditView">
+            <nodeDefinition DefName="com.liberty.health.comms.model.broker.vo.BrokerTableTypeAuditRoView"
+                            Name="BrokerTableTypeAuditView0">
+                <AttrNames>
+                    <Item Value="TransactionDatetime"/>
+                    <Item Value="TransactionUsername"/>
+                    <Item Value="TransactionDesc"/>
+                    <Item Value="BrokerTableTypeDesc"/>
+                    <Item Value="BrokerTableIdNo"/>
+                    <Item Value="EffectiveStartDate"/>
+                    <Item Value="EffectiveEndDate"/>
+                </AttrNames>
+            </nodeDefinition>
+        </tree>
+    </bindings>
+</pageDefinition>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.16.48" id="allBankAccountTypePageDef"
+                Package="fragments.lookup">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="BankAccountTypeVO1" RangeSize="25" DataControl="BankAccountTypeAMDataControl"
+              id="AllBankAccountTypeVOIterator"/>
+    <searchRegion Criteria="AllBankAccountTypeViewCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" Binds="AllBankAccountTypeVOIterator"
+                  id="AllBankAccountTypeViewCriteriaQuery"/>
+    <iterator Binds="BankAccountTypeAuditRoView" RangeSize="25" DataControl="BankAccountTypeAMDataControl"
+              id="BankAccountTypeAuditRoViewIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="AllBankAccountTypeVOIterator" id="BankAccTypeIdNo">
+      <AttrNames>
+        <Item Value="BankAccTypeIdNo"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="AllBankAccountTypeVOIterator" id="AllBankAccountTypeVO">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.BankAccountTypeVO" Name="AllBankAccountTypeVO0">
+        <AttrNames>
+          <Item Value="BankAccTypeIdNo"/>
+          <Item Value="BankAccTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+          <Item Value="LastUpdateDatetime"/>
+          <Item Value="Username"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="BankAccountTypeAuditRoViewIterator" id="BankAccountTypeAuditRoView">
+      <nodeDefinition DefName="com.liberty.health.comms.model.lookup.vo.BankAccountTypeAuditRoView"
+                      Name="BankAccountTypeAuditRoView0">
+        <AttrNames>
+          <Item Value="TransactionDatetime"/>
+          <Item Value="TransactionDesc"/>
+          <Item Value="TransactionUsername"/>
+          <Item Value="BankAccTypeDesc"/>
+          <Item Value="EffectiveStartDate"/>
+          <Item Value="EffectiveEndDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

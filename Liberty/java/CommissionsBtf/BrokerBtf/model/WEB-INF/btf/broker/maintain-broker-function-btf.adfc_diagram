@@ -1,0 +1,47 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View3">
+      <property
+         name="activityId">maintainBrokerFunction</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">383.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>maintainBrokerFunction&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">304.6377</property>
+      <property
+         name="page">/WEB-INF/fragment/broker/maintainBrokerFunction.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <MethodCall
+      id="MethodCall5">
+      <property
+         name="activityId">setpBrokerIdNo</property>
+      <property
+         name="x">-36.313477</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setpBrokerIdNo&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">304.48828</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase8"
+      from="MethodCall5"
+      to="View3">
+      <property
+         name="fromOutcome">setpBrokerIdNo</property>
+      <property
+         name="sdm:polyPoints">R50,4.6865234,304.1377,342.0,304.2871,L50</property>
+   </ControlFlowCase>
+</SDM>

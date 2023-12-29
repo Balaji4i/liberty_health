@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CommsPaymentsReceivedVO"
+    Version="12.2.1.9.14"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+    CustomQuery="true"
+  RowClass="com.core.model.vo.classes.CoreViewRowImpl"
+  ComponentClass="com.core.model.vo.classes.CoreViewObjectImpl"
+  DefClass="com.core.model.vo.classes.CoreViewDefImpl"
+  PageIterMode="Full">
+    <DesignTime>
+        <Attr Name="_isExpertMode" Value="true"/>
+    </DesignTime>
+    <Variable
+        Name="pCountryList"
+        Kind="where"
+        Type="java.lang.String">
+        <TransientExpression
+            Name="VariableScript"
+            CodeSourceName="CommsPaymentsReceivedVO"/>
+        <Properties>
+            <SchemaBasedProperties>
+                <DISPLAYHINT
+                    Value="Hide"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </Variable>
+    <ViewAccessor
+      Name="CountryLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.CountryLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+      Name="OhiProductLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.OhiProductLovView"
+      RowLevelBinds="true">
+        <ViewCriteriaUsage
+          Name="SearchPercentageMaintenanceViewCriteria"
+          FullName="SearchPercentageMaintenanceViewCriteria"/>
+        <ParameterMap>
+            <PIMap Variable="pCountryCode">
+                <TransientExpression
+                  Name="ExpressionScript"><![CDATA[CountryCode]]></TransientExpression>
+            </PIMap>
+        </ParameterMap>
+    </ViewAccessor>
+    <ViewAccessor
+      Name="ActiveLov1"
+      ViewObjectName="com.core.model.lov.ActiveLov"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+      Name="PaymentsProcessedStatusLovView1"
+      ViewObjectName="com.liberty.health.comms.lov.PaymentsProcessedStatusLovView"
+      RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="OhiStructureAM_OhiGroupLovView_P1_1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.OhiGroupLovView_P"
+        AMUsageName="OhiStructureAM"
+        ViewInstanceName="OhiGroupLovView_P1"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="OhiStructureAM_OhiProductLovView_P1_1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.OhiProductLovView_P"
+        AMUsageName="OhiStructureAM"
+        ViewInstanceName="OhiProductLovView_P1"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="OhiStructureAM_OhiGroupLovView_P1_2"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.OhiGroupLovView_P"
+        AMUsageName="OhiStructureAM"
+        ViewInstanceName="OhiGroupLovView_P1"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="OhiProductLovView_P1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.OhiProductLovView_P"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="CountryLovView_N1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.CountryLovView_N"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="OhiGroupLovView_P1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.OhiGroupLovView_P"
+        RowLevelBinds="true"/>
+    <ViewAccessor
+        Name="OhiParentGroupLovView1"
+        ViewObjectName="com.liberty.health.comms.model.ohi.vo.OhiParentGroupLovView"
+        RowLevelBinds="true"/>
+    <ListBinding
+      Name="LOV_CountryCode"
+        ListVOName="CountryLovView_N1"
+      ComboRowCountHint="10"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="Code"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="Code"/>
+            <Item Value="Name"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+      Name="LOV_ProductCode"
+        ListVOName="OhiProductLovView_P1"
+      ComboRowCountHint="10"
+      NullValueFlag="none"
+      MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="ProductCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="ProductCode"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="ProductCode"/>
+            <Item Value="ProductName"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+        Name="LOV_ProcessedInd"
+        ListVOName="PaymentsProcessedStatusLovView1"
+        NullValueFlag="start"
+        NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="ProcessedInd"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="StatusCode"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="StatusDesc"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <ListBinding
+        Name="LOV_GroupCode"
+        ListVOName="OhiGroupLovView_P1"
+        ComboRowCountHint="10"
+        NullValueFlag="none"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="GroupCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="GroupCode"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="GroupCode"/>
+            <Item Value="GroupName"/>
+            <Item Value="CountryCode"/>
+        </AttrArray>
+        <DisplayCriteria
+            Name="OhiGroupLovView_PCriteria"/>
+    </ListBinding>
+    <ListBinding
+        Name="LOV_ParentgroupCode"
+        ListVOName="OhiParentGroupLovView1"
+        ComboRowCountHint="10"
+        NullValueFlag="none"
+        MRUCount="0">
+        <AttrArray Name="AttrNames">
+            <Item Value="ParentgroupCode"/>
+        </AttrArray>
+        <AttrArray Name="AttrExpressions"/>
+        <AttrArray Name="ListAttrNames">
+            <Item Value="ParentgroupCode"/>
+        </AttrArray>
+        <AttrArray Name="ListDisplayAttrNames">
+            <Item Value="CountryCode"/>
+            <Item Value="ParentgroupCode"/>
+        </AttrArray>
+        <DisplayCriteria/>
+    </ListBinding>
+    <SQLQuery><![CDATA[SELECT ohig.parentgroup_Code, 
+       CommsPaymentsReceivedEO.GROUP_CODE,   
+       CommsPaymentsReceivedEO.COUNTRY_CODE,   
+       CommsPaymentsReceivedEO.PRODUCT_CODE,   
+       CommsPaymentsReceivedEO.PERSON_CODE,   
+       CommsPaymentsReceivedEO.CONTRIBUTION_DATE,   
+       CommsPaymentsReceivedEO.FINANCE_RECEIPT_NO,   
+       CommsPaymentsReceivedEO.FINANCE_RECEIPT_DATE,   
+       CommsPaymentsReceivedEO.FINANCE_INVOICE_NO,   
+       CommsPaymentsReceivedEO.FINANCE_INVOICE_DATE,   
+       CommsPaymentsReceivedEO.FINANCE_RECEIPT_AMT,   
+       CommsPaymentsReceivedEO.PROCESSED_IND,   
+       CommsPaymentsReceivedEO.LAST_UPDATE_DATETIME,   
+       CommsPaymentsReceivedEO.USERNAME,   
+       CommsPaymentsReceivedEO.APPLICATION_ID,   
+       CommsPaymentsReceivedEO.POLICY_CODE,   
+       CommsPaymentsReceivedEO.PROCESSED_DESC,   
+       CommsPaymentsReceivedEO.CURRENCY_CODE,   
+       CommsPaymentsReceivedEO.EXCHANGE_RATE,   
+       CommsPaymentsReceivedEO.COMMS_CALC_SNAPSHOT_NO,   
+       CommsPaymentsReceivedEO.PAYMENT_TYPE  
+FROM  COMMS_PAYMENTS_RECEIVED CommsPaymentsReceivedEO, ohi_groups ohig 
+WHERE CommsPaymentsReceivedEO.group_code = ohig.group_code    
+and     
+((  ( (UPPER(CommsPaymentsReceivedEO.PROCESSED_IND) IS NULL ) )  OR ( (UPPER(CommsPaymentsReceivedEO.PROCESSED_IND) <> UPPER('TF') ) )  )) and CommsPaymentsReceivedEO.country_code in (SELECT regexp_substr(replace( :pCountryList ,  '''' , '')          
+ , '[^,]+', 1, LEVEL)                  
+            FROM DUAL                  
+            CONNECT BY regexp_substr( replace( :pCountryList ,  '''' , '')        
+, '[^,]+', 1, LEVEL) IS NOT NULL) 
+order by ohig.parentgroup_Code]]></SQLQuery>
+    <EntityUsage
+      Name="CommsPaymentsReceivedEO"
+      Entity="com.liberty.health.comms.model.eo.CommsPaymentsReceivedEO"/>
+    <ViewAttribute
+        Name="ParentgroupCode"
+        IsUpdateable="false"
+        IsPersistent="false"
+        PrecisionRule="true"
+        Precision="30"
+        Type="java.lang.String"
+        ColumnType="VARCHAR2"
+        AliasName="PARENTGROUP_CODE"
+        Expression="PARENTGROUP_CODE"
+        SQLType="VARCHAR"
+        LOVName="LOV_ParentgroupCode">
+        <DesignTime>
+            <Attr Name="_DisplaySize" Value="30"/>
+        </DesignTime>
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="com.liberty.health.comms.model.comms.views.CommsPaymentsReceivedVO.ParentgroupCode_LABEL"/>
+                <DISPLAYWIDTH
+                    Value="30"/>
+                <CONTROLTYPE
+                    Value="input_text_lov"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="GroupCode"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="GroupCode"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="GROUP_CODE"
+        LOVName="LOV_GroupCode">
+        <Properties>
+            <SchemaBasedProperties>
+                <CONTROLTYPE
+                    Value="input_text_lov"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="CountryCode"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="CountryCode"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="COUNTRY_CODE"
+      LOVName="LOV_CountryCode">
+        <Properties>
+            <SchemaBasedProperties>
+                <CONTROLTYPE
+                  Value="input_text_lov"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="ProductCode"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="ProductCode"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="PRODUCT_CODE"
+      LOVName="LOV_ProductCode">
+        <Properties>
+            <SchemaBasedProperties>
+                <CONTROLTYPE
+                  Value="input_text_lov"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="PersonCode"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="PersonCode"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="PERSON_CODE"/>
+    <ViewAttribute
+      Name="ContributionDate"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="ContributionDate"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="CONTRIBUTION_DATE"/>
+    <ViewAttribute
+      Name="FinanceReceiptNo"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="FinanceReceiptNo"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="FINANCE_RECEIPT_NO"/>
+    <ViewAttribute
+      Name="FinanceReceiptDate"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="FinanceReceiptDate"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="FINANCE_RECEIPT_DATE"/>
+    <ViewAttribute
+      Name="FinanceInvoiceNo"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="FinanceInvoiceNo"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="FINANCE_INVOICE_NO"/>
+    <ViewAttribute
+      Name="FinanceInvoiceDate"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="FinanceInvoiceDate"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="FINANCE_INVOICE_DATE"/>
+    <ViewAttribute
+      Name="FinanceReceiptAmt"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="FinanceReceiptAmt"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="FINANCE_RECEIPT_AMT"/>
+    <ViewAttribute
+      Name="ProcessedInd"
+      PrecisionRule="true"
+      EntityAttrName="ProcessedInd"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="PROCESSED_IND"
+        LOVName="LOV_ProcessedInd">
+        <Properties>
+            <SchemaBasedProperties>
+                <LABEL
+                    ResId="${adfBundle['com.core.liberty.resources.labels.CORE_labels']['G.Status']}"/>
+                <CONTROLTYPE
+                    Value="choice"/>
+            </SchemaBasedProperties>
+        </Properties>
+    </ViewAttribute>
+    <ViewAttribute
+      Name="LastUpdateDatetime"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="LastUpdateDatetime"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="LAST_UPDATE_DATETIME"
+      IsUpdateable="while_insert"/>
+    <ViewAttribute
+      Name="Username"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="Username"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="USERNAME"
+      IsUpdateable="false"/>
+    <ViewAttribute
+      Name="ApplicationId"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="ApplicationId"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="APPLICATION_ID"
+      IsUpdateable="false"/>
+    <ViewAttribute
+      Name="PolicyCode"
+      IsNotNull="true"
+      PrecisionRule="true"
+      EntityAttrName="PolicyCode"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="POLICY_CODE"
+      IsUpdateable="false"/>
+    <ViewAttribute
+      Name="ProcessedDesc"
+      IsUpdateable="false"
+      PrecisionRule="true"
+      EntityAttrName="ProcessedDesc"
+      EntityUsage="CommsPaymentsReceivedEO"
+      AliasName="PROCESSED_DESC"/>
+    <ViewAttribute
+        Name="CurrencyCode"
+        PrecisionRule="true"
+        EntityAttrName="CurrencyCode"
+        EntityUsage="CommsPaymentsReceivedEO"
+        AliasName="CURRENCY_CODE"/>
+    <ViewAttribute
+        Name="ExchangeRate"
+        PrecisionRule="true"
+        EntityAttrName="ExchangeRate"
+        EntityUsage="CommsPaymentsReceivedEO"
+        AliasName="EXCHANGE_RATE"/>
+    <ViewAttribute
+        Name="CommsCalcSnapshotNo"
+        PrecisionRule="true"
+        EntityAttrName="CommsCalcSnapshotNo"
+        EntityUsage="CommsPaymentsReceivedEO"
+        AliasName="COMMS_CALC_SNAPSHOT_NO"/>
+    <ViewAttribute
+        Name="PaymentType"
+        IsNotNull="true"
+        PrecisionRule="true"
+        EntityAttrName="PaymentType"
+        EntityUsage="CommsPaymentsReceivedEO"
+        AliasName="PAYMENT_TYPE"/>
+    <ViewCriteria
+      Name="SearchCommsPaymentsReceivedVOCriteria"
+      ViewObjectName="com.liberty.health.comms.model.comms.views.CommsPaymentsReceivedVO"
+      Conjunction="AND">
+        <Properties Name="_Props">
+            <CustomProperties>
+                <Property
+                  Name="autoExecute"
+                  Value="false"/>
+                <Property
+                  Name="mode"
+                  Value="Basic"/>
+                <Property
+                  Name="allowConjunctionOverride"
+                  Value="true"/>
+                <Property
+                  Name="showInList"
+                  Value="true"/>
+                <Property
+                  Name="displayOperators"
+                  Value="InAdvancedMode"/>
+            </CustomProperties>
+        </Properties>
+        <ViewCriteriaRow
+            Name="SearchCommsPaymentsReceivedVOCriteria_row_1"
+            UpperColumns="1"
+            Conjunction="OR">
+            <ViewCriteriaItem
+                Name="ParentgroupCode"
+                ViewAttribute="ParentgroupCode"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="GroupCode"
+                ViewAttribute="GroupCode"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="CountryCode"
+                ViewAttribute="CountryCode"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="ProductCode"
+                ViewAttribute="ProductCode"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="PersonCode"
+                ViewAttribute="PersonCode"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="ContributionDate"
+                ViewAttribute="ContributionDate"
+                Operator="BETWEEN"
+                Conjunction="AND"
+                Required="Optional"/>
+            <ViewCriteriaItem
+                Name="ProcessedInd"
+                ViewAttribute="ProcessedInd"
+                Operator="="
+                Conjunction="AND"
+                Required="Optional"/>
+        </ViewCriteriaRow>
+    </ViewCriteria>
+    <ResourceBundle>
+        <PropertiesBundle
+            PropertiesFile="com.liberty.health.comms.model.CommissionsModelBundle"/>
+    </ResourceBundle>
+</ViewObject>
